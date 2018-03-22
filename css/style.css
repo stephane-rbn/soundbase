@@ -67,6 +67,15 @@ nav a:hover {
   padding: 0.2em;
 }
 
+.feature p {
+  font-weight: 300;
+  letter-spacing: 1px;
+}
+
+.feature img {
+  margin-bottom: 2em;
+}
+
 /* PROFILE */
 
 .bg-image-full {
