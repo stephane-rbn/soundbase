@@ -1,6 +1,6 @@
 <?php
   // Welcome page (not connected)
-  // redirect to dashboard.php file if connected
+  // redirect to home.php file if connected
   include "head.php";
   include "navbar.php";
 ?>
