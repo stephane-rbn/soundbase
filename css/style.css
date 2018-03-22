@@ -1,0 +1,95 @@
+body {
+  background-image: url("../vendor/images/welcomepage/grid.jpg");
+  font-family: 'Open Sans';
+  padding-top: 54px;
+}
+
+@media (min-width: 992px) {
+  body {
+    padding-top: 56px;
+  }
+}
+
+.vertical-spacer {
+  height: 7em;
+}
+
+/* NAVBAR */
+
+nav {
+  background-color: #222;
+}
+
+nav a {
+  color: #aaa;
+  text-decoration: none;
+}
+
+nav a:hover {
+  color: #ddd;
+}
+
+/* WELCOME PAGE (NOT CONNECTED) */
+
+#wrapper {
+  background-image: url("../vendor/images/welcomepage/background/background.jpg");
+  background-size: cover;
+  color: white;
+  height: 650px;
+  padding-top: 150px;
+  text-align: center;
+}
+
+#wrapper-signup {
+  background-image: url("../vendor/images/welcomepage/background/bg-signup.jpg");
+  background-size: cover;
+  color: white;
+  height: 650px;
+  padding-top: 150px;
+  text-align: center;
+}
+
+#wrapper h1,
+#wrapper-signup h1 {
+  font-size: 72px;
+  font-weight: normal;
+  text-shadow: 0 0 20px rgba(0, 0, 0, .8);
+}
+
+#wrapper h2,
+#wrapper-signup h2 {
+  background: rgba(0, 0, 0, .4);
+  display: inline-block;
+  font-size: 18px;
+  font-weight: 300;
+  letter-spacing: 2px;
+  margin-bottom: 2em;
+  padding: 0.2em;
+}
+
+/* PROFILE */
+
+.bg-image-full {
+  background: no-repeat center center scroll;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+}
+
+/* FOOTER */
+
+footer {
+  background-color: #222;
+  color: #aaa;
+  padding-top: 3em;
+  padding-bottom: 3em;
+}
+
+footer a {
+  color: #aaa;
+}
+
+footer a:hover {
+  color: #ddd;
+}
