@@ -40,24 +40,24 @@
         <div class="col-md-8 offset-md-2">
           <div class="form-row">
             <div class="form-group col-sm-6">
-              <input type="password" class="form-control" id="emailLogin" aria-describedby="emailHelp" placeholder="Mot de passe" name="pwd" required="required">
+              <input type="password" class="form-control" placeholder="Mot de passe" name="pwd" required="required">
             </div>
             <div class="form-group col-sm-6">
-              <input type="password" class="form-control" id="emailLogin" aria-describedby="emailHelp" placeholder="Confirmation" name="pwdConfirm" required="required">
+              <input type="password" class="form-control" placeholder="Confirmation" name="pwdConfirm" required="required">
             </div>
           </div>
         </div>
 
         <div class="form-check">
-          <input type="checkbox" class="form-check-input" id="exampleCheck1">
-          <label class="form-check-label" for="exampleCheck1">Check me out</label>
+          <input type="checkbox" class="form-check-input" name="cgu" required="required">
+          <label class="form-check-label" style="margin-bottom:10px;">J'accepte les CGUs de ce site</label>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary" style="margin-bottom:10px;">Submit</button>
       </form>
 
     </div>
-  </div>
 
 <?php
   include "footer.php";
 ?>
+  </div>
