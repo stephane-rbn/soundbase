@@ -1,10 +1,6 @@
 <?php
   require "head.php";
   include "navbar.php";
-  // email
-  // firstName
-  // lastName
-  // birthday
 ?>
 
   <div id="wrapper-signup">
@@ -13,15 +9,18 @@
 
     <div class="container center_div">
 
-      <form>
+      <form method="POST" action="script/saveUser.php">
 
         <div class="col-md-8 offset-md-2">
           <div class="form-row">
-            <div class="form-group col-sm-6">
+            <div class="form-group col-sm-4">
               <input type="text" class="form-control" placeholder="Prénom" name="firstName" value="" required="required">
             </div>
-            <div class="form-group col-sm-6">
+            <div class="form-group col-sm-4">
               <input type="text" class="form-control" placeholder="Nom" name="lastName" value="" required="required">
+            </div>
+            <div class="form-group col-sm-4">
+              <input type="date" class="form-control" placeholder="Date d'anniversaire" name="birthday" required="required" value="">
             </div>
           </div>
         </div>
