@@ -128,10 +128,10 @@
     if ($error) {
       // $_SESSION["errorForm"] = $listOfErrors;
       // $_SESSION["postForm"] = $_POST;
-      // header("Location: ../signup.php");
-      foreach ($listOfErrors as $error) {
-        echo $error . "<br>";
-      }
+      header("Location: ../register.php");
+      // foreach ($listOfErrors as $error) {
+      //   echo $error . "<br>";
+      // }
     }
 
     // Else => insertion in database
@@ -154,10 +154,11 @@
         date("Y-m-d H:i:s"),
         "photo.png",
         "cover.png"
-      ]);
+        ]);
+
+      header("Location: ../home.php");
     }
 
-    header("Location: ../home.php");
 
   } else {
     die("Error: invalid form submission.");
