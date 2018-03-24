@@ -154,7 +154,7 @@
         date("Y-m-d H:i:s"),
         "photo.png",
         "cover.png"
-        ]);
+      ]);
 
       header("Location: ../home.php");
     }
