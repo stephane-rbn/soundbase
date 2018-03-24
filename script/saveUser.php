@@ -127,7 +127,7 @@
 
     if ($error) {
       // $_SESSION["errorForm"] = $listOfErrors;
-      // $_SESSION["postForm"] = $_POST;
+      $_SESSION["postForm"] = $_POST;
       header("Location: ../register.php");
       // foreach ($listOfErrors as $error) {
       //   echo $error . "<br>";

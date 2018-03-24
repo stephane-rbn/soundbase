@@ -15,13 +15,13 @@
         <div class="col-md-8 offset-md-2">
           <div class="form-row">
             <div class="form-group col-sm-4">
-              <input type="text" class="form-control" placeholder="Prénom" name="firstName" value="" required="required">
+              <input type="text" class="form-control" placeholder="Prénom" name="firstName" value="<?php echo (isset($_SESSION["postForm"])) ? $_SESSION["postForm"]["firstName"] : "";?>" required="required">
             </div>
             <div class="form-group col-sm-4">
-              <input type="text" class="form-control" placeholder="Nom" name="lastName" value="" required="required">
+              <input type="text" class="form-control" placeholder="Nom" name="lastName" value="<?php echo (isset($_SESSION["postForm"])) ? $_SESSION["postForm"]["lastName"] : "";?>" required="required">
             </div>
             <div class="form-group col-sm-4">
-              <input type="date" class="form-control" placeholder="Date d'anniversaire" name="birthday" required="required" value="">
+              <input type="date" class="form-control" placeholder="Date d'anniversaire" name="birthday" required="required" value="<?php echo (isset($_SESSION["postForm"])) ? $_SESSION["postForm"]["birthday"] : "";?>">
             </div>
           </div>
         </div>
@@ -29,10 +29,10 @@
         <div class="col-md-8 offset-md-2">
           <div class="form-row">
             <div class="form-group col-sm-6">
-              <input type="text" class="form-control" placeholder="Nom d'artiste" name="musicianName" value="" required="required">
+              <input type="text" class="form-control" placeholder="Nom d'artiste" name="musicianName" value="<?php echo (isset($_SESSION["postForm"])) ? $_SESSION["postForm"]["musicianName"] : "";?>" required="required">
             </div>
             <div class="form-group col-sm-6">
-              <input type="email" class="form-control" placeholder="Email" name="email" value="" required="required">
+              <input type="email" class="form-control" placeholder="Email" name="email" value="<?php echo (isset($_SESSION["postForm"])) ? $_SESSION["postForm"]["email"] : "";?>" required="required">
             </div>
           </div>
         </div>
