@@ -1,0 +1,5 @@
+define("DBNAME","soundbase");
+define("DBUSER","");
+define("DBPWD","");
+define("DBHOST","localhost");
+define("DBDRIVER","mysql");
