@@ -61,6 +61,10 @@
         <button type="submit" class="btn btn-primary" style="margin-bottom:10px;">Submit</button>
       </form>
 
+      <?php
+        unset($_SESSION["postForm"]);
+      ?>
+
     </div>
 
 <?php
