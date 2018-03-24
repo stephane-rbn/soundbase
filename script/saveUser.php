@@ -107,7 +107,7 @@
 
       if ($time13years < $birthday || $time150years > $birthday) {
         $error = true;
-        $listOferrors[] = 8;
+        $listOfErrors[] = 8;
       }
     }
 
