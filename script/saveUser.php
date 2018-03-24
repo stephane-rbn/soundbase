@@ -121,7 +121,7 @@
 
     // Check if both passwords are identical
 
-    if ($_POST["pwd"] != $_POST["pwdConfirm"]) {
+    if ($_POST["pwd"] !== $_POST["pwdConfirm"]) {
       $error = true;
       $listOfErrors[] = 10;
     }
@@ -140,7 +140,7 @@
     else {
 
       // Query that inserts the new member
-      $query = $connection->prepare("INSERT INTO MEMBER (email, first_name,last_name,musician_name,birthday,password,profile_photo_filename,cover_photo_filename) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+      $query = $connection->prepare("INSERT INTO MEMBER (email, first_name,last_name,musician_name,birthday,password,registration_date,profile_photo_filename,cover_photo_filename) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
       $pwd = password_hash($pwd, PASSWORD_DEFAULT);
 
@@ -152,6 +152,7 @@
         $_POST["musicianName"],
         $year . "-" . $month . "-" . $day,
         $pwd,
+        date("Y-m-d H:i:s"),
         "photo.png",
         "cover.png"
       ]);
