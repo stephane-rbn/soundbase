@@ -141,7 +141,7 @@
       // Query that inserts the new member
       $query = $connection->prepare("INSERT INTO MEMBER (email, first_name,last_name,musician_name,birthday,password,registration_date,profile_photo_filename,cover_photo_filename) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-      $pwd = password_hash($pwd, PASSWORD_DEFAULT);
+      $pwd = password_hash($_POST["pwd"], PASSWORD_DEFAULT);
 
       // Execute the query
       $query->execute([
