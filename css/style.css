@@ -82,8 +82,11 @@ nav a:hover {
 
 /* FORM */
 
-input {
-  margin-bottom: 30px;
+.form_message_error {
+  display: inline-block;
+  color: red;
+  font-size: 12px;
+  margin-top: 10px;
 }
 
 /* PROFILE */
