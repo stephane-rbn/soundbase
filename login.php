@@ -3,6 +3,8 @@
 session_start();
 require_once "conf.inc.php";
 require_once "functions.php";
+include "head.php";
+include "navbar.php";
 
 $_POST["email"] = strtolower($_POST["email"]);
 
@@ -31,10 +33,14 @@ if (count($_POST) === 2 && isset($_POST["email"]) && isset($_POST["pwd"])) {
 
 ?>
 
-<section>
-  <form method="POST">
-    <input type="text" name="email" placeholder="Votre email">
-    <input type="password" name="pwd" placeholder="Votre mot de passe">
-    <input type="submit" value="Se connecter">
-  </form>
-</section>
+    <section>
+      <form method="POST">
+        <input type="text" name="email" placeholder="Votre email">
+        <input type="password" name="pwd" placeholder="Votre mot de passe">
+        <input type="submit" value="Se connecter">
+      </form>
+    </section>
+
+<?php
+  include "footer.php";
+?>
