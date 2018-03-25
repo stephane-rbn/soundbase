@@ -48,10 +48,10 @@
                         $i = 0;
                         while ($result[$i] !== NULL){
                             echo "<tr>";
-                            echo '<td>' .$result[$i]['first_name'];
-                            echo '<td>'.$result[$i]['last_name'];
-                            echo '<td>' .$result[$i]['musician_name'];
-                            echo '<td>'.$result[$i]['email'];
+                            echo '<td>' . $result[$i]['first_name'];
+                            echo '<td>' . $result[$i]['last_name'];
+                            echo '<td>' . $result[$i]['musician_name'];
+                            echo '<td>' . $result[$i]['email'];
                             echo "</tr>";
                             $i++;
                         }
