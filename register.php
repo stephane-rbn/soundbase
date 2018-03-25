@@ -19,10 +19,12 @@
             }
 
             function isErrorPresent($errorNumber) {
-              for ($i = 0; $i < count($_SESSION["errorForm"]); $i++) {
-                foreach ($_SESSION["errorForm"] as $key) {
-                  if ($errorNumber === $key) {
-                    return true;
+              if ($_SESSION["errorForm"] != NULL){
+                for ($i = 0; $i < count($_SESSION["errorForm"]); $i++) {
+                  foreach ($_SESSION["errorForm"] as $key) {
+                    if ($errorNumber === $key) {
+                      return true;
+                    }
                   }
                 }
               }
