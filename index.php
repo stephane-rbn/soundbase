@@ -1,7 +1,15 @@
 <?php
   // Welcome page (not connected)
 
+  session_start();
+
   require_once "functions.php";
+
+  // redirect to home.php file if already connected
+  if (isConnected()) {
+    header("Location: home.php");
+  }
+
   include "head.php";
   include "navbar.php";
 ?>
