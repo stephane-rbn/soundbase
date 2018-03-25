@@ -1,5 +1,5 @@
 <?php
-  include "header.php";
+  include "head.php";
   require "../conf.inc.php";
   require "../functions.php";
 ?>
