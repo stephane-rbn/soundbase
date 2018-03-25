@@ -159,7 +159,6 @@
       header("Location: ../home.php");
     }
 
-
   } else {
     die("Error: invalid form submission.");
   }
