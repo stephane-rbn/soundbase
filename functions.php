@@ -12,5 +12,14 @@ function connectDB(){
     die("SQL error:" . $e->getMessage());
   }
 
-    return $connection;
+  return $connection;
+}
+
+function isConnected() {
+
+  if (isset($_SESSION["auth"])) {
+    return true;
+  }
+
+  return false;
 }

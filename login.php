@@ -25,6 +25,8 @@ if (count($_POST) === 2 && isset($_POST["email"]) && isset($_POST["pwd"])) {
   $data = $query->fetch();
 
   if (password_verify($_POST["pwd"], $data["password"])) {
+    $_SESSION["auth"] = true;
+    $_SESSION["id"] = $data["id"];
     header("Location: home.php");
   } else {
     echo "NOK";
