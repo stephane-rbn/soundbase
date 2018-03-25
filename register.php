@@ -1,5 +1,13 @@
 <?php
   session_start();
+
+  require_once "functions.php";
+
+  // redirect to home.php file if connected
+  if (isConnected()) {
+    header("Location: home.php");
+  }
+
   require_once "conf.inc.php";
   require "head.php";
   include "navbar.php";

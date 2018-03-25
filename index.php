@@ -1,6 +1,7 @@
 <?php
   // Welcome page (not connected)
-  // redirect to home.php file if connected
+
+  require_once "functions.php";
   include "head.php";
   include "navbar.php";
 ?>
