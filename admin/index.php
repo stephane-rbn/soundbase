@@ -85,10 +85,10 @@
                             <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
                                     <tr>
-                                        <th>Prénom</th>
-                                        <th>Nom</th>
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
                                         <th>Musician name</th>
-                                        <th>email</th>
+                                        <th>Email</th>
                                     </tr>
                                 </thead>
                                 <tbody>
