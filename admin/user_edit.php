@@ -57,16 +57,16 @@
                             <!-- /input-group -->
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-users fa-fw"></i> Users</a>
+                            <a href="index.php"><i class="fa fa-users fa-fw"></i> Users</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-music fa-fw"></i> Songs</a>
+                            <a href="songs.php"><i class="fa fa-music fa-fw"></i> Songs</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-calendar fa-fw"></i> Events</a>
+                            <a href="envents.php"><i class="fa fa-calendar fa-fw"></i> Events</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-edit fa-fw"></i> Posts</a>
+                            <a href="posts.php"><i class="fa fa-edit fa-fw"></i> Posts</a>
                         </li>
                     </ul>
                 </div>
@@ -74,61 +74,76 @@
             </div>
             <!-- /.navbar-static-side -->
         </nav>
-
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Users</h1>
+                    <h1 class="page-header"> Edit <?php echo $_GET['email']; ?></h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
-            <!-- /.row -->
-            <div class="row">
+        <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Users list
+                            Edit user
                         </div>
-                        <!-- /.panel-heading -->
                         <div class="panel-body">
-                            <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
-                                <thead>
-                                    <tr>
-                                        <th>First Name</th>
-                                        <th>Last Name</th>
-                                        <th>Musician name</th>
-                                        <th>Email</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                <?php
-                                    $connection = connectDB();
-                                    $sql = $connection->prepare("SELECT * FROM MEMBER");
-                                    $sql->execute();
-                                    $result = $sql->fetchAll(\PDO::FETCH_ASSOC);
-
-                                    $i = 0;
-                                    while ($result[$i] !== NULL){
-                                        echo '<tr class="odd gradeX">';
-                                        echo '<td>' . $result[$i]['first_name'];
-                                        echo '<td>' . $result[$i]['last_name'];
-                                        echo '<td>' . $result[$i]['musician_name'];
-                                        echo '<td>' . $result[$i]['email'];
-                                        echo '<td><a href="user_edit.php?email=' . $result[$i]['email'] . '">Edit</a>';
-                                        echo "</tr>";
-                                        $i++;
-                                    }
-                                ?>
-                                </tbody>
-                            </table>
-                            <!-- /.table-responsive -->
-
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <form role="form">
+                                    <div class="form-group">
+                                            <label>Email</label>
+                                            <input class="form-control" placeholder="<?php
+                                              $connection = connectDB();
+                                              $sql = $connection->prepare("SELECT email FROM MEMBER WHERE email='" . $_GET['email'] . "'");
+                                              $sql->execute();
+                                              $result = $sql->fetchAll(\PDO::FETCH_ASSOC);
+                                              echo $result[0]['email'];
+                                            ?>">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>First Name</label>
+                                            <input class="form-control" placeholder="<?php
+                                              $connection = connectDB();
+                                              $sql = $connection->prepare("SELECT first_name FROM MEMBER WHERE email='" . $_GET['email'] . "'");
+                                              $sql->execute();
+                                              $result = $sql->fetchAll(\PDO::FETCH_ASSOC);
+                                              echo $result[0]['first_name'];
+                                            ?>">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Last Name</label>
+                                            <input class="form-control" placeholder="<?php
+                                              $connection = connectDB();
+                                              $sql = $connection->prepare("SELECT last_name FROM MEMBER WHERE email='" . $_GET['email'] . "'");
+                                              $sql->execute();
+                                              $result = $sql->fetchAll(\PDO::FETCH_ASSOC);
+                                              echo $result[0]['last_name'];
+                                            ?>">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Musician name</label>
+                                            <input class="form-control" placeholder="<?php
+                                              $connection = connectDB();
+                                              $sql = $connection->prepare("SELECT musician_name FROM MEMBER WHERE email='" . $_GET['email'] . "'");
+                                              $sql->execute();
+                                              $result = $sql->fetchAll(\PDO::FETCH_ASSOC);
+                                              echo $result[0]['musician_name'];
+                                            ?>">
+                                        </div>
+                                        <button type="submit" class="btn btn-default">Submit</button>
+                                        <button type="reset" class="btn btn-default">Reset</button>
+                                    </form>
+                                </div>
+                                <!-- /.col-lg-6 (nested) -->
+                            </div>
+                            <!-- /.row (nested) -->
                         </div>
                         <!-- /.panel-body -->
                     </div>
                     <!-- /.panel -->
                 </div>
-                <!-- /.col-lg-6 -->
+                <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
         </div>
