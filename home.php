@@ -1,3 +1,13 @@
 <?php
-  // redirect to registering page if not connected
+  session_start();
+
+  require_once "functions.php";
+
+  // redirect to login page if not connected
+  if (!isConnected()) {
+    header("Location: login.php");
+  }
+
+  include "head.php";
+  include "navbar.php";
 ?>
