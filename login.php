@@ -12,9 +12,9 @@ if (isConnected()) {
 include "head.php";
 include "navbar.php";
 
-$_POST["email"] = strtolower($_POST["email"]);
+if (count($_POST) === 2 && !empty($_POST["email"] && !empty($_POST["pwd"]))) {
 
-if (count($_POST) === 2 && isset($_POST["email"]) && isset($_POST["pwd"])) {
+  $_POST["email"] = strtolower($_POST["email"]);
 
   // Connection to database
   $connection = connectDB();
@@ -37,6 +37,7 @@ if (count($_POST) === 2 && isset($_POST["email"]) && isset($_POST["pwd"])) {
   } else {
     echo "NOK";
   }
+
 }
 
 ?>
