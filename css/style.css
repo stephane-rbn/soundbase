@@ -31,33 +31,30 @@ nav a:hover {
 
 /* WELCOME PAGE (NOT CONNECTED) AND SIGNUP PAGE */
 
-#wrapper {
-  background-image: url("../vendor/images/welcomepage/background/background.jpg");
+.wrapper {
   background-size: cover;
   color: white;
-  height: 650px;
   padding-top: 150px;
   text-align: center;
+}
+
+#wrapper-index {
+  background-image: url("../vendor/images/welcomepage/background/background.jpg");
+  height: 650px;
 }
 
 #wrapper-signup {
   background-image: url("../vendor/images/welcomepage/background/bg-signup.jpg");
-  background-size: cover;
-  color: white;
-  height: 650px;
-  padding-top: 150px;
-  text-align: center;
+  height: 400px;
 }
 
-#wrapper h1,
-#wrapper-signup h1 {
+.wrapper h1 {
   font-size: 72px;
   font-weight: normal;
   text-shadow: 0 0 20px rgba(0, 0, 0, .8);
 }
 
-#wrapper h2,
-#wrapper-signup h2 {
+.wrapper h2 {
   background: rgba(0, 0, 0, .4);
   display: inline-block;
   font-size: 18px;
@@ -81,6 +78,31 @@ nav a:hover {
 }
 
 /* FORM */
+
+.register-form {
+  margin-top: 30px;
+  padding: 2em;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .register-form {
+    max-width: 700px;
+  }
+}
+
+.register-form .form-group label {
+  font-family: "Roboto Mono";
+  font-weight: 300;
+}
+
+.register-form .form-check {
+  margin-top: 30px;
+}
+
+.register-form button {
+  margin-top: 20px;
+}
 
 .form_message_error {
   display: inline-block;

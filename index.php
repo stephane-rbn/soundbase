@@ -14,7 +14,7 @@
   include "navbar.php";
 ?>
 
-    <div id="wrapper">
+    <div class="wrapper" id="wrapper-index">
       <h1>REDÉCOUVREZ LA MUSIQUE</h1>
       <h2>MAINTENANT, TOUT DE SUITE</h2>
       <p>
