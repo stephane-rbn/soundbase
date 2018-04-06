@@ -13,7 +13,7 @@
   include "navbar.php";
 ?>
 
-    <div id="wrapper-signup">
+    <div class="wrapper" id="wrapper-signup">
       <h1>INSCRIVEZ-VOUS</h1>
       <h2>A LA VITESSE DU SON</h2>
     </div>
