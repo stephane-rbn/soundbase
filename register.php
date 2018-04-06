@@ -16,8 +16,9 @@
     <div id="wrapper-signup">
       <h1>INSCRIVEZ-VOUS</h1>
       <h2>A LA VITESSE DU SON</h2>
+    </div>
 
-      <div class="container center_div">
+    <div class="container center_div">
 
         <form method="POST" action="script/saveUser.php">
 
@@ -139,4 +140,3 @@
   <?php
     include "footer.php";
   ?>
-    </div>
