@@ -1,44 +1,15 @@
 <?php
 
-session_start();
-require_once "conf.inc.php";
-require_once "functions.php";
+  session_start();
+  require "functions.php";
 
-// redirect to home.php file if already connected
-if (isConnected()) {
-  header("Location: home.php");
-}
-
-include "head.php";
-include "navbar.php";
-
-if (count($_POST) === 2 && !empty($_POST["email"] && !empty($_POST["pwd"]))) {
-
-  $_POST["email"] = strtolower($_POST["email"]);
-
-  // Connection to database
-  $connection = connectDB();
-
-  // Query that get the password that matching with the email given
-  $query = $connection->prepare("SELECT * FROM MEMBER WHERE email=:toto");
-
-  // Execute the query
-  $query->execute([
-    "toto" => $_POST["email"]
-  ]);
-
-  // Fetch data with the query
-  $data = $query->fetch();
-
-  if (password_verify($_POST["pwd"], $data["password"])) {
-    $_SESSION["auth"] = true;
-    $_SESSION["id"] = $data["id"];
+  // redirect to home.php file if already connected
+  if (isConnected()) {
     header("Location: home.php");
-  } else {
-    echo "NOK";
   }
 
-}
+  include "head.php";
+  include "navbar.php";
 
 ?>
 
@@ -51,7 +22,7 @@ if (count($_POST) === 2 && !empty($_POST["email"] && !empty($_POST["pwd"]))) {
 
     <div class="container center_div register-form">
 
-      <form method="POST">
+      <form method="POST" action="script/userLogin.php">
 
         <div class="form-group">
           <label for="email">ADRESSE EMAIL</label>
