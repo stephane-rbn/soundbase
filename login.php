@@ -42,13 +42,32 @@ if (count($_POST) === 2 && !empty($_POST["email"] && !empty($_POST["pwd"]))) {
 
 ?>
 
-    <section>
+    <div class="wrapper" id="wrapper-login">
+      <h1>CONNECTEZ-VOUS</h1>
+      <h2>LA MUSIQUE VOUS ATTEND</h2>
+    </div>
+
+    <div class="container center_div register-form">
+
       <form method="POST">
-        <input type="text" name="email" placeholder="Votre email">
-        <input type="password" name="pwd" placeholder="Votre mot de passe">
-        <input type="submit" value="Se connecter">
+
+        <div class="form-group">
+          <label for="email">ADRESSE EMAIL</label>
+          <input type="email" class="form-control" placeholder="orel@san.fr" name="email" value="" required="required">
+        </div>
+
+        <div class="form-group">
+          <label for="pwd">MOT DE PASSE</label>
+          <input type="password" class="form-control" name="pwd" required="required">
+        </div>
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-secondary">Submit</button>
+        </div>
+
       </form>
-    </section>
+
+    </div>
 
 <?php
   include "footer.php";
