@@ -116,24 +116,30 @@
           </div>
         </div>
 
-        <div class="form-group">
-          <label for="pwd">MOT DE PASSE</label>
-          <input type="password" class="form-control" name="pwd" required="required">
-          <?php
-            if (isErrorPresent(9)) {
-              echo '<p class="form_message_error">' . $listOfErrors[9] . '</p>';
-            }
-          ?>
-        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="pwd">MOT DE PASSE</label>
+              <input type="password" class="form-control" name="pwd" required="required">
+              <?php
+                if (isErrorPresent(9)) {
+                  echo '<p class="form_message_error">' . $listOfErrors[9] . '</p>';
+                }
+              ?>
+            </div>
+          </div>
 
-        <div class="form-group">
-          <label for="pwdConfirm">CONFIRMATION</label>
-          <input type="password" class="form-control" name="pwdConfirm" required="required">
-          <?php
-            if (isErrorPresent(10)) {
-              echo '<p class="form_message_error">' . $listOfErrors[10] . '</p>';
-            }
-          ?>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="pwdConfirm">CONFIRMATION</label>
+              <input type="password" class="form-control" name="pwdConfirm" required="required">
+              <?php
+                if (isErrorPresent(10)) {
+                  echo '<p class="form_message_error">' . $listOfErrors[10] . '</p>';
+                }
+              ?>
+            </div>
+          </div>
         </div>
 
         <div class="form-check">
