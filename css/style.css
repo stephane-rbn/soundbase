@@ -29,7 +29,7 @@ nav a:hover {
   color: #ddd;
 }
 
-/* WELCOME PAGE (NOT CONNECTED) AND SIGNUP PAGE */
+/* WELCOME PAGE (NOT CONNECTED), SIGNUP AND LOGIN PAGE */
 
 .wrapper {
   background-size: cover;
@@ -48,6 +48,10 @@ nav a:hover {
   height: 400px;
 }
 
+#wrapper-login {
+  background-image: url("../vendor/images/welcomepage/background/bg-login.jpg");
+  height: 400px;
+}
 .wrapper h1 {
   font-size: 72px;
   font-weight: normal;
@@ -77,7 +81,7 @@ nav a:hover {
   margin: 0 auto;
 }
 
-/* FORM */
+/* FORMS */
 
 .register-form {
   margin-top: 30px;
