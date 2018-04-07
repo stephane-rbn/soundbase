@@ -26,8 +26,12 @@
       $_SESSION["id"] = $data["id"];
       header("Location: ../home.php");
     } else {
-      echo "NOK";
+      $_SESSION["message"] = "Erreur : l'email ou le mot de passe ne correspond pas";
+      header("Location: ../login.php");
     }
 
+  } else {
+    $_SESSION["message"] = "Erreur : veuillez renseigner votre email et votre mot de passe";
+    header("Location: ../login.php");
   }
 ?>

@@ -8,10 +8,22 @@
     header("Location: home.php");
   }
 
+  require_once "conf.inc.php";
   include "head.php";
   include "navbar.php";
 
 ?>
+
+    <?php
+
+      function loginErrorMessage() {
+        if (isset($_SESSION["message"])) {
+          echo '<div class="alert alert-warning" role="alert">' . $_SESSION["message"] . '</div>';
+          unset($_SESSION["message"]);
+        }
+      }
+
+    ?>
 
     <div class="wrapper" id="wrapper-login">
       <h1>CONNECTEZ-VOUS</h1>
@@ -19,6 +31,8 @@
     </div>
 
     <div class="push"></div>
+
+    <div class="container-fluid"><?php loginErrorMessage(); ?></div>
 
     <div class="container center_div register-form">
 
