@@ -135,12 +135,10 @@
 
     </div>
 
-        <?php
-          unset($_SESSION["postForm"]);
-          unset($_SESSION["errorForm"]);
-        ?>
-
-      </div>
+    <?php
+      unset($_SESSION["postForm"]);
+      unset($_SESSION["errorForm"]);
+    ?>
 
   <?php
     include "footer.php";
