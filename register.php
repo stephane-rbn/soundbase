@@ -58,7 +58,7 @@
           <div class="col-sm-4">
             <div class="form-group">
               <label for="lastName">NOM</label>
-              <input type="text" class="form-control" placeholder="COTENTIN" name="lastName" value="<?php echo fillSessionField("lastName"); ?>" required="required">
+              <input type="text" class="form-control" placeholder="CORENTIN" name="lastName" value="<?php echo fillSessionField("lastName"); ?>" require
               <?php
                 if (isErrorPresent(2)) {
                   echo '<p class="form_message_error">' . $listOfErrors[2] . '</p>';
