@@ -47,6 +47,8 @@ if (count($_POST) === 2 && !empty($_POST["email"] && !empty($_POST["pwd"]))) {
       <h2>LA MUSIQUE VOUS ATTEND</h2>
     </div>
 
+    <div class="push"></div>
+
     <div class="container center_div register-form">
 
       <form method="POST">
@@ -68,6 +70,8 @@ if (count($_POST) === 2 && !empty($_POST["email"] && !empty($_POST["pwd"]))) {
       </form>
 
     </div>
+
+    <div class="push"></div>
 
 <?php
   include "footer.php";
