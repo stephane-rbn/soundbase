@@ -14,8 +14,3 @@ $listOfErrors = [
   9  => "Le mot de passe doit faire entre 8 et 40 caractères",
   10 => "Le mot de passe de confirmation ne correspond pas"
 ];
-
-$listLoginErrors = [
-  1 => "Erreur : veuillez renseigner votre email et votre mot de passe",
-  2 => "Erreur : l'email ou le mot de passe ne correspond pas"
-];
