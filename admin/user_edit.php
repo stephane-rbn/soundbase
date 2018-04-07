@@ -90,7 +90,7 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <form role="form">
+                                <form role="form "method="POST" action="scripts/alter_user.php">
                                     <div class="form-group">
                                             <label>Email</label>
                                             <input class="form-control" placeholder="<?php
