@@ -95,6 +95,17 @@ nav a:hover {
   }
 }
 
+@media (max-width: 767px) {
+  .register-form .form-group {
+    font-size: 13px;
+  }
+
+  .register-form input::placeholder {
+    color: #929191c5;
+    font-size: 13px;
+}
+}
+
 .register-form .form-group label {
   font-family: "Roboto Mono";
   font-weight: 300;
