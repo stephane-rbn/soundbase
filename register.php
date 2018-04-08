@@ -151,6 +151,10 @@
           <button type="submit" class="btn btn-secondary">Submit</button>
         </div>
 
+        <p class="font-weight-light">
+          <a href="login.php" style="font-size: 14px; text-decoration: none; color: #000;">(Déjà inscrit ?)</a>
+        </p>
+
       </form>
 
     </div>
