@@ -23,6 +23,18 @@
             <li class="nav-item">
               <a class="nav-link" href="#">Contact</a>
             </li>
+            <?php if (isConnected()) { ?>
+              <li class="nav-item">
+                <a class="nav-link" href="logout.php">Se deconnecter</a>
+              </li>
+            <?php } else { ?>
+              <li class="nav-item">
+                <a class="nav-link" href="register.php">S'inscrire</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="login.php">Se connecter</a>
+              </li>
+            <?php } ?>
           </ul>
         </div>
       </div>
