@@ -1,5 +1,5 @@
 <?php
-  include "head.php";
+  include "includes/head.php";
   require "../conf.inc.php";
   require "../functions.php";
 ?>
@@ -82,5 +82,5 @@
 </body>
 
 <?php
-  include "footer.php";
+  include "includes/footer.php";
 ?>
