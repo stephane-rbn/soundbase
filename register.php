@@ -43,10 +43,10 @@
         ?>
 
         <div class="row">
-          <div class="col-sm-4">
+          <div class="col-sm-6">
             <div class="form-group">
-              <label for="firstName">PRÉNOM</label>
-              <input type="text" class="form-control" placeholder="Aurélien" name="firstName" value="<?php echo fillSessionField("firstName"); ?>" required="required">
+              <label for="name">NOM</label>
+              <input type="text" class="form-control" placeholder="Aurélien Cotentin" name="name" value="<?php echo fillSessionField("name"); ?>" required="required">
               <?php
                 if (isErrorPresent(1)) {
                   echo '<p class="form_message_error">' . $listOfErrors[1] . '</p>';
@@ -55,19 +55,21 @@
             </div>
           </div>
 
-          <div class="col-sm-4">
+          <div class="col-sm-6">
             <div class="form-group">
-              <label for="lastName">NOM</label>
-              <input type="text" class="form-control" placeholder="COTENTIN" name="lastName" value="<?php echo fillSessionField("lastName"); ?>" required="required">
+              <label for="username">USERNAME</label>
+              <input type="text" class="form-control" placeholder="Orelsan" name="username" value="<?php echo fillSessionField("username"); ?>" required="required">
               <?php
-                if (isErrorPresent(2)) {
-                  echo '<p class="form_message_error">' . $listOfErrors[2] . '</p>';
+                if (isErrorPresent(3)) {
+                  echo '<p class="form_message_error">' . $listOfErrors[3] . '</p>';
                 }
               ?>
             </div>
           </div>
+        </div>
 
-          <div class="col-sm-4">
+        <div class="row">
+          <div class="col-sm-6">
             <div class="form-group">
               <label for="birthday">DATE DE NAISSANCE</label>
               <input type="date" class="form-control" placeholder="Date d'anniversaire" name="birthday" required="required" value="<?php echo fillSessionField("birthday"); ?>">
@@ -82,21 +84,7 @@
                   echo '';
                 }
               ?>
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-sm-6">
-            <div class="form-group">
-              <label for="musicianName">NOM D'ARTISTE</label>
-              <input type="text" class="form-control" placeholder="Orelsan" name="musicianName" value="<?php echo fillSessionField("musicianName"); ?>" required="required">
-              <?php
-                if (isErrorPresent(3)) {
-                  echo '<p class="form_message_error">' . $listOfErrors[3] . '</p>';
-                }
-              ?>
-            </div>
+             </div>
           </div>
 
           <div class="col-sm-6">
