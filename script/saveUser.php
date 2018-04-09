@@ -3,11 +3,10 @@
   require "../functions.php";
   require "../conf.inc.php";
 
-  if (count($_POST) === 8
-    && !empty($_POST["firstName"])
-    && !empty($_POST["lastName"])
+  if (count($_POST) === 7
+    && !empty($_POST["name"])
+    && !empty($_POST["username"])
     && !empty($_POST["birthday"])
-    && !empty($_POST["musicianName"])
     && !empty($_POST["email"])
     && !empty($_POST["pwd"])
     && !empty($_POST["pwdConfirm"])
@@ -18,39 +17,31 @@
 
     // Cleaning string values
 
-    $_POST["firstName"]    = ucfirst(strtolower(trim($_POST["firstName"])));
-    $_POST["lastName"]     = strtoupper(trim($_POST["lastName"]));
-    $_POST["musicianName"] = trim($_POST["musicianName"]);
+    $_POST["name"]         = trim($_POST["name"]);
+    $_POST["username"]     = strtolower(trim($_POST["username"]));
     $_POST["email"]        = strtolower(trim($_POST["email"]));
 
     // Check values one by one
 
-    // firstName length: min 3 max 60
+    // name length: min 3 max 60
 
-    if (strlen($_POST["firstName"]) < 3 || strlen($_POST["firstName"]) > 60) {
+    if (strlen($_POST["name"]) < 2 || strlen($_POST["name"]) > 60) {
       $error = true;
       $listOfErrors[] = 1;
     }
 
-    // lastName length: min 3 max 60
+    // username length: min 3 max 60
 
-    if (strlen($_POST["lastName"]) < 3 || strlen($_POST["lastName"]) > 60) {
+    if (strlen($_POST["username"]) < 2 || strlen($_POST["username"]) > 20) {
       $error = true;
       $listOfErrors[] = 2;
-    }
-
-    // musicianName length: min 2 max 254
-
-    if (strlen($_POST["musicianName"]) < 2 || strlen($_POST["musicianName"]) > 60) {
-      $error = true;
-      $listOfErrors[] = 3;
     }
 
     // email : valid format
 
     if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
       $error = true;
-      $listOfErrors[] = 4;
+      $listOfErrors[] = 6;
     } else {
       // Check if this email address already exists
 
@@ -68,7 +59,7 @@
 
       if (!empty($result)) {
         $error = true;
-        $listOfErrors[] = 5;
+        $listOfErrors[] = 7;
       }
     }
 
@@ -84,7 +75,7 @@
       $dateFormat = true;
     } else {
       $error = true;
-      $listOfErrors[] = 6;
+      $listOfErrors[] = 3;
     }
 
     // Check valid date
@@ -95,7 +86,7 @@
       || !checkdate($month, $day, $year)
     ) {
       $error = true;
-      $listOfErrors[] = 7;
+      $listOfErrors[] = 4;
     } else {
       // Check if allowed to signup (13 <= age <= 150)
       $today        = time();
@@ -107,7 +98,7 @@
 
       if ($time13years < $birthday || $time150years > $birthday) {
         $error = true;
-        $listOfErrors[] = 8;
+        $listOfErrors[] = 5;
       }
     }
 
@@ -115,14 +106,14 @@
 
     if (strlen($_POST["pwd"]) < 8 || strlen($_POST["pwd"]) > 40) {
       $error = true;
-      $listOfErrors[] = 9;
+      $listOfErrors[] = 8;
     }
 
     // Check if both passwords are identical
 
     if ($_POST["pwd"] !== $_POST["pwdConfirm"]) {
       $error = true;
-      $listOfErrors[] = 10;
+      $listOfErrors[] = 9;
     }
 
     if ($error) {
@@ -136,21 +127,18 @@
     else {
 
       // Query that inserts the new member
-      $query = $connection->prepare("INSERT INTO MEMBER (email, first_name,last_name,musician_name,birthday,password,registration_date,profile_photo_filename,cover_photo_filename) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+      $query = $connection->prepare("INSERT INTO MEMBER (email,name,username,birthday,password,registration_date) VALUES (?, ?, ?, ?, ?, ?)");
 
       $pwd = password_hash($_POST["pwd"], PASSWORD_DEFAULT);
 
       // Execute the query
       $query->execute([
         $_POST["email"],
-        $_POST["firstName"],
-        $_POST["lastName"],
-        $_POST["musicianName"],
+        $_POST["name"],
+        $_POST["username"],
         $year . "-" . $month . "-" . $day,
         $pwd,
-        date("Y-m-d H:i:s"),
-        "photo.png",
-        "cover.png"
+        date("Y-m-d H:i:s")
       ]);
 
       header("Location: ../home.php");

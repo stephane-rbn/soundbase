@@ -46,7 +46,7 @@
           <div class="col-sm-6">
             <div class="form-group">
               <label for="name">NOM</label>
-              <input type="text" class="form-control" placeholder="Aurélien Cotentin" name="name" value="<?php echo fillSessionField("name"); ?>" required="required">
+              <input type="text" class="form-control" placeholder="Orelsan" name="name" value="<?php echo fillSessionField("name"); ?>" required="required">
               <?php
                 if (isErrorPresent(1)) {
                   echo '<p class="form_message_error">' . $listOfErrors[1] . '</p>';
@@ -58,10 +58,10 @@
           <div class="col-sm-6">
             <div class="form-group">
               <label for="username">USERNAME</label>
-              <input type="text" class="form-control" placeholder="Orelsan" name="username" value="<?php echo fillSessionField("username"); ?>" required="required">
+              <input type="text" class="form-control" placeholder="orelsan20" name="username" value="<?php echo fillSessionField("username"); ?>" required="required">
               <?php
-                if (isErrorPresent(3)) {
-                  echo '<p class="form_message_error">' . $listOfErrors[3] . '</p>';
+                if (isErrorPresent(2)) {
+                  echo '<p class="form_message_error">' . $listOfErrors[2] . '</p>';
                 }
               ?>
             </div>
@@ -74,12 +74,12 @@
               <label for="birthday">DATE DE NAISSANCE</label>
               <input type="date" class="form-control" placeholder="Date d'anniversaire" name="birthday" required="required" value="<?php echo fillSessionField("birthday"); ?>">
               <?php
-                if (isErrorPresent(6)) {
-                  echo '<p class="form_message_error">' . $listOfErrors[6] . '</p>';
-                } else if (isErrorPresent(7)) {
-                  echo '<p class="form_message_error">' . $listOfErrors[7] . '</p>';
-                } else if (isErrorPresent(8)) {
-                  echo '<p class="form_message_error">' . $listOfErrors[8] . '</p>';
+                if (isErrorPresent(3)) {
+                  echo '<p class="form_message_error">' . $listOfErrors[3] . '</p>';
+                } else if (isErrorPresent(4)) {
+                  echo '<p class="form_message_error">' . $listOfErrors[4] . '</p>';
+                } else if (isErrorPresent(5)) {
+                  echo '<p class="form_message_error">' . $listOfErrors[5] . '</p>';
                 } else {
                   echo '';
                 }
@@ -92,10 +92,10 @@
               <label for="email">ADRESSE EMAIL</label>
               <input type="email" class="form-control" placeholder="orel@san.fr" name="email" value="<?php echo fillSessionField("email"); ?>" required="required">
               <?php
-                if (isErrorPresent(4)) {
-                  echo '<p class="form_message_error">' . $listOfErrors[4] . '</p>';
-                } else if (isErrorPresent(5)) {
-                  echo '<p class="form_message_error">' . $listOfErrors[5] . '</p>';
+                if (isErrorPresent(6)) {
+                  echo '<p class="form_message_error">' . $listOfErrors[6] . '</p>';
+                } else if (isErrorPresent(7)) {
+                  echo '<p class="form_message_error">' . $listOfErrors[7] . '</p>';
                 } else {
                   echo '';
                 }
@@ -110,8 +110,8 @@
               <label for="pwd">MOT DE PASSE</label>
               <input type="password" class="form-control" name="pwd" required="required">
               <?php
-                if (isErrorPresent(9)) {
-                  echo '<p class="form_message_error">' . $listOfErrors[9] . '</p>';
+                if (isErrorPresent(8)) {
+                  echo '<p class="form_message_error">' . $listOfErrors[8] . '</p>';
                 }
               ?>
             </div>
@@ -122,8 +122,8 @@
               <label for="pwdConfirm">CONFIRMATION</label>
               <input type="password" class="form-control" name="pwdConfirm" required="required">
               <?php
-                if (isErrorPresent(10)) {
-                  echo '<p class="form_message_error">' . $listOfErrors[10] . '</p>';
+                if (isErrorPresent(9)) {
+                  echo '<p class="form_message_error">' . $listOfErrors[9] . '</p>';
                 }
               ?>
             </div>
