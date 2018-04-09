@@ -11,3 +11,9 @@
   include "head.php";
   include "navbar.php";
 ?>
+
+    <br>
+
+<?php
+  include "footer.php";
+?>
