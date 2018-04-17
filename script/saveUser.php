@@ -91,7 +91,7 @@
       // Check if allowed to signup (13 <= age <= 150)
       $today        = time();
       $time13years  = $today - 13*3600*24*365;
-      $time100years = $today - 150*3600*24*365;
+      $time150years = $today - 150*3600*24*365;
 
       // Returns UNIX timestamp with corresponding to the arguments given
       $birthday = mktime(0, 0, 0, $month, $day, $year);
