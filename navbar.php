@@ -18,6 +18,11 @@
                 <span class="sr-only">(current)</span>
               </a>
             </li>
+            <?php if (isConnected()) { ?>
+              <li class="nav-item">
+                <a class="nav-link" href="profile.php">Profil</a>
+              </li>
+            <?php } ?>
             <li class="nav-item">
               <a class="nav-link" href="#">About</a>
             </li>
