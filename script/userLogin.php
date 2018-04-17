@@ -24,6 +24,17 @@
     if (password_verify($_POST["pwd"], $data["password"])) {
       $_SESSION["auth"] = true;
       $_SESSION["id"] = $data["id"];
+      $_SESSION["token"] = createToken();
+
+      // Query that update the token column of a successful logged member
+      $query = $connection->prepare("UPDATE MEMBER SET token = :titi WHERE email = :toto");
+
+      // Execute the query
+      $query->execute([
+        "titi" => $_SESSION["token"],
+        "toto" => $_POST["email"]
+      ]);
+
       header("Location: ../home.php");
     } else {
       $_SESSION["message"] = "Erreur : l'email ou le mot de passe ne correspond pas";
