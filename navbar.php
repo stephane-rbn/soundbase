@@ -1,3 +1,7 @@
+<?php
+  require_once "functions.php";
+?>
+
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
       <div class="container">
