@@ -27,5 +27,5 @@ function isConnected() {
 function createToken() {
   // random_bytes() returns a cryptographic secure pseudo-random bytes (string)
   // bin2hex() returns a converted binary data in hexadecimal representation
-  return bin2hex(random_bytes(16));
+  return bin2hex(random_bytes(32));
 }
