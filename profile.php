@@ -1,4 +1,5 @@
 <?php
+  session_start();
   require "head.php";
   include "navbar.php";
 ?>
