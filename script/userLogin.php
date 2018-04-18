@@ -24,6 +24,7 @@
     if (password_verify($_POST["pwd"], $data["password"])) {
       $_SESSION["auth"] = true;
       $_SESSION["token"] = createToken();
+      $_SESSION["email"] = $_POST["email"];
 
       // Query that update the token column of a successful logged member
       $query = $connection->prepare("UPDATE MEMBER SET token = :titi WHERE email = :toto");
