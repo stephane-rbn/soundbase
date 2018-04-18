@@ -23,7 +23,6 @@
 
     if (password_verify($_POST["pwd"], $data["password"])) {
       $_SESSION["auth"] = true;
-      $_SESSION["id"] = $data["id"];
       $_SESSION["token"] = createToken();
 
       // Query that update the token column of a successful logged member
