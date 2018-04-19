@@ -126,8 +126,10 @@
 
     else {
 
+      $_SESSION["token"] = createToken();
+
       // Query that inserts the new member
-      $query = $connection->prepare("INSERT INTO MEMBER (email,name,username,birthday,password,registration_date) VALUES (?, ?, ?, ?, ?, ?)");
+      $query = $connection->prepare("INSERT INTO MEMBER (email,name,username,birthday,password,registration_date,token) VALUES (?, ?, ?, ?, ?, ?, ?)");
 
       $pwd = password_hash($_POST["pwd"], PASSWORD_DEFAULT);
 
@@ -138,7 +140,8 @@
         $_POST["username"],
         $year . "-" . $month . "-" . $day,
         $pwd,
-        date("Y-m-d H:i:s")
+        date("Y-m-d H:i:s"),
+        $_SESSION["token"]
       ]);
 
       header("Location: ../home.php");
