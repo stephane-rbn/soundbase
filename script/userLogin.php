@@ -15,24 +15,16 @@
 
     // Execute the query
     $query->execute([
-      "toto" => $_POST["email"]
+      "toto" => $_POST["email"],
     ]);
 
-    // Fetch data with the query
-    $data = $query->fetch();
+    // Fetch data with the query and get it as an associative array
+    $data = $query->fetch(PDO::FETCH_ASSOC);
 
     if (password_verify($_POST["pwd"], $data["password"])) {
-      $_SESSION["auth"] = true;
-      $_SESSION["email"] = $_POST["email"];
-
-      // Query that update the token column of a successful logged member
-      $query = $connection->prepare("UPDATE MEMBER SET token = :titi WHERE email = :toto");
-
-      // Execute the query
-      $query->execute([
-        "titi" => $_SESSION["token"],
-        "toto" => $_POST["email"]
-      ]);
+      $_SESSION["auth"]  = true;
+      $_SESSION["id"]    = $data["id"];
+      $_SESSION["token"] = $data["token"];
 
       header("Location: ../home.php");
     } else {
