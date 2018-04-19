@@ -42,6 +42,10 @@
               <?php
                 if (isErrorPresent(2)) {
                   echo '<p class="form_message_error">' . $listOfErrors[2] . '</p>';
+                } else if (isErrorPresent(10)) {
+                  echo '<p class="form_message_error">' . $listOfErrors[10] . '</p>';
+                } else {
+                  echo "";
                 }
               ?>
             </div>

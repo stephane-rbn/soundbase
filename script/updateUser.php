@@ -12,11 +12,14 @@
     $error = false;
     $listOfErrors = [];
 
+    // Database connection
+    $connection = connectDB();
+
     // Cleaning string values
 
-    $_POST["name"]         = trim($_POST["name"]);
-    $_POST["username"]     = strtolower(trim($_POST["username"]));
-    $_POST["email"]        = strtolower(trim($_POST["email"]));
+    $_POST["name"]     = trim($_POST["name"]);
+    $_POST["username"] = strtolower(trim($_POST["username"]));
+    $_POST["email"]    = strtolower(trim($_POST["email"]));
 
     // Check values one by one
 
@@ -32,6 +35,22 @@
     if (strlen($_POST["username"]) < 2 || strlen($_POST["username"]) > 20) {
       $error = true;
       $listOfErrors[] = 2;
+    } else {
+      // Check if this username already exists
+
+      // Query that returns 1 every time it founds this email
+      $query = $connection->prepare("SELECT 1 FROM MEMBER WHERE username= :username");
+
+      // Execute
+      $query->execute(["username" => $_POST["username"]]);
+
+      // Fetch data with the query
+      $result = $query->fetch();
+
+      if (!empty($result)) {
+        $error = true;
+        $listOfErrors[] = 10;
+      }
     }
 
     // email : valid format
@@ -41,9 +60,6 @@
       $listOfErrors[] = 6;
     } else {
       // Check if this email address already exists
-
-      // Database connection
-      $connection = connectDB();
 
       // Query that returns 1 every time it founds this email
       $query = $connection->prepare("SELECT 1 FROM MEMBER WHERE email= :email");
