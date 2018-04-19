@@ -29,3 +29,21 @@ function createToken() {
   // bin2hex() returns a converted binary data in hexadecimal representation
   return bin2hex(random_bytes(32));
 }
+
+function fillSessionField($field) {
+  return isset($_SESSION["postForm"]) ? $_SESSION["postForm"][$field] : "";
+}
+
+function isErrorPresent($errorNumber) {
+  if (isset($_SESSION["errorForm"])) {
+    for ($i = 0; $i < count($_SESSION["errorForm"]); $i++) {
+      foreach ($_SESSION["errorForm"] as $key) {
+        if ($errorNumber === $key) {
+          return true;
+        }
+      }
+    }
+  }
+
+  return false;
+}
