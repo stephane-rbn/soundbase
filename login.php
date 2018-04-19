@@ -14,17 +14,6 @@
 
 ?>
 
-    <?php
-
-      function loginErrorMessage() {
-        if (isset($_SESSION["message"])) {
-          echo '<div class="alert alert-warning" role="alert">' . $_SESSION["message"] . '</div>';
-          unset($_SESSION["message"]);
-        }
-      }
-
-    ?>
-
     <div class="wrapper" id="wrapper-login">
       <h1>CONNECTEZ-VOUS</h1>
       <h2>LA MUSIQUE VOUS ATTEND</h2>
