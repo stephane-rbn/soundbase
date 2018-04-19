@@ -33,6 +33,13 @@ function createToken() {
   return bin2hex(random_bytes(32));
 }
 
+// Fill account's form fields when submission failed
+function fillSessionFieldSettings($field) {
+  // global keyword lets this function access $result variable
+  global $result;
+  return isset($_SESSION["postForm"]) ? $_SESSION["postForm"][$field] : $result[$field];
+}
+
 // Fill signup form fields when submission failed
 function fillSessionField($field) {
   return isset($_SESSION["postForm"]) ? $_SESSION["postForm"][$field] : "";
