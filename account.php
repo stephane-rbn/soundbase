@@ -114,6 +114,10 @@
 
       </form>
 
+      <button type="button" class="btn btn-danger delete-button">
+        <a href="script/deleteAccount.php" style="text-decoration: none; color: #fff;">Supprimer mon compte</a>
+      </button>
+
     </div>
 
     <?php
