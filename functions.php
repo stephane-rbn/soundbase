@@ -47,3 +47,10 @@ function isErrorPresent($errorNumber) {
 
   return false;
 }
+
+function loginErrorMessage() {
+  if (isset($_SESSION["message"])) {
+    echo '<div class="alert alert-warning" role="alert">' . $_SESSION["message"] . '</div>';
+    unset($_SESSION["message"]);
+  }
+}
