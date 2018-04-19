@@ -52,6 +52,13 @@ nav a:hover {
   background-image: url("../vendor/images/welcomepage/background/bg-login.jpg");
   height: 400px;
 }
+
+/* bug: doesn't apply on html (temporarily wrote in style attribute instead) */
+/* #wrapper-settings {
+  background-image: url("../vendor/images/accountpage/background.jpg");
+  height: 400px;
+} */
+
 .wrapper h1 {
   font-size: 72px;
   font-weight: normal;
