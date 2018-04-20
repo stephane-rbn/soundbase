@@ -142,6 +142,8 @@
         "tyty" => $_SESSION["token"]
       ]);
 
+      $_SESSION["successUpdate"] = true;
+
       header("Location: ../account.php");
     }
 

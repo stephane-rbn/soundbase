@@ -38,6 +38,8 @@
       <h2>MODIFIEZ OU SUPPRIMEZ VOTRE COMPTE</h2>
     </div>
 
+    <div class="container-fluid"><?php successfulUpdateMessage(); ?></div>
+
     <div class="container center_div register-form">
 
       <form method="POST" action="script/updateUser.php">
@@ -123,6 +125,7 @@
     <?php
       unset($_SESSION["postForm"]);
       unset($_SESSION["errorForm"]);
+      unset($_SESSION["successUpdate"]);
     ?>
 
 <?php
