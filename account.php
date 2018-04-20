@@ -116,9 +116,17 @@
 
       </form>
 
-      <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter">
-        Supprimer mon compte
-      </button>
+      <hr>
+
+      <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+          <h3 class="display-4">Zone de danger</h3>
+          <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter">
+            Supprimer mon compte
+          </button>
+        </div>
+      </div>
+
 
       <!-- Modal: confirmation of deletion -->
       <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
