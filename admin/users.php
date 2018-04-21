@@ -43,12 +43,12 @@
                     $sql->execute();
                     $result = $sql->fetchAll(\PDO::FETCH_ASSOC);
 
-                    foreach ($result as $key => $value) {
+                    foreach ($result as $user) {
                       echo '<tr class="odd gradeX">';
-                      echo '<td>' . $value['username'];
-                      echo '<td>' . $value['name'];
-                      echo '<td>' . $value['email'];
-                      echo '<td><a href="user_edit.php?email=' . $value['email'] . '">Edit</a>';
+                      echo '<td>' . $user['username'];
+                      echo '<td>' . $user['name'];
+                      echo '<td>' . $user['email'];
+                      echo '<td><a href="user_edit.php?email=' . $user['email'] . '">Edit</a>';
                       echo "</tr>";
                     }
                   ?>
