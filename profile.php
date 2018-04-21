@@ -39,7 +39,7 @@
     <!-- Content section -->
     <section class="py-5">
       <div class="container">
-        <h1>Section Heading</h1>
+        <h1><?php echo "Profil de {$result["name"]}"; ?></h1>
         <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, suscipit, rerum quos facilis repellat architecto commodi officia atque nemo facere eum non illo voluptatem quae delectus odit vel itaque amet.</p>
       </div>
