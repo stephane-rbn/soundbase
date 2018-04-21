@@ -1,7 +1,15 @@
 <?php
+
+  session_start();
+
   include "includes/head.php";
   require "../conf.inc.php";
   require "../functions.php";
+
+  if (!isConnected() || !isAdmin()) {
+    header("Location: ../login.php");
+  }
+
 ?>
 
 <body>

@@ -10,7 +10,7 @@
     header("Location: ../login.php");
   }
 
-  ?>
+?>
 
 <body>
   <div id="wrapper">

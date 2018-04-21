@@ -6,7 +6,7 @@
   require "../conf.inc.php";
   require "../functions.php";
 
-  if (!isConnected()) {
+  if (!isConnected() || !isAdmin()) {
     header("Location: ../login.php");
   }
 
