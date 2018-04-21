@@ -14,7 +14,7 @@
   // Connection to database
   $connection = connectDB();
 
-  // Query that get all data of the member
+  // Query that gets all data of the member
   $query = $connection->prepare(
     "SELECT email,name,username,birthday,profile_photo_filename,cover_photo_filename
     FROM MEMBER
