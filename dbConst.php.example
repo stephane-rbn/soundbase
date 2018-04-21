@@ -1,3 +1,5 @@
+<?php
+
 define("DBNAME","soundbase");
 define("DBUSER","");
 define("DBPWD","");
