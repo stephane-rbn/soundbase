@@ -80,3 +80,28 @@ function successfulUpdateMessage() {
        <span aria-hidden="true">&times;</span></button></div>';
   }
 }
+
+// Check if a user is admin
+function isAdmin() {
+
+  $connection = connectDB();
+
+  $query = $connection->prepare(
+    "SELECT position FROM MEMBER WHERE id=:toto"
+  );
+
+  $query->execute([
+    "toto" => $_SESSION["id"],
+  ]);
+
+  $result = $query->fetch(PDO::FETCH_ASSOC);
+
+  $_SESSION["admin"] = $result["position"];
+
+  if ($_SESSION["admin"] === '1') {
+    return true;
+  }
+
+  return false;
+
+}
