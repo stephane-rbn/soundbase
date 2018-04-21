@@ -111,7 +111,59 @@
         </div>
 
         <div class="form-group">
-          <button type="submit" class="btn btn-secondary">Mettre à jour</button>
+          <button type="submit" class="btn btn-secondary">UPDATE</button>
+        </div>
+
+      </form>
+
+      <hr>
+
+      <form action="" method="POST">
+
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="form-group">
+              <label for="pwd">CURRENT PASSWORD</label>
+              <input type="password" class="form-control" name="pwd" required="required">
+              <?php
+                if (isErrorPresent(8)) {
+                  echo '<p class="form_message_error">' . $listOfErrors[8] . '</p>';
+                }
+              ?>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="form-group">
+              <label for="pwdConfirm">NEW PASSWORD</label>
+              <input type="password" class="form-control" name="pwdConfirm" required="required">
+              <?php
+                if (isErrorPresent(9)) {
+                  echo '<p class="form_message_error">' . $listOfErrors[9] . '</p>';
+                }
+              ?>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="form-group">
+              <label for="pwdConfirm">CONFIRMATION</label>
+              <input type="password" class="form-control" name="pwdConfirm" required="required">
+              <?php
+                if (isErrorPresent(9)) {
+                  echo '<p class="form_message_error">' . $listOfErrors[9] . '</p>';
+                }
+              ?>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-secondary">UPDATE</button>
         </div>
 
       </form>
