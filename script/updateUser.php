@@ -30,49 +30,79 @@
       $listOfErrors[] = 1;
     }
 
-    // username length: min 3 max 60
+    // SQL query to get the current username
+    $currentUsernameQuery = $connection->prepare("SELECT username FROM MEMBER WHERE id=:id AND token=:token");
 
-    if (strlen($_POST["username"]) < 2 || strlen($_POST["username"]) > 20) {
-      $error = true;
-      $listOfErrors[] = 2;
-    } else {
-      // Check if this username already exists
+    // Execute
+    $currentUsernameQuery->execute([
+      "id"    => $_SESSION["id"],
+      "token" => $_SESSION["token"]
+    ]);
 
-      // Query that returns 1 every time it founds this email
-      $query = $connection->prepare("SELECT 1 FROM MEMBER WHERE username= :username");
+    // Fetch data with the query and returns an associative array
+    $resultUsername = $currentUsernameQuery->fetch(PDO::FETCH_ASSOC);
 
-      // Execute
-      $query->execute(["username" => $_POST["username"]]);
+    // Doesn't check username unicity if not changed
+    if ($_POST["username"] !== $resultUsername["username"]) {
 
-      // Fetch data with the query
-      $result = $query->fetch();
-
-      if (!empty($result)) {
+      // username length: min 3 max 60
+      if (strlen($_POST["username"]) < 2 || strlen($_POST["username"]) > 20) {
         $error = true;
-        $listOfErrors[] = 10;
+        $listOfErrors[] = 2;
+      } else {
+        // Check if this username already exists
+
+        // Query that returns 1 every time it founds this email
+        $query = $connection->prepare("SELECT 1 FROM MEMBER WHERE username= :username");
+
+        // Execute
+        $query->execute(["username" => $_POST["username"]]);
+
+        // Fetch data with the query
+        $result = $query->fetch();
+
+        if (!empty($result)) {
+          $error = true;
+          $listOfErrors[] = 10;
+        }
       }
     }
 
-    // email : valid format
+    // SQL query to get the current email
+    $currentEmailQuery = $connection->prepare("SELECT email FROM MEMBER WHERE id=:id AND token=:token");
 
-    if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
-      $error = true;
-      $listOfErrors[] = 6;
-    } else {
-      // Check if this email address already exists
+    // Execute
+    $currentEmailQuery->execute([
+      "id"    => $_SESSION["id"],
+      "token" => $_SESSION["token"]
+    ]);
 
-      // Query that returns 1 every time it founds this email
-      $query = $connection->prepare("SELECT 1 FROM MEMBER WHERE email= :email");
+    // Fetch data with the query and returns an associative array
+    $resultEmail = $currentEmailQuery->fetch(PDO::FETCH_ASSOC);
 
-      // Execute
-      $query->execute(["email" => $_POST["email"]]);
+    // Doesn't check email unicity if not changed
+    if ($_POST["email"] !== $resultEmail["email"]) {
 
-      // Fetch data with the query
-      $result = $query->fetch();
-
-      if (!empty($result)) {
+      // email : valid format
+      if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
         $error = true;
-        $listOfErrors[] = 7;
+        $listOfErrors[] = 6;
+      } else {
+        // Check if this email address already exists
+
+        // Query that returns 1 every time it founds this email
+        $query = $connection->prepare("SELECT 1 FROM MEMBER WHERE email= :email");
+
+        // Execute
+        $query->execute(["email" => $_POST["email"]]);
+
+        // Fetch data with the query
+        $result = $query->fetch();
+
+        if (!empty($result)) {
+          $error = true;
+          $listOfErrors[] = 7;
+        }
       }
     }
 
