@@ -1,8 +1,16 @@
 <?php
+
+  session_start();
+
   include "includes/head.php";
   require "../conf.inc.php";
   require "../functions.php";
-?>
+
+  if (!isConnected()) {
+    header("Location: ../login.php");
+  }
+
+  ?>
 
 <body>
   <div id="wrapper">

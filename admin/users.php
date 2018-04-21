@@ -1,7 +1,15 @@
 <?php
+
+  session_start();
+
   include "includes/head.php";
   require "../conf.inc.php";
   require "../functions.php";
+
+  if (!isConnected()) {
+    header("Location: ../login.php");
+  }
+
 ?>
 
 <body>
@@ -35,7 +43,7 @@
                     $sql = $connection->prepare("SELECT * FROM MEMBER");
                     $sql->execute();
                     $result = $sql->fetchAll(\PDO::FETCH_ASSOC);
-                    
+
                     $i = 0;
                     while ($result[$i] !== NULL){
                       echo '<tr class="odd gradeX">';
