@@ -39,7 +39,7 @@
                 <tbody>
                   <?php
                     $connection = connectDB();
-                    $sql = $connection->prepare("SELECT * FROM MEMBER");
+                    $sql = $connection->prepare("SELECT username,name,email FROM MEMBER");
                     $sql->execute();
                     $result = $sql->fetchAll(\PDO::FETCH_ASSOC);
 
