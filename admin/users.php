@@ -42,6 +42,11 @@
                     $sql = $connection->prepare("SELECT username,name,email FROM MEMBER");
                     $sql->execute();
                     $result = $sql->fetchAll(\PDO::FETCH_ASSOC);
+                  <div class="col-sm-6">
+                    <div id="dataTables-example_filter" class="dataTables_filter">
+                      <label>Search:<input type="search" class="form-control input-sm" placeholder="" aria-controls="dataTables-example"></label>
+                    </div>
+                  </div>
 
                     foreach ($result as $user) {
                       echo '<tr class="odd gradeX">';
