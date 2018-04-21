@@ -43,16 +43,13 @@
                     $sql->execute();
                     $result = $sql->fetchAll(\PDO::FETCH_ASSOC);
 
-                    $i = 0;
-                    while ($result[$i] !== NULL){
+                    foreach ($result as $key => $value) {
                       echo '<tr class="odd gradeX">';
-                      echo '<td>' . $result[$i]['first_name'];
-                      echo '<td>' . $result[$i]['last_name'];
-                      echo '<td>' . $result[$i]['musician_name'];
-                      echo '<td>' . $result[$i]['email'];
-                      echo '<td><a href="user_edit.php?email=' . $result[$i]['email'] . '">Edit</a>';
+                      echo '<td>' . $value['username'];
+                      echo '<td>' . $value['name'];
+                      echo '<td>' . $value['email'];
+                      echo '<td><a href="user_edit.php?email=' . $value['email'] . '">Edit</a>';
                       echo "</tr>";
-                      $i++;
                     }
                   ?>
                 </tbody>
