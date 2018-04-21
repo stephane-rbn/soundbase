@@ -31,9 +31,8 @@
               <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                 <thead>
                   <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Musician name</th>
+                    <th>Username</th>
+                    <th>Name</th>
                     <th>Email</th>
                   </tr>
                 </thead>
