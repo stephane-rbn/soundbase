@@ -3,3 +3,4 @@ dbConst.php
 docker-compose.yml
 docker_bdd/
 launch.json
+test.php
