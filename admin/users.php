@@ -42,6 +42,9 @@
                       <th>Username</th>
                       <th>Name</th>
                       <th>Email</th>
+                      <th>Birthday</th>
+                      <th>Registration Date</th>
+                      <th>Role</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -73,6 +76,9 @@
                         echo '<td>' . $user['username'];
                         echo '<td>' . $user['name'];
                         echo '<td>' . $user['email'];
+                        echo '<td>' . $user['birthday'];
+                        echo '<td>' . $user['position'];
+                        echo '<td>' . $user['registration_date'];
                         echo '<td><a href="user_edit.php?email=' . $user['email'] . '">Edit</a>';
                         echo "</tr>";
                       }
