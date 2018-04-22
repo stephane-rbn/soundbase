@@ -82,40 +82,14 @@
                   <div class="col-sm-6">
                     <div class="dataTables_info" id="dataTables-example_info" role="status" aria-live="polite">
                       <?php
-                      $connection = connectDB();
-                      $sql = $connection->prepare("SELECT COUNT(*) FROM MEMBER");
-                      $sql->execute();
-                      $result = $sql->fetchAll();
-
-                      // Yep it's an array...
-                      $entries = $result['0']['0'];
-
-                      $perPage = 3;
-                      $nbPages = ceil($entries/$perPage);
-
-                      if (isset($_GET['page']) && $_GET['page'] > 0 && $_GET['page'] <= $nbPages) {
-                        $cPage = $_GET['page'];
-                      } else {
-                        $cPage = 1;
-                      }
-
-                      echo "Showing ".(($cPage - 1) * $perPage + 1)." to ".(($cPage) * $perPage)." of " . $entries . " entries";
-                      ?>
-                    </div>
-                  </div>
-                  <div class="col-sm-6">
-                    <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
-                      <ul class="pagination">
-                        <?php
                         $connection = connectDB();
                         $sql = $connection->prepare("SELECT COUNT(*) FROM MEMBER");
                         $sql->execute();
                         $result = $sql->fetchAll();
 
-                        // Yep it's an array...
                         $entries = $result['0']['0'];
 
-                        $perPage = 3;
+                        $perPage = 10;
                         $nbPages = ceil($entries/$perPage);
 
                         if (isset($_GET['page']) && $_GET['page'] > 0 && $_GET['page'] <= $nbPages) {
@@ -124,26 +98,49 @@
                           $cPage = 1;
                         }
 
-                        if ($cPage == 1) {
-                          echo '<li class="paginate_button previous disabled" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous"><a>Previous</a></li>';
-                        } else {
-                          echo '<li class="paginate_button previous" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous"><a href="?page='.($cPage - 1).'">Previous</a></li>';
-                        }
+                        echo "Showing ".(($cPage - 1) * $perPage + 1)." to ".(($cPage) * $perPage)." of " . $entries . " entries";
+                      ?>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
+                      <ul class="pagination">
+                        <?php
+                          $connection = connectDB();
+                          $sql = $connection->prepare("SELECT COUNT(*) FROM MEMBER");
+                          $sql->execute();
+                          $result = $sql->fetchAll();
 
-                        for ($i=1;$i<=$nbPages;$i++) {
-                          // ternary to do here
-                          if ($i == $cPage) {
-                            echo '<li class="paginate_button active" aria-controls="dataTables-example" tabindex="0"><a href="?page='.$i.'">'.$i.'</a></li>'; // <a> to remove
+                          $entries = $result['0']['0'];
+
+                          $perPage = 10;
+                          $nbPages = ceil($entries/$perPage);
+
+                          if (isset($_GET['page']) && $_GET['page'] > 0 && $_GET['page'] <= $nbPages) {
+                            $cPage = $_GET['page'];
                           } else {
-                            echo '<li class="paginate_button" aria-controls="dataTables-example" tabindex="0"><a href="?page='.$i.'">'.$i.'</a></li>';
+                            $cPage = 1;
                           }
-                        }
 
-                        if ($cPage == $nbPages) {
-                          echo '<li class="paginate_button next" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next"><a>Next</a></li>';
-                        } else {
-                          echo '<li class="paginate_button next" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next"><a href="?page='.($cPage + 1).'">Next</a></li>';
-                        }
+                          if ($cPage == 1) {
+                            echo '<li class="paginate_button previous disabled" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous"><a>Previous</a></li>';
+                          } else {
+                            echo '<li class="paginate_button previous" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous"><a href="?page='.($cPage - 1).'">Previous</a></li>';
+                          }
+
+                          for ($i=1;$i<=$nbPages;$i++) {
+                            if ($i == $cPage) {
+                              echo '<li class="paginate_button active" aria-controls="dataTables-example" tabindex="0"><a href="?page='.$i.'">'.$i.'</a></li>';
+                            } else {
+                              echo '<li class="paginate_button" aria-controls="dataTables-example" tabindex="0"><a href="?page='.$i.'">'.$i.'</a></li>';
+                            }
+                          }
+
+                          if ($cPage == $nbPages) {
+                            echo '<li class="paginate_button next" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next"><a>Next</a></li>';
+                          } else {
+                            echo '<li class="paginate_button next" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next"><a href="?page='.($cPage + 1).'">Next</a></li>';
+                          }
 
                         ?>
                       </ul>
