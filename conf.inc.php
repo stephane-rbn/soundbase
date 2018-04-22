@@ -12,5 +12,6 @@ $listOfErrors = [
   7  => "L'email existe déjà",
   8  => "Le mot de passe doit faire entre 8 et 40 caractères",
   9  => "Le mot de passe de confirmation ne correspond pas",
-  10 => "Le username est déjà utilisé"
+  10 => "Le username est déjà utilisé",
+  11 => "Le mot de passe ne correspond pas",
 ];
