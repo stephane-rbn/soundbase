@@ -8,7 +8,7 @@ CREATE TABLE MEMBER (
     registration_date      DATE,
     profile_photo_filename VARCHAR(100) DEFAULT 'photo.png',
     cover_photo_filename   VARCHAR(100) DEFAULT 'cover.png',
-    role                   INTEGER DEFAULT 0,
+    position               INTEGER DEFAULT 0,
     token                  VARCHAR(64)
 );
 
