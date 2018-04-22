@@ -8,7 +8,9 @@
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-    <a class="navbar-brand" href="../admin">Soundbase admin</a>
+    <a class="navbar-brand" href="../admin">
+      <img src="../vendor/images/logo/complete-black.png" alt="Soundbase logo" width=150>
+    </a>
   </div>
 
   <!-- User menu -->
