@@ -84,7 +84,13 @@
                         echo '<td>' . $user['name'];
                         echo '<td>' . $user['email'];
                         echo '<td>' . $user['birthday'];
-                        echo '<td>' . $user['position'];
+                        if ($user['position'] == 0) {
+                          echo "<td> User";
+                        } elseif ($user['position'] == 1) {
+                          echo "<td> Admin";
+                        } elseif ($user['position'] == 2) {
+                          echo "<td> Banned";
+                        }
                         echo '<td>' . $user['registration_date'];
                         echo '<td><a href="user_edit.php?email=' . $user['email'] . '">Edit</a>';
                         echo "</tr>";
