@@ -25,13 +25,13 @@ CREATE TABLE TRACK (
     genre            VARCHAR(30),
     photo_filename   VARCHAR(100),
     publication_date DATE,
-    member           VARCHAR(254) NOT NULL UNIQUE REFERENCES MEMBER (id)
+    member           INTEGER NOT NULL UNIQUE REFERENCES MEMBER (id)
 );
 
 CREATE TABLE PLAYLIST (
     id     INTEGER PRIMARY KEY AUTO_INCREMENT,
     title  VARCHAR(60),
-    member VARCHAR(254) NOT NULL UNIQUE REFERENCES MEMBER (id)
+    member INTEGER NOT NULL UNIQUE REFERENCES MEMBER (id)
 );
 
 CREATE TABLE INCLUSION (
@@ -44,7 +44,7 @@ CREATE TABLE POST (
     id               INTEGER PRIMARY KEY AUTO_INCREMENT,
     content          TEXT,
     publication_date DATE,
-    member           VARCHAR(254) NOT NULL UNIQUE REFERENCES MEMBER (id)
+    member           INTEGER NOT NULL UNIQUE REFERENCES MEMBER (id)
 );
 
 CREATE TABLE COMMENT (
@@ -52,7 +52,7 @@ CREATE TABLE COMMENT (
     content          TEXT,
     publication_date DATE,
     post             INTEGER NOT NULL UNIQUE REFERENCES POST (id),
-    member           VARCHAR(254) NOT NULL UNIQUE REFERENCES MEMBER (id)
+    member           INTEGER NOT NULL UNIQUE REFERENCES MEMBER (id)
 );
 
 CREATE TABLE EVENTS (
@@ -61,7 +61,7 @@ CREATE TABLE EVENTS (
     description TEXT,
     capacity    INTEGER,
     event_date  DATE,
-    member      VARCHAR(254) NOT NULL UNIQUE REFERENCES MEMBER (id)
+    member      INTEGER NOT NULL UNIQUE REFERENCES MEMBER (id)
 );
 
 CREATE TABLE REGISTRATION (
