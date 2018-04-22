@@ -33,7 +33,17 @@
 
     <!-- Header - set the background image for the header in the line below -->
     <header class="py-5 bg-image-full" style="background-image: url('https://unsplash.it/1900/1080?image=1076');">
-      <img class="img-fluid d-block mx-auto" src="http://placehold.it/200x200&text=Logo" alt="">
+
+      <?php if ($result["profile_photo_filename"] !== "photo.png") { ?>
+
+        <img class="img-fluid d-block mx-auto" src=<?php echo "member/avatar/" . $result["profile_photo_filename"] ?> alt="" width=200 height="200">
+
+      <?php }else{ ?>
+
+        <img class="img-fluid d-block mx-auto" src="http://placehold.it/200x200&text=Logo" alt="">
+
+      <?php }?>
+
     </header>
 
     <!-- Content section -->
