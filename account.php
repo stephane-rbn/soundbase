@@ -33,7 +33,7 @@
   $_SESSION["resultAccount"] = $result;
 ?>
 
-    <div class="wrapper" style="height: 400px; background-image: url('vendor/images/accountpage/background.jpg');">
+    <div class="wrapper" id="wrapper-settings">
       <h1>PARAMÈTRE DU COMPTE</h1>
       <h2>MODIFIEZ OU SUPPRIMEZ VOTRE COMPTE</h2>
     </div>
@@ -195,8 +195,8 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-              <button type="button" class="btn btn-danger">
-                <a href="script/deleteAccount.php" style="text-decoration: none; color: #fff;">Confirmer</a>
+              <button type="button" class="btn btn-danger delete-button">
+                <a href="script/deleteAccount.php">Confirmer</a>
               </button>
             </div>
           </div>
