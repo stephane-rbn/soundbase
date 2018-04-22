@@ -47,7 +47,7 @@
             <i class="fa fa-users fa-fw"></i> Users</a>
         </li>
         <li>
-          <a href="songs.php">
+          <a href="tracks.php">
             <i class="fa fa-music fa-fw"></i> Tracks</a>
         </li>
         <li>
