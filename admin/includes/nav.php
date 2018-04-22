@@ -48,7 +48,7 @@
         </li>
         <li>
           <a href="songs.php">
-            <i class="fa fa-music fa-fw"></i> Songs</a>
+            <i class="fa fa-music fa-fw"></i> Tracks</a>
         </li>
         <li>
           <a href="events.php">
