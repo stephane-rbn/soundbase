@@ -53,7 +53,7 @@
 
                       $entries = $result['0']['0'];
 
-                      $perPage = 10;
+                      $perPage = 10; // Number of entries per page
                       $nbPages = ceil($entries/$perPage);
 
                       if (isset($_GET['page']) && $_GET['page'] > 0 && $_GET['page'] <= $nbPages) {
@@ -87,11 +87,12 @@
                         $sql->execute();
                         $result = $sql->fetchAll();
 
-                        $entries = $result['0']['0'];
+                        $entries = $result['0']['0']; // Number of entries
+                        $perPage = 10; // Number of entries per page
+                        $nbPages = ceil($entries/$perPage); // Number of pages
 
-                        $perPage = 10;
-                        $nbPages = ceil($entries/$perPage);
-
+                        // Page shown defaults to 1, otherwise based on "?page="
+                        // Checking $_GET['page'] is a possible page number to provent SQL injections
                         if (isset($_GET['page']) && $_GET['page'] > 0 && $_GET['page'] <= $nbPages) {
                           $cPage = $_GET['page'];
                         } else {
@@ -111,11 +112,12 @@
                           $sql->execute();
                           $result = $sql->fetchAll();
 
-                          $entries = $result['0']['0'];
+                          $entries = $result['0']['0']; // Number of entries
+                          $perPage = 10; // Number of entries per page
+                          $nbPages = ceil($entries/$perPage); // Number of pages
 
-                          $perPage = 10;
-                          $nbPages = ceil($entries/$perPage);
-
+                          // Page shown defaults to 1, otherwise based on "?page="
+                          // Checking $_GET['page'] is a possible page number to provent SQL injections
                           if (isset($_GET['page']) && $_GET['page'] > 0 && $_GET['page'] <= $nbPages) {
                             $cPage = $_GET['page'];
                           } else {
@@ -123,13 +125,15 @@
                           }
 
                           if ($cPage == 1) {
+                            // Disable previous button if first page
                             echo '<li class="paginate_button previous disabled" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous"><a>Previous</a></li>';
                           } else {
                             echo '<li class="paginate_button previous" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous"><a href="?page='.($cPage - 1).'">Previous</a></li>';
                           }
 
-                          for ($i=1;$i<=$nbPages;$i++) {
+                          for ($i = 1; $i <= $nbPages; $i++) {
                             if ($i == $cPage) {
+                              // Set the current page number as active
                               echo '<li class="paginate_button active" aria-controls="dataTables-example" tabindex="0"><a href="?page='.$i.'">'.$i.'</a></li>';
                             } else {
                               echo '<li class="paginate_button" aria-controls="dataTables-example" tabindex="0"><a href="?page='.$i.'">'.$i.'</a></li>';
@@ -137,6 +141,7 @@
                           }
 
                           if ($cPage == $nbPages) {
+                            // Disable next button if last page
                             echo '<li class="paginate_button next" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next"><a>Next</a></li>';
                           } else {
                             echo '<li class="paginate_button next" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next"><a href="?page='.($cPage + 1).'">Next</a></li>';
