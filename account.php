@@ -123,11 +123,11 @@
         <div class="row">
           <div class="col-sm-12">
             <div class="form-group">
-              <label for="pwd">CURRENT PASSWORD</label>
-              <input type="password" class="form-control" name="pwd" required="required">
+              <label for="currentPwd">CURRENT PASSWORD</label>
+              <input type="password" class="form-control" name="currentPwd" required="required">
               <?php
-                if (isErrorPresent(8)) {
-                  echo '<p class="form_message_error">' . $listOfErrors[8] . '</p>';
+                if (isErrorPresent(11)) {
+                  echo '<p class="form_message_error">' . $listOfErrors[11] . '</p>';
                 }
               ?>
             </div>
@@ -137,11 +137,11 @@
         <div class="row">
           <div class="col-sm-12">
             <div class="form-group">
-              <label for="pwdConfirm">NEW PASSWORD</label>
-              <input type="password" class="form-control" name="pwdConfirm" required="required">
+              <label for="pwd">NEW PASSWORD</label>
+              <input type="password" class="form-control" name="pwd" required="required">
               <?php
-                if (isErrorPresent(9)) {
-                  echo '<p class="form_message_error">' . $listOfErrors[9] . '</p>';
+                if (isErrorPresent(8)) {
+                  echo '<p class="form_message_error">' . $listOfErrors[8] . '</p>';
                 }
               ?>
             </div>
