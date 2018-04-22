@@ -38,7 +38,11 @@
                 Account
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Action</a>
+                <?php
+                  if (isAdmin()) {
+                    echo '<a class="dropdown-item" href="admin/">Admin</a>';
+                  }
+                ?>
                 <a class="dropdown-item" href="account.php">Votre compte</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="logout.php">Se déconnecter</a>
