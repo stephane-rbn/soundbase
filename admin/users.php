@@ -107,12 +107,34 @@
                     <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
                       <ul class="pagination">
                         <li class="paginate_button previous disabled" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous"><a href="#">Previous</a></li>
-                        <li class="paginate_button active" aria-controls="dataTables-example" tabindex="0"><a href="#">1</a></li>
-                        <li class="paginate_button " aria-controls="dataTables-example" tabindex="0"><a href="#">2</a></li>
-                        <li class="paginate_button " aria-controls="dataTables-example" tabindex="0"><a href="#">3</a></li>
-                        <li class="paginate_button " aria-controls="dataTables-example" tabindex="0"><a href="#">4</a></li>
-                        <li class="paginate_button " aria-controls="dataTables-example" tabindex="0"><a href="#">5</a></li>
-                        <li class="paginate_button " aria-controls="dataTables-example" tabindex="0"><a href="#">6</a></li>
+                        <?php
+                        $connection = connectDB();
+                        $sql = $connection->prepare("SELECT COUNT(*) FROM MEMBER");
+                        $sql->execute();
+                        $result = $sql->fetchAll();
+
+                        // Yep it's an array...
+                        $entries = $result['0']['0'];
+
+                        $perPage = 3;
+                        $nbPages = ceil($entries/$perPage);
+
+                        if (isset($_GET['page']) && $_GET['page'] > 0 && $_GET['page'] <= $nbPages) {
+                          $cPage = $_GET['page'];
+                        } else {
+                          $cPage = 1;
+                        }
+                        
+                        for ($i=1;$i<=$nbPages;$i++) {
+                          // ternary to do here
+                          if ($i == $cPage) {
+                            echo '<li class="paginate_button active" aria-controls="dataTables-example" tabindex="0"><a href="?page='.$i.'">'.$i.'</a></li>'; // <a> to remove
+                          } else {
+                            echo '<li class="paginate_button" aria-controls="dataTables-example" tabindex="0"><a href="?page='.$i.'">'.$i.'</a></li>';
+                          }
+                        }
+                        ?>
+
                         <li class="paginate_button next" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next"><a href="#">Next</a></li>
                       </ul>
                     </div>
