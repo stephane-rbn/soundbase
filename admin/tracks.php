@@ -10,14 +10,14 @@
     <div id="page-wrapper">
       <div class="row">
         <div class="col-lg-12">
-          <h1 class="page-header">Users</h1>
+          <h1 class="page-header">Tracks</h1>
         </div>
       </div>
       <div class="row">
         <div class="col-lg-12">
           <div class="panel panel-default">
             <div class="panel-heading">
-              Users list
+              Track list
             </div>
             <div class="panel-body">
               <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
@@ -36,19 +36,20 @@
                 <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                   <thead>
                     <tr>
-                      <th>Username</th>
-                      <th>Name</th>
-                      <th>Email</th>
-                      <th>Birthday</th>
-                      <th>Status</th>
-                      <th>Registration Date</th>
+                      <th>ID</th>
+                      <th>Title</th>
+                      <th>Description</th>
+                      <th>Genre</th>
+                      <th>Track Cover</th>
+                      <th>Publication Date</th>
+                      <th>Member</th>
                       <th>Edit</th>
                     </tr>
                   </thead>
                   <tbody>
                     <?php
                       $connection = connectDB();
-                      $sql = $connection->prepare("SELECT COUNT(*) FROM MEMBER");
+                      $sql = $connection->prepare("SELECT COUNT(*) FROM TRACK");
                       $sql->execute();
                       $result = $sql->fetchAll();
 
@@ -73,26 +74,21 @@
                         $sql = $connection->prepare("SELECT username,name,email,birthday,position,registration_date FROM MEMBER WHERE (`username` LIKE '%".$searchQuery."%') OR (`name` LIKE '%".$searchQuery."%') OR (`email` LIKE '%".$searchQuery."%') LIMIT ". (($cPage - 1) * $perPage) .", $perPage");
 
                       } else {
-                        $sql = $connection->prepare("SELECT username,name,email,birthday,position,registration_date FROM MEMBER LIMIT ". (($cPage - 1) * $perPage) .", $perPage");
+                        $sql = $connection->prepare("SELECT * FROM TRACK LIMIT ". (($cPage - 1) * $perPage) .", $perPage");
                       }
                       $sql->execute();
                       $result = $sql->fetchAll(\PDO::FETCH_ASSOC);
 
-                      foreach ($result as $user) {
+                      foreach ($result as $track) {
                         echo '<tr class="odd gradeX">';
-                        echo '<td>' . $user['username'];
-                        echo '<td>' . $user['name'];
-                        echo '<td>' . $user['email'];
-                        echo '<td>' . $user['birthday'];
-                        if ($user['position'] == 0) {
-                          echo "<td> User";
-                        } elseif ($user['position'] == 1) {
-                          echo "<td> Admin";
-                        } elseif ($user['position'] == 2) {
-                          echo "<td> Banned";
-                        }
-                        echo '<td>' . $user['registration_date'];
-                        echo '<td><a href="user_edit.php?email=' . $user['email'] . '">Edit</a>';
+                        echo '<td>' . $track['id'];
+                        echo '<td>' . $track['title'];
+                        echo '<td>' . $track['description'];
+                        echo '<td>' . $track['genre'];
+                        echo '<td>' . $track['photo_filename'];
+                        echo '<td>' . $track['publication_date'];
+                        echo '<td>' . $track['member'];
+                        echo '<td><a href="track_edit.php?id=' . $track['id'] . '">Edit</a>';
                         echo "</tr>";
                       }
                     ?>
@@ -103,7 +99,7 @@
                     <div class="dataTables_info" id="dataTables-example_info" role="status" aria-live="polite">
                       <?php
                         $connection = connectDB();
-                        $sql = $connection->prepare("SELECT COUNT(*) FROM MEMBER");
+                        $sql = $connection->prepare("SELECT COUNT(*) FROM TRACK");
                         $sql->execute();
                         $result = $sql->fetchAll();
 
@@ -121,9 +117,9 @@
 
                         if ($cPage == $nbPages) {
                           // On the last page, the last entry of the page will be the last entry
-                          echo "Showing ".(($cPage - 1) * $perPage + 1)." to ".$entries." of ".$entries." users";
+                          echo "Showing ".(($cPage - 1) * $perPage + 1)." to ".$entries." of ".$entries." tracks";
                         } else {
-                          echo "Showing ".(($cPage - 1) * $perPage + 1)." to ".(($cPage) * $perPage)." of ".$entries." users";
+                          echo "Showing ".(($cPage - 1) * $perPage + 1)." to ".(($cPage) * $perPage)." of ".$entries." tracks";
                         }
                       ?>
                     </div>
@@ -133,7 +129,7 @@
                       <ul class="pagination">
                         <?php
                           $connection = connectDB();
-                          $sql = $connection->prepare("SELECT COUNT(*) FROM MEMBER");
+                          $sql = $connection->prepare("SELECT COUNT(*) FROM TRACK");
                           $sql->execute();
                           $result = $sql->fetchAll();
 
