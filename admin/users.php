@@ -32,7 +32,11 @@
                 <div class="row">
                   <div class="col-sm-12">
                     <div id="dataTables-example_filter" class="dataTables_filter">
-                      <label>Search:<input type="search" class="form-control input-sm" placeholder="" aria-controls="dataTables-example"></label>
+                      <!-- Search form, processed by the same page -->
+                      <form method="GET" action="">
+                        <input type="search" name="search" class="form-control input-sm" placeholder="Search...">
+                        <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-search fa-fw"></i></button>
+                      </form>
                     </div>
                   </div>
                 </div>
