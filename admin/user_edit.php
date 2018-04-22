@@ -33,7 +33,7 @@
                   <form role="form " method="POST" action="scripts/alter_user.php">
                     <div class="form-group">
                       <label>Email</label>
-                      <input class="form-control" placeholder="<?php
+                      <input class="form-control" value="<?php
                         $connection = connectDB();
                         $sql = $connection->prepare("SELECT email FROM MEMBER WHERE id='".$_GET['id']."' ");
                         $sql->execute();
@@ -43,7 +43,7 @@
                     </div>
                     <div class="form-group">
                       <label>First Name</label>
-                      <input class="form-control" placeholder="<?php
+                      <input class="form-control" value="<?php
                         $connection = connectDB();
                         $sql = $connection->prepare("SELECT name FROM MEMBER WHERE id='".$_GET['id']."' ");
                         $sql->execute();
@@ -53,7 +53,7 @@
                     </div>
                     <div class="form-group">
                       <label>Last Name</label>
-                      <input class="form-control" placeholder="<?php
+                      <input class="form-control" value="<?php
                         $connection = connectDB();
                         $sql = $connection->prepare("SELECT name FROM MEMBER WHERE id='".$_GET['id']."' ");
                         $sql->execute();
@@ -63,7 +63,7 @@
                     </div>
                     <div class="form-group">
                       <label>Musician name</label>
-                      <input class="form-control" placeholder="<?php
+                      <input class="form-control" value="<?php
                         $connection = connectDB();
                         $sql = $connection->prepare("SELECT username FROM MEMBER WHERE id='".$_GET['id']."' ");
                         $sql->execute();
