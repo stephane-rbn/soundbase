@@ -1,3 +1,16 @@
+<?php
+
+  session_start();
+
+  require "../conf.inc.php";
+  require "../functions.php";
+
+  if (!isConnected() || !isAdmin()) {
+    header("Location: ../login.php");
+  }
+
+?>
+
 <!DOCTYPE html>
 <html>
 
