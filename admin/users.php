@@ -51,11 +51,12 @@
                       $sql->execute();
                       $result = $sql->fetchAll();
 
-                      $entries = $result['0']['0'];
-
+                      $entries = $result['0']['0']; // Number of entries
                       $perPage = 10; // Number of entries per page
-                      $nbPages = ceil($entries/$perPage);
+                      $nbPages = ceil($entries/$perPage); // Number of pages
 
+                      // Page shown defaults to 1, otherwise based on "?page="
+                      // Checking $_GET['page'] is a possible page number to provent SQL injections
                       if (isset($_GET['page']) && $_GET['page'] > 0 && $_GET['page'] <= $nbPages) {
                         $cPage = $_GET['page'];
                       } else {
