@@ -100,7 +100,12 @@
                           $cPage = 1;
                         }
 
-                        echo "Showing ".(($cPage - 1) * $perPage + 1)." to ".(($cPage) * $perPage)." of " . $entries . " entries";
+                        if ($cPage == $nbPages) {
+                          // On the last page, the last entry of the page will be the last entry
+                          echo "Showing ".(($cPage - 1) * $perPage + 1)." to ".$entries." of ".$entries." entries";
+                        } else {
+                          echo "Showing ".(($cPage - 1) * $perPage + 1)." to ".(($cPage) * $perPage)." of ".$entries." entries";
+                        }
                       ?>
                     </div>
                   </div>
