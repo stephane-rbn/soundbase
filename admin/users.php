@@ -73,7 +73,7 @@
                         $sql = $connection->prepare("SELECT username,name,email,birthday,position,registration_date FROM MEMBER WHERE (`username` LIKE '%".$searchQuery."%') OR (`name` LIKE '%".$searchQuery."%') OR (`email` LIKE '%".$searchQuery."%') LIMIT ". (($cPage - 1) * $perPage) .", $perPage");
 
                       } else {
-                        $sql = $connection->prepare("SELECT username,name,email,birthday,position,registration_date FROM MEMBER LIMIT ". (($cPage - 1) * $perPage) .", $perPage");
+                        $sql = $connection->prepare("SELECT * FROM MEMBER LIMIT ". (($cPage - 1) * $perPage) .", $perPage");
                       }
                       $sql->execute();
                       $result = $sql->fetchAll(\PDO::FETCH_ASSOC);
@@ -92,7 +92,7 @@
                           echo "<td> Banned";
                         }
                         echo '<td>' . $user['registration_date'];
-                        echo '<td><a href="user_edit.php?email=' . $user['email'] . '">Edit</a>';
+                        echo '<td><a href="user_edit.php?id=' . $user['id'] . '">Edit</a>';
                         echo "</tr>";
                       }
                     ?>

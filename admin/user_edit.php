@@ -11,7 +11,13 @@
       <div class="row">
         <div class="col-lg-12">
           <h1 class="page-header"> Edit
-            <?php echo $_GET['email']; ?>
+            <?php
+              $connection = connectDB();
+              $sql = $connection->prepare("SELECT username FROM MEMBER WHERE id='".$_GET['id']."' ");
+              $sql->execute();
+              $result = $sql->fetchAll(\PDO::FETCH_ASSOC);
+              echo $result[0]['username'];
+            ?>
           </h1>
         </div>
       </div>
@@ -29,8 +35,7 @@
                       <label>Email</label>
                       <input class="form-control" placeholder="<?php
                         $connection = connectDB();
-                        $sql = $connection->prepare(" SELECT email FROM MEMBER WHERE email='" . $_GET['
-                        email '] . "' ");
+                        $sql = $connection->prepare("SELECT email FROM MEMBER WHERE id='".$_GET['id']."' ");
                         $sql->execute();
                         $result = $sql->fetchAll(\PDO::FETCH_ASSOC);
                         echo $result[0]['email'];
@@ -40,32 +45,30 @@
                       <label>First Name</label>
                       <input class="form-control" placeholder="<?php
                         $connection = connectDB();
-                        $sql = $connection->prepare(" SELECT first_name FROM MEMBER WHERE email='" . $_GET['email '] . "' ");
+                        $sql = $connection->prepare("SELECT name FROM MEMBER WHERE id='".$_GET['id']."' ");
                         $sql->execute();
                         $result = $sql->fetchAll(\PDO::FETCH_ASSOC);
-                        echo $result[0]['first_name'];
+                        echo $result[0]['name'];
                       ?>">
                     </div>
                     <div class="form-group">
                       <label>Last Name</label>
                       <input class="form-control" placeholder="<?php
                         $connection = connectDB();
-                        $sql = $connection->prepare(" SELECT last_name FROM MEMBER WHERE email='" . $_GET['
-                        email '] . "' ");
+                        $sql = $connection->prepare("SELECT name FROM MEMBER WHERE id='".$_GET['id']."' ");
                         $sql->execute();
                         $result = $sql->fetchAll(\PDO::FETCH_ASSOC);
-                        echo $result[0]['last_name'];
+                        echo $result[0]['name'];
                       ?>">
                     </div>
                     <div class="form-group">
                       <label>Musician name</label>
                       <input class="form-control" placeholder="<?php
                         $connection = connectDB();
-                        $sql = $connection->prepare(" SELECT musician_name FROM MEMBER WHERE email='" . $_GET['
-                        email '] . "' ");
+                        $sql = $connection->prepare("SELECT username FROM MEMBER WHERE id='".$_GET['id']."' ");
                         $sql->execute();
                         $result = $sql->fetchAll(\PDO::FETCH_ASSOC);
-                        echo $result[0]['musician_name'];
+                        echo $result[0]['username'];
                       ?>">
                     </div>
                     <button type="submit" class="btn btn-default">Submit</button>
