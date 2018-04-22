@@ -47,7 +47,23 @@
                   <tbody>
                     <?php
                       $connection = connectDB();
-                      $sql = $connection->prepare("SELECT username,name,email FROM MEMBER");
+                      $sql = $connection->prepare("SELECT COUNT(*) FROM MEMBER");
+                      $sql->execute();
+                      $result = $sql->fetchAll();
+
+                      $entries = $result['0']['0'];
+
+                      $perPage = 10;
+                      $nbPages = ceil($entries/$perPage);
+
+                      if (isset($_GET['page']) && $_GET['page'] > 0 && $_GET['page'] <= $nbPages) {
+                        $cPage = $_GET['page'];
+                      } else {
+                        $cPage = 1;
+                      }
+
+                      $connection = connectDB();
+                      $sql = $connection->prepare("SELECT username,name,email FROM MEMBER LIMIT ". (($cPage - 1) * $perPage) .", $perPage");
                       $sql->execute();
                       $result = $sql->fetchAll(\PDO::FETCH_ASSOC);
 
