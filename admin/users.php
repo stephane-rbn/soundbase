@@ -106,7 +106,6 @@
                   <div class="col-sm-6">
                     <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
                       <ul class="pagination">
-                        <li class="paginate_button previous disabled" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous"><a href="#">Previous</a></li>
                         <?php
                         $connection = connectDB();
                         $sql = $connection->prepare("SELECT COUNT(*) FROM MEMBER");
@@ -124,7 +123,13 @@
                         } else {
                           $cPage = 1;
                         }
-                        
+
+                        if ($cPage == 1) {
+                          echo '<li class="paginate_button previous disabled" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous"><a>Previous</a></li>';
+                        } else {
+                          echo '<li class="paginate_button previous" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous"><a href="?page='.($cPage - 1).'">Previous</a></li>';
+                        }
+
                         for ($i=1;$i<=$nbPages;$i++) {
                           // ternary to do here
                           if ($i == $cPage) {
