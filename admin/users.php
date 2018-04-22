@@ -45,6 +45,7 @@
                       <th>Birthday</th>
                       <th>Registration Date</th>
                       <th>Role</th>
+                      <th>Edit</th>
                     </tr>
                   </thead>
                   <tbody>
