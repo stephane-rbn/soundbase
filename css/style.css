@@ -53,16 +53,6 @@ nav a:hover {
   height: 400px;
 }
 
-#wrapper-edit-profile {
-  background-image: url("../vendor/images/editpage/background.jpg");
-  height: 400px;
-}
-
-/* bug: doesn't apply on html (temporarily wrote in style attribute instead) */
-#wrapper-settings {
-  background-image: url("../vendor/images/accountpage/background.jpg");
-  height: 400px;
-}
 
 .wrapper h1 {
   font-size: 72px;
@@ -102,7 +92,7 @@ nav a:hover {
 }
 
 .register-form input::placeholder {
-    color: #929191c5;
+  color: #929191c5;
 }
 
 @media (min-width: 768px) {
@@ -162,11 +152,22 @@ nav a:hover {
 
 /* ACCOUNT SETTINGS */
 
-/* bug: doesn't apply on html (temporarily wrote in style attribute instead) */
-/* .delete-button a {
+#wrapper-settings {
+  background-image: url("../vendor/images/accountpage/background.jpg");
+  height: 400px;
+}
+
+.delete-button a {
   color: #fff;
   text-decoration: none;
-} */
+}
+
+/* EDIT PROFILE PAGE */
+
+#wrapper-edit-profile {
+  background-image: url("../vendor/images/editpage/background.jpg");
+  height: 400px;
+}
 
 /* FOOTER */
 
