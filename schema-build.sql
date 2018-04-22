@@ -9,7 +9,7 @@ CREATE TABLE MEMBER (
     profile_photo_filename VARCHAR(100) DEFAULT 'photo.png',
     cover_photo_filename   VARCHAR(100) DEFAULT 'cover.png',
     position               INTEGER DEFAULT 0,
-    token                  VARCHAR(32)
+    token                  VARCHAR(64)
 );
 
 CREATE TABLE SUBSCRIPTION (
