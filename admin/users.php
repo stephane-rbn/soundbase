@@ -40,8 +40,8 @@
                       <th>Name</th>
                       <th>Email</th>
                       <th>Birthday</th>
-                      <th>Registration Date</th>
                       <th>Role</th>
+                      <th>Registration Date</th>
                       <th>Edit</th>
                     </tr>
                   </thead>
