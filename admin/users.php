@@ -138,9 +138,14 @@
                             echo '<li class="paginate_button" aria-controls="dataTables-example" tabindex="0"><a href="?page='.$i.'">'.$i.'</a></li>';
                           }
                         }
-                        ?>
 
-                        <li class="paginate_button next" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next"><a href="#">Next</a></li>
+                        if ($cPage == $nbPages) {
+                          echo '<li class="paginate_button next" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next"><a>Next</a></li>';
+                        } else {
+                          echo '<li class="paginate_button next" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next"><a href="?page='.($cPage + 1).'">Next</a></li>';
+                        }
+
+                        ?>
                       </ul>
                     </div>
                   </div>
