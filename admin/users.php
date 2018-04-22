@@ -90,7 +90,16 @@
                       // Yep it's an array...
                       $entries = $result['0']['0'];
 
-                      echo "Showing 1 to " . $entries . " of " . $entries . " entries";
+                      $perPage = 3;
+                      $nbPages = ceil($entries/$perPage);
+
+                      if (isset($_GET['page']) && $_GET['page'] > 0 && $_GET['page'] <= $nbPages) {
+                        $cPage = $_GET['page'];
+                      } else {
+                        $cPage = 1;
+                      }
+
+                      echo "Showing ".(($cPage - 1) * $perPage + 1)." to ".(($cPage) * $perPage)." of " . $entries . " entries";
                       ?>
                     </div>
                   </div>
