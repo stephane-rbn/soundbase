@@ -73,7 +73,16 @@
                       }
 
                       $connection = connectDB();
-                      $sql = $connection->prepare("SELECT username,name,email FROM MEMBER LIMIT ". (($cPage - 1) * $perPage) .", $perPage");
+
+                      if (isset($_GET['search'])) {
+                        $searchQuery = $_GET['search'];
+                        $searchQuery = htmlspecialchars($searchQuery);
+
+                        $sql = $connection->prepare("SELECT username,name,email,birthday,position,registration_date FROM MEMBER WHERE (`username` LIKE '%".$searchQuery."%') OR (`name` LIKE '%".$searchQuery."%') OR (`email` LIKE '%".$searchQuery."%') LIMIT ". (($cPage - 1) * $perPage) .", $perPage");
+
+                      } else {
+                        $sql = $connection->prepare("SELECT username,name,email,birthday,position,registration_date FROM MEMBER LIMIT ". (($cPage - 1) * $perPage) .", $perPage");
+                      }
                       $sql->execute();
                       $result = $sql->fetchAll(\PDO::FETCH_ASSOC);
 
