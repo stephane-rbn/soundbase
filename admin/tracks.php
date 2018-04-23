@@ -2,6 +2,10 @@
 
   include "includes/head.php";
 
+  $sql = sqlSelect("SELECT COUNT(*) as trackCount FROM TRACK");
+  $trackCount = $sql['0']['trackCount'];
+  $_SESSION["trackCount"] = $trackCount;
+
 ?>
 
 <body>
@@ -48,14 +52,9 @@
                   </thead>
                   <tbody>
                     <?php
-                      $connection = connectDB();
-                      $sql = $connection->prepare("SELECT COUNT(*) FROM TRACK");
-                      $sql->execute();
-                      $result = $sql->fetchAll();
-
-                      $entries = $result['0']['0']; // Number of entries
+                      $trackCount = $_SESSION['trackCount']; // Number of entries
                       $perPage = 10; // Number of entries per page
-                      $nbPages = ceil($entries/$perPage); // Number of pages
+                      $nbPages = ceil($trackCount/$perPage); // Number of pages
 
                       // Page shown defaults to 1, otherwise based on "?page="
                       // Checking $_GET['page'] is a possible page number to provent SQL injections
@@ -65,21 +64,17 @@
                         $cPage = 1;
                       }
 
-                      $connection = connectDB();
-
                       if (isset($_GET['search'])) {
                         $searchQuery = $_GET['search'];
                         $searchQuery = htmlspecialchars($searchQuery);
 
-                        $sql = $connection->prepare("SELECT username,name,email,birthday,position,registration_date FROM MEMBER WHERE (`username` LIKE '%".$searchQuery."%') OR (`name` LIKE '%".$searchQuery."%') OR (`email` LIKE '%".$searchQuery."%') LIMIT ". (($cPage - 1) * $perPage) .", $perPage");
+                        $trackData = sqlSelect("SELECT * FROM TRACK WHERE (`name` LIKE '%".$searchQuery."%') OR (`description` LIKE '%".$searchQuery."%') LIMIT ". (($cPage - 1) * $perPage) .", $perPage");
 
                       } else {
-                        $sql = $connection->prepare("SELECT * FROM TRACK LIMIT ". (($cPage - 1) * $perPage) .", $perPage");
+                        $trackData = sqlSelect("SELECT * FROM TRACK LIMIT ". (($cPage - 1) * $perPage) .", $perPage");
                       }
-                      $sql->execute();
-                      $result = $sql->fetchAll(\PDO::FETCH_ASSOC);
 
-                      foreach ($result as $track) {
+                      foreach ($trackData as $track) {
                         echo '<tr class="odd gradeX">';
                         echo '<td>' . $track['id'];
                         echo '<td>' . $track['title'];
@@ -98,14 +93,9 @@
                   <div class="col-sm-6">
                     <div class="dataTables_info" id="dataTables-example_info" role="status" aria-live="polite">
                       <?php
-                        $connection = connectDB();
-                        $sql = $connection->prepare("SELECT COUNT(*) FROM TRACK");
-                        $sql->execute();
-                        $result = $sql->fetchAll();
-
-                        $entries = $result['0']['0']; // Number of entries
+                        $trackCount = $_SESSION['trackCount']; // Number of entries
                         $perPage = 10; // Number of entries per page
-                        $nbPages = ceil($entries/$perPage); // Number of pages
+                        $nbPages = ceil($trackCount/$perPage); // Number of pages
 
                         // Page shown defaults to 1, otherwise based on "?page="
                         // Checking $_GET['page'] is a possible page number to provent SQL injections
@@ -117,9 +107,9 @@
 
                         if ($cPage == $nbPages) {
                           // On the last page, the last entry of the page will be the last entry
-                          echo "Showing ".(($cPage - 1) * $perPage + 1)." to ".$entries." of ".$entries." tracks";
+                          echo "Showing ".(($cPage - 1) * $perPage + 1)." to ".$trackCount." of ".$trackCount." tracks";
                         } else {
-                          echo "Showing ".(($cPage - 1) * $perPage + 1)." to ".(($cPage) * $perPage)." of ".$entries." tracks";
+                          echo "Showing ".(($cPage - 1) * $perPage + 1)." to ".(($cPage) * $perPage)." of ".$trackCount." tracks";
                         }
                       ?>
                     </div>
@@ -128,14 +118,9 @@
                     <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
                       <ul class="pagination">
                         <?php
-                          $connection = connectDB();
-                          $sql = $connection->prepare("SELECT COUNT(*) FROM TRACK");
-                          $sql->execute();
-                          $result = $sql->fetchAll();
-
-                          $entries = $result['0']['0']; // Number of entries
+                          $trackCount = $_SESSION['trackCount']; // Number of entries
                           $perPage = 10; // Number of entries per page
-                          $nbPages = ceil($entries/$perPage); // Number of pages
+                          $nbPages = ceil($trackCount/$perPage); // Number of pages
 
                           // Page shown defaults to 1, otherwise based on "?page="
                           // Checking $_GET['page'] is a possible page number to provent SQL injections
@@ -183,5 +168,8 @@
 </body>
 
 <?php
+
+  unset($_SESSION["trackCount"]);
+
   include "includes/footer.php";
 ?>

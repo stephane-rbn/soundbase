@@ -2,6 +2,10 @@
 
   include "includes/head.php";
 
+  $sql = sqlSelect("SELECT COUNT(*) as userCount FROM MEMBER");
+  $userCount = $sql['0']['userCount'];
+  $_SESSION["userCount"] = $userCount;
+
 ?>
 
 <body>
@@ -47,14 +51,9 @@
                   </thead>
                   <tbody>
                     <?php
-                      $connection = connectDB();
-                      $sql = $connection->prepare("SELECT COUNT(*) FROM MEMBER");
-                      $sql->execute();
-                      $result = $sql->fetchAll();
-
-                      $entries = $result['0']['0']; // Number of entries
+                      $userCount = $_SESSION['userCount']; // Number of entries
                       $perPage = 10; // Number of entries per page
-                      $nbPages = ceil($entries/$perPage); // Number of pages
+                      $nbPages = ceil($userCount/$perPage); // Number of pages
 
                       // Page shown defaults to 1, otherwise based on "?page="
                       // Checking $_GET['page'] is a possible page number to provent SQL injections
@@ -64,21 +63,17 @@
                         $cPage = 1;
                       }
 
-                      $connection = connectDB();
-
                       if (isset($_GET['search'])) {
                         $searchQuery = $_GET['search'];
                         $searchQuery = htmlspecialchars($searchQuery);
 
-                        $sql = $connection->prepare("SELECT username,name,email,birthday,position,registration_date FROM MEMBER WHERE (`username` LIKE '%".$searchQuery."%') OR (`name` LIKE '%".$searchQuery."%') OR (`email` LIKE '%".$searchQuery."%') LIMIT ". (($cPage - 1) * $perPage) .", $perPage");
+                        $userData = sqlSelect("SELECT username,name,email,birthday,position,registration_date FROM MEMBER WHERE (`username` LIKE '%".$searchQuery."%') OR (`name` LIKE '%".$searchQuery."%') OR (`email` LIKE '%".$searchQuery."%') LIMIT ". (($cPage - 1) * $perPage) .", $perPage");
 
                       } else {
-                        $sql = $connection->prepare("SELECT * FROM MEMBER LIMIT ". (($cPage - 1) * $perPage) .", $perPage");
+                        $userData = sqlSelect("SELECT * FROM MEMBER LIMIT ". (($cPage - 1) * $perPage) .", $perPage");
                       }
-                      $sql->execute();
-                      $result = $sql->fetchAll(\PDO::FETCH_ASSOC);
 
-                      foreach ($result as $user) {
+                      foreach ($userData as $user) {
                         echo '<tr class="odd gradeX">';
                         echo '<td>' . $user['username'];
                         echo '<td>' . $user['name'];
@@ -102,14 +97,9 @@
                   <div class="col-sm-6">
                     <div class="dataTables_info" id="dataTables-example_info" role="status" aria-live="polite">
                       <?php
-                        $connection = connectDB();
-                        $sql = $connection->prepare("SELECT COUNT(*) FROM MEMBER");
-                        $sql->execute();
-                        $result = $sql->fetchAll();
-
-                        $entries = $result['0']['0']; // Number of entries
+                        $userCount = $_SESSION['userCount']; // Number of entries
                         $perPage = 10; // Number of entries per page
-                        $nbPages = ceil($entries/$perPage); // Number of pages
+                        $nbPages = ceil($userCount/$perPage); // Number of pages
 
                         // Page shown defaults to 1, otherwise based on "?page="
                         // Checking $_GET['page'] is a possible page number to provent SQL injections
@@ -121,9 +111,9 @@
 
                         if ($cPage == $nbPages) {
                           // On the last page, the last entry of the page will be the last entry
-                          echo "Showing ".(($cPage - 1) * $perPage + 1)." to ".$entries." of ".$entries." users";
+                          echo "Showing ".(($cPage - 1) * $perPage + 1)." to ".$userCount." of ".$userCount." users";
                         } else {
-                          echo "Showing ".(($cPage - 1) * $perPage + 1)." to ".(($cPage) * $perPage)." of ".$entries." users";
+                          echo "Showing ".(($cPage - 1) * $perPage + 1)." to ".(($cPage) * $perPage)." of ".$userCount." users";
                         }
                       ?>
                     </div>
@@ -132,14 +122,9 @@
                     <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
                       <ul class="pagination">
                         <?php
-                          $connection = connectDB();
-                          $sql = $connection->prepare("SELECT COUNT(*) FROM MEMBER");
-                          $sql->execute();
-                          $result = $sql->fetchAll();
-
-                          $entries = $result['0']['0']; // Number of entries
+                          $userCount = $_SESSION['userCount']; // Number of entries
                           $perPage = 10; // Number of entries per page
-                          $nbPages = ceil($entries/$perPage); // Number of pages
+                          $nbPages = ceil($userCount/$perPage); // Number of pages
 
                           // Page shown defaults to 1, otherwise based on "?page="
                           // Checking $_GET['page'] is a possible page number to provent SQL injections
@@ -187,5 +172,8 @@
 </body>
 
 <?php
+
+  unset($_SESSION["userCount"]);
+
   include "includes/footer.php";
 ?>

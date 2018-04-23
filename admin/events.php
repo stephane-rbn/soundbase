@@ -2,6 +2,10 @@
 
   include "includes/head.php";
 
+  $sql = sqlSelect("SELECT COUNT(*) as eventCount FROM MEMBER");
+  $eventCount = $sql['0']['eventCount'];
+  $_SESSION["eventCount"] = $eventCount;
+
 ?>
 
 <body>
@@ -47,14 +51,9 @@
                   </thead>
                   <tbody>
                     <?php
-                      $connection = connectDB();
-                      $sql = $connection->prepare("SELECT COUNT(*) FROM EVENTS");
-                      $sql->execute();
-                      $result = $sql->fetchAll();
-
-                      $entries = $result['0']['0']; // Number of entries
+                      $eventCount = $_SESSION['eventCount']; // Number of entries
                       $perPage = 10; // Number of entries per page
-                      $nbPages = ceil($entries/$perPage); // Number of pages
+                      $nbPages = ceil($eventCount/$perPage); // Number of pages
 
                       // Page shown defaults to 1, otherwise based on "?page="
                       // Checking $_GET['page'] is a possible page number to provent SQL injections
@@ -64,29 +63,25 @@
                         $cPage = 1;
                       }
 
-                      $connection = connectDB();
-
                       if (isset($_GET['search'])) {
                         $searchQuery = $_GET['search'];
                         $searchQuery = htmlspecialchars($searchQuery);
 
-                        $sql = $connection->prepare("SELECT * FROM MEMBER WHERE (`username` LIKE '%".$searchQuery."%') OR (`name` LIKE '%".$searchQuery."%') OR (`email` LIKE '%".$searchQuery."%') LIMIT ". (($cPage - 1) * $perPage) .", $perPage");
+                        $eventData = sqlSelect("SELECT * FROM EVENTS WHERE (`name` LIKE '%".$searchQuery."%') OR (`description` LIKE '%".$searchQuery."%') LIMIT ". (($cPage - 1) * $perPage) .", $perPage");
 
                       } else {
-                        $sql = $connection->prepare("SELECT * FROM EVENTS LIMIT ". (($cPage - 1) * $perPage) .", $perPage");
+                        $eventData = sqlSelect("SELECT * FROM EVENTS LIMIT ". (($cPage - 1) * $perPage) .", $perPage");
                       }
-                      $sql->execute();
-                      $result = $sql->fetchAll(\PDO::FETCH_ASSOC);
 
-                      foreach ($result as $track) {
+                      foreach ($eventData as $event) {
                         echo '<tr class="odd gradeX">';
-                        echo '<td>' . $track['id'];
-                        echo '<td>' . $track['name'];
-                        echo '<td>' . $track['description'];
-                        echo '<td>' . $track['capacity'];
-                        echo '<td>' . $track['event_date'];
-                        echo '<td>' . $track['member'];
-                        echo '<td><a href="event_edit.php?id=' . $track['id'] . '">Edit</a>';
+                        echo '<td>' . $event['id'];
+                        echo '<td>' . $event['name'];
+                        echo '<td>' . $event['description'];
+                        echo '<td>' . $event['capacity'];
+                        echo '<td>' . $event['event_date'];
+                        echo '<td>' . $event['member'];
+                        echo '<td><a href="event_edit.php?id=' . $event['id'] . '">Edit</a>';
                         echo "</tr>";
                       }
                     ?>
@@ -96,14 +91,9 @@
                   <div class="col-sm-6">
                     <div class="dataTables_info" id="dataTables-example_info" role="status" aria-live="polite">
                       <?php
-                        $connection = connectDB();
-                        $sql = $connection->prepare("SELECT COUNT(*) FROM TRACK");
-                        $sql->execute();
-                        $result = $sql->fetchAll();
-
-                        $entries = $result['0']['0']; // Number of entries
+                        $eventCount = $_SESSION['eventCount']; // Number of entries
                         $perPage = 10; // Number of entries per page
-                        $nbPages = ceil($entries/$perPage); // Number of pages
+                        $nbPages = ceil($eventCount/$perPage); // Number of pages
 
                         // Page shown defaults to 1, otherwise based on "?page="
                         // Checking $_GET['page'] is a possible page number to provent SQL injections
@@ -115,9 +105,9 @@
 
                         if ($cPage == $nbPages) {
                           // On the last page, the last entry of the page will be the last entry
-                          echo "Showing ".(($cPage - 1) * $perPage + 1)." to ".$entries." of ".$entries." events";
+                          echo "Showing ".(($cPage - 1) * $perPage + 1)." to ".$eventCount." of ".$eventCount." events";
                         } else {
-                          echo "Showing ".(($cPage - 1) * $perPage + 1)." to ".(($cPage) * $perPage)." of ".$entries." events";
+                          echo "Showing ".(($cPage - 1) * $perPage + 1)." to ".(($cPage) * $perPage)." of ".$eventCount." events";
                         }
                       ?>
                     </div>
@@ -126,14 +116,9 @@
                     <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
                       <ul class="pagination">
                         <?php
-                          $connection = connectDB();
-                          $sql = $connection->prepare("SELECT COUNT(*) FROM EVENTS");
-                          $sql->execute();
-                          $result = $sql->fetchAll();
-
-                          $entries = $result['0']['0']; // Number of entries
+                          $eventCount = $_SESSION['eventCount']; // Number of entries
                           $perPage = 10; // Number of entries per page
-                          $nbPages = ceil($entries/$perPage); // Number of pages
+                          $nbPages = ceil($eventCount/$perPage); // Number of pages
 
                           // Page shown defaults to 1, otherwise based on "?page="
                           // Checking $_GET['page'] is a possible page number to provent SQL injections
@@ -181,5 +166,8 @@
 </body>
 
 <?php
+
+  unset($_SESSION["eventCount"]);
+
   include "includes/footer.php";
 ?>
