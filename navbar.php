@@ -20,7 +20,7 @@
             </li>
             <?php if (isConnected()) { ?>
               <li class="nav-item">
-                <a class="nav-link" href="profile.php">Profil</a>
+                <a class="nav-link" href="profile.php">Profile</a>
               </li>
             <?php } ?>
             <li class="nav-item">
@@ -43,17 +43,17 @@
                     echo '<a class="dropdown-item" href="admin/">Admin</a>';
                   }
                 ?>
-                <a class="dropdown-item" href="account.php">Votre compte</a>
+                <a class="dropdown-item" href="account.php">Account</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="logout.php">Se déconnecter</a>
+                <a class="dropdown-item" href="logout.php">Logout</a>
               </div>
             </li>
             <?php } else { ?>
               <li class="nav-item">
-                <a class="nav-link" href="register.php">S'inscrire</a>
+                <a class="nav-link" href="register.php">Sign up</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="login.php">Se connecter</a>
+                <a class="nav-link" href="login.php">Sign in</a>
               </li>
             <?php } ?>
           </ul>
