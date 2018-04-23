@@ -23,6 +23,7 @@ CREATE TABLE TRACK (
     title            VARCHAR(60),
     description      TEXT,
     genre            VARCHAR(30),
+    track_filename   VARCHAR(100),
     photo_filename   VARCHAR(100),
     publication_date DATE,
     member           INTEGER NOT NULL UNIQUE REFERENCES MEMBER (id)
