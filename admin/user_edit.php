@@ -30,10 +30,30 @@
             <div class="panel-body">
               <div class="row">
                 <div class="col-lg-6">
-                  <form role="form " method="POST" action="scripts/alter_user.php">
+                  <form role="form " method="POST" action="scripts/updateUser.php">
+                    <div class="form-group">
+                      <label>Username</label>
+                      <input class="form-control" name="username" value="<?php
+                        $connection = connectDB();
+                        $sql = $connection->prepare("SELECT username FROM MEMBER WHERE id='".$_GET['id']."' ");
+                        $sql->execute();
+                        $result = $sql->fetchAll(\PDO::FETCH_ASSOC);
+                        echo $result[0]['username'];
+                      ?>">
+                    </div>
+                    <div class="form-group">
+                      <label>Name</label>
+                      <input class="form-control" name="name" value="<?php
+                        $connection = connectDB();
+                        $sql = $connection->prepare("SELECT name FROM MEMBER WHERE id='".$_GET['id']."' ");
+                        $sql->execute();
+                        $result = $sql->fetchAll(\PDO::FETCH_ASSOC);
+                        echo $result[0]['name'];
+                      ?>">
+                    </div>
                     <div class="form-group">
                       <label>Email</label>
-                      <input class="form-control" value="<?php
+                      <input class="form-control" name="email" value="<?php
                         $connection = connectDB();
                         $sql = $connection->prepare("SELECT email FROM MEMBER WHERE id='".$_GET['id']."' ");
                         $sql->execute();
@@ -42,33 +62,23 @@
                       ?>">
                     </div>
                     <div class="form-group">
-                      <label>First Name</label>
-                      <input class="form-control" value="<?php
+                      <label>Birthday</label>
+                      <input class="form-control" name="birthday" value="<?php
                         $connection = connectDB();
-                        $sql = $connection->prepare("SELECT name FROM MEMBER WHERE id='".$_GET['id']."' ");
+                        $sql = $connection->prepare("SELECT birthday FROM MEMBER WHERE id='".$_GET['id']."' ");
                         $sql->execute();
                         $result = $sql->fetchAll(\PDO::FETCH_ASSOC);
-                        echo $result[0]['name'];
+                        echo $result[0]['birthday'];
                       ?>">
                     </div>
                     <div class="form-group">
-                      <label>Last Name</label>
-                      <input class="form-control" value="<?php
+                      <label>Status</label>
+                      <input class="form-control" name="position" value="<?php
                         $connection = connectDB();
-                        $sql = $connection->prepare("SELECT name FROM MEMBER WHERE id='".$_GET['id']."' ");
+                        $sql = $connection->prepare("SELECT position FROM MEMBER WHERE id='".$_GET['id']."' ");
                         $sql->execute();
                         $result = $sql->fetchAll(\PDO::FETCH_ASSOC);
-                        echo $result[0]['name'];
-                      ?>">
-                    </div>
-                    <div class="form-group">
-                      <label>Musician name</label>
-                      <input class="form-control" value="<?php
-                        $connection = connectDB();
-                        $sql = $connection->prepare("SELECT username FROM MEMBER WHERE id='".$_GET['id']."' ");
-                        $sql->execute();
-                        $result = $sql->fetchAll(\PDO::FETCH_ASSOC);
-                        echo $result[0]['username'];
+                        echo $result[0]['position'];
                       ?>">
                     </div>
                     <button type="submit" class="btn btn-default">Submit</button>
