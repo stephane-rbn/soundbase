@@ -2,7 +2,7 @@
 
   include "includes/head.php";
 
-  $sql = sqlSelect("SELECT COUNT(*) as eventCount FROM MEMBER");
+  $sql = sqlSelect("SELECT COUNT(*) as eventCount FROM EVENTS");
   $eventCount = $sql['0']['eventCount'];
   $_SESSION["eventCount"] = $eventCount;
 
