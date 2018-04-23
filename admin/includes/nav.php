@@ -8,7 +8,7 @@
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-    <a class="navbar-brand" href="../admin">
+    <a class="navbar-brand" href="../">
       <img src="../vendor/images/logo/complete-black.png" alt="Soundbase logo" width=150>
     </a>
   </div>
@@ -42,6 +42,10 @@
   <div class="navbar-default sidebar" role="navigation">
     <div class="sidebar-nav navbar-collapse">
       <ul class="nav" id="side-menu">
+        <li>
+          <a href="../admin/">
+            <i class="fa fa-home fa-fw"></i> Home</a>
+        </li>
         <li>
           <a href="users.php">
             <i class="fa fa-users fa-fw"></i> Users</a>
