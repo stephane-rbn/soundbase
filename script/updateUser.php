@@ -3,6 +3,8 @@
   require "../functions.php";
   require "../conf.inc.php";
 
+  xssProtection();
+
   if (count($_POST) === 4
     && !empty($_POST["name"])
     && !empty($_POST["username"])
