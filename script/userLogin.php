@@ -3,6 +3,8 @@
   require_once "../conf.inc.php";
   require_once "../functions.php";
 
+  xssProtection();
+
   if (count($_POST) === 2 && !empty($_POST["email"] && !empty($_POST["pwd"]))) {
 
     $_POST["email"] = strtolower($_POST["email"]);

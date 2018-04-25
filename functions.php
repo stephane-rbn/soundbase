@@ -114,3 +114,11 @@ function sqlSelect($query)
 
   return $result;
 }
+
+// Prevent XSS attacks by cleaning values posted before the main treatment of this data
+function xssProtection() {
+  foreach ($_POST as $key => $value) {
+    // Convert special characters to HTML entities
+    $_POST[$key] = htmlspecialchars($value);
+  }
+}
