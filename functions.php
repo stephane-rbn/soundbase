@@ -105,8 +105,7 @@ function isAdmin() {
   return false;
 }
 
-function sqlSelect($query)
-{
+function sqlSelect($query) {
   $connection = connectDB();
   $sql = $connection->prepare($query);
   $sql->execute();
