@@ -71,7 +71,7 @@ function loginErrorMessage() {
 function successfulUpdateMessage() {
   if (isset($_SESSION["successUpdate"]["userInfo"])) {
 
-    $message = 'Vos informations ont bien été mises à jour';
+    $message = 'Your information has been updated';
 
     echo '<div class="push"></div>';
 

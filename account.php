@@ -34,8 +34,8 @@
 ?>
 
     <div class="wrapper" id="wrapper-settings">
-      <h1>PARAMÈTRE DU COMPTE</h1>
-      <h2>MODIFIEZ OU SUPPRIMEZ VOTRE COMPTE</h2>
+      <h1>ACCOUNT SETTINGS</h1>
+      <h2>EDIT OR DELETE YOUR ACCOUNT</h2>
     </div>
 
     <div class="container-fluid"><?php successfulUpdateMessage(); ?></div>
@@ -47,7 +47,7 @@
         <div class="row">
           <div class="col-sm-6">
             <div class="form-group">
-              <label for="name">NOM</label>
+              <label for="name">NAME</label>
               <input type="text" class="form-control" name="name" value="<?php echo fillSessionFieldSettings("name"); ?>" required="required">
               <?php
                 if (isErrorPresent(1)) {
@@ -77,7 +77,7 @@
         <div class="row">
           <div class="col-sm-6">
             <div class="form-group">
-              <label for="birthday">DATE DE NAISSANCE</label>
+              <label for="birthday">BIRTHDAY</label>
               <input type="date" class="form-control" placeholder="Date d'anniversaire" name="birthday" required="required" value="<?php echo fillSessionFieldSettings("birthday"); ?>">
               <?php
                 if (isErrorPresent(3)) {
@@ -95,7 +95,7 @@
 
           <div class="col-sm-6">
             <div class="form-group">
-              <label for="email">ADRESSE EMAIL</label>
+              <label for="email">EMAIL</label>
               <input type="email" class="form-control" placeholder="orel@san.fr" name="email" value="<?php echo fillSessionFieldSettings("email"); ?>" required="required">
               <?php
                 if (isErrorPresent(6)) {
@@ -172,9 +172,9 @@
 
       <div class="jumbotron jumbotron-fluid">
         <div class="container">
-          <h3 class="display-4">Zone de danger</h3>
+          <h3 class="display-4">DANGER ZONE</h3>
           <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter">
-            Supprimer mon compte
+            Delete my account
           </button>
         </div>
       </div>
@@ -185,18 +185,18 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLongTitle">Êtes-vous sûr ?</h5>
+              <h5 class="modal-title" id="exampleModalLongTitle">Are you sure?</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
-              La suppression d'un compte est irréversible.
+              The deletion of an account is irreversible.
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
               <button type="button" class="btn btn-danger delete-button">
-                <a href="script/deleteAccount.php">Confirmer</a>
+                <a href="script/deleteAccount.php">Confirm</a>
               </button>
             </div>
           </div>
