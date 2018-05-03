@@ -69,15 +69,24 @@ function loginErrorMessage() {
 }
 
 function successfulUpdateMessage() {
-  if (isset($_SESSION["successUpdate"])) {
+  if (isset($_SESSION["successUpdate"]["userInfo"])) {
 
-  $message = 'Vos informations ont bien été mises à jour';
+    $message = 'Vos informations ont bien été mises à jour';
 
-  echo '<div class="push"></div>';
+    echo '<div class="push"></div>';
 
-  echo '<div class="alert alert-success alert-dismissible fade show" role="alert"> ' . $message .
-       '<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-       <span aria-hidden="true">&times;</span></button></div>';
+    echo '<div class="alert alert-success alert-dismissible fade show" role="alert"> ' . $message .
+        '<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span></button></div>';
+  } else if (isset($_SESSION["successUpdate"]["userPassword"])) {
+
+    $message = 'Password successfully updated';
+
+    echo '<div class="push"></div>';
+
+    echo '<div class="alert alert-success alert-dismissible fade show" role="alert"> ' . $message .
+        '<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span></button></div>';
   }
 }
 

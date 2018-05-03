@@ -118,7 +118,7 @@
 
       <hr>
 
-      <form action="" method="POST">
+      <form action="script/updatePassword.php" method="POST">
 
         <div class="row">
           <div class="col-sm-12">
@@ -163,7 +163,7 @@
         </div>
 
         <div class="form-group">
-          <button type="submit" class="btn btn-secondary" disabled>UPDATE</button>
+          <button type="submit" class="btn btn-secondary">UPDATE</button>
         </div>
 
       </form>
