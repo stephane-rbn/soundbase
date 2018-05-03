@@ -69,8 +69,9 @@
 
       $_SESSION["token"] = $newToken;
 
-      // header("Location: ../home.php");
-      echo "You password has changed with success!";
+      $_SESSION["successUpdate"]["userPassword"] = true;
+
+      header("Location: ../account.php");
     }
 
   } else {
