@@ -14,21 +14,31 @@
   // Connection to database
   $connection = connectDB();
 
-  // Query that get all data of the member
-  $query = $connection->prepare(
-    "SELECT email,name,username,birthday,profile_photo_filename,cover_photo_filename
-    FROM MEMBER
-    WHERE id=:toto AND token=:titi"
-  );
+  // Query that get all data of the member (based on data given in URL)
+
+  if (isset($_GET["username"])) {
+    $query = $connection->prepare(
+      "SELECT email,name,username,birthday,profile_photo_filename,cover_photo_filename
+      FROM MEMBER
+      WHERE username='" . $_GET['username'] . "'"
+    );
+  } else {
+    $query = $connection->prepare(
+      "SELECT email,name,username,birthday,profile_photo_filename,cover_photo_filename
+      FROM MEMBER
+      WHERE id=" . $_SESSION['id'] . " AND token='" . $_SESSION['token'] . "'"
+    );
+  }
 
   // Execute the query
-  $query->execute([
-    "toto" => $_SESSION["id"],
-    "titi" => $_SESSION["token"],
-  ]);
+  $query->execute();
 
   // Fetch data with the query and get it as an associative array
   $result = $query->fetch(PDO::FETCH_ASSOC);
+
+  if (!$result) {
+    die("This page doesn't exist");
+  }
 ?>
 
     <!-- Header - set the background image for the header in the line below -->
