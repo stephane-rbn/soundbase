@@ -134,4 +134,9 @@ function xssProtection() {
     // Convert special characters to HTML entities
     $_POST[$key] = htmlspecialchars($value);
   }
+
+  foreach ($_GET as $key => $value) {
+    // Convert special characters to HTML entities
+    $_GET[$key] = htmlspecialchars($value);
+  }
 }
