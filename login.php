@@ -15,8 +15,8 @@
 ?>
 
     <div class="wrapper" id="wrapper-login">
-      <h1>CONNECTEZ-VOUS</h1>
-      <h2>LA MUSIQUE VOUS ATTEND</h2>
+      <h1>LOG IN</h1>
+      <h2>MUSIC IS WAITING FOR YOU</h2>
     </div>
 
     <div class="push"></div>
@@ -28,12 +28,12 @@
       <form method="POST" action="script/userLogin.php">
 
         <div class="form-group">
-          <label for="email">ADRESSE EMAIL</label>
+          <label for="email">EMAIL</label>
           <input type="email" class="form-control" placeholder="orel@san.fr" name="email" value="" required="required">
         </div>
 
         <div class="form-group">
-          <label for="pwd">MOT DE PASSE</label>
+          <label for="pwd">PASSWORD</label>
           <input type="password" class="form-control" name="pwd" required="required">
         </div>
 
@@ -42,7 +42,7 @@
         </div>
 
         <p class="font-weight-light">
-          <a href="register.php" style="font-size: 14px; text-decoration: none; color: #000;">( Pas encore inscrit ? )</a>
+          <a href="register.php" style="font-size: 14px; text-decoration: none; color: #000;">( Don’t have an account? )</a>
         </p>
 
       </form>

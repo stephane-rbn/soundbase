@@ -14,8 +14,8 @@
 ?>
 
     <div class="wrapper" id="wrapper-signup">
-      <h1>INSCRIVEZ-VOUS</h1>
-      <h2>A LA VITESSE DU SON</h2>
+      <h1>SIGN UP</h1>
+      <h2>AS FAST AS SOUND</h2>
     </div>
 
     <div class="container center_div register-form">
@@ -25,7 +25,7 @@
         <div class="row">
           <div class="col-sm-6">
             <div class="form-group">
-              <label for="name">NOM</label>
+              <label for="name">NAME</label>
               <input type="text" class="form-control" placeholder="Orelsan" name="name" value="<?php echo fillSessionField("name"); ?>" required="required">
               <?php
                 if (isErrorPresent(1)) {
@@ -55,7 +55,7 @@
         <div class="row">
           <div class="col-sm-6">
             <div class="form-group">
-              <label for="birthday">DATE DE NAISSANCE</label>
+              <label for="birthday">BIRTHDAY</label>
               <input type="date" class="form-control" placeholder="Date d'anniversaire" name="birthday" required="required" value="<?php echo fillSessionField("birthday"); ?>">
               <?php
                 if (isErrorPresent(3)) {
@@ -73,7 +73,7 @@
 
           <div class="col-sm-6">
             <div class="form-group">
-              <label for="email">ADRESSE EMAIL</label>
+              <label for="email">EMAIL</label>
               <input type="email" class="form-control" placeholder="orel@san.fr" name="email" value="<?php echo fillSessionField("email"); ?>" required="required">
               <?php
                 if (isErrorPresent(6)) {
@@ -91,7 +91,7 @@
         <div class="row">
           <div class="col-sm-6">
             <div class="form-group">
-              <label for="pwd">MOT DE PASSE</label>
+              <label for="pwd">PASSWORD</label>
               <input type="password" class="form-control" name="pwd" required="required">
               <?php
                 if (isErrorPresent(8)) {
@@ -116,7 +116,7 @@
 
         <div class="form-check">
           <input type="checkbox" class="form-check-input" name="cgu" required="required">
-          <label class="form-check-label" style="margin-bottom:10px;">J'accepte les CGUs de ce site</label>
+          <label class="form-check-label" style="margin-bottom:10px;">I've read and accept the <a href="#">terms and conditions</a></label>
         </div>
 
         <div class="form-group">
@@ -124,7 +124,7 @@
         </div>
 
         <p class="font-weight-light">
-          <a href="login.php" style="font-size: 14px; text-decoration: none; color: #000;">( Déjà inscrit ? )</a>
+          <a href="login.php" style="font-size: 14px; text-decoration: none; color: #000;">( Already signed up? )</a>
         </p>
 
       </form>
