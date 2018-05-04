@@ -63,7 +63,12 @@ function isErrorPresent($errorNumber) {
 // Display login error message when submission failed
 function loginErrorMessage() {
   if (isset($_SESSION["message"])) {
-    echo '<div class="alert alert-warning" role="alert">' . $_SESSION["message"] . '</div>';
+
+    $message = "Error: please fill all fields";
+
+    echo '<div class="push"></div>';
+
+    echo '<div class="alert alert-warning" role="alert">' . $message . '</div>';
     unset($_SESSION["message"]);
   }
 }
