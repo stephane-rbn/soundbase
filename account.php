@@ -38,7 +38,15 @@
       <h2>EDIT OR DELETE YOUR ACCOUNT</h2>
     </div>
 
-    <div class="container-fluid"><?php successfulUpdateMessage(); ?></div>
+    <div class="container-fluid">
+      <?php
+        if (isset($_SESSION["message"])) {
+          loginErrorMessage();
+        } else {
+          successfulUpdateMessage();
+        }
+      ?>
+    </div>
 
     <div class="container center_div register-form">
 

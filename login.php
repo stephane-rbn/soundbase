@@ -19,8 +19,6 @@
       <h2>MUSIC IS WAITING FOR YOU</h2>
     </div>
 
-    <div class="push"></div>
-
     <div class="container-fluid"><?php loginErrorMessage(); ?></div>
 
     <div class="container center_div register-form">

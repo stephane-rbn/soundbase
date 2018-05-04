@@ -180,5 +180,6 @@
     }
 
   } else {
+    header("Location: ../account.php");
     die("Error: invalid form submission.");
   }

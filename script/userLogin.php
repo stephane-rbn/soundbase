@@ -35,7 +35,7 @@
     }
 
   } else {
-    $_SESSION["message"] = "Erreur : veuillez renseigner votre email et votre mot de passe";
+    $_SESSION["message"] = true;
     header("Location: ../login.php");
   }
 ?>
