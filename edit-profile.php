@@ -35,7 +35,7 @@
       if ($fileError === 0) {
 
         // Check if the file size doesn't exceed 2MB
-        if ($fileError < 2097152) {
+        if ($fileSize < 2097152) {
 
           $fileNewName = $_SESSION['id'] . "." . $fileExtension;
           $fileDestination = "member/avatar/" . $fileNewName;
@@ -64,7 +64,7 @@
         echo "There was an error uploading your file!";
       }
     } else {
-      echo "You cannont upload files of this type!";
+      echo "You can not upload files of this type!";
     }
   }
 ?>
