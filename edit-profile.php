@@ -13,7 +13,10 @@
 
   $connection = connectDB();
 
-  if (isset($_POST['submit']) && isset($_FILES['avatar'])) {
+  if (count($_POST) === 1
+    && isset($_POST['submit'])
+    && !empty($_FILES['avatar'])
+  ) {
 
     $fileName    = $_FILES['avatar']['name'];
     $fileTmpName = $_FILES['avatar']['tmp_name'];
