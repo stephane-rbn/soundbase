@@ -58,13 +58,13 @@
           }
 
         } else {
-          echo "Your file is too big!";
+          die("Your file is too big!");
         }
       } else {
-        echo "There was an error uploading your file!";
+        die("There was an error uploading your file!");
       }
     } else {
-      echo "You can not upload files of this type!";
+      die("You can not upload files of this type!");
     }
   }
 ?>
@@ -100,7 +100,7 @@
 
         <div class="row">
           <label>Profile picture (JPG, JPEG, PNG or GIF ) :</label>
-          <input type="file" name="avatar" />
+          <input type="file" name="avatar" required/>
         </div>
 
         <div class="row">
