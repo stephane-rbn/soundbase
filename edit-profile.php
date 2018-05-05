@@ -10,65 +10,7 @@
   require_once "conf.inc.php";
   include "head.php";
   include "navbar.php";
-
-  $connection = connectDB();
-
-  if (isset($_POST['submit']) && isset($_FILES['avatar'])) {
-
-    $fileName    = $_FILES['avatar']['name'];
-    $fileTmpName = $_FILES['avatar']['tmp_name'];
-    $fileSize    = $_FILES['avatar']['size'];
-    $fileError   = $_FILES['avatar']['error'];
-
-    // Split the file name into an array by the separating the string into substrings using the '.' character
-    $fileNameArray = explode('.', $fileName);
-
-    // Get the last element of the array and make it in lower case
-    $fileExtension = strtolower(end($fileNameArray));
-
-    $allowedExtensions = ['jpg', 'jpeg', 'gif', 'png'];
-
-    // Check if the given file owns an allowed extension
-    if (in_array($fileExtension, $allowedExtensions)) {
-
-      // Check error at upload
-      if ($fileError === 0) {
-
-        // Check if the file size doesn't exceed 2MB
-        if ($fileError < 2097152) {
-
-          $fileNewName = $_SESSION['id'] . "." . $fileExtension;
-          $fileDestination = "member/avatar/" . $fileNewName;
-
-          // Move the upload file from its tmp directory to its final destination
-          // $result's value is true when the move succeeds
-          $result = move_uploaded_file($fileTmpName, $fileDestination);
-
-          if ($result) {
-            $query = $connection->prepare('UPDATE MEMBER SET profile_photo_filename=:profile_photo_filename WHERE id=:id');
-
-            $query->execute([
-              'profile_photo_filename' => $_SESSION['id'] . "." . $fileExtension,
-              'id'                     => $_SESSION['id']
-            ]);
-
-            unset($_POST['submit']);
-
-            header('Location: profile.php');
-          }
-
-        } else {
-          echo "Your file is too big!";
-        }
-      } else {
-        echo "There was an error uploading your file!";
-      }
-    } else {
-      echo "You cannont upload files of this type!";
-    }
-  }
 ?>
-
 
     <div class="wrapper" id="wrapper-edit-profile">
       <h1>EDIT PROFILE</h1>
@@ -81,7 +23,7 @@
 
     <div class="container center_div register-form">
 
-      <form method="POST" enctype="multipart/form-data">
+      <form action="script/uploadProfilePhotos.php" method="POST" enctype="multipart/form-data">
         <!-- <div class="row">
           <div class="form-group col-sm-12">
             <label>PROFILE PICTURE</label>
@@ -99,13 +41,43 @@
         </div> -->
 
         <div class="row">
-          <label>Profile picture (JPG, JPEG, PNG or GIF ) :</label>
-          <input type="file" name="avatar" />
+          <label>File (JPG, JPEG, PNG or GIF ) :</label>
+          <input type="file" name="avatar" required/>
         </div>
 
         <div class="row">
           <div class="form-group col-sm-12">
-            <input type="submit" name="submit" value="UPDATE PROFILE PICTURE" />
+            <input type="submit" name="submit-avatar" value="UPDATE PROFILE PICTURE" />
+          </div>
+        </div>
+
+      </form>
+
+      <form action="script/uploadProfilePhotos.php" method="POST" enctype="multipart/form-data">
+        <!-- <div class="row">
+          <div class="form-group col-sm-12">
+            <label>PROFILE PICTURE</label>
+            <div class="custom-file">
+              <input type="file" name="avatar" />
+              <label class="custom-file-label" for="avatar">Choose file (JPG, JPEG, PNG or GIF)</label>
+            </div>
+          </div>
+        </div> -->
+
+        <!-- <div class="row">
+          <div class="form-group col-sm-12">
+            <button type="submit" class="btn btn-secondary">UPDATE PROFILE PICTURE</button>
+          </div>
+        </div> -->
+
+        <div class="row">
+          <label>File (JPG, JPEG, PNG or GIF ) :</label>
+          <input type="file" name="cover" required/>
+        </div>
+
+        <div class="row">
+          <div class="form-group col-sm-12">
+            <input type="submit" name="submit-cover" value="UPDATE PROFILE COVER" />
           </div>
         </div>
 
