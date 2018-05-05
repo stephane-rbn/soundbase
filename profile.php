@@ -42,7 +42,13 @@
 ?>
 
     <!-- Header - set the background image for the header in the line below -->
-    <header class="py-5 bg-image-full" style="background-image: url('https://unsplash.it/1900/1080?image=1076');">
+    <header class="py-5 bg-image-full" style="background-image: url('<?php
+        if ($result["cover_photo_filename"] !== "cover.png") {
+          echo "member/cover/" . $result["cover_photo_filename"];
+        } else {
+          echo "https://unsplash.it/1900/1080?image=1076";
+        }
+      ?>');">
 
       <?php if ($result["profile_photo_filename"] !== "photo.png") { ?>
 
