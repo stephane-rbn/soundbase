@@ -43,6 +43,7 @@
                     echo '<a class="dropdown-item" href="admin/">Admin</a>';
                   }
                 ?>
+                <a class="dropdown-item" href="edit-profile.php">Edit profile</a>
                 <a class="dropdown-item" href="account.php">Settings</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="logout.php">Logout</a>

@@ -13,43 +13,60 @@
 
   $connection = connectDB();
 
-  if (isset($_FILES['avatar']) && !empty($_FILES['avatar']['name'])) {
+  if (isset($_POST['submit']) && isset($_FILES['avatar'])) {
 
-    // Fix member profile picture max size to 2MB
-    $maxsize = 2097152;
-    $validFormats = ['jpg', 'jpeg', 'gif', 'png'];
+    $fileName    = $_FILES['avatar']['name'];
+    $fileTmpName = $_FILES['avatar']['tmp_name'];
+    $fileSize    = $_FILES['avatar']['size'];
+    $fileError   = $_FILES['avatar']['error'];
 
-    if ($_FILES['avatar']['size'] <= $maxsize) {
+    // Split the file name into an array by the separating the string into substrings using the '.' character
+    $fileNameArray = explode('.', $fileName);
 
-      $extensionUpload = strtolower(substr(strrchr($_FILES['avatar']['name'], '.'), 1));
+    // Get the last element of the array and make it in lower case
+    $fileExtension = strtolower(end($fileNameArray));
 
-      if (in_array($extensionUpload, $validFormats)) {
+    $allowedExtensions = ['jpg', 'jpeg', 'gif', 'png'];
 
-        $path = "member/avatar/" . $_SESSION['id'] . "." . $extensionUpload;
-        $result = move_uploaded_file($_FILES['avatar']['tmp_name'],$path);
+    // Check if the given file owns an allowed extension
+    if (in_array($fileExtension, $allowedExtensions)) {
 
-        if ($result) {
-          $updateAvatar = $connection->prepare('UPDATE MEMBER SET profile_photo_filename=:profile_photo_filename WHERE id=:id');
-          $updateAvatar->execute([
-            'profile_photo_filename' => $_SESSION['id'] . "." . $extensionUpload,
-            'id'                     => $_SESSION['id']
-          ]);
+      // Check error at upload
+      if ($fileError === 0) {
 
-          header('Location: profile.php');
+        // Check if the file size doesn't exceed 2MB
+        if ($fileError < 2097152) {
+
+          $fileNewName = $_SESSION['id'] . "." . $fileExtension;
+          $fileDestination = "member/avatar/" . $fileNewName;
+
+          // Move the upload file from its tmp directory to its final destination
+          // $result's value is true when the move succeeds
+          $result = move_uploaded_file($fileTmpName, $fileDestination);
+
+          if ($result) {
+            $query = $connection->prepare('UPDATE MEMBER SET profile_photo_filename=:profile_photo_filename WHERE id=:id');
+
+            $query->execute([
+              'profile_photo_filename' => $_SESSION['id'] . "." . $fileExtension,
+              'id'                     => $_SESSION['id']
+            ]);
+
+            unset($_POST['submit']);
+
+            header('Location: profile.php');
+          }
+
         } else {
-          //message d'erreur "Erreur durant l'importation de votre photo de profil"
-          echo "Error while importing your file ";
+          echo "Your file is too big!";
         }
       } else {
-        //message d'erreur "Votre photo de profil doit être au format jpg, jpeg, gif ou png"
-        echo "Your file must be in the format jpg, jpeg, gif ou png";
+        echo "There was an error uploading your file!";
       }
     } else {
-      //message d'erreur "Votre photo de profil ne doit pas dépasser 10 Mo"
-      echo "Your file should not exceed 2Mo";
+      echo "You cannont upload files of this type!";
     }
   }
-
 ?>
 
 
