@@ -150,6 +150,23 @@ nav a:hover {
   -o-background-size: cover;
 }
 
+header {
+  position: relative;
+}
+
+.cover-buttons {
+  bottom: 30px;
+  position: absolute;
+}
+
+.edit-button {
+  right: 50px;
+}
+
+.delete-button {
+  right: 30px;
+}
+
 /* ACCOUNT SETTINGS */
 
 #wrapper-settings {
