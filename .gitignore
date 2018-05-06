@@ -4,7 +4,5 @@ docker-compose.yml
 docker_bdd/
 launch.json
 test.php
-member/avatar/*
-!member/avatar/.keep
-member/cover/*
-!member/cover/.keep
+uploads/*/*/*
+!uploads/**/.keep
