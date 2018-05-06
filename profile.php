@@ -16,7 +16,7 @@
       FROM MEMBER
       WHERE username='" . $_GET['username'] . "'"
     );
-  } else if ($_GET["username"] !== null) {
+  } else {
       if (!isConnected()) {
         header("Location: login.php");
       } else {
