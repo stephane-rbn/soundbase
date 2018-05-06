@@ -2,12 +2,6 @@
   session_start();
 
   require_once "functions.php";
-
-  // redirect to login page if not connected
-  if (!isConnected()) {
-    header("Location: login.php");
-  }
-
   require "head.php";
   include "navbar.php";
 
@@ -22,12 +16,16 @@
       FROM MEMBER
       WHERE username='" . $_GET['username'] . "'"
     );
-  } else {
-    $query = $connection->prepare(
-      "SELECT email,name,username,birthday,profile_photo_filename,cover_photo_filename
-      FROM MEMBER
-      WHERE id=" . $_SESSION['id'] . " AND token='" . $_SESSION['token'] . "'"
-    );
+  } else if ($_GET["username"] !== null) {
+      if (!isConnected()) {
+        header("Location: login.php");
+      } else {
+        $query = $connection->prepare(
+          "SELECT email,name,username,birthday,profile_photo_filename,cover_photo_filename
+          FROM MEMBER
+          WHERE id=" . $_SESSION['id'] . " AND token='" . $_SESSION['token'] . "'"
+        );
+      }
   }
 
   // Execute the query
