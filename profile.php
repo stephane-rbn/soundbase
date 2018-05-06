@@ -12,7 +12,7 @@
 
   if (isset($_GET["username"])) {
     $query = $connection->prepare(
-      "SELECT email,name,username,birthday,profile_photo_filename,cover_photo_filename
+      "SELECT id,email,name,username,birthday,profile_photo_filename,cover_photo_filename
       FROM MEMBER
       WHERE username='" . $_GET['username'] . "'"
     );
@@ -21,7 +21,7 @@
         header("Location: login.php");
       } else {
         $query = $connection->prepare(
-          "SELECT email,name,username,birthday,profile_photo_filename,cover_photo_filename
+          "SELECT id,email,name,username,birthday,profile_photo_filename,cover_photo_filename
           FROM MEMBER
           WHERE id=" . $_SESSION['id'] . " AND token='" . $_SESSION['token'] . "'"
         );
@@ -57,6 +57,24 @@
         <img class="img-fluid d-block mx-auto" src="http://placehold.it/200x200&text=Logo" alt="">
 
       <?php }?>
+
+      <?php
+        if (isConnected()) {
+          if (!isset($_GET["username"])) {
+            echo '<a href="edit-profile.php" class="edit-button cover-buttons" style="color: #d6d6d6" title="Edit cover picture"><i class="fas fa-edit"></i></a>';
+            if ($result["cover_photo_filename"] !== 'cover.png') {
+              echo '<a href="#" class="delete-button cover-buttons" style="color: #d6d6d6" title="Delete cover picture"><i class="fas fa-trash-alt"></i></a>';
+            }
+          } else {
+            if ($result["id"] === $_SESSION["id"]) {
+              echo '<a href="edit-profile.php" class="edit-button cover-buttons" style="color: #d6d6d6" title="Edit cover picture"><i class="fas fa-edit"></i></a>';
+              if ($result["cover_photo_filename"] !== 'cover.png') {
+                echo '<a href="#" class="delete-button cover-buttons" style="color: #d6d6d6" title="Delete cover picture"><i class="fas fa-trash-alt"></i></a>';
+              }
+            }
+          }
+        }
+      ?>
 
     </header>
 
