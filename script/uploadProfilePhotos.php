@@ -34,7 +34,7 @@
           if ($fileSize < 2097152) {
 
             $fileNewName = $_SESSION['id'] . "." . $fileExtension;
-            $fileDestination = "../member/avatar/" . $fileNewName;
+            $fileDestination = "../uploads/member/avatar/" . $fileNewName;
 
             // Move the upload file from its tmp directory to its final destination
             // $result's value is true when the move succeeds
@@ -88,7 +88,7 @@
           if ($fileSize < 2097152) {
 
             $fileNewName = $_SESSION['id'] . "." . $fileExtension;
-            $fileDestination = "../member/cover/" . $fileNewName;
+            $fileDestination = "../uploads/member/cover/" . $fileNewName;
 
             // Move the upload file from its tmp directory to its final destination
             // $result's value is true when the move succeeds
