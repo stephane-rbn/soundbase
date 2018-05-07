@@ -87,6 +87,30 @@
       </div>
     </section>
 
+    <hr width="500px">
+
+    <!-- Content section -->
+    <section class="py-5">
+      <div class="container">
+        <h1><?php echo "{$result["username"]}'s tracks"; ?></h1>
+
+        <br>
+        <?php
+          $trackData = sqlSelect("SELECT * FROM TRACK WHERE id=" . $result["id"]);
+          foreach ($trackData as $track) {
+            echo "<center>";
+            echo "<h2>" . $track['title'] . "</h2>";
+            echo '<img src="uploads/tracks/album_cover/'. $track['photo_filename'] . '" height="100px">';
+            echo '<audio controls>';
+            echo '<source src="uploads/tracks/files/' . $track['track_filename'] . '" type="audio/flac">';
+            echo '</audio><br> Artist: ' . $track['member'] . '<br> Genre: ' . $track['genre'] . '<br> Publication: ' . $track['publication_date'] . '<br>';
+            echo '<hr>';
+            echo '</center>';
+          }
+        ?>
+      </div>
+    </section>
+
     <!-- Image Section - set the background image for the header in the line below -->
     <section class="py-5 bg-image-full" style="background-image: url('https://unsplash.it/1900/1080?image=1081');">
       <!-- Put anything you want here! There is just a spacer below for demo purposes! -->
