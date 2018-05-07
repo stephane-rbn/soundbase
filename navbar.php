@@ -33,22 +33,22 @@
               <a class="nav-link" href="#">Contact</a>
             </li>
             <?php if (isConnected()) { ?>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Account
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <?php
-                  if (isAdmin()) {
-                    echo '<a class="dropdown-item" href="admin/">Admin</a>';
-                  }
-                ?>
-                <a class="dropdown-item" href="edit-profile.php">Edit profile</a>
-                <a class="dropdown-item" href="account.php">Settings</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="logout.php">Logout</a>
-              </div>
-            </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Account
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <?php
+                    if (isAdmin()) {
+                      echo '<a class="dropdown-item" href="admin/">Admin</a>';
+                    }
+                  ?>
+                  <a class="dropdown-item" href="edit-profile.php">Edit profile</a>
+                  <a class="dropdown-item" href="account.php">Settings</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="logout.php">Logout</a>
+                </div>
+              </li>
             <?php } else { ?>
               <li class="nav-item">
                 <a class="nav-link" href="register.php">Sign up</a>
@@ -57,6 +57,18 @@
                 <a class="nav-link" href="login.php">Sign in</a>
               </li>
             <?php } ?>
+            <?php if (isConnected()) { ?>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fas fa-plus"></i>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="#">New track</a>
+                  <a class="dropdown-item" href="#">New playlist</a>
+                </div>
+              </li>
+            <?php } ?>
+            ?>
           </ul>
         </div>
       </div>
