@@ -53,7 +53,6 @@ nav a:hover {
   height: 400px;
 }
 
-
 .wrapper h1 {
   font-size: 72px;
   font-weight: normal;
@@ -99,7 +98,6 @@ nav a:hover {
   .register-form {
     max-width: 700px;
   }
-
   .register-form input[type="date"] {
     font-size: 15px;
   }
@@ -109,12 +107,10 @@ nav a:hover {
   .register-form .form-group {
     font-size: 13px;
   }
-
   .register-form input::placeholder {
     color: #929191c5;
     font-size: 13px;
   }
-
   .register-form input[type="date"] {
     font-size: 15px;
   }
@@ -205,4 +201,89 @@ footer a:hover {
 
 .push {
   height: 37px;
+}
+
+/* HOME */
+
+.home-feed {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-row-gap: 4em;
+  margin: 2em 0em;
+}
+
+.track-wrapper {
+  grid-column: 2;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  grid-template-rows: 1fr 3fr 0.5fr;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  border: solid;
+  border-radius: 10px;
+  border-color: grey;
+  padding: 1em;
+}
+
+.track-wrapper h2 {
+  grid-column: 2;
+  margin-top: 0.5em;
+}
+
+.track-wrapper h3 {
+  font-size: 1.1em;
+}
+
+.track-cover {
+  grid-column: 1;
+  grid-row: 2;
+  margin-left: 2em;
+}
+
+.track-cover {
+  height: 220px;
+}
+
+.track-content {
+  display: grid;
+  grid-template-rows: 2fr 1fr;
+  /* Different behavior on Chrome/Firefox
+  margin-left: auto;
+  margin-right: auto; */
+}
+
+.track-content audio {
+  margin: 3em 1em 2em 1em;
+}
+
+.track-info {
+  grid-row: 2;
+  margin-top: 1em;
+}
+
+@media only screen and (max-width: 768px) {
+  .home-feed {
+    grid-template-columns: 1fr 4fr 1fr;
+  }
+  .track-wrapper {
+    grid-template-rows: 0.5fr 2fr 1fr;
+  }
+  .track-wrapper h2 {
+    grid-column: 1;
+  }
+  .track-cover {
+    grid-column: 1;
+    grid-row: 2;
+    margin: auto;
+  }
+  .track-cover {
+    height: 300px;
+  }
+  .track-content {
+    grid-column: 1;
+  }
+  .track-info {
+    margin-top: 1em;
+  }
 }
