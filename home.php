@@ -21,8 +21,10 @@
         <?php
           $trackData = sqlSelect("SELECT * FROM TRACK");
           foreach ($trackData as $track) {
+            $artistQuery = sqlSelect("SELECT name FROM MEMBER WHERE ID = ".$track['member']);
+            $artist = $artistQuery[0]['name'];
             echo '<div class="track-wrapper">';
-              echo "<h2>" . $track['member'] . " - " .$track['title'] . "</h2>";
+              echo "<h2>" . $artist . " - " .$track['title'] . "</h2>";
               echo '<img class="track-cover" src="uploads/tracks/album_cover/'. $track['photo_filename'] . '">';
               echo '<div class="track-content">';
                 echo '<audio controls>';
