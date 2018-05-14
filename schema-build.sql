@@ -9,6 +9,7 @@ CREATE TABLE MEMBER (
     profile_photo_filename VARCHAR(100) DEFAULT 'photo.png',
     cover_photo_filename   VARCHAR(100) DEFAULT 'cover.png',
     position               INTEGER DEFAULT 0,
+    description            TEXT,
     token                  VARCHAR(64)
 );
 
