@@ -33,7 +33,7 @@
           // Check if the file size doesn't exceed 2MB
           if ($fileSize < 2097152) {
 
-            $fileNewName = $_SESSION['id'] . "." . $fileExtension;
+            $fileNewName = $_SESSION['id'] . "-" . uniqid() . "." . $fileExtension;
             $fileDestination = "../uploads/member/avatar/" . $fileNewName;
 
             // Move the upload file from its tmp directory to its final destination
@@ -44,7 +44,7 @@
               $query = $connection->prepare('UPDATE MEMBER SET profile_photo_filename=:profile_photo_filename WHERE id=:id');
 
               $query->execute([
-                'profile_photo_filename' => $_SESSION['id'] . "." . $fileExtension,
+                'profile_photo_filename' => $fileNewName,
                 'id'                     => $_SESSION['id']
               ]);
 
@@ -87,7 +87,7 @@
           // Check if the file size doesn't exceed 2MB
           if ($fileSize < 2097152) {
 
-            $fileNewName = $_SESSION['id'] . "." . $fileExtension;
+            $fileNewName = $_SESSION['id'] . "-" . uniqid() . "." . $fileExtension;
             $fileDestination = "../uploads/member/cover/" . $fileNewName;
 
             // Move the upload file from its tmp directory to its final destination
@@ -98,7 +98,7 @@
               $query = $connection->prepare('UPDATE MEMBER SET cover_photo_filename=:cover_photo_filename WHERE id=:id');
 
               $query->execute([
-                'cover_photo_filename'   => $_SESSION['id'] . "." . $fileExtension,
+                'cover_photo_filename'   => $fileNewName,
                 'id'                     => $_SESSION['id']
               ]);
 
