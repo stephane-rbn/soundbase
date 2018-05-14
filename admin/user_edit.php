@@ -58,10 +58,16 @@
                     </div>
                     <div class="form-group">
                       <label>Status</label>
-                      <input class="form-control" name="position" value="<?php
+                      <select class="form-control form-control-sm">
+                      <?php
                         $result = sqlSelect("SELECT position FROM MEMBER WHERE id='".$_GET['id']."' ");
-                        echo $result[0]['position'];
-                      ?>">
+                        $status = $result[0]['position'];
+
+                        echo '<option value="0"' . (($status == 1) ? 'selected="selected"' : '') . '>User</option>';
+                        echo '<option value="1"' . (($status == 2) ? 'selected="selected"' : '') . '>Admin</option>';
+                        echo '<option value="2"' . (($status == 3) ? 'selected="selected"' : '') . '>Banned</option>';
+                      ?>
+                      </select>
                     </div>
                     <button type="submit" class="btn btn-default">Submit</button>
                     <button type="reset" class="btn btn-default">Reset</button>
