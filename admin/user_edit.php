@@ -12,10 +12,7 @@
         <div class="col-lg-12">
           <h1 class="page-header"> Edit
             <?php
-              $connection = connectDB();
-              $sql = $connection->prepare("SELECT username FROM MEMBER WHERE id='".$_GET['id']."' ");
-              $sql->execute();
-              $result = $sql->fetchAll(\PDO::FETCH_ASSOC);
+              $result = sqlSelect("SELECT username FROM MEMBER WHERE id='".$_GET['id']."'");
               echo $result[0]['username'];
             ?>
           </h1>
@@ -34,52 +31,43 @@
                     <div class="form-group">
                       <label>Username</label>
                       <input class="form-control" name="username" value="<?php
-                        $connection = connectDB();
-                        $sql = $connection->prepare("SELECT username FROM MEMBER WHERE id='".$_GET['id']."' ");
-                        $sql->execute();
-                        $result = $sql->fetchAll(\PDO::FETCH_ASSOC);
+                        $result = sqlSelect("SELECT username FROM MEMBER WHERE id='".$_GET['id']."' ");
                         echo $result[0]['username'];
                       ?>">
                     </div>
                     <div class="form-group">
                       <label>Name</label>
                       <input class="form-control" name="name" value="<?php
-                        $connection = connectDB();
-                        $sql = $connection->prepare("SELECT name FROM MEMBER WHERE id='".$_GET['id']."' ");
-                        $sql->execute();
-                        $result = $sql->fetchAll(\PDO::FETCH_ASSOC);
+                        $result = sqlSelect("SELECT name FROM MEMBER WHERE id='".$_GET['id']."' ");
                         echo $result[0]['name'];
                       ?>">
                     </div>
                     <div class="form-group">
                       <label>Email</label>
-                      <input class="form-control" name="email" value="<?php
-                        $connection = connectDB();
-                        $sql = $connection->prepare("SELECT email FROM MEMBER WHERE id='".$_GET['id']."' ");
-                        $sql->execute();
-                        $result = $sql->fetchAll(\PDO::FETCH_ASSOC);
+                      <input type="email" class="form-control" name="email" value="<?php
+                        $result = sqlSelect("SELECT email FROM MEMBER WHERE id='".$_GET['id']."' ");
                         echo $result[0]['email'];
                       ?>">
                     </div>
                     <div class="form-group">
                       <label>Birthday</label>
-                      <input class="form-control" name="birthday" value="<?php
-                        $connection = connectDB();
-                        $sql = $connection->prepare("SELECT birthday FROM MEMBER WHERE id='".$_GET['id']."' ");
-                        $sql->execute();
-                        $result = $sql->fetchAll(\PDO::FETCH_ASSOC);
+                      <input type="date" class="form-control" name="birthday" value="<?php
+                        $result = sqlSelect("SELECT birthday FROM MEMBER WHERE id='".$_GET['id']."' ");
                         echo $result[0]['birthday'];
                       ?>">
                     </div>
                     <div class="form-group">
                       <label>Status</label>
-                      <input class="form-control" name="position" value="<?php
-                        $connection = connectDB();
-                        $sql = $connection->prepare("SELECT position FROM MEMBER WHERE id='".$_GET['id']."' ");
-                        $sql->execute();
-                        $result = $sql->fetchAll(\PDO::FETCH_ASSOC);
-                        echo $result[0]['position'];
-                      ?>">
+                      <select class="form-control form-control-sm">
+                      <?php
+                        $result = sqlSelect("SELECT position FROM MEMBER WHERE id='".$_GET['id']."' ");
+                        $status = $result[0]['position'];
+
+                        echo '<option value="0"' . (($status == 1) ? 'selected="selected"' : '') . '>User</option>';
+                        echo '<option value="1"' . (($status == 2) ? 'selected="selected"' : '') . '>Admin</option>';
+                        echo '<option value="2"' . (($status == 3) ? 'selected="selected"' : '') . '>Banned</option>';
+                      ?>
+                      </select>
                     </div>
                     <button type="submit" class="btn btn-default">Submit</button>
                     <button type="reset" class="btn btn-default">Reset</button>
