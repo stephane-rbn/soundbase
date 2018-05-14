@@ -44,14 +44,14 @@
                     </div>
                     <div class="form-group">
                       <label>Email</label>
-                      <input class="form-control" name="email" value="<?php
+                      <input type="email" class="form-control" name="email" value="<?php
                         $result = sqlSelect("SELECT email FROM MEMBER WHERE id='".$_GET['id']."' ");
                         echo $result[0]['email'];
                       ?>">
                     </div>
                     <div class="form-group">
                       <label>Birthday</label>
-                      <input class="form-control" name="birthday" value="<?php
+                      <input type="date" class="form-control" name="birthday" value="<?php
                         $result = sqlSelect("SELECT birthday FROM MEMBER WHERE id='".$_GET['id']."' ");
                         echo $result[0]['birthday'];
                       ?>">
