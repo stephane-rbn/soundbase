@@ -12,7 +12,7 @@
 
   if (isset($_GET["username"])) {
     $query = $connection->prepare(
-      "SELECT id,email,name,username,birthday,profile_photo_filename,cover_photo_filename
+      "SELECT id,email,name,username,birthday,profile_photo_filename,cover_photo_filename,description
       FROM MEMBER
       WHERE username='" . $_GET['username'] . "'"
     );
@@ -21,7 +21,7 @@
         header("Location: login.php");
       } else {
         $query = $connection->prepare(
-          "SELECT id,email,name,username,birthday,profile_photo_filename,cover_photo_filename
+          "SELECT id,email,name,username,birthday,profile_photo_filename,cover_photo_filename,description
           FROM MEMBER
           WHERE id=" . $_SESSION['id'] . " AND token='" . $_SESSION['token'] . "'"
         );
@@ -82,8 +82,13 @@
     <section class="py-5">
       <div class="container">
         <h1><?php echo "Profil de {$result["name"]}"; ?></h1>
-        <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, suscipit, rerum quos facilis repellat architecto commodi officia atque nemo facere eum non illo voluptatem quae delectus odit vel itaque amet.</p>
+        <p class="lead"><?php
+          if (!empty($result["description"]) && $result["description"] !== NULL) {
+            echo $result["description"];
+          } else {
+            echo "No description";
+          }
+        ?></p>
       </div>
     </section>
 
