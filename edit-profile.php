@@ -1,13 +1,23 @@
 <?php
   session_start();
   require "functions.php";
+  require_once "conf.inc.php";
 
   // redirect to home.php file if already connected
   if (!isConnected()) {
     header("Location: login.php");
+  } else {
+    $connection = connectDB();
+
+    $query = $connection->prepare(
+      "SELECT id,email,name,username,birthday,profile_photo_filename,cover_photo_filename,description FROM MEMBER WHERE id=" . $_SESSION['id']
+    );
+
+    $query->execute();
+
+    $result = $query->fetch(PDO::FETCH_ASSOC);
   }
 
-  require_once "conf.inc.php";
   include "head.php";
   include "navbar.php";
 ?>
@@ -78,6 +88,27 @@
         <div class="row">
           <div class="form-group col-sm-12">
             <input type="submit" name="submit-cover" value="UPDATE PROFILE COVER" />
+          </div>
+        </div>
+
+      </form>
+
+      <form action="script/uploadDescription.php" method="POST" enctype="multipart/form-data">
+
+        <div class="row">
+          <label>Description (2500 caractères maximum):</label>
+          <textarea name="description" onkeyup="displayStrLength(2500);" id="textarea" class="form-control" rows="10" placeholder ="Your description .."><?php
+            if (!empty($result["description"]) && $result["description"] !== NULL) {
+              echo $result["description"];
+            } ?></textarea>
+          <p id="count"></p>
+        </div>
+
+        <input type="hidden" name="maxLength" value="2500">
+
+        <div class="row">
+          <div class="form-group col-sm-12">
+            <input type="submit" name="submit-description" value="UPDATE PROFILE DESCRIPTION" />
           </div>
         </div>
 
