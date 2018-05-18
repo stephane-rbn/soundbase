@@ -14,4 +14,8 @@ $listOfErrors = [
   9  => "Confirmation password doesn't match",
   10 => "Username already taken",
   11 => "Wrong password",
+  12 => "Your description exceeds 2500 characters",
+  13 => "Your file is too big!",
+  14 => "There was an error uploading your file!",
+  15 => "You can not upload files of this type!"
 ];

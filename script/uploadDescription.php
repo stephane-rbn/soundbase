@@ -10,6 +10,9 @@
     && isset($_POST['maxLength'])
     && !empty($_POST['description'])
   ) {
+    $error = false;
+    $listOfErrors = [];
+
     if (strlen($_POST['description']) <= $_POST['maxLength']) {
 
       $connection = connectDB();
@@ -23,11 +26,24 @@
 
       unset($_POST['maxLength']);
 
-      header('Location: ../profile.php');
+      $_SESSION["successUpdate"]["description"] = true;
+
+      header('Location: ../edit-profile.php');
 
     } else {
-      die("Your description exceeds 2500 characters");
+      // die("Your description exceeds 2500 characters");
+      $error = true;
+      $listOfErrors[] = 12;
     }
+
+    if ($error) {
+      $_SESSION["message"] = true;
+      $_SESSION["errorForm"] = $listOfErrors;
+      $_SESSION["postForm"] = $_POST;
+
+      header("Location: ../edit-profile.php");
+    }
+
   } else {
     die("Error: invalid form submission.");
   }

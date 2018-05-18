@@ -9,6 +9,9 @@
 
   if (count($_POST) === 1) {
 
+    $error = false;
+    $listOfErrors = [];
+
     if (isset($_POST['submit-avatar']) && !empty($_FILES['avatar'])) {
 
       $fileName    = $_FILES['avatar']['name'];
@@ -51,18 +54,31 @@
               unset($_FILES);
               unset($_POST['submit-avatar']);
 
-              header('Location: ../profile.php');
+              $_SESSION["successUpdate"]["avatar"] = true;
+
+              header('Location: ../edit-profile.php');
             }
 
           } else {
-            die("Your file is too big!");
+            $error = true;
+            $listOfErrors = 13;
           }
         } else {
-          die("There was an error uploading your file!");
+          $error = true;
+          $listOfErrors = 14;
         }
       } else {
-        die("You can not upload files of this type!");
+        $error = true;
+        $listOfErrors = 15;
       }
+
+      if ($error) {
+        $_SESSION["errorForm"] = $listOfErrors;
+        $_SESSION["postForm"] = $_POST;
+
+        header("Location: ../edit-profile.php");
+      }
+
     } else if (isset($_POST['submit-cover']) && !empty($_FILES['cover'])) {
 
       $fileName    = $_FILES['cover']['name'];
@@ -105,18 +121,32 @@
               unset($_FILES);
               unset($_POST['submit-cover']);
 
-              header('Location: ../profile.php');
+              $_SESSION["successUpdate"]["cover"] = true;
+
+              header('Location: ../edit-profile.php');
             }
 
           } else {
-            die("Your file is too big!");
+            $error = true;
+            $listOfErrors = 13;
           }
         } else {
-          die("There was an error uploading your file!");
+          $error = true;
+          $listOfErrors = 14;
         }
       } else {
-        die("You can not upload files of this type!");
+        $error = true;
+        $listOfErrors = 15;
       }
+
+      if ($error) {
+        $_SESSION["message"] = true;
+        $_SESSION["errorForm"] = $listOfErrors;
+        $_SESSION["postForm"] = $_POST;
+
+        header("Location: ../edit-profile.php");
+      }
+
     } else {
       die("Error: invalid form submission.");
     }
