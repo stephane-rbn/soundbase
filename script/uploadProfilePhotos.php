@@ -61,15 +61,15 @@
 
           } else {
             $error = true;
-            $listOfErrors = 13;
+            $listOfErrors[] = 13;
           }
         } else {
           $error = true;
-          $listOfErrors = 14;
+          $listOfErrors[] = 14;
         }
       } else {
         $error = true;
-        $listOfErrors = 15;
+        $listOfErrors[] = 15;
       }
 
       if ($error) {
@@ -128,15 +128,15 @@
 
           } else {
             $error = true;
-            $listOfErrors = 13;
+            $listOfErrors[] = 13;
           }
         } else {
           $error = true;
-          $listOfErrors = 14;
+          $listOfErrors[] = 14;
         }
       } else {
         $error = true;
-        $listOfErrors = 15;
+        $listOfErrors[] = 15;
       }
 
       if ($error) {

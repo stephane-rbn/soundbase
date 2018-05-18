@@ -27,71 +27,65 @@
       <h2>CHOOSE YOUR STYLE</h2>
     </div>
 
-    <div class="container-fluid"><?php
-      if (isset($_SESSION["message"])) {
-        fillAllFieldsErrorMessage();
-      } else {
-        successfulUpdateMessage();
-      } ?>
-    </div>
+    <div class="container-fluid"><?php successfulUpdateMessage(); ?></div>
 
     <div class="container center_div register-form">
 
       <form action="script/uploadProfilePhotos.php" method="POST" enctype="multipart/form-data">
-        <!-- <div class="row">
-          <div class="form-group col-sm-12">
-            <label>PROFILE PICTURE</label>
-            <div class="custom-file">
-              <input type="file" name="avatar" />
-              <label class="custom-file-label" for="avatar">Choose file (JPG, JPEG, PNG or GIF)</label>
-            </div>
-          </div>
-        </div> -->
-
-        <!-- <div class="row">
-          <div class="form-group col-sm-12">
-            <button type="submit" class="btn btn-secondary">UPDATE PROFILE PICTURE</button>
-          </div>
-        </div> -->
 
         <div class="row">
-          <label>File (JPG, JPEG, PNG or GIF ) :</label>
-          <input type="file" name="avatar" required/>
+          <h3>Profile avatar</h3>
+          <br>
+          <div>
+            <label>File (JPG, JPEG, PNG or GIF ) :</label>
+            <input type="file" name="avatar" required/><?php
+              if (isErrorPresent(13)) {
+                echo '<p class="form_message_error">' . $listOfErrors[13] . '</p>';
+              } else if (isErrorPresent(14)) {
+                echo '<p class="form_message_error">' . $listOfErrors[14] . '</p>';
+              } else if (isErrorPresent(15)) {
+                echo '<p class="form_message_error">' . $listOfErrors[15] . '</p>';
+              } else {
+                echo "";
+              }
+            ?>
+          </div>
         </div>
 
         <div class="row">
           <div class="form-group col-sm-12">
-            <input type="submit" name="submit-avatar" value="UPDATE PROFILE PICTURE" />
+            <br>
+            <input type="submit" class="btn btn-secondary" name="submit-avatar" value="UPDATE PROFILE PICTURE" />
           </div>
         </div>
 
       </form>
 
       <form action="script/uploadProfilePhotos.php" method="POST" enctype="multipart/form-data">
-        <!-- <div class="row">
-          <div class="form-group col-sm-12">
-            <label>PROFILE PICTURE</label>
-            <div class="custom-file">
-              <input type="file" name="avatar" />
-              <label class="custom-file-label" for="avatar">Choose file (JPG, JPEG, PNG or GIF)</label>
-            </div>
-          </div>
-        </div> -->
-
-        <!-- <div class="row">
-          <div class="form-group col-sm-12">
-            <button type="submit" class="btn btn-secondary">UPDATE PROFILE PICTURE</button>
-          </div>
-        </div> -->
 
         <div class="row">
-          <label>File (JPG, JPEG, PNG or GIF ) :</label>
-          <input type="file" name="cover" required/>
+          <h3>Profile cover</h3>
+          <br>
+          <div>
+            <label>File (JPG, JPEG, PNG or GIF ) :</label>
+            <input type="file" name="cover" required/><?php
+              if (isErrorPresent(16)) {
+                echo '<p class="form_message_error">' . $listOfErrors[16] . '</p>';
+              } else if (isErrorPresent(17)) {
+                echo '<p class="form_message_error">' . $listOfErrors[17] . '</p>';
+              } else if (isErrorPresent(18)) {
+                echo '<p class="form_message_error">' . $listOfErrors[18] . '</p>';
+              } else {
+                echo "";
+              }
+            ?>
+          </div>
         </div>
 
         <div class="row">
           <div class="form-group col-sm-12">
-            <input type="submit" name="submit-cover" value="UPDATE PROFILE COVER" />
+            <br>
+            <input type="submit" class="btn btn-secondary" name="submit-cover" value="UPDATE PROFILE COVER" />
           </div>
         </div>
 
@@ -100,19 +94,28 @@
       <form action="script/uploadDescription.php" method="POST" enctype="multipart/form-data">
 
         <div class="row">
-          <label>Description (2500 caractères maximum):</label>
+          <h3>Description (2500 characters max):</h3>
           <textarea name="description" onkeyup="displayStrLength(2500);" id="textarea" class="form-control" rows="10" placeholder ="Your description .."><?php
-            if (!empty($result["description"]) && $result["description"] !== NULL) {
+            if(!empty($result["description"]) && $result["description"] !== NULL && !isErrorPresent(13)) {
               echo $result["description"];
+            }
+            if(isErrorPresent(12)) {
+              echo fillSessionFieldSettings("description");
             } ?></textarea>
           <p id="count"></p>
+          <?php
+              if (isErrorPresent(12)) {
+              echo '<p class="form_message_error">' . $listOfErrors[12] . '</p>';
+              }
+            ?>
         </div>
 
         <input type="hidden" name="maxLength" value="2500">
 
         <div class="row">
           <div class="form-group col-sm-12">
-            <input type="submit" name="submit-description" value="UPDATE PROFILE DESCRIPTION" />
+            <br>
+            <input type="submit" class="btn btn-secondary" name="submit-description" value="UPDATE PROFILE DESCRIPTION" />
           </div>
         </div>
 
