@@ -17,5 +17,8 @@ $listOfErrors = [
   12 => "Your description exceeds 2500 characters",
   13 => "Your file is too big!",
   14 => "There was an error uploading your file!",
-  15 => "You can not upload files of this type!"
+  15 => "You can not upload files of this type!",
+  16 => "Your file is too big!",
+  17 => "There was an error uploading your file!",
+  18 => "You can not upload files of this type!"
 ];
