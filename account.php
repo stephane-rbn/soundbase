@@ -41,7 +41,7 @@
     <div class="container-fluid">
       <?php
         if (isset($_SESSION["message"])) {
-          loginErrorMessage();
+          fillAllFieldsErrorMessage();
         } else {
           successfulUpdateMessage();
         }

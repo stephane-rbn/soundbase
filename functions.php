@@ -60,8 +60,8 @@ function isErrorPresent($errorNumber) {
   return false;
 }
 
-// Display login error message when submission failed
-function loginErrorMessage() {
+// Display error message asking user to fill all fields correctly
+function fillAllFieldsErrorMessage() {
   if (isset($_SESSION["message"])) {
 
     $message = "Error: please fill all fields";
@@ -75,24 +75,29 @@ function loginErrorMessage() {
 
 function successfulUpdateMessage() {
   if (isset($_SESSION["successUpdate"]["userInfo"])) {
-
     $message = 'Your information has been updated';
-
-    echo '<div class="push"></div>';
-
-    echo '<div class="alert alert-success alert-dismissible fade show" role="alert"> ' . $message .
-        '<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span></button></div>';
+    alertSuccessMessage($message);
   } else if (isset($_SESSION["successUpdate"]["userPassword"])) {
-
     $message = 'Password successfully updated';
-
-    echo '<div class="push"></div>';
-
-    echo '<div class="alert alert-success alert-dismissible fade show" role="alert"> ' . $message .
-        '<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span></button></div>';
+    alertSuccessMessage($message);
+  } else if (isset($_SESSION["successUpdate"]["description"])) {
+    $message = 'Description successfully updated';
+    alertSuccessMessage($message);
+  } else if (isset($_SESSION["successUpdate"]["avatar"])) {
+    $message = 'Profile avatar successfully updated';
+    alertSuccessMessage($message);
+  } else if (isset($_SESSION["successUpdate"]["cover"])) {
+    $message = 'Profile cover successfully updated';
+    alertSuccessMessage($message);
   }
+}
+
+function alertSuccessMessage($message){
+  echo '<div class="push"></div>';
+
+  echo '<div class="alert alert-success alert-dismissible fade show" role="alert">' . $message .
+      '<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span></button></div>';
 }
 
 // Check if a user is admin

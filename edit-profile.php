@@ -27,9 +27,13 @@
       <h2>CHOOSE YOUR STYLE</h2>
     </div>
 
-    <div class="push"></div>
-
-    <div class="container-fluid"><?php loginErrorMessage(); ?></div>
+    <div class="container-fluid"><?php
+      if (isset($_SESSION["message"])) {
+        fillAllFieldsErrorMessage();
+      } else {
+        successfulUpdateMessage();
+      } ?>
+    </div>
 
     <div class="container center_div register-form">
 
@@ -113,6 +117,12 @@
         </div>
 
       </form>
+
+      <?php
+        unset($_SESSION["postForm"]);
+        unset($_SESSION["errorForm"]);
+        unset($_SESSION["successUpdate"]);
+      ?>
 
     </div>
 
