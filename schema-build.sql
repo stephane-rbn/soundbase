@@ -27,7 +27,7 @@ CREATE TABLE TRACK (
     track_filename   VARCHAR(100),
     photo_filename   VARCHAR(100),
     publication_date DATE,
-    member           INTEGER REFERENCES MEMBER (id)
+    member           INTEGER NOT NULL REFERENCES MEMBER (id)
 );
 
 CREATE TABLE PLAYLIST (
