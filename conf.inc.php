@@ -14,11 +14,25 @@ $listOfErrors = [
   9  => "Confirmation password doesn't match",
   10 => "Username already taken",
   11 => "Wrong password",
-  12 => "Your description exceeds 2500 characters",
+  12 => "Your description exceeds the limit",
   13 => "Your file is too big!",
   14 => "There was an error uploading your file!",
   15 => "You can not upload files of this type!",
   16 => "Your file is too big!",
   17 => "There was an error uploading your file!",
-  18 => "You can not upload files of this type!"
+  18 => "You can not upload files of this type!",
+  19 => "Title length must be between 3 and 60 characters",
+  20 => "The genre is not correct"
+];
+
+$defaultGenre = "rb";
+
+$listOfGenres = [
+  "rb" => "R&B",
+  "rk" => "Rock",
+  "pp" => "Pop",
+  "hh" => "Hip Hop",
+  "rg" => "Reggae",
+  "jz" => "Jazz",
+  "cm" => "Classical music"
 ];

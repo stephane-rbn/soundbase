@@ -78,6 +78,8 @@
 
     </header>
 
+    <div class="container-fluid"><?php successfulUpdateMessage(); ?></div>
+
     <!-- Content section -->
     <section class="py-5">
       <div class="container">
@@ -101,14 +103,14 @@
 
         <br>
         <?php
-          $trackData = sqlSelect("SELECT * FROM TRACK WHERE id=" . $result["id"]);
+          $trackData = sqlSelect("SELECT * FROM TRACK WHERE member=" . $result["id"]);
           foreach ($trackData as $track) {
             echo "<center>";
             echo "<h2>" . $track['title'] . "</h2>";
             echo '<img src="uploads/tracks/album_cover/'. $track['photo_filename'] . '" height="100px">';
             echo '<audio controls>';
             echo '<source src="uploads/tracks/files/' . $track['track_filename'] . '" type="audio/flac">';
-            echo '</audio><br> Artist: ' . $track['member'] . '<br> Genre: ' . $track['genre'] . '<br> Publication: ' . $track['publication_date'] . '<br>';
+            echo '</audio><br> Artist: ' . $track['member'] . '<br> Genre: ' . $listOfGenres[$track['genre']] . '<br> Publication: ' . $track['publication_date'] . '<br>';
             echo '<hr>';
             echo '</center>';
           }
@@ -130,6 +132,8 @@
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, suscipit, rerum quos facilis repellat architecto commodi officia atque nemo facere eum non illo voluptatem quae delectus odit vel itaque amet.</p>
       </div>
     </section>
+
+    <?php unset($_SESSION["newTrackAdded"]); ?>
 
 <?php
   include "footer.php"

@@ -89,6 +89,9 @@ function successfulUpdateMessage() {
   } else if (isset($_SESSION["successUpdate"]["cover"])) {
     $message = 'Profile cover successfully updated';
     alertSuccessMessage($message);
+  } else if (isset($_SESSION["newTrackAdded"])) {
+    $message = 'The new track has been successfully uploaded';
+    alertSuccessMessage($message);
   }
 }
 

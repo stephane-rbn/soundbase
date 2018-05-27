@@ -13,7 +13,9 @@
     $error = false;
     $listOfErrors = [];
 
-    if (strlen($_POST['description']) <= $_POST['maxLength']) {
+    $_POST['description'] = trim($_POST['description']);
+
+    if (strlen($_POST['description']) <= intval($_POST['maxLength'])) {
 
       $connection = connectDB();
 

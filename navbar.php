@@ -63,7 +63,7 @@
                   <i class="fas fa-plus"></i>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="#">New track</a>
+                  <a class="dropdown-item" href="newTrackForm.php">New track</a>
                   <a class="dropdown-item" href="#">New playlist</a>
                 </div>
               </li>

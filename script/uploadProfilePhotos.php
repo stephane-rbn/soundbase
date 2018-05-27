@@ -128,15 +128,15 @@
 
           } else {
             $error = true;
-            $listOfErrors[] = 13;
+            $listOfErrors[] = 16;
           }
         } else {
           $error = true;
-          $listOfErrors[] = 14;
+          $listOfErrors[] = 17;
         }
       } else {
         $error = true;
-        $listOfErrors[] = 15;
+        $listOfErrors[] = 18;
       }
 
       if ($error) {
