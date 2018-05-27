@@ -101,7 +101,7 @@
 
         <br>
         <?php
-          $trackData = sqlSelect("SELECT * FROM TRACK WHERE id=" . $result["id"]);
+          $trackData = sqlSelect("SELECT * FROM TRACK WHERE member=" . $result["id"]);
           foreach ($trackData as $track) {
             echo "<center>";
             echo "<h2>" . $track['title'] . "</h2>";
