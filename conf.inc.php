@@ -24,3 +24,15 @@ $listOfErrors = [
   19 => "Title length must be between 3 and 60 characters",
   20 => "The genre is not correct"
 ];
+
+$defaultGenre = "rb";
+
+$listOfGenres = [
+  "rb" => "R&B",
+  "rk" => "Rock",
+  "pp" => "Pop",
+  "hh" => "Hip Hop",
+  "rg" => "Reggae",
+  "jz" => "Jazz",
+  "cm" => "Classical music"
+];
