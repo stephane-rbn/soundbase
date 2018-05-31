@@ -24,7 +24,7 @@
 
         <div class="form-group">
           <label for="title">TITLE</label>
-          <input type="text" class="form-control" placeholder="La pluie (feat. Stromae)" name="title" value="<?php echo (isset($_SESSION["postForm"])) ? $_SESSION["postForm"]["title"] : ""; ?>" required="required"><?php
+          <input type="text" class="form-control" placeholder="La pluie (feat. Stromae)" name="title" value="<?php echo fillSessionField("title"); ?>" required="required"><?php
             if (isErrorPresent(19)) {
               echo '<p class="form_message_error">' . $listOfErrors[19] . '</p>';
             }?>
@@ -92,8 +92,8 @@
         </div>
 
         <div class="form-group">
-          <label class="col-sm-12">DESCRIPTION</label>
-          <textarea name="description" onkeyup="displayStrLength(200);" id="textarea" class="form-control" rows="10" placeholder ="Your description .."></textarea>
+          <label class="col-sm-12">DESCRIPTION (200 characters)</label>
+          <textarea name="description" onkeyup="displayStrLength(200);" id="textarea" class="form-control" rows="10" placeholder ="Your description .."><?php echo fillSessionField("description"); ?></textarea>
           <p id="count"></p>
           <?php
             if (isErrorPresent(12)) {
