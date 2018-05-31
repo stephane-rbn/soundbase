@@ -49,10 +49,8 @@ function fillSessionField($field) {
 function isErrorPresent($errorNumber) {
   if (isset($_SESSION["errorForm"])) {
     for ($i = 0; $i < count($_SESSION["errorForm"]); $i++) {
-      foreach ($_SESSION["errorForm"] as $key) {
-        if ($errorNumber === $key) {
-          return true;
-        }
+      if (in_array($errorNumber, $_SESSION["errorForm"])) {
+        return true;
       }
     }
   }
