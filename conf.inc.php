@@ -21,7 +21,7 @@ $listOfErrors = [
   16 => "Your file is too big!",
   17 => "There was an error uploading your file!",
   18 => "You can not upload files of this type!",
-  19 => "Title length must be between 3 and 60 characters",
+  19 => "The length must be between 3 and 60 characters",
   20 => "The genre is not correct"
 ];
 
