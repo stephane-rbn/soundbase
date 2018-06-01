@@ -22,12 +22,12 @@
               <li class="nav-item">
                 <a class="nav-link" href="profile.php">Profile</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" href="myPlaylists.php">Playlists</a>
+              </li>
             <?php } ?>
             <li class="nav-item">
               <a class="nav-link" href="#">About</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Services</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Contact</a>
