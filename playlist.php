@@ -1,0 +1,66 @@
+<?php
+  session_start();
+
+  require_once "functions.php";
+
+  // redirect to login page if not connected
+  if (!isConnected()) {
+    header("Location: login.php");
+  } else {
+    if (!isset($_GET["id"])) {
+      header("Location: myPlaylists.php");
+    } else {
+
+      // Connection to database
+      $connection = connectDB();
+
+      $getAllTracksQuery = $connection->prepare(
+        "SELECT * FROM track,inclusion WHERE inclusion.track=track.id AND inclusion.playlist='" . $_GET['id']. "'"
+      );
+
+      $getPlaylistNameQuery = $connection->prepare(
+        "SELECT name FROM playlist WHERE id='" . $_GET['id']. "'"
+      );
+
+      $getAllTracksQuery->execute();
+      $getPlaylistNameQuery->execute();
+
+      $tracks = $getAllTracksQuery->fetchAll(PDO::FETCH_ASSOC);
+      $playlistName = $getPlaylistNameQuery->fetch(PDO::FETCH_ASSOC);
+    }
+
+  }
+
+  include "head.php";
+  include "navbar.php";
+?>
+
+
+    <div class="vertical-spacer"></div>
+
+    <div class="container">
+      <h1><?php echo $playlistName["name"]; ?></h1>
+
+      <br>
+
+        <?php
+          foreach ($tracks as $track) {
+            echo "<center>";
+            echo "<h2>" . $track['title'] . "</h2>";
+            echo '<img src="uploads/tracks/album_cover/'. $track['photo_filename'] . '" height="100px">';
+            echo '<audio controls>';
+            echo '<source src="uploads/tracks/files/' . $track['track_filename'] . '" type="audio/flac">';
+            echo '</audio><br> Artist: ' . $track['member'] . '<br> Genre: ' . $listOfGenres[$track['genre']] . '<br> Publication: ' . $track['publication_date'] . '<br>';
+            echo '<hr>';
+            echo '</center>';
+            echo "<br>";
+          }
+        ?>
+
+    </div>
+
+    <div class="vertical-spacer"></div>
+
+<?php
+  include "footer.php";
+?>
