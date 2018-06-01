@@ -24,7 +24,7 @@
             $artistQuery = sqlSelect("SELECT name FROM MEMBER WHERE ID = ".$track['member']);
             $artist = $artistQuery[0]['name'];
             echo '<div class="track-wrapper">';
-              echo '<a href="track.php?id="' . $track['id'] . '">';
+              echo "<a href='track.php?id=" . $track['id'] . "'>";
                 echo "<h2>" . $artist . " - " .$track['title'] . "</h2>";
               echo "</a>";
                 echo '<img class="track-cover" src="uploads/tracks/album_cover/'. $track['photo_filename'] . '">';

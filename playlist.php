@@ -52,7 +52,9 @@
         <?php
           foreach ($tracks as $track) {
             echo "<center>";
-            echo "<h2>" . $track['title'] . "</h2>";
+            echo "<a href='track.php?id=" . $track['id'] . "'>";
+              echo "<h2>" . $track['title'] . "</h2>";
+            echo "</a>";
             echo '<img src="uploads/tracks/album_cover/'. $track['photo_filename'] . '" height="100px">';
             echo '<audio controls>';
             echo '<source src="uploads/tracks/files/' . $track['track_filename'] . '" type="audio/flac">';
