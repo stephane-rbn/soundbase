@@ -30,6 +30,7 @@
     if ($error) {
       $_SESSION["errorForm"] = $listOfErrors;
       $_SESSION["postForm"] = $_POST;
+      header("Location: ../newPlaylist.php");
     }
 
     // Else => insertion in database
