@@ -39,8 +39,14 @@
     <div class="vertical-spacer"></div>
 
     <div class="container">
-      <h1><?php echo $playlistName["name"]; ?></h1>
+      <button onclick="history.go(-1);" class="btn btn-secondary">Back</button>
 
+      <br>
+      <br>
+
+      <h1 class="text-center"><?php echo $playlistName["name"]; ?></h1>
+
+      <br>
       <br>
 
         <?php
