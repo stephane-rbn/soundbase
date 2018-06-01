@@ -48,8 +48,7 @@
 
       $_SESSION["newPlaylistCreated"] = true;
 
-      echo "Playlist successfully created";
-      // header("Location: ../myPlaylists.php");
+      header("Location: ../myPlaylists.php");
     }
 
   } else {
