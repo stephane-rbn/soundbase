@@ -63,7 +63,7 @@ CREATE TABLE events (
     description         TEXT,
     capacity            INTEGER,
     event_date          DATE,
-    background_filename VARCHAR(100),
+    background_filename VARCHAR(100) DEFAULT 'background.png',
     member              INTEGER NOT NULL REFERENCES member (id)
 );
 
