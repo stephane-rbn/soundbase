@@ -12,7 +12,7 @@
     $connection = connectDB();
 
     $query = $connection->prepare(
-      "SELECT * FROM playlist WHERE member='" . $_SESSION['id']. "'"
+      "SELECT * FROM PLAYLIST WHERE member='" . $_SESSION['id']. "'"
     );
 
     $query->execute();
