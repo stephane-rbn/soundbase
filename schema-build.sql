@@ -58,12 +58,13 @@ CREATE TABLE COMMENT (
 );
 
 CREATE TABLE EVENTS (
-    id          INTEGER PRIMARY KEY AUTO_INCREMENT,
-    name        VARCHAR(60),
-    description TEXT,
-    capacity    INTEGER,
-    event_date  DATE,
-    member      INTEGER NOT NULL REFERENCES MEMBER (id)
+    id                  INTEGER PRIMARY KEY AUTO_INCREMENT,
+    name                VARCHAR(60),
+    description         TEXT,
+    capacity            INTEGER,
+    event_date          DATE,
+    background_filename VARCHAR(100),
+    member              INTEGER NOT NULL REFERENCES MEMBER (id)
 );
 
 CREATE TABLE REGISTRATION (
