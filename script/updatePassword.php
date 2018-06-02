@@ -17,7 +17,7 @@
     $connection = connectDB();
 
     // Query that gets the member's password
-    $queryPassword = $connection->prepare("SELECT password FROM MEMBER WHERE id=:id AND token=:token");
+    $queryPassword = $connection->prepare("SELECT password FROM member WHERE id=:id AND token=:token");
 
     $queryPassword->execute([
       "id"    => $_SESSION["id"],
@@ -55,7 +55,7 @@
     else {
 
       // Query that update the member's token and password
-      $query = $connection->prepare("UPDATE MEMBER SET password=?, token=? WHERE id=? AND token=?");
+      $query = $connection->prepare("UPDATE member SET password=?, token=? WHERE id=? AND token=?");
 
       $newToken = createToken();
 

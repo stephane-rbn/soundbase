@@ -2,7 +2,7 @@
 
   include "includes/head.php";
 
-  $sql = sqlSelect("SELECT COUNT(*) as userCount FROM MEMBER");
+  $sql = sqlSelect("SELECT COUNT(*) as userCount FROM member");
   $userCount = $sql['0']['userCount'];
   $_SESSION["userCount"] = $userCount;
 
@@ -67,10 +67,10 @@
                         $searchQuery = $_GET['search'];
                         $searchQuery = htmlspecialchars($searchQuery);
 
-                        $userData = sqlSelect("SELECT * FROM MEMBER WHERE (`username` LIKE '%".$searchQuery."%') OR (`name` LIKE '%".$searchQuery."%') OR (`email` LIKE '%".$searchQuery."%') LIMIT ". (($cPage - 1) * $perPage) .", $perPage");
+                        $userData = sqlSelect("SELECT * FROM member WHERE (`username` LIKE '%".$searchQuery."%') OR (`name` LIKE '%".$searchQuery."%') OR (`email` LIKE '%".$searchQuery."%') LIMIT ". (($cPage - 1) * $perPage) .", $perPage");
 
                       } else {
-                        $userData = sqlSelect("SELECT * FROM MEMBER LIMIT ". (($cPage - 1) * $perPage) .", $perPage");
+                        $userData = sqlSelect("SELECT * FROM member LIMIT ". (($cPage - 1) * $perPage) .", $perPage");
                       }
 
                       foreach ($userData as $user) {

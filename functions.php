@@ -107,7 +107,7 @@ function isAdmin() {
   $connection = connectDB();
 
   $query = $connection->prepare(
-    "SELECT position FROM MEMBER WHERE id=:toto"
+    "SELECT position FROM member WHERE id=:toto"
   );
 
   $query->execute([

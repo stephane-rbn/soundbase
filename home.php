@@ -19,9 +19,9 @@
     <div>
       <div class="home-feed">
         <?php
-          $trackData = sqlSelect("SELECT * FROM TRACK");
+          $trackData = sqlSelect("SELECT * FROM track");
           foreach ($trackData as $track) {
-            $artistQuery = sqlSelect("SELECT name FROM MEMBER WHERE ID = ".$track['member']);
+            $artistQuery = sqlSelect("SELECT name FROM member WHERE ID = ".$track['member']);
             $artist = $artistQuery[0]['name'];
             echo '<div class="track-wrapper">';
               echo "<a href='track.php?id=" . $track['id'] . "'>";

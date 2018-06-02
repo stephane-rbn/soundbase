@@ -10,7 +10,7 @@
     $connection = connectDB();
 
     $query = $connection->prepare(
-      "SELECT id,email,name,username,birthday,profile_photo_filename,cover_photo_filename,description FROM MEMBER WHERE id=" . $_SESSION['id']
+      "SELECT id,email,name,username,birthday,profile_photo_filename,cover_photo_filename,description FROM member WHERE id=" . $_SESSION['id']
     );
 
     $query->execute();

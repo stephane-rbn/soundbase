@@ -10,7 +10,7 @@
     $connection = connectDB();
 
     // Query that delete a member with specific id and token
-    $query = $connection->prepare("DELETE FROM MEMBER WHERE id=:toto AND token=:tata");
+    $query = $connection->prepare("DELETE FROM member WHERE id=:toto AND token=:tata");
 
     // Execute the query
     $query->execute([

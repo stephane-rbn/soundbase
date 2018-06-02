@@ -38,7 +38,7 @@
     else {
 
       // Query that inserts the new track
-      $query = $connection->prepare("INSERT INTO PLAYLIST (name,member) VALUES (:name, :member)");
+      $query = $connection->prepare("INSERT INTO playlist (name,member) VALUES (:name, :member)");
 
       // Execute the query
       $query->execute([
