@@ -13,7 +13,7 @@
   if (isset($_GET["username"])) {
     $query = $connection->prepare(
       "SELECT id,email,name,username,birthday,profile_photo_filename,cover_photo_filename,description
-      FROM MEMBER
+      FROM member
       WHERE username='" . $_GET['username'] . "'"
     );
   } else {
@@ -22,7 +22,7 @@
       } else {
         $query = $connection->prepare(
           "SELECT id,email,name,username,birthday,profile_photo_filename,cover_photo_filename,description
-          FROM MEMBER
+          FROM member
           WHERE id=" . $_SESSION['id'] . " AND token='" . $_SESSION['token'] . "'"
         );
       }
@@ -103,7 +103,7 @@
 
         <br>
         <?php
-          $trackData = sqlSelect("SELECT * FROM TRACK WHERE member=" . $result["id"]);
+          $trackData = sqlSelect("SELECT * FROM track WHERE member=" . $result["id"]);
           foreach ($trackData as $track) {
             echo "<center>";
             echo "<h2>" . $track['title'] . "</h2>";

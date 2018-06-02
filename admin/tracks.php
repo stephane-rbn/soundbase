@@ -2,7 +2,7 @@
 
   include "includes/head.php";
 
-  $sql = sqlSelect("SELECT COUNT(*) as trackCount FROM TRACK");
+  $sql = sqlSelect("SELECT COUNT(*) as trackCount FROM track");
   $trackCount = $sql['0']['trackCount'];
   $_SESSION["trackCount"] = $trackCount;
 
@@ -68,10 +68,10 @@
                         $searchQuery = $_GET['search'];
                         $searchQuery = htmlspecialchars($searchQuery);
 
-                        $trackData = sqlSelect("SELECT * FROM TRACK WHERE (`name` LIKE '%".$searchQuery."%') OR (`description` LIKE '%".$searchQuery."%') LIMIT ". (($cPage - 1) * $perPage) .", $perPage");
+                        $trackData = sqlSelect("SELECT * FROM track WHERE (`name` LIKE '%".$searchQuery."%') OR (`description` LIKE '%".$searchQuery."%') LIMIT ". (($cPage - 1) * $perPage) .", $perPage");
 
                       } else {
-                        $trackData = sqlSelect("SELECT * FROM TRACK LIMIT ". (($cPage - 1) * $perPage) .", $perPage");
+                        $trackData = sqlSelect("SELECT * FROM track LIMIT ". (($cPage - 1) * $perPage) .", $perPage");
                       }
 
                       foreach ($trackData as $track) {

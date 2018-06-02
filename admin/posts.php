@@ -2,7 +2,7 @@
 
   include "includes/head.php";
 
-  $sql = sqlSelect("SELECT COUNT(*) as postCount FROM POST");
+  $sql = sqlSelect("SELECT COUNT(*) as postCount FROM post");
   $postCount = $sql['0']['postCount'];
   $_SESSION["postCount"] = $postCount;
 
@@ -65,10 +65,10 @@
                         $searchQuery = $_GET['search'];
                         $searchQuery = htmlspecialchars($searchQuery);
 
-                        $postData = sqlSelect("SELECT * FROM POST WHERE (`content` LIKE '%".$searchQuery."%') OR (`id` LIKE '%".$searchQuery."%') OR (`publication_date` LIKE '%".$searchQuery."%') LIMIT ". (($cPage - 1) * $perPage) .", $perPage");
+                        $postData = sqlSelect("SELECT * FROM post WHERE (`content` LIKE '%".$searchQuery."%') OR (`id` LIKE '%".$searchQuery."%') OR (`publication_date` LIKE '%".$searchQuery."%') LIMIT ". (($cPage - 1) * $perPage) .", $perPage");
 
                       } else {
-                        $postData = sqlSelect("SELECT * FROM POST LIMIT ". (($cPage - 1) * $perPage) .", $perPage");
+                        $postData = sqlSelect("SELECT * FROM post LIMIT ". (($cPage - 1) * $perPage) .", $perPage");
                       }
 
                       foreach ($postData as $post) {

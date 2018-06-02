@@ -33,7 +33,7 @@
     }
 
     // SQL query to get the current username
-    $currentUsernameQuery = $connection->prepare("SELECT username FROM MEMBER WHERE id=:id AND token=:token");
+    $currentUsernameQuery = $connection->prepare("SELECT username FROM member WHERE id=:id AND token=:token");
 
     // Execute
     $currentUsernameQuery->execute([
@@ -55,7 +55,7 @@
         // Check if this username already exists
 
         // Query that returns 1 every time it founds this email
-        $query = $connection->prepare("SELECT 1 FROM MEMBER WHERE username= :username");
+        $query = $connection->prepare("SELECT 1 FROM member WHERE username= :username");
 
         // Execute
         $query->execute(["username" => $_POST["username"]]);
@@ -71,7 +71,7 @@
     }
 
     // SQL query to get the current email
-    $currentEmailQuery = $connection->prepare("SELECT email FROM MEMBER WHERE id=:id AND token=:token");
+    $currentEmailQuery = $connection->prepare("SELECT email FROM member WHERE id=:id AND token=:token");
 
     // Execute
     $currentEmailQuery->execute([
@@ -93,7 +93,7 @@
         // Check if this email address already exists
 
         // Query that returns 1 every time it founds this email
-        $query = $connection->prepare("SELECT 1 FROM MEMBER WHERE email= :email");
+        $query = $connection->prepare("SELECT 1 FROM member WHERE email= :email");
 
         // Execute
         $query->execute(["email" => $_POST["email"]]);
@@ -159,7 +159,7 @@
 
       // Query that inserts the new member
       $updateQuery = $connection->prepare(
-        "UPDATE MEMBER
+        "UPDATE member
         SET email=:titi,name=:tata,username=:tutu,birthday=:tete
         WHERE id=:toto AND token=:tyty"
       );
