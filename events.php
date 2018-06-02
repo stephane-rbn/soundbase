@@ -12,17 +12,18 @@
   include "navbar.php";
 ?>
 
-    <div class="container-fuild">
+    <div class="container">
 
       <div class="vertical-spacer"></div>
 
       <h1 class="text-center">All events</h1>
 
-      <div class="vertical-spacer"></div>
+      <div style="height: 2em;"></div>
 
       <div class="row">
-        <div class="col">
-          <div class="card" style="width: 25rem;">
+
+        <div class="col-sm-12 col-md-4" style="margin-bottom: 2em;">
+          <div class="card" style="width: 100%;">
             <img class="card-img-top" src="http://via.placeholder.com/400x250" alt="Card image cap">
             <div class="card-body">
               <h5 class="card-title">Card title</h5>
@@ -32,8 +33,8 @@
           </div>
         </div>
 
-        <div class="col">
-          <div class="card" style="width: 25rem;">
+        <div class="col-sm-12 col-md-4" style="margin-bottom: 2em;">
+          <div class="card" style="width: 100%;">
             <img class="card-img-top" src="http://via.placeholder.com/400x250" alt="Card image cap">
             <div class="card-body">
               <h5 class="card-title">Card title</h5>
@@ -43,8 +44,8 @@
           </div>
         </div>
 
-        <div class="col">
-          <div class="card" style="width: 25rem;">
+        <div class="col-sm-12 col-md-4" style="margin-bottom: 2em;">
+          <div class="card" style="width: 100%;">
             <img class="card-img-top" src="http://via.placeholder.com/400x250" alt="Card image cap">
             <div class="card-body">
               <h5 class="card-title">Card title</h5>
@@ -55,6 +56,8 @@
         </div>
 
       </div>
+
+      <div class="vertical-spacer"></div>
 
     </div>
 
