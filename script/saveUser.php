@@ -44,7 +44,7 @@
       // Check if this username already exists
 
       // Query that returns 1 every time it founds this email
-      $query = $connection->prepare("SELECT 1 FROM MEMBER WHERE username= :username");
+      $query = $connection->prepare("SELECT 1 FROM member WHERE username= :username");
 
       // Execute
       $query->execute(["username" => $_POST["username"]]);
@@ -70,7 +70,7 @@
       $connection = connectDB();
 
       // Query that returns 1 every time it founds this email
-      $query = $connection->prepare("SELECT 1 FROM MEMBER WHERE email= :email");
+      $query = $connection->prepare("SELECT 1 FROM member WHERE email= :email");
 
       // Execute
       $query->execute(["email" => $_POST["email"]]);
@@ -150,7 +150,7 @@
       $_SESSION["token"] = createToken();
 
       // Query that inserts the new member
-      $query = $connection->prepare("INSERT INTO MEMBER (email,name,username,birthday,password,registration_date,token) VALUES (?, ?, ?, ?, ?, ?, ?)");
+      $query = $connection->prepare("INSERT INTO member (email,name,username,birthday,password,registration_date,token) VALUES (?, ?, ?, ?, ?, ?, ?)");
 
       $pwd = password_hash($_POST["pwd"], PASSWORD_DEFAULT);
 

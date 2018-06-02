@@ -13,7 +13,7 @@
     $connection = connectDB();
 
     // Query that get the password that matching with the email given
-    $query = $connection->prepare("SELECT * FROM MEMBER WHERE email=:toto");
+    $query = $connection->prepare("SELECT * FROM member WHERE email=:toto");
 
     // Execute the query
     $query->execute([

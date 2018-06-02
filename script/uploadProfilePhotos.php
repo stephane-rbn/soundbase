@@ -44,7 +44,7 @@
             $result = move_uploaded_file($fileTmpName, $fileDestination);
 
             if ($result) {
-              $query = $connection->prepare('UPDATE MEMBER SET profile_photo_filename=:profile_photo_filename WHERE id=:id');
+              $query = $connection->prepare('UPDATE member SET profile_photo_filename=:profile_photo_filename WHERE id=:id');
 
               $query->execute([
                 'profile_photo_filename' => $fileNewName,
@@ -111,7 +111,7 @@
             $result = move_uploaded_file($fileTmpName, $fileDestination);
 
             if ($result) {
-              $query = $connection->prepare('UPDATE MEMBER SET cover_photo_filename=:cover_photo_filename WHERE id=:id');
+              $query = $connection->prepare('UPDATE member SET cover_photo_filename=:cover_photo_filename WHERE id=:id');
 
               $query->execute([
                 'cover_photo_filename'   => $fileNewName,

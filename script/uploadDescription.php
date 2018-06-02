@@ -19,7 +19,7 @@
 
       $connection = connectDB();
 
-      $query = $connection->prepare('UPDATE MEMBER SET description=:description WHERE id=:id');
+      $query = $connection->prepare('UPDATE member SET description=:description WHERE id=:id');
 
       $query->execute([
         'description' => $_POST['description'],

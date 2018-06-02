@@ -138,7 +138,7 @@
     else {
 
       // Query that inserts the new track
-      $query = $connection->prepare("INSERT INTO TRACK (title,description,genre,photo_filename,track_filename,publication_date,member) VALUES (:title, :description, :genre, :photo_filename, :track_filename, :publication_date, :member)");
+      $query = $connection->prepare("INSERT INTO track (title,description,genre,photo_filename,track_filename,publication_date,member) VALUES (:title, :description, :genre, :photo_filename, :track_filename, :publication_date, :member)");
 
       // Execute the query
       $query->execute([

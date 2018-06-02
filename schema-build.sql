@@ -1,4 +1,4 @@
-CREATE TABLE MEMBER (
+CREATE TABLE member (
     id                     INTEGER PRIMARY KEY AUTO_INCREMENT,
     email                  VARCHAR(254) NOT NULL UNIQUE,
     name                   VARCHAR(60),
@@ -13,13 +13,13 @@ CREATE TABLE MEMBER (
     token                  VARCHAR(64)
 ) CHARSET=utf8;
 
-CREATE TABLE SUBSCRIPTION (
-    member_following VARCHAR(254) REFERENCES MEMBER (id),
-    member_followed  VARCHAR(254) REFERENCES MEMBER (id),
+CREATE TABLE subscription (
+    member_following VARCHAR(254) REFERENCES member (id),
+    member_followed  VARCHAR(254) REFERENCES member (id),
     PRIMARY KEY (member_following, member_followed)
 ) CHARSET=utf8;
 
-CREATE TABLE TRACK (
+CREATE TABLE track (
     id               INTEGER PRIMARY KEY AUTO_INCREMENT,
     title            VARCHAR(60),
     description      TEXT,
@@ -27,48 +27,48 @@ CREATE TABLE TRACK (
     track_filename   VARCHAR(100),
     photo_filename   VARCHAR(100),
     publication_date DATE,
-    member           INTEGER NOT NULL REFERENCES MEMBER (id)
+    member           INTEGER NOT NULL REFERENCES member (id)
 );
 
-CREATE TABLE PLAYLIST (
+CREATE TABLE playlist (
     id     INTEGER PRIMARY KEY AUTO_INCREMENT,
     name   VARCHAR(60),
-    member INTEGER NOT NULL REFERENCES MEMBER (id)
+    member INTEGER NOT NULL REFERENCES member (id)
 );
 
-CREATE TABLE INCLUSION (
-    playlist INTEGER REFERENCES PLAYLIST (id),
-    track    INTEGER REFERENCES TRACK (id),
+CREATE TABLE inclusion (
+    playlist INTEGER REFERENCES playlist (id),
+    track    INTEGER REFERENCES track (id),
     PRIMARY KEY (playlist, track)
 );
 
-CREATE TABLE POST (
+CREATE TABLE post (
     id               INTEGER PRIMARY KEY AUTO_INCREMENT,
     content          TEXT,
     publication_date DATE,
-    member           INTEGER NOT NULL UNIQUE REFERENCES MEMBER (id)
+    member           INTEGER NOT NULL UNIQUE REFERENCES member (id)
 );
 
-CREATE TABLE COMMENT (
+CREATE TABLE comment (
     id               INTEGER PRIMARY KEY AUTO_INCREMENT,
     content          TEXT,
     publication_date DATE,
-    post             INTEGER NOT NULL UNIQUE REFERENCES POST (id),
-    member           INTEGER NOT NULL UNIQUE REFERENCES MEMBER (id)
+    post             INTEGER NOT NULL UNIQUE REFERENCES post (id),
+    member           INTEGER NOT NULL UNIQUE REFERENCES member (id)
 );
 
-CREATE TABLE EVENTS (
+CREATE TABLE events (
     id                  INTEGER PRIMARY KEY AUTO_INCREMENT,
     name                VARCHAR(60),
     description         TEXT,
     capacity            INTEGER,
     event_date          DATE,
     background_filename VARCHAR(100),
-    member              INTEGER NOT NULL REFERENCES MEMBER (id)
+    member              INTEGER NOT NULL REFERENCES member (id)
 );
 
-CREATE TABLE REGISTRATION (
+CREATE TABLE registration (
     member  VARCHAR(254) REFERENCES MEMBRE (id),
-    events INTEGER REFERENCES EVENTS (id),
+    events INTEGER REFERENCES events (id),
     PRIMARY KEY (member, events)
 ) CHARSET=utf8;
