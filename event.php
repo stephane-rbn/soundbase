@@ -44,7 +44,7 @@
         if ($event["background_filename"] !== "background.png") {
           echo "uploads/member/cover/" . $event["background_filename"];
         } else {
-          echo "vendor/images/events/default-background.png";
+          echo "http://via.placeholder.com/1000x500";
         }
       ?>');" alt="event-background">
     </header>
