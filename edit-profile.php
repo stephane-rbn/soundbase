@@ -37,7 +37,7 @@
           <h3>Profile avatar</h3>
           <br>
           <div>
-            <label>File (JPG, JPEG, PNG or GIF ) :</label>
+            <label>File (JPG, JPEG, PNG or GIF) :</label>
             <input type="file" name="avatar" required/><?php
               if (isErrorPresent(13)) {
                 echo '<p class="form_message_error">' . $listOfErrors[13] . '</p>';
@@ -67,7 +67,7 @@
           <h3>Profile cover</h3>
           <br>
           <div>
-            <label>File (JPG, JPEG, PNG or GIF ) :</label>
+            <label>File (JPG, JPEG, PNG or GIF) :</label>
             <input type="file" name="cover" required/><?php
               if (isErrorPresent(16)) {
                 echo '<p class="form_message_error">' . $listOfErrors[16] . '</p>';
