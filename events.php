@@ -6,6 +6,18 @@
   // redirect to login page if not connected
   if (!isConnected()) {
     header("Location: login.php");
+  } else {
+
+    // Connection to database
+    $connection = connectDB();
+
+    $query = $connection->prepare(
+      "SELECT * FROM events"
+    );
+
+    $query->execute();
+
+    $result = $query->fetchAll(PDO::FETCH_ASSOC);
   }
 
   include "head.php";
@@ -22,38 +34,28 @@
 
       <div class="row">
 
-        <div class="col-sm-12 col-md-4" style="margin-bottom: 2em;">
-          <div class="card" style="width: 100%;">
-            <img class="card-img-top" src="http://via.placeholder.com/400x250" alt="Card image cap">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-sm-12 col-md-4" style="margin-bottom: 2em;">
-          <div class="card" style="width: 100%;">
-            <img class="card-img-top" src="http://via.placeholder.com/400x250" alt="Card image cap">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-sm-12 col-md-4" style="margin-bottom: 2em;">
-          <div class="card" style="width: 100%;">
-            <img class="card-img-top" src="http://via.placeholder.com/400x250" alt="Card image cap">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-          </div>
-        </div>
+        <?php
+          if (!$result) {
+            echo "<p>No event</p>";
+          } else {
+            foreach ($result as $event) {
+              echo '<div class="col-sm-12 col-md-4" style="margin-bottom: 2em;">';
+                echo '<div class="card" style="width: 100%;">';
+                  if ($event["background_filename"] === 'background.png') {
+                    echo '<img class="card-img-top" src="http://via.placeholder.com/400x250" alt="Card image cap">';
+                  } else {
+                    echo '<img class="card-img-top" src="/events/backgrounds/' . $event["background_filename"] . '" alt="Card image cap">';
+                  }
+                  echo '<div class="card-body">';
+                    echo '<h5 class="card-title">' . $event["name"] . '</h5>';
+                    echo '<p class="card-text">' . $event["description"] . '</p>';
+                    echo '<a href="event.php?id=' . $event["id"] . '" class="btn btn-primary">View</a>';
+                  echo '</div>';
+                echo '</div>';
+              echo '</div>';
+            }
+          }
+        ?>
 
       </div>
 
