@@ -46,7 +46,7 @@ CREATE TABLE post (
     id               INTEGER PRIMARY KEY AUTO_INCREMENT,
     content          TEXT,
     publication_date DATE,
-    member           INTEGER NOT NULL UNIQUE REFERENCES member (id)
+    member           INTEGER NOT NULL REFERENCES member (id)
 );
 
 CREATE TABLE comment (
@@ -54,7 +54,7 @@ CREATE TABLE comment (
     content          TEXT,
     publication_date DATE,
     post             INTEGER NOT NULL UNIQUE REFERENCES post (id),
-    member           INTEGER NOT NULL UNIQUE REFERENCES member (id)
+    member           INTEGER NOT NULL REFERENCES member (id)
 );
 
 CREATE TABLE events (
@@ -68,7 +68,7 @@ CREATE TABLE events (
 );
 
 CREATE TABLE registration (
-    member  VARCHAR(254) REFERENCES MEMBRE (id),
+    member VARCHAR(254) REFERENCES MEMBRE (id),
     events INTEGER REFERENCES events (id),
     PRIMARY KEY (member, events)
 ) CHARSET=utf8;
