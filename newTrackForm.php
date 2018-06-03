@@ -14,7 +14,7 @@
 ?>
 
     <div class="wrapper" id="wrapper-signup" style="background-image: url('vendor/images/newtrackpage/background.jpg');">
-      <h1>NEW track</h1>
+      <h1>NEW TRACK</h1>
       <h2>SHARE YOUR CREATION RIGHT NOW</h2>
     </div>
 
@@ -55,7 +55,7 @@
 
         <div class="form-group">
           <div class="row">
-            <label class="col-sm-12">track FILE</label>
+            <label class="col-sm-12">TRACK FILE</label>
           </div>
           <div class="row">
             <input class="col-sm-12" type="file" name="track" required/><?php
@@ -74,7 +74,7 @@
 
         <div class="form-group">
           <div class="row">
-            <label class="col-sm-12">track COVER</label>
+            <label class="col-sm-12">TRACK COVER</label>
           </div>
           <div class="row">
             <input class="col-sm-12" type="file" name="cover" required/><?php
