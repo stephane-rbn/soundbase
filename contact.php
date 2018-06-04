@@ -15,6 +15,12 @@
 
     <div class="container center_div register-form">
 
+      <?php if (isset($_SESSION["sendMailSuccess"]) && $_SESSION["sendMailSuccess"] === true) {?>
+      <div class="alert alert-success">
+        <strong>Success!</strong> Your email has been sent.
+      </div>
+      <?php } ?>
+
       <form method="POST" action="script/sendMail.php">
 
         <?php if (!isConnected()) {?>
@@ -53,6 +59,7 @@
     <?php
       unset($_SESSION["postForm"]);
       unset($_SESSION["errorForm"]);
+      unset($_SESSION["sendMailSuccess"]); // Display the success message one time only
     ?>
 
   <?php
