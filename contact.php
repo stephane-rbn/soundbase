@@ -22,7 +22,6 @@
 
       <form method="POST" action="script/sendMail.php">
 
-        <div class="row">
           <?php if (!isConnected()) {?>
           <div class="col-sm-12">
             <div class="form-group">
@@ -51,7 +50,6 @@
             <button type="submit" class="btn btn-secondary">Submit</button>
           </div>
 
-        </div>
       </form>
 
     </div>
