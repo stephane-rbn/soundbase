@@ -19,10 +19,10 @@
     <div>
       <div class="home-feed">
         <?php
-          $trackData = sqlSelect("SELECT * FROM track");
+          $trackData = sqlSelectFetchAll("SELECT * FROM track");
           foreach ($trackData as $track) {
             $artistQuery = sqlSelect("SELECT name FROM member WHERE ID = ".$track['member']);
-            $artist = $artistQuery[0]['name'];
+            $artist = $artistQuery['name'];
             echo '<div class="track-wrapper">';
               echo "<a href='track.php?id=" . $track['id'] . "'>";
                 echo "<h2>" . $artist . " - " .$track['title'] . "</h2>";

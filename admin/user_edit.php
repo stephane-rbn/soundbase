@@ -13,7 +13,7 @@
           <h1 class="page-header"> Edit
             <?php
               $result = sqlSelect("SELECT username FROM member WHERE id='".$_GET['id']."'");
-              echo $result[0]['username'];
+              echo $result['username'];
             ?>
           </h1>
         </div>
@@ -32,28 +32,28 @@
                       <label>Username</label>
                       <input class="form-control" name="username" value="<?php
                         $result = sqlSelect("SELECT username FROM member WHERE id='".$_GET['id']."' ");
-                        echo $result[0]['username'];
+                        echo $result['username'];
                       ?>">
                     </div>
                     <div class="form-group">
                       <label>Name</label>
                       <input class="form-control" name="name" value="<?php
                         $result = sqlSelect("SELECT name FROM member WHERE id='".$_GET['id']."' ");
-                        echo $result[0]['name'];
+                        echo $result['name'];
                       ?>">
                     </div>
                     <div class="form-group">
                       <label>Email</label>
                       <input type="email" class="form-control" name="email" value="<?php
                         $result = sqlSelect("SELECT email FROM member WHERE id='".$_GET['id']."' ");
-                        echo $result[0]['email'];
+                        echo $result['email'];
                       ?>">
                     </div>
                     <div class="form-group">
                       <label>Birthday</label>
                       <input type="date" class="form-control" name="birthday" value="<?php
                         $result = sqlSelect("SELECT birthday FROM member WHERE id='".$_GET['id']."' ");
-                        echo $result[0]['birthday'];
+                        echo $result['birthday'];
                       ?>">
                     </div>
                     <div class="form-group">
@@ -61,7 +61,7 @@
                       <select class="form-control form-control-sm">
                       <?php
                         $result = sqlSelect("SELECT position FROM member WHERE id='".$_GET['id']."' ");
-                        $status = $result[0]['position'];
+                        $status = $result['position'];
 
                         echo '<option value="0"' . (($status == 1) ? 'selected="selected"' : '') . '>User</option>';
                         echo '<option value="1"' . (($status == 2) ? 'selected="selected"' : '') . '>Admin</option>';

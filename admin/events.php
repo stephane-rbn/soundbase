@@ -2,7 +2,7 @@
 
   include "includes/head.php";
 
-  $sql = sqlSelect("SELECT COUNT(*) as eventCount FROM events");
+  $sql = sqlSelectFetchAll("SELECT COUNT(*) as eventCount FROM events");
   $eventCount = $sql['0']['eventCount'];
   $_SESSION["eventCount"] = $eventCount;
 
@@ -67,10 +67,10 @@
                         $searchQuery = $_GET['search'];
                         $searchQuery = htmlspecialchars($searchQuery);
 
-                        $eventData = sqlSelect("SELECT * FROM events WHERE (`name` LIKE '%".$searchQuery."%') OR (`description` LIKE '%".$searchQuery."%') LIMIT ". (($cPage - 1) * $perPage) .", $perPage");
+                        $eventData = sqlSelectFetchAll("SELECT * FROM events WHERE (`name` LIKE '%".$searchQuery."%') OR (`description` LIKE '%".$searchQuery."%') LIMIT ". (($cPage - 1) * $perPage) .", $perPage");
 
                       } else {
-                        $eventData = sqlSelect("SELECT * FROM events LIMIT ". (($cPage - 1) * $perPage) .", $perPage");
+                        $eventData = sqlSelectFetchAll("SELECT * FROM events LIMIT ". (($cPage - 1) * $perPage) .", $perPage");
                       }
 
                       foreach ($eventData as $event) {

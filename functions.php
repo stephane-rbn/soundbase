@@ -129,6 +129,15 @@ function sqlSelect($query) {
   $connection = connectDB();
   $sql = $connection->prepare($query);
   $sql->execute();
+  $result = $sql->fetch(PDO::FETCH_ASSOC);
+
+  return $result;
+}
+
+function sqlSelectFetchAll($query) {
+  $connection = connectDB();
+  $sql = $connection->prepare($query);
+  $sql->execute();
   $result = $sql->fetchAll(PDO::FETCH_ASSOC);
 
   return $result;
