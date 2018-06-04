@@ -2,7 +2,6 @@
   session_start();
 
   require_once "functions.php";
-
   require_once "conf.inc.php";
   require "head.php";
   include "navbar.php";
@@ -23,8 +22,8 @@
 
       <form method="POST" action="script/sendMail.php">
 
-        <?php if (!isConnected()) {?>
         <div class="row">
+          <?php if (!isConnected()) {?>
           <div class="col-sm-12">
             <div class="form-group">
               <label for="name">NAME</label>
@@ -38,20 +37,21 @@
               <input type="email" class="form-control" placeholder="orel@san.fr" name="email" value="<?php echo fillSessionField("email"); ?>" required="required">
             </div>
           </div>
-        </div>
-        <?php } ?>
-        <div class="col-sm-12">
-          <div class="form-group">
-            <label for="content">MESSAGE</label>
-            <br>
+          <?php } ?>
+
+          <div class="col-sm-12">
+            <div class="form-group">
+              <label for="content">MESSAGE</label>
+              <br>
               <textarea name="message" cols="50" rows="10"></textarea>
+            </div>
           </div>
-        </div>
 
-        <div class="form-group">
-          <button type="submit" class="btn btn-secondary">Submit</button>
-        </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-secondary">Submit</button>
+          </div>
 
+        </div>
       </form>
 
     </div>
