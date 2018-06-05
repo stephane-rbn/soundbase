@@ -13,9 +13,7 @@
   $headers = 'From: "Soundbase" <noreply@soundbase.io>' . "\r\n" .  // Prevent email address spoofing
              'Reply-To: ' . $userData ['email'] . "\r\n";
 
-  mail($to, $subject, $message, $headers);
-
-  $_SESSION["sendMailSuccess"] = true;
+  $_SESSION["sendMailSuccess"] = mail($to, $subject, $message, $headers);
 
   header("Location: ../contact.php");
 ?>

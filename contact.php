@@ -14,12 +14,20 @@
 
     <div class="container center_div register-form">
 
-      <?php if (isset($_SESSION["sendMailSuccess"]) && $_SESSION["sendMailSuccess"] === true) {?>
+  <?php
+  if (isset($_SESSION["sendMailSuccess"])) {
+    if ($_SESSION["sendMailSuccess"] === true) { ?>
       <div class="alert alert-success">
         <strong>Success!</strong> Your email has been sent.
+    <?php
+    } elseif ($_SESSION["sendMailSuccess"] === false) { ?>
+      <div class="alert alert-danger">
+        <strong>Oops!</strong> Something went wrong and we couldn't send your email.
+    <?php
+    } ?>
       </div>
-      <?php } ?>
-
+  <?php
+  } ?>
       <form method="POST" action="script/sendMail.php">
 
           <?php if (!isConnected()) {?>
