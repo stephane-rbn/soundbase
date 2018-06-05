@@ -11,13 +11,13 @@ CREATE TABLE member (
     position               INTEGER DEFAULT 0,
     description            TEXT,
     token                  VARCHAR(64)
-) CHARSET=utf8;
+);
 
 CREATE TABLE subscription (
     member_following VARCHAR(254) REFERENCES member (id),
     member_followed  VARCHAR(254) REFERENCES member (id),
     PRIMARY KEY (member_following, member_followed)
-) CHARSET=utf8;
+);
 
 CREATE TABLE track (
     id               INTEGER PRIMARY KEY AUTO_INCREMENT,
@@ -72,4 +72,4 @@ CREATE TABLE registration (
     member VARCHAR(254) REFERENCES MEMBRE (id),
     events INTEGER REFERENCES events (id),
     PRIMARY KEY (member, events)
-) CHARSET=utf8;
+);
