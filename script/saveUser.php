@@ -167,9 +167,9 @@
         $confirmationToken
       ]);
 
-      $to      = 'angristan@pm.me'; // placeholder email address
+      $to      = $_POST["email"];
       $subject = 'Registration confirmation for Soundbase';
-      $message = 'Please click here to confirm your account: http://10.201.181.130/confirmUser.php?username=' . $_POST["username"] . '&token=' . $confirmationToken;
+      $message = 'Please click here to confirm your account: http://url/confirmUser.php?username=' . $_POST["username"] . '&token=' . $confirmationToken;
       $headers = 'From: "Soundbase" <noreply@soundbase.io>';
 
       mail($to, $subject, $message, $headers);
