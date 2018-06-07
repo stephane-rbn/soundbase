@@ -147,7 +147,7 @@
 
     else {
 
-      $_SESSION["token"] = createToken();
+      $_SESSION["token"] = createToken(65);
 
       // Query that inserts the new member
       $query = $connection->prepare("INSERT INTO member (email,name,username,birthday,password,registration_date,token) VALUES (?, ?, ?, ?, ?, ?, ?)");
