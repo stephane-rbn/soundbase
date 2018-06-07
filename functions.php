@@ -90,6 +90,9 @@ function successfulUpdateMessage() {
   } else if (isset($_SESSION["newTrackAdded"])) {
     $message = 'The new track has been successfully uploaded';
     alertSuccessMessage($message);
+  } else if (isset($_SESSION["newEventAdded"])) {
+    $message = 'The new event has been successfully created';
+    alertSuccessMessage($message);
   }
 }
 
