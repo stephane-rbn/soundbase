@@ -11,7 +11,7 @@
   $subject = "Contact email from " . $userData['name'] . " (" . $userData['username'] .")";
   $message = $_POST['message'];
   $headers = 'From: "Soundbase" <noreply@soundbase.io>' . "\r\n" .  // Prevent email address spoofing
-             'Reply-To: ' . $userData ['email'] . "\r\n";
+             'Reply-To: ' . $userData['email'] . "\r\n";
 
   $_SESSION["sendMailSuccess"] = mail($to, $subject, $message, $headers);
 
