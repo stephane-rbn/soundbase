@@ -25,6 +25,9 @@
               <li class="nav-item">
                 <a class="nav-link" href="myPlaylists.php">Playlists</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" href="events.php">Events</a>
+              </li>
             <?php } ?>
             <li class="nav-item">
               <a class="nav-link" href="#">About</a>
