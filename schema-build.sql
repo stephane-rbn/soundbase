@@ -69,7 +69,7 @@ CREATE TABLE events (
 );
 
 CREATE TABLE registration (
-    member VARCHAR(254) REFERENCES MEMBRE (id),
+    member INTEGER REFERENCES MEMBRE (id),
     events INTEGER REFERENCES events (id),
     PRIMARY KEY (member, events)
 );
