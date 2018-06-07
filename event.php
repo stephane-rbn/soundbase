@@ -42,7 +42,7 @@
     <!-- Header - set the background image for the header in the line below -->
     <header class="py-5 bg-image-full" style="height: 400px; background-image: url('<?php
         if ($event["background_filename"] !== "background.png") {
-          echo "uploads/member/cover/" . $event["background_filename"];
+          echo "uploads/events/backgrounds/" . $event["background_filename"];
         } else {
           echo "http://via.placeholder.com/1000x500";
         }
@@ -64,6 +64,9 @@
           echo "<a href='profile.php?username=" . $creator["username"] ."'>" . $creator["name"] . "</a>";
         echo "</p>";
         echo '5 places left out of ' . $event["capacity"];
+        echo "<hr>";
+        echo "<br>";
+        echo "<p>" . $event["description"] . "</p>";
       echo "</center>";
     ?></div>
 

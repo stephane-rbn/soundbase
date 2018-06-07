@@ -22,7 +22,10 @@ $listOfErrors = [
   17 => "There was an error uploading your file!",
   18 => "You can not upload files of this type!",
   19 => "The length must be between 3 and 60 characters",
-  20 => "The genre is not correct"
+  20 => "The genre is not correct",
+  21 => "The length must be between 3 and 100 characters",
+  22 => "You can not choose a past day",
+  23 => "Please enter a valid capacity"
 ];
 
 $defaultGenre = "rb";
