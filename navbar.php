@@ -65,6 +65,7 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <a class="dropdown-item" href="newTrackForm.php">New track</a>
                   <a class="dropdown-item" href="newPlaylist.php">New playlist</a>
+                  <a class="dropdown-item" href="newEvent.php">New event</a>
                 </div>
               </li>
             <?php } ?>
