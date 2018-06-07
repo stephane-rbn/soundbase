@@ -11,7 +11,7 @@ CREATE TABLE member (
     position               INTEGER DEFAULT 0,
     description            TEXT,
     token                  VARCHAR(64),
-    token_confirmation     VARCHAR(64)
+    confirmation           VARCHAR(64)
 );
 
 CREATE TABLE subscription (
