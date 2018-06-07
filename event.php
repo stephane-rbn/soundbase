@@ -31,6 +31,15 @@
       $getCreatorQuery->execute();
 
       $creator = $getCreatorQuery->fetch(PDO::FETCH_ASSOC);
+
+      // Query that gets all registration
+      $getRegisteredPeopleQuery = $connection->prepare(
+        "SELECT * FROM registration WHERE registration.events=" . $_GET["id"]
+      );
+
+      $getRegisteredPeopleQuery->execute();
+
+      $attendees = $getRegisteredPeopleQuery->fetchAll(PDO::FETCH_ASSOC);
     }
 
   }
@@ -51,6 +60,8 @@
 
     <div style="height: 2em;"></div>
 
+    <div class="container-fluid"><?php successfulUpdateMessage(); ?></div>
+
     <div class='container'>
     <?php
       echo "<center>";
@@ -61,17 +72,50 @@
         echo "</div>";
         echo "<br>";
         echo "<p class='lead'>Created by ";
-          echo "<a href='profile.php?username=" . $creator["username"] ."'>" . $creator["name"] . "</a>";
+          echo "<a href='profile.php?username=" . $creator["username"] . "'>" . $creator["name"] . "</a>";
         echo "</p>";
         echo '5 places left out of ' . $event["capacity"];
+
+        echo "<br>";
+        echo "<br>";
+
+        $isAttendee = false;
+
+        foreach($attendees as $attendee) {
+          if($attendee["member"] === $_SESSION["id"] && $attendee["events"] === $_GET["id"]) {
+            $isAttendee = true;
+          }
+        }
+
+        if ($isAttendee) {
+          echo "<center>";
+            echo "<form method='POST' action='script/cancelEventAttendance.php'>";
+              echo "<input name='event_id' value='" . $_GET["id"] . "' hidden>";
+              echo "<button type='submit' class='btn btn-warning'>Cancel</button>";
+            echo "</form>";
+          echo "</center>";
+        } else {
+          echo "<center>";
+            echo "<form method='POST' action='script/registerInEvent.php'>";
+              echo "<input name='event_id' value='" . $_GET["id"] . "' hidden>";
+              echo "<button type='submit' class='btn btn-primary'>Attend</button>";
+            echo "</form>";
+          echo "</center>";
+        }
+        echo "</center>";
+
         echo "<hr>";
         echo "<br>";
+        echo "<h4>Description</h4>";
         echo "<p>" . $event["description"] . "</p>";
-      echo "</center>";
     ?></div>
 
     <div class="vertical-spacer"></div>
 
+    <?php
+      unset($_SESSION["registredInEvent"]);
+      unset($_SESSION["cancelledAttendance"]);
+    ?>
 
 <?php
   include "footer.php";

@@ -93,6 +93,12 @@ function successfulUpdateMessage() {
   } else if (isset($_SESSION["newEventAdded"])) {
     $message = 'The new event has been successfully created';
     alertSuccessMessage($message);
+  } else if (isset($_SESSION["registredInEvent"])) {
+    $message = 'You have successfully been added to the event attendees list';
+    alertSuccessMessage($message);
+  } else if (isset($_SESSION["cancelledAttendance"])) {
+    $message = 'You have successfully been removed from the event attendees list';
+    alertSuccessMessage($message);
   }
 }
 
