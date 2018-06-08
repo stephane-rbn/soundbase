@@ -4,6 +4,8 @@
   require_once "conf.inc.php";
   require_once "functions.php";
 
+  xssProtection();
+
   if (count($_GET) === 2 && !empty($_GET["username"] && !empty($_GET["token"]))) {
 
     $username = $_GET['username'];
