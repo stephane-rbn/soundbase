@@ -148,9 +148,10 @@
     else {
 
       $_SESSION["token"] = createToken();
+      $confirmationToken = createToken();
 
       // Query that inserts the new member
-      $query = $connection->prepare("INSERT INTO member (email,name,username,birthday,password,registration_date,token) VALUES (?, ?, ?, ?, ?, ?, ?)");
+      $query = $connection->prepare("INSERT INTO member (email,name,username,birthday,password,registration_date,token,confirmation) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 
       $pwd = password_hash($_POST["pwd"], PASSWORD_DEFAULT);
 
@@ -162,8 +163,16 @@
         $year . "-" . $month . "-" . $day,
         $pwd,
         date("Y-m-d H:i:s"),
-        $_SESSION["token"]
+        $_SESSION["token"],
+        $confirmationToken
       ]);
+
+      $to      = $_POST["email"];
+      $subject = 'Registration confirmation for Soundbase';
+      $message = 'Please click here to confirm your account: http://url/confirmUser.php?username=' . $_POST["username"] . '&token=' . $confirmationToken;
+      $headers = 'From: "Soundbase" <noreply@soundbase.io>';
+
+      mail($to, $subject, $message, $headers);
 
       header("Location: ../home.php");
     }
