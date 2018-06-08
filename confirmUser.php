@@ -8,35 +8,46 @@
 
   if (count($_GET) === 2 && !empty($_GET["username"] && !empty($_GET["token"]))) {
 
-    $username = $_GET['username'];
-    $token = $_GET['token'];
+    if (strlen($_GET["username"]) < 2 || strlen($_GET["username"]) > 20 || strlen($_GET["token"])) {
 
-    $result = sqlSelect("SELECT confirmation FROM member WHERE username='" . $username . "'");
+      $username = $_GET['username'];
+      $token = $_GET['token'];
 
-    // If token is correct, confirm user
-    if ($result["confirmation"] === $token) {
+      $result = sqlSelect("SELECT confirmation FROM member WHERE username='" . $username . "'");
 
-      $connection = connectDB();
+      // If token is correct, confirm user
+      if ($result["confirmation"] === $token) {
 
-      // Replace confirmation token with "1"
-      $updateQuery = $connection->prepare(
-        "UPDATE member
-        SET confirmation='1'
-        WHERE username='" . $username . "'"
-      );
+        $connection = connectDB();
 
-      $updateQuery->execute();
+        // Replace confirmation token with "1"
+        $updateQuery = $connection->prepare(
+          "UPDATE member
+          SET confirmation='1'
+          WHERE username='" . $username . "'"
+        );
 
-      $_SESSION["accountConfirmed"] = true;
-      header("Location: ../login.php");
+        $updateQuery->execute();
 
-    } // If user is already confirmed, display message
-    else if ($result["confirmation"] === "1") {
+        $_SESSION["accountConfirmed"] = true;
+        header("Location: ../login.php");
 
-      $_SESSION["accountConfirmed"] = "alreadyConfirmed";
-      header("Location: ../login.php");
+      } // If user is already confirmed, display message
+      else if ($result["confirmation"] === "1") {
 
-    } // Token is not correct
+        $_SESSION["accountConfirmed"] = "alreadyConfirmed";
+        header("Location: ../login.php");
+
+      } // Token is not correct
+      else {
+
+        $_SESSION["accountConfirmed"] = false;
+        header("Location: ../login.php");
+
+      }
+
+    }
+    // GET parameters are not correct
     else {
 
       $_SESSION["accountConfirmed"] = false;
