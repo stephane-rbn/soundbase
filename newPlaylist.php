@@ -15,7 +15,7 @@
 
 
     <div class="wrapper" id="wrapper-signup" style="background-image: url('vendor/images/newplaylistpage/background.jpg');">
-      <h1>NEW TRACK</h1>
+      <h1>NEW PLAYLIST</h1>
       <h2>FIND YOUR FAVORITE TRACKS EVERYWHERE</h2>
     </div>
 

@@ -106,46 +106,59 @@
             <br>
             <?php
               $trackData = sqlSelectFetchAll("SELECT * FROM track WHERE member=" . $result["id"]);
-              foreach ($trackData as $track) {
-                echo "<center>";
-                echo "<h3><a href='track.php?id=" . $track['id'] . "'>" . $track['title'] . "</a><a href='' style='color: #c8c8c8;' title='Add to a playlist' data-toggle='modal' data-target='#addToPlaylistModal-{$track['id']}'><i class='fas fa-plus fa-xs' style='margin-left: 10px;'></i></a></h3>";
-                echo '<img src="uploads/tracks/album_cover/'. $track['photo_filename'] . '" height="100px">';
-                echo '<audio controls>';
-                echo '<source src="uploads/tracks/files/' . $track['track_filename'] . '" type="audio/flac">';
-                echo '</audio><br> Artist: ' . $track['member'] . '<br> Genre: ' . $listOfGenres[$track['genre']] . '<br> Publication: ' . $track['publication_date'] . '<br>';
-                echo '<hr>';
-                echo '</center>';
-                echo "<!-- Add to playlist button Modal -->";
-                echo "<div class='modal fade' id='addToPlaylistModal-{$track['id']}' tabindex='-1' role='dialog' aria-labelledby='exampleModalCenterTitle' aria-hidden='true'>";
-                  echo "<div class='modal-dialog modal-dialog-centered' role='document'>";
-                    echo "<div class='modal-content'>";
-                      echo "<div class='modal-header'>";
-                        echo "<h5 class='modal-title' id='exampleModalLongTitle'>My playlists</h5>";
-                        echo "<button type='button' class='close' data-dismiss='modal' aria-label='Close'>";
-                          echo "<span aria-hidden='true'>&times;</span>";
-                        echo "</button>";
-                      echo "</div>";
-                      echo "<div class='modal-body'>";
+              if (count($trackData) !== 0) {
 
-                      $getAllPlaylistsQuery = $connection->prepare(
-                        "SELECT * FROM playlist WHERE member='" . $_SESSION['id']. "'"
-                      );
+                foreach ($trackData as $track) {
+                  echo "<center>";
+                  echo "<h3><a href='track.php?id=" . $track['id'] . "'>" . $track['title'] . "</a><a href='' style='color: #c8c8c8;' title='Add to a playlist' data-toggle='modal' data-target='#addToPlaylistModal-{$track['id']}'><i class='fas fa-plus fa-xs' style='margin-left: 10px;'></i></a></h3>";
+                  echo '<img src="uploads/tracks/album_cover/'. $track['photo_filename'] . '" height="100px">';
+                  echo '<audio controls>';
+                  echo '<source src="uploads/tracks/files/' . $track['track_filename'] . '" type="audio/flac">';
+                  echo '</audio><br> Artist: ' . $track['member'] . '<br> Genre: ' . $listOfGenres[$track['genre']] . '<br> Publication: ' . $track['publication_date'] . '<br>';
+                  echo '<hr>';
+                  echo '</center>';
+                  echo "<!-- Add to playlist button Modal -->";
+                  echo "<div class='modal fade' id='addToPlaylistModal-{$track['id']}' tabindex='-1' role='dialog' aria-labelledby='exampleModalCenterTitle' aria-hidden='true'>";
+                    echo "<div class='modal-dialog modal-dialog-centered' role='document'>";
+                      echo "<div class='modal-content'>";
+                        echo "<div class='modal-header'>";
+                          echo "<h5 class='modal-title' id='exampleModalLongTitle'>My playlists</h5>";
+                          echo "<button type='button' class='close' data-dismiss='modal' aria-label='Close'>";
+                            echo "<span aria-hidden='true'>&times;</span>";
+                          echo "</button>";
+                        echo "</div>";
+                        echo "<div class='modal-body'>";
 
-                      $getAllPlaylistsQuery->execute();
+                        $getAllPlaylistsQuery = $connection->prepare(
+                          "SELECT * FROM playlist WHERE member='" . $_SESSION['id']. "'"
+                        );
 
-                      $allPlaylists = $getAllPlaylistsQuery->fetchAll(PDO::FETCH_ASSOC);
+                        $getAllPlaylistsQuery->execute();
 
-                      foreach($allPlaylists as $playlist) {
-                        echo "<h3><a href='script/addToPlaylist.php?playlist_id=" . $playlist["id"] . "&track_id=" . $track['id'] . "'>" . $playlist["name"] . "</a></h3>";
-                        echo "<hr>";
-                      }
-                      echo "</div>";
-                      echo "<div class='modal-footer'>";
-                        echo "<button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>";
+                        $allPlaylists = $getAllPlaylistsQuery->fetchAll(PDO::FETCH_ASSOC);
+
+                        if (count($allPlaylists) === 0) {
+                          echo "<h3>No playlist created. <a href='newPlaylist.php'>Create one!</a></h3>";
+                        } else {
+                          foreach($allPlaylists as $playlist) {
+                            echo "<h3><a href='script/addToPlaylist.php?playlist_id=" . $playlist["id"] . "&track_id=" . $track['id'] . "'>" . $playlist["name"] . "</a></h3>";
+                            echo "<hr>";
+                          }
+                        }
+                        echo "</div>";
+                        echo "<div class='modal-footer'>";
+                          echo "<button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>";
+                        echo "</div>";
                       echo "</div>";
                     echo "</div>";
                   echo "</div>";
-                echo "</div>";
+                }
+              } else {
+                if ($result["id"] === $_SESSION["id"]) {
+                  echo "<p>No track uploaded. <a href='newtrackForm.php'>Upload now!</a></p>";
+                } else {
+                  "<p>No track uploaded.";
+                }
               }
             ?>
           </div>
@@ -157,11 +170,19 @@
                 <br>
                 <?php
                   $events = sqlSelectFetchAll("SELECT * FROM events WHERE member=" . $result["id"]);
-                  foreach ($events as $event) {
-                    echo "<center>";
-                        echo "<h4><a href='event.php?id=" . $event["id"] . "'>" . $event["name"] . "</a></h4>";
-                        echo "<p>" . $event["event_date"] . "</p>";
-                    echo "</center>";
+                  if (count($events) !== 0) {
+                    foreach ($events as $event) {
+                      echo "<center>";
+                          echo "<h4><a href='event.php?id=" . $event["id"] . "'>" . $event["name"] . "</a></h4>";
+                          echo "<p>" . $event["event_date"] . "</p>";
+                      echo "</center>";
+                    }
+                  } else {
+                    if ($result["id"] === $_SESSION["id"]) {
+                      echo "<p>No event created. <a href='newtrackForm.php'>Upload now!</a></p>";
+                    } else {
+                      echo "<p>No event created.";
+                    }
                   }
                 ?>
               </div>
