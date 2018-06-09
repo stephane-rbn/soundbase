@@ -32,6 +32,9 @@
       <br>
 
       <?php
+        if (count($result) === 0) {
+          echo "<p>No playlist created. <a href='newPlaylist.php'>Create one!</a></p>";
+        }
         foreach($result as $playlist) {
           echo "<h3><a href='playlist.php?id=" . $playlist['id'] . "'>" . $playlist["name"] . "</a></h3><button type='button' class='btn btn-danger delete-button'><a href='script/deletePlaylist.php?id=" . $playlist['id'] ."'>Delete</a></button>";
           echo "<br>";

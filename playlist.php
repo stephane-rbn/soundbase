@@ -50,18 +50,24 @@
       <br>
 
         <?php
-          foreach ($tracks as $track) {
+          if (count($tracks) !== 0) {
+            foreach ($tracks as $track) {
+              echo "<center>";
+              echo "<a href='track.php?id=" . $track['id'] . "'>";
+                echo "<h2>" . $track['title'] . "</h2>";
+              echo "</a>";
+              echo '<img src="uploads/tracks/album_cover/'. $track['photo_filename'] . '" height="100px">';
+              echo '<audio controls>';
+              echo '<source src="uploads/tracks/files/' . $track['track_filename'] . '" type="audio/flac">';
+              echo '</audio><br> Artist: ' . $track['member'] . '<br> Genre: ' . $listOfGenres[$track['genre']] . '<br> Publication: ' . $track['publication_date'] . '<br>';
+              echo '<hr>';
+              echo '</center>';
+              echo "<br>";
+            }
+          } else {
             echo "<center>";
-            echo "<a href='track.php?id=" . $track['id'] . "'>";
-              echo "<h2>" . $track['title'] . "</h2>";
-            echo "</a>";
-            echo '<img src="uploads/tracks/album_cover/'. $track['photo_filename'] . '" height="100px">';
-            echo '<audio controls>';
-            echo '<source src="uploads/tracks/files/' . $track['track_filename'] . '" type="audio/flac">';
-            echo '</audio><br> Artist: ' . $track['member'] . '<br> Genre: ' . $listOfGenres[$track['genre']] . '<br> Publication: ' . $track['publication_date'] . '<br>';
-            echo '<hr>';
-            echo '</center>';
-            echo "<br>";
+              echo "No track added in this playlist.";
+            echo "</center>";
           }
         ?>
 
