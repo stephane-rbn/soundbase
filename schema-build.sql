@@ -31,6 +31,13 @@ CREATE TABLE track (
     member           INTEGER NOT NULL REFERENCES member (id)
 );
 
+CREATE TABLE listening (
+    member  INTEGER NOT NULL REFERENCES member (id),
+    track   INTEGER NOT NULL REFERENCES track (id),
+    counter INTEGER default 0,
+    PRIMARY KEY (member, track)
+);
+
 CREATE TABLE playlist (
     id     INTEGER PRIMARY KEY AUTO_INCREMENT,
     name   VARCHAR(60),
