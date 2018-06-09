@@ -57,7 +57,7 @@
       // Query that update the member's token and password
       $query = $connection->prepare("UPDATE member SET password=?, token=? WHERE id=? AND token=?");
 
-      $newToken = createToken();
+      $newToken = createToken(65);
 
       // Execute the query
       $query->execute([

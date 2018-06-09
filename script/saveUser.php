@@ -147,8 +147,8 @@
 
     else {
 
-      $_SESSION["token"] = createToken();
-      $confirmationToken = createToken();
+      $_SESSION["token"] = createToken(64);
+      $confirmationToken = createToken(64);
 
       // Query that inserts the new member
       $query = $connection->prepare("INSERT INTO member (email,name,username,birthday,password,registration_date,token,confirmation) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
