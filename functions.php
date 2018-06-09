@@ -60,19 +60,6 @@ function isErrorPresent($errorNumber) {
   return false;
 }
 
-// Display error message asking user to fill all fields correctly
-function fillAllFieldsErrorMessage() {
-  if (isset($_SESSION["message"])) {
-
-    $message = "Error: please fill all fields";
-
-    echo '<div class="push"></div>';
-
-    echo '<div class="alert alert-warning" role="alert">' . $message . '</div>';
-    unset($_SESSION["message"]);
-  }
-}
-
 function successfulUpdateMessage() {
   if (isset($_SESSION["successUpdate"]["userInfo"])) {
     $message = 'Your information has been updated';
