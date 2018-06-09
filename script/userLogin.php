@@ -9,19 +9,7 @@
 
     $_POST["email"] = strtolower($_POST["email"]);
 
-    // Connection to database
-    $connection = connectDB();
-
-    // Query that get the password that matching with the email given
-    $query = $connection->prepare("SELECT * FROM member WHERE email=:toto");
-
-    // Execute the query
-    $query->execute([
-      "toto" => $_POST["email"],
-    ]);
-
-    // Fetch data with the query and get it as an associative array
-    $data = $query->fetch(PDO::FETCH_ASSOC);
+    $data = sqlSelect("SELECT * FROM member WHERE email='{$_POST['email']}'");
 
     if (password_verify($_POST["pwd"], $data["password"])) {
       $_SESSION["auth"]  = true;
