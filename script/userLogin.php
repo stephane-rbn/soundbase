@@ -9,33 +9,26 @@
 
     $_POST["email"] = strtolower($_POST["email"]);
 
-    // Connection to database
-    $connection = connectDB();
-
-    // Query that get the password that matching with the email given
-    $query = $connection->prepare("SELECT * FROM member WHERE email=:toto");
-
-    // Execute the query
-    $query->execute([
-      "toto" => $_POST["email"],
-    ]);
-
-    // Fetch data with the query and get it as an associative array
-    $data = $query->fetch(PDO::FETCH_ASSOC);
+    $data = sqlSelect("SELECT * FROM member WHERE email='{$_POST['email']}'");
 
     if (password_verify($_POST["pwd"], $data["password"])) {
-      $_SESSION["auth"]  = true;
-      $_SESSION["id"]    = $data["id"];
-      $_SESSION["token"] = $data["token"];
+      if ($data["confirmation"] === "1") {
+        $_SESSION["auth"]  = true;
+        $_SESSION["id"]    = $data["id"];
+        $_SESSION["token"] = $data["token"];
 
-      header("Location: ../home.php");
+        header("Location: ../home.php");
+      } else {
+        $_SESSION["failedLogin"] = "Error: Your account has not been confirmed. Check your emails!";
+        header("Location: ../login.php");
+      }
     } else {
-      $_SESSION["message"] = "Erreur : l'email ou le mot de passe ne correspond pas";
+      $_SESSION["failedLogin"] = "Error: Your username or password is wrong.";
       header("Location: ../login.php");
     }
 
   } else {
-    $_SESSION["message"] = true;
+    $_SESSION["failedLogin"] = "Error: Please fill all the fields";
     header("Location: ../login.php");
   }
 ?>
