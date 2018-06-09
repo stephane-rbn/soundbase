@@ -99,22 +99,46 @@
     <!-- Content section -->
     <section class="py-5">
       <div class="container">
-        <h1><?php echo "{$result["username"]}'s tracks"; ?></h1>
+        <div class="row">
+          <div class="col-sm-12 col-md-6">
+            <h2><?php echo "{$result["username"]}'s tracks"; ?></h2>
 
-        <br>
-        <?php
-          $trackData = sqlSelectFetchAll("SELECT * FROM track WHERE member=" . $result["id"]);
-          foreach ($trackData as $track) {
-            echo "<center>";
-            echo "<h2>" . $track['title'] . "</h2>";
-            echo '<img src="uploads/tracks/album_cover/'. $track['photo_filename'] . '" height="100px">';
-            echo '<audio controls>';
-            echo '<source src="uploads/tracks/files/' . $track['track_filename'] . '" type="audio/flac">';
-            echo '</audio><br> Artist: ' . $track['member'] . '<br> Genre: ' . $listOfGenres[$track['genre']] . '<br> Publication: ' . $track['publication_date'] . '<br>';
-            echo '<hr>';
-            echo '</center>';
-          }
-        ?>
+            <br>
+            <?php
+              $trackData = sqlSelectFetchAll("SELECT * FROM track WHERE member=" . $result["id"]);
+              foreach ($trackData as $track) {
+                echo "<center>";
+                echo "<h3>" . $track['title'] . "</h3>";
+                echo '<img src="uploads/tracks/album_cover/'. $track['photo_filename'] . '" height="100px">';
+                echo '<audio controls>';
+                echo '<source src="uploads/tracks/files/' . $track['track_filename'] . '" type="audio/flac">';
+                echo '</audio><br> Artist: ' . $track['member'] . '<br> Genre: ' . $listOfGenres[$track['genre']] . '<br> Publication: ' . $track['publication_date'] . '<br>';
+                echo '<hr>';
+                echo '</center>';
+              }
+            ?>
+          </div>
+          <div class="col-sm-12 col-md-6">
+            <div class="row">
+              <div class="col-sm-12">
+                <h2><?php echo "{$result["username"]}'s events"; ?></h2>
+                <br>
+                <?php
+                  $events = sqlSelectFetchAll("SELECT * FROM events WHERE member=" . $result["id"]);
+                  foreach ($events as $event) {
+                    echo "<center>";
+                        echo "<h4><a href='event.php?id=" . $event["id"] . "'>" . $event["name"] . "</a></h4>";
+                        echo "<p>" . $event["event_date"] . "</p>";
+                    echo "</center>";
+                  }
+                ?>
+              </div>
+              <div class="col-sm-12">
+                <h2><?php echo "{$result["username"]}'s posts"; ?></h2>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
