@@ -108,16 +108,48 @@
               $trackData = sqlSelectFetchAll("SELECT * FROM track WHERE member=" . $result["id"]);
               foreach ($trackData as $track) {
                 echo "<center>";
-                echo "<h3>" . $track['title'] . "</h3>";
+                echo "<h3><a href='track.php?id=" . $track['id'] . "'>" . $track['title'] . "</a><a href='' style='color: #c8c8c8;' title='Add to a playlist' data-toggle='modal' data-target='#addToPlaylistModal-{$track['id']}'><i class='fas fa-plus fa-xs' style='margin-left: 10px;'></i></a></h3>";
                 echo '<img src="uploads/tracks/album_cover/'. $track['photo_filename'] . '" height="100px">';
                 echo '<audio controls>';
                 echo '<source src="uploads/tracks/files/' . $track['track_filename'] . '" type="audio/flac">';
                 echo '</audio><br> Artist: ' . $track['member'] . '<br> Genre: ' . $listOfGenres[$track['genre']] . '<br> Publication: ' . $track['publication_date'] . '<br>';
                 echo '<hr>';
                 echo '</center>';
+                echo "<!-- Add to playlist button Modal -->";
+                echo "<div class='modal fade' id='addToPlaylistModal-{$track['id']}' tabindex='-1' role='dialog' aria-labelledby='exampleModalCenterTitle' aria-hidden='true'>";
+                  echo "<div class='modal-dialog modal-dialog-centered' role='document'>";
+                    echo "<div class='modal-content'>";
+                      echo "<div class='modal-header'>";
+                        echo "<h5 class='modal-title' id='exampleModalLongTitle'>My playlists</h5>";
+                        echo "<button type='button' class='close' data-dismiss='modal' aria-label='Close'>";
+                          echo "<span aria-hidden='true'>&times;</span>";
+                        echo "</button>";
+                      echo "</div>";
+                      echo "<div class='modal-body'>";
+
+                      $getAllPlaylistsQuery = $connection->prepare(
+                        "SELECT * FROM playlist WHERE member='" . $_SESSION['id']. "'"
+                      );
+
+                      $getAllPlaylistsQuery->execute();
+
+                      $allPlaylists = $getAllPlaylistsQuery->fetchAll(PDO::FETCH_ASSOC);
+
+                      foreach($allPlaylists as $playlist) {
+                        echo "<h3><a href='script/addToPlaylist.php?playlist_id=" . $playlist["id"] . "&track_id=" . $track['id'] . "'>" . $playlist["name"] . "</a></h3>";
+                        echo "<hr>";
+                      }
+                      echo "</div>";
+                      echo "<div class='modal-footer'>";
+                        echo "<button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>";
+                      echo "</div>";
+                    echo "</div>";
+                  echo "</div>";
+                echo "</div>";
               }
             ?>
           </div>
+
           <div class="col-sm-12 col-md-6">
             <div class="row">
               <div class="col-sm-12">
