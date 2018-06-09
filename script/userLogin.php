@@ -12,6 +12,7 @@
     $data = sqlSelect("SELECT * FROM member WHERE email='{$_POST['email']}'");
 
     if (password_verify($_POST["pwd"], $data["password"])) {
+      if ($data["confirmation"] === "1") {
       $_SESSION["auth"]  = true;
       $_SESSION["id"]    = $data["id"];
       $_SESSION["token"] = $data["token"];
