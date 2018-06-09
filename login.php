@@ -27,7 +27,7 @@
 
         if ($_SESSION["accountConfirmed"] === true) {
           echo '<div class="alert alert-success">';
-            echo '<strong>Success!</strong> Your accont has been verified. You can now log in.';
+            echo '<strong>Success!</strong> Your account has been verified. You can now log in.';
         }
         else if ($_SESSION["accountConfirmed"] === false) {
           echo '<div class="alert alert-danger">';
