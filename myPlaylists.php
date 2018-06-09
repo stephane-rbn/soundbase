@@ -33,7 +33,7 @@
 
       <?php
         foreach($result as $playlist) {
-          echo "<h3><a href='playlist.php?id=" . $playlist['id'] . "'>" . $playlist["name"] . "</a></h3>";
+          echo "<h3><a href='playlist.php?id=" . $playlist['id'] . "'>" . $playlist["name"] . "</a></h3><button type='button' class='btn btn-danger delete-button'><a href='script/deletePlaylist.php?id=" . $playlist['id'] ."'>Delete</a></button>";
           echo "<br>";
         }
       ?>
