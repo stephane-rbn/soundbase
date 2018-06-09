@@ -9,8 +9,15 @@
     // Connection to database
     $connection = connectDB();
 
+
+
     // Query that delete a member with specific id and token
-    $query = $connection->prepare("DELETE FROM member WHERE id=:toto AND token=:tata");
+    $query = $connection->prepare("
+      DELETE FROM events WHERE member=:toto;
+      DELETE FROM playlist WHERE member=:toto;
+      DELETE FROM track WHERE member=:toto;
+      DELETE FROM member WHERE id=:toto AND token=:tata
+    ");
 
     // Execute the query
     $query->execute([
@@ -23,4 +30,3 @@
   }
 
   header("Location: ../index.php");
-

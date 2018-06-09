@@ -23,6 +23,25 @@
 
     <div class="container center_div register-form">
 
+    <?php
+      if (isset($_SESSION["accountConfirmed"])) {
+        if ($_SESSION["accountConfirmed"] === true) {
+          echo '<div class="alert alert-success">';
+            echo '<strong>Success!</strong> Your accont has been verified. You can now log in.';
+        }
+        else if ($_SESSION["accountConfirmed"] === false) {
+          echo '<div class="alert alert-danger">';
+            echo "<strong>Oops!</strong> Your account couldn't be verified...";
+        }
+        else if ($_SESSION["accountConfirmed"] === "alreadyConfirmed") {
+          echo '<div class="alert alert-info">';
+            echo "Your account has already been confirmed.";
+        }
+          echo '</div>';
+      }
+      unset($_SESSION["accountConfirmed"])
+    ?>
+
       <form method="POST" action="script/userLogin.php">
 
         <div class="form-group">
