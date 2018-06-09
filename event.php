@@ -125,8 +125,14 @@
             $isAttendee = true;
           }
         }
-
-        if ($isAttendee) {
+        if($creator["id"] == $_SESSION["id"]) {
+          echo "<center>";
+            echo "<form method='POST' action='#'>";
+              echo "<input name='event_id' value='" . $_GET["id"] . "' hidden>";
+              echo "<button type='button' class='btn btn-danger delete-button' data-toggle='modal' data-target='#deleteModal'>Delete</button>";
+            echo "</form>";
+          echo "</center>";
+        }else if ($isAttendee) {
           echo "<center>";
             echo "<form method='POST' action='script/cancelEventAttendance.php'>";
               echo "<input name='event_id' value='" . $_GET["id"] . "' hidden>";
@@ -147,7 +153,29 @@
         echo "<br>";
         echo "<h4>Description</h4>";
         echo "<p>" . $event["description"] . "</p>";
-    ?></div>
+    ?>
+        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Are you sure?</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              The deletion of an event is irreversible.
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-danger delete-button">
+                <a href="script/deleteEvent.php?id=<?php echo $event["id"]; ?>">Confirm</a>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
 
     <div class="vertical-spacer"></div>
 
