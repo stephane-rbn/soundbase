@@ -8,7 +8,7 @@
 
   if (count($_GET) === 2 && !empty($_GET["username"] && !empty($_GET["token"]))) {
 
-    if (strlen($_GET["username"]) < 2 || strlen($_GET["username"]) > 20 || strlen($_GET["token"])) {
+    if (strlen($_GET["username"]) < 2 || strlen($_GET["username"]) > 20 || strlen($_GET["token"]) === 64) {
 
       $username = $_GET['username'];
       $token = $_GET['token'];
