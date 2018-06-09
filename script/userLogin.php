@@ -13,18 +13,22 @@
 
     if (password_verify($_POST["pwd"], $data["password"])) {
       if ($data["confirmation"] === "1") {
-      $_SESSION["auth"]  = true;
-      $_SESSION["id"]    = $data["id"];
-      $_SESSION["token"] = $data["token"];
+        $_SESSION["auth"]  = true;
+        $_SESSION["id"]    = $data["id"];
+        $_SESSION["token"] = $data["token"];
 
-      header("Location: ../home.php");
+        header("Location: ../home.php");
+      } else {
+        $_SESSION["failedLogin"] = "Error: Your account has not been confirmed. Check your emails!";
+        header("Location: ../login.php");
+      }
     } else {
-      $_SESSION["message"] = "Erreur : l'email ou le mot de passe ne correspond pas";
+      $_SESSION["failedLogin"] = "Error: Your username or password is wrong.";
       header("Location: ../login.php");
     }
 
   } else {
-    $_SESSION["message"] = true;
+    $_SESSION["failedLogin"] = "Error: Please fill all the fields";
     header("Location: ../login.php");
   }
 ?>

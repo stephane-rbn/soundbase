@@ -19,12 +19,12 @@
       <h2>MUSIC IS WAITING FOR YOU</h2>
     </div>
 
-    <div class="container-fluid"><?php fillAllFieldsErrorMessage(); ?></div>
-
-    <div class="container center_div register-form">
-
     <?php
       if (isset($_SESSION["accountConfirmed"])) {
+
+        echo '<div class="push"></div>';
+        echo '<div class="container-fluid">';
+
         if ($_SESSION["accountConfirmed"] === true) {
           echo '<div class="alert alert-success">';
             echo '<strong>Success!</strong> Your accont has been verified. You can now log in.';
@@ -37,10 +37,24 @@
           echo '<div class="alert alert-info">';
             echo "Your account has already been confirmed.";
         }
+
+        echo '</div>';
+        echo '</div>';
+
+      } else if (isset($_SESSION["failedLogin"])) {
+        echo '<div class="push"></div>';
+        echo '<div class="container-fluid">';
+          echo '<div class="alert alert-danger">';
+            echo $_SESSION["failedLogin"];
           echo '</div>';
+        echo '</div>';
       }
-      unset($_SESSION["accountConfirmed"])
+
+      unset($_SESSION["accountConfirmed"]);
+      unset($_SESSION["failedLogin"]);
     ?>
+
+    <div class="container center_div register-form">
 
       <form method="POST" action="script/userLogin.php">
 
