@@ -291,6 +291,7 @@ footer a:hover {
 .track-wrapper .likes {
   grid-column: 2;
   grid-row: 3;
+  cursor: pointer;
 }
 
 /* ALL EVENTS PAGE */
