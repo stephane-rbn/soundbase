@@ -6,6 +6,11 @@
 
   xssProtection();
 
+  if (!isConnected) {
+    // Abort AJAX
+    http_response_code(400);
+  }
+
   if (count($_POST) === 1 && !empty($_POST["track"])) {
 
     if (!is_numeric($_POST["track"])) {
