@@ -269,7 +269,7 @@ footer a:hover {
   .track-wrapper {
     grid-template-rows: 0.5fr 2fr 1fr;
   }
-  .track-wrapper h2 {
+  .track-wrapper a {
     grid-column: 1;
   }
   .track-cover {
