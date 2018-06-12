@@ -22,13 +22,20 @@
           $trackData = sqlSelectFetchAll("SELECT * FROM track");
           foreach ($trackData as $track) {
 
-            $artistQuery = sqlSelect("SELECT name FROM member WHERE id = ".$track['member']);
+            $artistQuery = sqlSelect("SELECT name
+                                        FROM member
+                                      WHERE id = ".$track['member']);
             $artist = $artistQuery['name'];
 
-            $likesQuery = sqlSelect("SELECT COUNT(*) as likes FROM likes WHERE track=" . $track['id']);
+            $likesQuery = sqlSelect("SELECT COUNT(*) as likes
+                                      FROM likes
+                                     WHERE track=" . $track['id']);
             $likes = $likesQuery['likes'];
 
-            $isLikedQuery = sqlSelect("SELECT COUNT(*) as liked FROM likes WHERE track='" . $track['id'] . "'AND member='" . $_SESSION['id'] ."'");
+            $isLikedQuery = sqlSelect("SELECT COUNT(*) as liked
+                                        FROM likes
+                                       WHERE track='" . $track['id'] . "'
+                                        AND member='" . $_SESSION['id'] ."'");
             $isLiked = $isLikedQuery['liked'];
 
             echo '<div class="track-wrapper">';
