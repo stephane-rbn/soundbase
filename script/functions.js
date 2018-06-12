@@ -10,3 +10,18 @@ function displayStrLength(maxLength) {
     document.getElementById('count').style.color = '#000000';
   }
 }
+
+function likeTrack(trackId) {
+  const request = new XMLHttpRequest();
+  request.onreadystatechange = function() {
+    if(request.readyState === 4 && request.status === 200) {
+      // If everything went fine in PHP, increment the like number with JS
+      let likeNumber = document.getElementById('likeNumber').innerHTML;
+      likeNumber++;
+      document.getElementById('likeNumber').innerHTML = likeNumber;
+    }
+  };
+  request.open('POST', 'script/like.php');
+  request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+  request.send('track=' + trackId);
+}
