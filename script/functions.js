@@ -16,9 +16,9 @@ function likeTrack(trackId) {
   request.onreadystatechange = function() {
     if(request.readyState === 4 && request.status === 200) {
       // If everything went fine in PHP, increment the like number with JS
-      let likeNumber = document.getElementById('likeNumber').innerHTML;
+      let likeNumber = document.getElementById('likeNumber-' + trackId).innerHTML;
       likeNumber++;
-      document.getElementById('likeNumber').innerHTML = likeNumber;
+      document.getElementById('likeNumber-' + trackId).innerHTML = likeNumber;
     }
   };
   request.open('POST', 'script/like.php');

@@ -34,7 +34,7 @@
                   echo '</audio>';
                   echo '<h3 class="track-info"> '. $track['genre'] . ' - ' . $track['publication_date'] . '</span>';
                 echo '</div>';
-                echo '<span class="likes" onclick="likeTrack('. $track['id'] . ')"><i class="far fa-heart"></i> <span id="likeNumber">' .$track['likes'] . '</span></span>';
+                echo '<span class="likes" onclick="likeTrack('. $track['id'] . ')"><i class="far fa-heart"></i> <span id="likeNumber-' .$track['id'] . '">' .$track['likes'] . '</span></span>';
             echo '</div>';
           }
         ?>
