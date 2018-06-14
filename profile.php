@@ -34,6 +34,18 @@
   // Fetch data with the query and get it as an associative array
   $result = $query->fetch(PDO::FETCH_ASSOC);
 
+  // Query that checks if the subscription already exist in database
+  $follow = $connection->prepare("SELECT 1 FROM subscription WHERE member_following= :member_following AND member_followed= :member_followed ");
+
+  //Execute
+  $follow->execute([
+    "member_following" => $_SESSION["id"],
+    "member_followed"  => $result["id"]
+  ]);
+
+  // Empty if subscription doesn't exist
+  $resultFollow = $follow->fetch();
+
   if (!$result) {
     die("This page doesn't exist");
   }
@@ -52,7 +64,7 @@
 
         <img class="img-fluid d-block mx-auto" src=<?php echo "uploads/member/avatar/" . $result["profile_photo_filename"] ?> alt="" width=200 height="200">
 
-      <?php }else{ ?>
+      <?php } else { ?>
 
         <img class="img-fluid d-block mx-auto" src="http://placehold.it/200x200&text=Logo" alt="">
 
@@ -71,6 +83,10 @@
               if ($result["cover_photo_filename"] !== 'cover.png') {
                 echo '<a href="#" class="delete-button cover-buttons" style="color: #d6d6d6" title="Delete cover picture"><i class="fas fa-trash-alt"></i></a>';
               }
+            } else if (empty($resultFollow)) {
+              echo "<a href='script/followUser.php?id=" . $result["id"] . "&username=" . $result["username"] . "'><center><button type='button' class='btn btn-info'>Follow</button><center></a>";
+            } else {
+              echo "<a href='script/unfollowUser.php?id=" . $result["id"] . "&username=" . $result["username"] . "'><center><button type='button' class='btn btn-danger'>Unfollow</button><center></a>";
             }
           }
         }
