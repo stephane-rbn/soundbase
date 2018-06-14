@@ -113,10 +113,59 @@
       }
     }
 
+    // Check date format: american (YYYY-MM-DD) or european (DD/MM/YYYY)
+
+    $dateFormat = false;
+
+    if (strpos($_POST["birthday"], "/")) {
+      list($day, $month, $year) = explode("/", $_POST["birthday"]);
+      $dateFormat = true;
+    } else if (strpos($_POST["birthday"], "-")) {
+      list($year, $month, $day) = explode("-", $_POST["birthday"]);
+      $dateFormat = true;
+    } else {
+      $error = true;
+      $listOfErrors[] = 3;
+    }
+
+    // Check valid date
+
+    if (!is_numeric($month)
+      || !is_numeric($day)
+      || !is_numeric($year)
+      || !checkdate($month, $day, $year)
+    ) {
+      $error = true;
+      $listOfErrors[] = 4;
+    } else {
+      // Check if allowed to signup (13 <= age <= 150)
+      $today        = time();
+      $time13years  = $today - 13*3600*24*365;
+      $time150years = $today - 150*3600*24*365;
+
+      // Returns UNIX timestamp with corresponding to the arguments given
+      $birthday = mktime(0, 0, 0, $month, $day, $year);
+
+      if ($time13years < $birthday || $time150years > $birthday) {
+        $error = true;
+        $listOfErrors[] = 5;
+      }
+    }
+
+    // Check if something the position exists
+
+    if (intval($_POST["position"]) !== 0
+      && intval($_POST["position"]) !== 1
+      && intval($_POST["position"]) !== 2
+    ) {
+      $error = true;
+      $listOfErrors[] = 24;
+    }
+
     if ($error) {
       $_SESSION["errorForm"] = $listOfErrors;
       $_SESSION["postForm"] = $_POST;
-      header("Location: ../account.php");
+      header("Location: ../user_edit.php?id=" . $_POST["user_id"]);
     }
 
     // Else => insertion in database
@@ -144,5 +193,6 @@
     }
 
   } else {
-    http_response_code(400);
+    $_SESSION["message"] = true;
+    header("Location: ../user_edit.php?id=" . $_POST["user_id"]);
   }
