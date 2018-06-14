@@ -58,7 +58,7 @@
         } else {
           echo "https://unsplash.it/1900/1080?image=1076";
         }
-      ?>');">
+      ?>'); margin-bottom: 20px">
 
       <?php if ($result["profile_photo_filename"] !== "photo.png") { ?>
 
@@ -93,6 +93,25 @@
       ?>
 
     </header>
+
+    <center>
+      <button type="button" class="btn btn-dark">
+      Followers <span class="badge badge-light"><?php
+        if ($result["id"] === $_SESSION["id"]){
+            echo countFollower($_SESSION['id']);
+        } else {
+          echo countFollower($result['id']);
+        } ?></span>
+      </button>
+      <button type="button" class="btn btn-dark">
+        Following <span class="badge badge-light"> <?php
+        if ($result["id"] === $_SESSION["id"]){
+          echo countFollowing($_SESSION['id']);
+        } else {
+          echo countFollowing($result['id']);
+        } ?></span>
+      </button>
+    </center>
 
     <div class="container-fluid"><?php successfulUpdateMessage(); ?></div>
 

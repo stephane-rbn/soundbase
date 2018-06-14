@@ -166,3 +166,15 @@ function xssProtection() {
     $_GET[$key] = htmlspecialchars($value);
   }
 }
+
+function countFollower($member) {
+  $connection = connectDB();
+  $followers = sqlSelect("SELECT COUNT(*) as count FROM subscription WHERE member_followed=" . $member);
+  return $followers["count"];
+}
+
+function countFollowing($member) {
+  $connection = connectDB();
+  $followers = sqlSelect("SELECT COUNT(*) as count FROM subscription WHERE member_following=" . $member);
+  return $followers["count"];
+}
