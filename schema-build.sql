@@ -15,8 +15,8 @@ CREATE TABLE member (
 );
 
 CREATE TABLE subscription (
-    member_following VARCHAR(254) REFERENCES member (id),
-    member_followed  VARCHAR(254) REFERENCES member (id),
+    member_following INTEGER REFERENCES member (id),
+    member_followed  INTEGER REFERENCES member (id),
     PRIMARY KEY (member_following, member_followed)
 );
 
