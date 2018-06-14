@@ -33,6 +33,7 @@
   <link href="vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
   <!-- Custom CSS -->
   <link href="dist/css/sb-admin-2.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
   <!-- Custom Fonts -->
   <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 </head>
