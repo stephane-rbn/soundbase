@@ -1,4 +1,11 @@
 <?php
+  session_start();
+
+  require "../functions.php";
+
+  if (!(isConnected() && isAdmin())) {
+    header("Location: ../login.php");
+  }
 
   include "includes/head.php";
 

@@ -2,8 +2,8 @@
   session_start();
   require "../../functions.php";
 
-  if (!isConnected()) {
-    http_response_code(404);
+  if (!(isConnected() && isAdmin())) {
+    header("Location: ../../login.php");
   }
 
   xssProtection();
