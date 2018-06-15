@@ -1,4 +1,5 @@
 <?php
+
   session_start();
 
   require "../functions.php";
@@ -17,12 +18,7 @@
     <div id="page-wrapper">
       <div class="row">
         <div class="col-lg-12">
-          <h1 class="page-header">Home</h1>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-12">
-          Empty for now
+          <h1 class="page-header">Welcome to the administration panel!</h1>
         </div>
       </div>
     </div>

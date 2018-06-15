@@ -1,10 +1,18 @@
 <?php
 
-  include "includes/head.php";
+  session_start();
+
+  require "../functions.php";
+
+  if (!(isConnected() && isAdmin())) {
+    header("Location: ../login.php");
+  }
 
   $sql = sqlSelectFetchAll("SELECT COUNT(*) as trackCount FROM track");
   $trackCount = $sql['0']['trackCount'];
   $_SESSION["trackCount"] = $trackCount;
+
+  include "includes/head.php";
 
 ?>
 

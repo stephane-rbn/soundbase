@@ -1,11 +1,18 @@
 <?php
 
-  include "includes/head.php";
+  session_start();
+
+  require "../functions.php";
+
+  if (!(isConnected() && isAdmin())) {
+    header("Location: ../login.php");
+  }
 
   $sql = sqlSelectFetchAll("SELECT COUNT(*) as postCount FROM post");
   $postCount = $sql['0']['postCount'];
   $_SESSION["postCount"] = $postCount;
 
+  include "includes/head.php";
 ?>
 
 <body>
