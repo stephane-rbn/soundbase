@@ -1,4 +1,18 @@
 <?php
+  session_start();
+
+  require "../functions.php";
+
+  if (!(isConnected() && isAdmin())) {
+    header("Location: ../login.php");
+  }
+
+  $sql = sqlSelectFetchAll("SELECT COUNT(*) as userCount FROM member");
+  $userCount = $sql['0']['userCount'];
+  $_SESSION["userCount"] = $userCount;
+
+  include "includes/head.php";
+
 
   include "includes/head.php";
 
