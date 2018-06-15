@@ -95,7 +95,7 @@
     </header>
 
     <center>
-      <button type="button" class="btn btn-dark">
+      <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#modalFollowers">
       Followers <span class="badge badge-light"><?php
         if ($result["id"] === $_SESSION["id"]){
             echo countFollower($_SESSION['id']);
@@ -103,7 +103,7 @@
           echo countFollower($result['id']);
         } ?></span>
       </button>
-      <button type="button" class="btn btn-dark">
+      <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#modalFollowing">
         Following <span class="badge badge-light"> <?php
         if ($result["id"] === $_SESSION["id"]){
           echo countFollowing($_SESSION['id']);
@@ -112,6 +112,74 @@
         } ?></span>
       </button>
     </center>
+
+      <!-- Modal: Followers -->
+      <div class="modal fade" id="modalFollowers" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">followers: </h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <?php
+                if ($result["id"] === $_SESSION["id"]){
+                  $usernamefollowers = sqlSelectFetchAll('SELECT username FROM member WHERE id IN(SELECT member_following FROM subscription WHERE member_followed=' . $_SESSION['id'] . ")");
+
+                  foreach ($usernamefollowers as $follower) {
+                    echo "<a href='profile.php?username=" . $follower['username'] . "'>" . $follower['username'] . "<br></a>";
+                  }
+                }else{
+                  $usernamefollowers = sqlSelectFetchAll('SELECT username FROM member WHERE id IN(SELECT member_following FROM subscription WHERE member_followed=' . $result['id'] . ")");
+
+                  foreach ($usernamefollowers as $follower) {
+                    echo "<a href='profile.php?username=" . $follower['username'] . "'>" . $follower['username'] . "<br></a>";
+                  }
+                }
+              ?>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal: Following -->
+      <div class="modal fade" id="modalFollowing" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">followings: </h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <?php
+                if ($result["id"] === $_SESSION["id"]){
+                  $usernamefollowers = sqlSelectFetchAll('SELECT username FROM member WHERE id IN(SELECT member_followed FROM subscription WHERE member_following=' . $_SESSION['id'] . ")");
+
+                  foreach ($usernamefollowers as $follower) {
+                    echo "<a href='profile.php?username=" . $follower['username'] . "'>" . $follower['username'] . "<br></a>";
+                  }
+                }else{
+                  $usernamefollowers = sqlSelectFetchAll('SELECT username FROM member WHERE id IN(SELECT member_followed FROM subscription WHERE member_following=' . $result['id'] . ")");
+
+                  foreach ($usernamefollowers as $follower) {
+                    echo "<a href='profile.php?username=" . $follower['username'] . "'>" . $follower['username'] . "<br></a>";
+                  }
+                }
+              ?>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
     <div class="container-fluid"><?php successfulUpdateMessage(); ?></div>
 
