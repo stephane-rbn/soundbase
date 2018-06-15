@@ -101,6 +101,9 @@ function successfulUpdateMessage() {
   } else if (isset($_SESSION["cancelledAttendance"])) {
     $message = 'You have successfully been removed from the event attendees list';
     alertSuccessMessage($message);
+  } else if (isset($_SESSION["sucessDeletion"])) {
+    $message = 'User has been sucessfully deleted';
+    alertSuccessMessage($message);
   }
 }
 

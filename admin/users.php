@@ -1,10 +1,18 @@
 <?php
 
-  include "includes/head.php";
+  session_start();
+
+  require "../functions.php";
+
+  if (!(isConnected() && isAdmin())) {
+    header("Location: ../login.php");
+  }
 
   $sql = sqlSelectFetchAll("SELECT COUNT(*) as userCount FROM member");
   $userCount = $sql['0']['userCount'];
   $_SESSION["userCount"] = $userCount;
+
+  include "includes/head.php";
 
 ?>
 
@@ -47,6 +55,7 @@
                       <th>Status</th>
                       <th>Registration Date</th>
                       <th>Edit</th>
+                      <th>Delete</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -88,11 +97,34 @@
                         }
                         echo '<td>' . $user['registration_date'];
                         echo '<td><a href="user_edit.php?id=' . $user['id'] . '">Edit</a>';
+                        echo "<td><button type='button' class='btn btn-danger' data-toggle='modal' data-target='#exampleModalCenter-{$user['id']}' style='color: #fff'>Delete</button>";
                         echo "</tr>";
+                        echo "<!-- Modal {$user['id']}: confirmation of deletion -->";
+                        echo "<div class='modal fade' id='exampleModalCenter-{$user['id']}' tabindex='-1' role='dialog' aria-labelledby='exampleModalCenterTitle' aria-hidden='true'>";
+                          echo '<div class="modal-dialog modal-dialog-centered" role="document">';
+                            echo '<div class="modal-content">';
+                              echo '<div class="modal-header">';
+                                echo '<h5 class="modal-title" id="exampleModalLongTitle">Are you sure?</h5>';
+                                echo '<button type="button" class="close" data-dismiss="modal" aria-label="Close">';
+                                  echo '<span aria-hidden="true">&times;</span>';
+                                echo '</button>';
+                              echo '</div>';
+                              echo '<div class="modal-body">The deletion of an account is irreversible.</div>';
+                              echo '<div class="modal-footer">';
+                                echo '<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>';
+                                echo '<button type="button" class="btn btn-danger delete-button">';
+                                  echo '<a href="script/deleteUser.php?id=' . $user['id'] .'" style="color: #fff">Confirm</a>';
+                                echo '</button>';
+                              echo '</div>';
+                            echo '</div>';
+                          echo '</div>';
+                        echo '</div>';
                       }
                     ?>
                   </tbody>
                 </table>
+
+
                 <div class="row">
                   <div class="col-sm-6">
                     <div class="dataTables_info" id="dataTables-example_info" role="status" aria-live="polite">
@@ -174,6 +206,7 @@
 <?php
 
   unset($_SESSION["userCount"]);
+  unset($_SESSION["sucessDeletion"]);
 
   include "includes/footer.php";
 ?>
