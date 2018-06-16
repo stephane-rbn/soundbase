@@ -175,6 +175,7 @@
           </div>
         </div>
       </div>
+    </div>
 
 
     <div class="vertical-spacer"></div>
