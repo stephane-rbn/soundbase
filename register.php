@@ -18,7 +18,16 @@
       <h2>AS FAST AS SOUND</h2>
     </div>
 
+    <div class="container">
+    <?php
+    if (isset($_SESSION["message"])) {
+          fillAllFieldsErrorMessage();
+    }
+    ?>
+    </div>
+
     <div class="container center_div register-form">
+
 
       <form method="POST" action="script/saveUser.php">
 
@@ -132,6 +141,7 @@
     </div>
 
     <?php
+      unset($_SESSION["message"]);
       unset($_SESSION["postForm"]);
       unset($_SESSION["errorForm"]);
     ?>
