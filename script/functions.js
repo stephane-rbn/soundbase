@@ -12,13 +12,28 @@ function displayStrLength(maxLength) {
 }
 
 function likeTrack(trackId) {
+
+  let likeNumer = document.getElementById('likeNumber-' + trackId)
   const request = new XMLHttpRequest();
+
   request.onreadystatechange = function() {
+
     if(request.readyState === 4 && request.status === 200) {
-      // If everything went fine in PHP, increment the like number with JS
-      let likeNumber = document.getElementById('likeNumber-' + trackId).innerHTML;
-      likeNumber++;
-      document.getElementById('likeNumber-' + trackId).innerHTML = likeNumber;
+
+      // If everything went fine in PHP, update the like number and heart with JS
+
+      // like.php returns the actual like number
+      likeNumer.innerHTML = request.responseText;
+
+      // Switch to full or empty heart
+      let likeNumber = document.getElementsByClassName('likes')[0].firstElementChild;
+
+      if (likeNumber.className === "far fa-heart") {
+        likeNumber.className = "fas fa-heart";
+      }
+      else if (likeNumber.className === "fas fa-heart") {
+        likeNumber.className = "far fa-heart";
+      }
     }
   };
   request.open('POST', 'script/like.php');
