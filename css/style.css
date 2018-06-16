@@ -288,6 +288,11 @@ footer a:hover {
   }
 }
 
+.empty-home {
+  grid-column: 2;
+  text-align: center;
+}
+
 /* ALL EVENTS PAGE */
 
 .card-events {
