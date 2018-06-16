@@ -294,6 +294,10 @@ footer a:hover {
   cursor: pointer;
 }
 
+.likes .likeNumber {
+  margin-left: 5px;
+}
+
 /* ALL EVENTS PAGE */
 
 .card-events {
