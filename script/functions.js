@@ -13,7 +13,7 @@ function displayStrLength(maxLength) {
 
 function likeTrack(trackId) {
 
-  let likeNumer = document.getElementById('likeNumber-' + trackId)
+  let likeNumber = document.getElementById('likeNumber-' + trackId)
   const request = new XMLHttpRequest();
 
   request.onreadystatechange = function() {
@@ -23,7 +23,7 @@ function likeTrack(trackId) {
       // If everything went fine in PHP, update the like number and heart with JS
 
       // like.php returns the actual like number
-      likeNumer.innerHTML = request.responseText;
+      likeNumber.innerHTML = request.responseText;
 
       // Switch to full or empty heart
       let likeNumber = document.getElementsByClassName('likes')[0].firstElementChild;
