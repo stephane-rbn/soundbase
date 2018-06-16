@@ -50,10 +50,8 @@ function fillSessionField($field) {
 // Display error messages in signup form (below fields)
 function isErrorPresent($errorNumber) {
   if (isset($_SESSION["errorForm"])) {
-    for ($i = 0; $i < count($_SESSION["errorForm"]); $i++) {
-      if (in_array($errorNumber, $_SESSION["errorForm"])) {
-        return true;
-      }
+    if (in_array($errorNumber, $_SESSION["errorForm"])) {
+      return true;
     }
   }
 
