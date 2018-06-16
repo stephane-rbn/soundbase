@@ -178,5 +178,6 @@
     }
 
   } else {
-    die("Error: invalid form submission.");
+    $_SESSION["message"] = true;
+    header("Location: ../register.php");
   }
