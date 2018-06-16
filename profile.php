@@ -34,17 +34,19 @@
   // Fetch data with the query and get it as an associative array
   $result = $query->fetch(PDO::FETCH_ASSOC);
 
-  // Query that checks if the subscription already exist in database
-  $follow = $connection->prepare("SELECT 1 FROM subscription WHERE member_following= :member_following AND member_followed= :member_followed ");
+  if (isConnected()) {
+    // Query that checks if the subscription already exist in database
+    $follow = $connection->prepare("SELECT 1 FROM subscription WHERE member_following= :member_following AND member_followed= :member_followed ");
 
-  //Execute
-  $follow->execute([
-    "member_following" => $_SESSION["id"],
-    "member_followed"  => $result["id"]
-  ]);
+    //Execute
+    $follow->execute([
+      "member_following" => $_SESSION["id"],
+      "member_followed"  => $result["id"]
+    ]);
 
-  // Empty if subscription doesn't exist
-  $resultFollow = $follow->fetch();
+    // Empty if subscription doesn't exist
+    $resultFollow = $follow->fetch();
+  }
 
   if (!$result) {
     die("This page doesn't exist");
@@ -97,18 +99,19 @@
     <center>
       <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#modalFollowers">
       Followers <span class="badge badge-light"><?php
-        if ($result["id"] === $_SESSION["id"]){
-            echo countFollower($_SESSION['id']);
-        } else {
+        if (!isConnected()) {
           echo countFollower($result['id']);
+        }
+        else if ($result["id"] === $_SESSION["id"]){
+            echo countFollower($_SESSION['id']);
         } ?></span>
       </button>
       <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#modalFollowing">
         Following <span class="badge badge-light"> <?php
-        if ($result["id"] === $_SESSION["id"]){
-          echo countFollowing($_SESSION['id']);
-        } else {
+        if (!isConnected()) {
           echo countFollowing($result['id']);
+        } else if ($result["id"] === $_SESSION["id"]){
+          echo countFollowing($_SESSION['id']);
         } ?></span>
       </button>
     </center>
@@ -125,14 +128,14 @@
             </div>
             <div class="modal-body">
               <?php
-                if ($result["id"] === $_SESSION["id"]){
-                  $usernamefollowers = sqlSelectFetchAll('SELECT username FROM member WHERE id IN(SELECT member_following FROM subscription WHERE member_followed=' . $_SESSION['id'] . ")");
+                if (!isConnected()) {
+                  $usernamefollowers = sqlSelectFetchAll('SELECT username FROM member WHERE id IN(SELECT member_following FROM subscription WHERE member_followed=' . $result['id'] . ")");
 
                   foreach ($usernamefollowers as $follower) {
                     echo "<a href='profile.php?username=" . $follower['username'] . "'>" . $follower['username'] . "<br></a>";
                   }
-                }else{
-                  $usernamefollowers = sqlSelectFetchAll('SELECT username FROM member WHERE id IN(SELECT member_following FROM subscription WHERE member_followed=' . $result['id'] . ")");
+                } else if ($result["id"] === $_SESSION["id"]){
+                  $usernamefollowers = sqlSelectFetchAll('SELECT username FROM member WHERE id IN(SELECT member_following FROM subscription WHERE member_followed=' . $_SESSION['id'] . ")");
 
                   foreach ($usernamefollowers as $follower) {
                     echo "<a href='profile.php?username=" . $follower['username'] . "'>" . $follower['username'] . "<br></a>";
@@ -159,17 +162,18 @@
             </div>
             <div class="modal-body">
               <?php
-                if ($result["id"] === $_SESSION["id"]){
-                  $usernamefollowers = sqlSelectFetchAll('SELECT username FROM member WHERE id IN(SELECT member_followed FROM subscription WHERE member_following=' . $_SESSION['id'] . ")");
+                if (!isConnected()) {
+                  $usernamefollowing = sqlSelectFetchAll('SELECT username FROM member WHERE id IN(SELECT member_followed FROM subscription WHERE member_following=' . $result['id'] . ")");
 
-                  foreach ($usernamefollowers as $follower) {
-                    echo "<a href='profile.php?username=" . $follower['username'] . "'>" . $follower['username'] . "<br></a>";
+                  foreach ($usernamefollowing as $following) {
+                    echo "<a href='profile.php?username=" . $following['username'] . "'>" . $following['username'] . "<br></a>";
                   }
-                }else{
-                  $usernamefollowers = sqlSelectFetchAll('SELECT username FROM member WHERE id IN(SELECT member_followed FROM subscription WHERE member_following=' . $result['id'] . ")");
+                }
+                else if ($result["id"] === $_SESSION["id"]) {
+                  $usernamefollowing = sqlSelectFetchAll('SELECT username FROM member WHERE id IN(SELECT member_followed FROM subscription WHERE member_following=' . $_SESSION['id'] . ")");
 
-                  foreach ($usernamefollowers as $follower) {
-                    echo "<a href='profile.php?username=" . $follower['username'] . "'>" . $follower['username'] . "<br></a>";
+                  foreach ($usernamefollowing as $following) {
+                    echo "<a href='profile.php?username=" . $following['username'] . "'>" . $following['username'] . "<br></a>";
                   }
                 }
               ?>
@@ -257,10 +261,12 @@
                   echo "</div>";
                 }
               } else {
-                if ($result["id"] === $_SESSION["id"]) {
+                if (!isConnected()) {
+                  echo "<p>No track uploaded.";
+                } else if ($result["id"] === $_SESSION["id"]) {
                   echo "<p>No track uploaded. <a href='newtrackForm.php'>Upload now!</a></p>";
                 } else {
-                  "<p>No track uploaded.";
+                  echo "<p>No track uploaded.</p>";
                 }
               }
             ?>
@@ -281,7 +287,9 @@
                       echo "</center>";
                     }
                   } else {
-                    if ($result["id"] === $_SESSION["id"]) {
+                    if (!isConnected()) {
+                      echo "<p>No event created.";
+                    } else if ($result["id"] === $_SESSION["id"]) {
                       echo "<p>No event created. <a href='newtrackForm.php'>Upload now!</a></p>";
                     } else {
                       echo "<p>No event created.";
