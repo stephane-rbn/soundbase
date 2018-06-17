@@ -26,7 +26,7 @@ function likeTrack(trackId) {
       likeNumber.innerHTML = request.responseText;
 
       // Switch to full or empty heart
-      let likeButton = document.getElementsByClassName('likes')[0].firstElementChild;
+      let likeButton = document.getElementById('likes-' + trackId).firstElementChild;
 
       if (likeButton.className === "far fa-heart") {
         likeButton.className = "fas fa-heart";

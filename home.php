@@ -48,7 +48,7 @@
                   echo '</audio>';
                   echo '<h3 class="track-info"> '. $track['genre'] . ' - ' . $track['publication_date'] . '</span>';
                 echo '</div>';
-                echo '<span class="likes" onclick="likeTrack('. $track['id'] . ')">';
+                echo '<span class="likes" id="likes-' .$track['id'] . '" onclick="likeTrack('. $track['id'] . ')">';
                 echo '<i class="' . (($isLiked == 1) ? 'fas' : 'far') . ' fa-heart"></i>';
                   echo '<span class="likeNumber" id="likeNumber-' .$track['id'] . '">' .$likes . '</span>';
                 echo '</span>';
