@@ -25,9 +25,20 @@
 
             foreach ($trackData as $track) {
 
-              $artistQuery = sqlSelect("SELECT name FROM member WHERE ID = ".$track['member']);
-
+              $artistQuery = sqlSelect(
+                "SELECT name FROM member WHERE id = ".$track['member']
+              );
               $artist = $artistQuery['name'];
+
+              $likesQuery = sqlSelect(
+                "SELECT COUNT(*) as likes FROM likes WHERE track=" . $track['id']
+              );
+              $likes = $likesQuery['likes'];
+
+              $isLikedQuery = sqlSelect(
+                "SELECT COUNT(*) as liked FROM likes WHERE track='" . $track['id'] . "' AND member='" . $_SESSION['id'] ."'"
+              );
+              $isLiked = $isLikedQuery['liked'];
 
               echo '<div class="track-wrapper">';
                 echo "<a href='track.php?id=" . $track['id'] . "'>";
@@ -40,9 +51,12 @@
                     echo '</audio>';
                     echo '<h3 class="track-info"> '. $track['genre'] . ' - ' . $track['publication_date'] . '</span>';
                   echo '</div>';
+                  echo '<span class="likes" id="likes-' .$track['id'] . '" onclick="likeTrack('. $track['id'] . ')">';
+                  echo '<i class="' . (($isLiked == 1) ? 'fas' : 'far') . ' fa-heart"></i>';
+                    echo '<span class="likeNumber" id="likeNumber-' .$track['id'] . '">' .$likes . '</span>';
+                  echo '</span>';
               echo '</div>';
             }
-
           } else {
             echo "<p class='empty-home'>You can search for a member to follow his news</p>";
           }

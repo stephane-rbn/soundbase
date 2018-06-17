@@ -10,6 +10,10 @@ body {
   }
 }
 
+.likes {
+  cursor: pointer;
+}
+
 .vertical-spacer {
   height: 7em;
 }
@@ -286,6 +290,16 @@ footer a:hover {
   .track-info {
     margin-top: 1em;
   }
+}
+
+.track-wrapper .likes {
+  grid-column: 2;
+  grid-row: 3;
+  cursor: pointer;
+}
+
+.likes .likeNumber {
+  margin-left: 5px;
 }
 
 .empty-home {

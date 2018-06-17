@@ -38,6 +38,12 @@ CREATE TABLE listening (
     PRIMARY KEY (member, track)
 );
 
+CREATE TABLE likes (
+    member  INTEGER NOT NULL REFERENCES member (id),
+    track   INTEGER NOT NULL REFERENCES track (id),
+    PRIMARY KEY (member, track)
+);
+
 CREATE TABLE playlist (
     id     INTEGER PRIMARY KEY AUTO_INCREMENT,
     name   VARCHAR(60),
