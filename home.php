@@ -56,7 +56,7 @@
                     echo '<span class="likeNumber" id="likeNumber-' .$track['id'] . '">' .$likes . '</span>';
                   echo '</span>';
               echo '</div>';
-
+            }
           } else {
             echo "<p class='empty-home'>You can search for a member to follow his news</p>";
           }
