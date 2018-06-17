@@ -273,7 +273,7 @@ footer a:hover {
   .track-wrapper {
     grid-template-rows: 0.5fr 2fr 1fr;
   }
-  .track-wrapper h2 {
+  .track-wrapper a {
     grid-column: 1;
   }
   .track-cover {
@@ -300,6 +300,11 @@ footer a:hover {
 
 .likes .likeNumber {
   margin-left: 5px;
+}
+
+.empty-home {
+  grid-column: 2;
+  text-align: center;
 }
 
 /* ALL EVENTS PAGE */

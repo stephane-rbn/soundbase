@@ -7,7 +7,7 @@ $listOfErrors = [
   2  => "Username length must be between 2 and 20 characters",
   3  => "Wrong date format",
   4  => "This date doesn't exist",
-  5  => "You must be 18 and 150 years old",
+  5  => "Must be 18 and 150 years old",
   6  => "Email not valid",
   7  => "This email already exists",
   8  => "Password length must be between 8 and 40 characters",
@@ -25,7 +25,8 @@ $listOfErrors = [
   20 => "The genre is not correct",
   21 => "The length must be between 3 and 100 characters",
   22 => "You can not choose a past day",
-  23 => "Please enter a valid capacity"
+  23 => "Please enter a valid capacity",
+  24 => "This position doesn't exist"
 ];
 
 $defaultGenre = "rb";

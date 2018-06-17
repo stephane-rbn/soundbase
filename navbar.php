@@ -12,6 +12,10 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
+          <form class="form-inline" method="GET" action="searchUsers.php">
+            <input class="form-control mr-sm-2" type="search" placeholder="Enter a username" aria-label="Search" name="username">
+            <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+          </form>
           <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
               <a class="nav-link" href="index.php">Home

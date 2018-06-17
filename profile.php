@@ -34,6 +34,20 @@
   // Fetch data with the query and get it as an associative array
   $result = $query->fetch(PDO::FETCH_ASSOC);
 
+  if (isConnected()) {
+    // Query that checks if the subscription already exist in database
+    $follow = $connection->prepare("SELECT 1 FROM subscription WHERE member_following= :member_following AND member_followed= :member_followed ");
+
+    //Execute
+    $follow->execute([
+      "member_following" => $_SESSION["id"],
+      "member_followed"  => $result["id"]
+    ]);
+
+    // Empty if subscription doesn't exist
+    $resultFollow = $follow->fetch();
+  }
+
   if (!$result) {
     die("This page doesn't exist");
   }
@@ -46,13 +60,13 @@
         } else {
           echo "https://unsplash.it/1900/1080?image=1076";
         }
-      ?>');">
+      ?>'); margin-bottom: 20px">
 
       <?php if ($result["profile_photo_filename"] !== "photo.png") { ?>
 
         <img class="img-fluid d-block mx-auto" src=<?php echo "uploads/member/avatar/" . $result["profile_photo_filename"] ?> alt="" width=200 height="200">
 
-      <?php }else{ ?>
+      <?php } else { ?>
 
         <img class="img-fluid d-block mx-auto" src="http://placehold.it/200x200&text=Logo" alt="">
 
@@ -71,12 +85,77 @@
               if ($result["cover_photo_filename"] !== 'cover.png') {
                 echo '<a href="#" class="delete-button cover-buttons" style="color: #d6d6d6" title="Delete cover picture"><i class="fas fa-trash-alt"></i></a>';
               }
+            } else if (empty($resultFollow)) {
+              echo "<a href='script/followUser.php?id=" . $result["id"] . "&username=" . $result["username"] . "'><center><button type='button' class='btn btn-info'>Follow</button><center></a>";
+            } else {
+              echo "<a href='script/unfollowUser.php?id=" . $result["id"] . "&username=" . $result["username"] . "'><center><button type='button' class='btn btn-danger'>Unfollow</button><center></a>";
             }
           }
         }
       ?>
 
     </header>
+
+    <center>
+      <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#modalFollowers">
+      Followers <span class="badge badge-light"><?php echo countFollower($result['id']); ?></span>
+      </button>
+      <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#modalFollowing">
+        Following <span class="badge badge-light"> <?php echo countFollowing($result['id']); ?></span>
+      </button>
+    </center>
+
+      <!-- Modal: Followers -->
+      <div class="modal fade" id="modalFollowers" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">followers: </h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <?php
+                $usernamefollowers = sqlSelectFetchAll('SELECT username FROM member WHERE id IN(SELECT member_following FROM subscription WHERE member_followed=' . $result['id'] . ")");
+
+                foreach ($usernamefollowers as $follower) {
+                  echo "<a href='profile.php?username=" . $follower['username'] . "'>" . $follower['username'] . "<br></a>";
+                }
+              ?>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal: Following -->
+      <div class="modal fade" id="modalFollowing" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">followings: </h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <?php
+                $usernamefollowing = sqlSelectFetchAll('SELECT username FROM member WHERE id IN(SELECT member_followed FROM subscription WHERE member_following=' . $result['id'] . ")");
+
+                foreach ($usernamefollowing as $following) {
+                  echo "<a href='profile.php?username=" . $following['username'] . "'>" . $following['username'] . "<br></a>";
+                }
+              ?>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
     <div class="container-fluid"><?php successfulUpdateMessage(); ?></div>
 
@@ -127,7 +206,14 @@
                   $isLiked = $isLikedResult['liked'];
 
                   echo "<center>";
-                  echo "<h3><a href='track.php?id=" . $track['id'] . "'>" . $track['title'] . "</a><a href='' style='color: #c8c8c8;' title='Add to a playlist' data-toggle='modal' data-target='#addToPlaylistModal-{$track['id']}'><i class='fas fa-plus fa-xs' style='margin-left: 10px;'></i></a></h3>";
+                  echo "<h3><a href='track.php?id=" . $track['id'] . "'>" . $track['title'] . "</a>";
+                  if (isConnected()) {
+                    echo "<a href='' style='color: #c8c8c8;' title='Add to a playlist' data-toggle='modal' data-target='#addToPlaylistModal-{$track['id']}'>";
+                    echo "<i class='fas fa-plus fa-xs' style='margin-left: 10px;'></i>";
+                    echo "</a>";
+                  }
+                  echo "</a>";
+                  echo "</h3>";
                   echo '<img src="uploads/tracks/album_cover/'. $track['photo_filename'] . '" height="100px">';
                   echo '<audio controls>';
                   echo '<source src="uploads/tracks/files/' . $track['track_filename'] . '" type="audio/flac">';
@@ -138,47 +224,52 @@
                     echo '<span class="likeNumber" id="likeNumber-' .$track['id'] . '">' .$likes . '</span>';
                   echo '</span>';
                   echo '</center>';
-                  echo "<!-- Add to playlist button Modal -->";
-                  echo "<div class='modal fade' id='addToPlaylistModal-{$track['id']}' tabindex='-1' role='dialog' aria-labelledby='exampleModalCenterTitle' aria-hidden='true'>";
-                    echo "<div class='modal-dialog modal-dialog-centered' role='document'>";
-                      echo "<div class='modal-content'>";
-                        echo "<div class='modal-header'>";
-                          echo "<h5 class='modal-title' id='exampleModalLongTitle'>My playlists</h5>";
-                          echo "<button type='button' class='close' data-dismiss='modal' aria-label='Close'>";
-                            echo "<span aria-hidden='true'>&times;</span>";
-                          echo "</button>";
-                        echo "</div>";
-                        echo "<div class='modal-body'>";
 
-                        $getAllPlaylistsQuery = $connection->prepare(
-                          "SELECT * FROM playlist WHERE member='" . $_SESSION['id']. "'"
-                        );
+                  if (isConnected()) {
+                    echo "<!-- Add to playlist button Modal -->";
+                    echo "<div class='modal fade' id='addToPlaylistModal-{$track['id']}' tabindex='-1' role='dialog' aria-labelledby='exampleModalCenterTitle' aria-hidden='true'>";
+                      echo "<div class='modal-dialog modal-dialog-centered' role='document'>";
+                        echo "<div class='modal-content'>";
+                          echo "<div class='modal-header'>";
+                            echo "<h5 class='modal-title' id='exampleModalLongTitle'>My playlists</h5>";
+                            echo "<button type='button' class='close' data-dismiss='modal' aria-label='Close'>";
+                              echo "<span aria-hidden='true'>&times;</span>";
+                            echo "</button>";
+                          echo "</div>";
+                          echo "<div class='modal-body'>";
 
-                        $getAllPlaylistsQuery->execute();
+                          $getAllPlaylistsQuery = $connection->prepare(
+                            "SELECT * FROM playlist WHERE member='" . $_SESSION['id']. "'"
+                          );
 
-                        $allPlaylists = $getAllPlaylistsQuery->fetchAll(PDO::FETCH_ASSOC);
+                          $getAllPlaylistsQuery->execute();
 
-                        if (count($allPlaylists) === 0) {
-                          echo "<h3>No playlist created. <a href='newPlaylist.php'>Create one!</a></h3>";
-                        } else {
-                          foreach($allPlaylists as $playlist) {
-                            echo "<h3><a href='script/addToPlaylist.php?playlist_id=" . $playlist["id"] . "&track_id=" . $track['id'] . "'>" . $playlist["name"] . "</a></h3>";
-                            echo "<hr>";
+                          $allPlaylists = $getAllPlaylistsQuery->fetchAll(PDO::FETCH_ASSOC);
+
+                          if (count($allPlaylists) === 0) {
+                            echo "<h3>No playlist created. <a href='newPlaylist.php'>Create one!</a></h3>";
+                          } else {
+                            foreach($allPlaylists as $playlist) {
+                              echo "<h3><a href='script/addToPlaylist.php?playlist_id=" . $playlist["id"] . "&track_id=" . $track['id'] . "'>" . $playlist["name"] . "</a></h3>";
+                              echo "<hr>";
+                            }
                           }
-                        }
-                        echo "</div>";
-                        echo "<div class='modal-footer'>";
-                          echo "<button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>";
+                          echo "</div>";
+                          echo "<div class='modal-footer'>";
+                            echo "<button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>";
+                          echo "</div>";
                         echo "</div>";
                       echo "</div>";
                     echo "</div>";
-                  echo "</div>";
+                  }
                 }
               } else {
-                if ($result["id"] === $_SESSION["id"]) {
+                if (!isConnected()) {
+                  echo "<p>No track uploaded.";
+                } else if ($result["id"] === $_SESSION["id"]) {
                   echo "<p>No track uploaded. <a href='newtrackForm.php'>Upload now!</a></p>";
                 } else {
-                  "<p>No track uploaded.";
+                  echo "<p>No track uploaded.</p>";
                 }
               }
             ?>
@@ -199,7 +290,9 @@
                       echo "</center>";
                     }
                   } else {
-                    if ($result["id"] === $_SESSION["id"]) {
+                    if (!isConnected()) {
+                      echo "<p>No event created.";
+                    } else if ($result["id"] === $_SESSION["id"]) {
                       echo "<p>No event created. <a href='newtrackForm.php'>Upload now!</a></p>";
                     } else {
                       echo "<p>No event created.";

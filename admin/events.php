@@ -1,10 +1,18 @@
 <?php
 
-  include "includes/head.php";
+  session_start();
+
+  require "../functions.php";
+
+  if (!(isConnected() && isAdmin())) {
+    header("Location: ../login.php");
+  }
 
   $sql = sqlSelectFetchAll("SELECT COUNT(*) as eventCount FROM events");
   $eventCount = $sql['0']['eventCount'];
   $_SESSION["eventCount"] = $eventCount;
+
+  include "includes/head.php";
 
 ?>
 

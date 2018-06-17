@@ -50,10 +50,8 @@ function fillSessionField($field) {
 // Display error messages in signup form (below fields)
 function isErrorPresent($errorNumber) {
   if (isset($_SESSION["errorForm"])) {
-    for ($i = 0; $i < count($_SESSION["errorForm"]); $i++) {
-      if (in_array($errorNumber, $_SESSION["errorForm"])) {
-        return true;
-      }
+    if (in_array($errorNumber, $_SESSION["errorForm"])) {
+      return true;
     }
   }
 
@@ -73,6 +71,7 @@ function fillAllFieldsErrorMessage() {
   }
 }
 
+// Display the sucess messages
 function successfulUpdateMessage() {
   if (isset($_SESSION["successUpdate"]["userInfo"])) {
     $message = 'Your information has been updated';
@@ -101,9 +100,13 @@ function successfulUpdateMessage() {
   } else if (isset($_SESSION["cancelledAttendance"])) {
     $message = 'You have successfully been removed from the event attendees list';
     alertSuccessMessage($message);
+  } else if (isset($_SESSION["sucessDeletion"])) {
+    $message = 'User has been sucessfully deleted';
+    alertSuccessMessage($message);
   }
 }
 
+// Display a success message specified in successfulUpdateMessage() function
 function alertSuccessMessage($message){
   echo '<div class="push"></div>';
 
@@ -136,6 +139,7 @@ function isAdmin() {
   return false;
 }
 
+// Return an associative array containing the elements selectionned
 function sqlSelect($query) {
   $connection = connectDB();
   $sql = $connection->prepare($query);
@@ -145,6 +149,7 @@ function sqlSelect($query) {
   return $result;
 }
 
+// Return an array of associative arrays containing the elements selectionned
 function sqlSelectFetchAll($query) {
   $connection = connectDB();
   $sql = $connection->prepare($query);
@@ -165,4 +170,18 @@ function xssProtection() {
     // Convert special characters to HTML entities
     $_GET[$key] = htmlspecialchars($value);
   }
+}
+
+// Return the number of people following the member with id in $member
+function countFollower($member) {
+  $connection = connectDB();
+  $following = sqlSelect("SELECT COUNT(*) as count FROM subscription WHERE member_followed=" . $member);
+  return $following["count"];
+}
+
+// Return the number of followers that the member with id in $member owns
+function countFollowing($member) {
+  $connection = connectDB();
+  $followers = sqlSelect("SELECT COUNT(*) as count FROM subscription WHERE member_following=" . $member);
+  return $followers["count"];
 }
