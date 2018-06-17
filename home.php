@@ -19,7 +19,7 @@
     <div>
       <div class="home-feed">
         <?php
-          $trackData = sqlSelectFetchAll('SELECT * FROM track WHERE member IN(SELECT member_followed FROM subscription WHERE member_following=' . $_SESSION['id'] . ")");
+          $trackData = sqlSelectFetchAll('SELECT * FROM track WHERE member IN (SELECT member_followed FROM subscription WHERE member_following=' . $_SESSION['id'] . ") ORDER BY publication_date DESC");
 
           if (!empty($trackData)) {
 
