@@ -26,13 +26,13 @@ function likeTrack(trackId) {
       likeNumber.innerHTML = request.responseText;
 
       // Switch to full or empty heart
-      let likeNumber = document.getElementsByClassName('likes')[0].firstElementChild;
+      let likeButton = document.getElementsByClassName('likes')[0].firstElementChild;
 
-      if (likeNumber.className === "far fa-heart") {
-        likeNumber.className = "fas fa-heart";
+      if (likeButton.className === "far fa-heart") {
+        likeButton.className = "fas fa-heart";
       }
-      else if (likeNumber.className === "fas fa-heart") {
-        likeNumber.className = "far fa-heart";
+      else if (likeButton.className === "fas fa-heart") {
+        likeButton.className = "far fa-heart";
       }
     }
   };
