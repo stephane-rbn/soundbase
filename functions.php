@@ -71,6 +71,7 @@ function fillAllFieldsErrorMessage() {
   }
 }
 
+// Display the sucess messages
 function successfulUpdateMessage() {
   if (isset($_SESSION["successUpdate"]["userInfo"])) {
     $message = 'Your information has been updated';
@@ -105,6 +106,7 @@ function successfulUpdateMessage() {
   }
 }
 
+// Display a success message specified in successfulUpdateMessage() function
 function alertSuccessMessage($message){
   echo '<div class="push"></div>';
 
@@ -137,6 +139,7 @@ function isAdmin() {
   return false;
 }
 
+// Return an associative array containing the elements selectionned
 function sqlSelect($query) {
   $connection = connectDB();
   $sql = $connection->prepare($query);
@@ -146,6 +149,7 @@ function sqlSelect($query) {
   return $result;
 }
 
+// Return an array of associative arrays containing the elements selectionned
 function sqlSelectFetchAll($query) {
   $connection = connectDB();
   $sql = $connection->prepare($query);
@@ -168,12 +172,14 @@ function xssProtection() {
   }
 }
 
+// Return the number of people following the member with id in $member
 function countFollower($member) {
   $connection = connectDB();
-  $followers = sqlSelect("SELECT COUNT(*) as count FROM subscription WHERE member_followed=" . $member);
-  return $followers["count"];
+  $following = sqlSelect("SELECT COUNT(*) as count FROM subscription WHERE member_followed=" . $member);
+  return $following["count"];
 }
 
+// Return the number of followers that the member with id in $member owns
 function countFollowing($member) {
   $connection = connectDB();
   $followers = sqlSelect("SELECT COUNT(*) as count FROM subscription WHERE member_following=" . $member);
