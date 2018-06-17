@@ -109,6 +109,23 @@
               if (count($trackData) !== 0) {
 
                 foreach ($trackData as $track) {
+                  $likesQuery = $connection->prepare(
+                    "SELECT COUNT(*) as likes FROM likes WHERE track=" . $track['id']
+                  );
+
+                  $isLikedQuery = $connection->prepare(
+                    "SELECT COUNT(*) as liked FROM likes WHERE track='" . $track['id'] . "' AND member='" . $_SESSION['id'] ."'"
+                  );
+
+                  $likesQuery->execute();
+                  $isLikedQuery->execute();
+
+                  $likesResult = $likesQuery->fetch(PDO::FETCH_ASSOC);
+                  $isLikedResult = $isLikedQuery->fetch(PDO::FETCH_ASSOC);
+
+                  $likes = $likesResult['likes'];
+                  $isLiked = $isLikedResult['liked'];
+
                   echo "<center>";
                   echo "<h3><a href='track.php?id=" . $track['id'] . "'>" . $track['title'] . "</a><a href='' style='color: #c8c8c8;' title='Add to a playlist' data-toggle='modal' data-target='#addToPlaylistModal-{$track['id']}'><i class='fas fa-plus fa-xs' style='margin-left: 10px;'></i></a></h3>";
                   echo '<img src="uploads/tracks/album_cover/'. $track['photo_filename'] . '" height="100px">';
@@ -116,6 +133,10 @@
                   echo '<source src="uploads/tracks/files/' . $track['track_filename'] . '" type="audio/flac">';
                   echo '</audio><br> Artist: ' . $track['member'] . '<br> Genre: ' . $listOfGenres[$track['genre']] . '<br> Publication: ' . $track['publication_date'] . '<br>';
                   echo '<hr>';
+                  echo '<span class="likes" onclick="likeTrack('. $track['id'] . ')">';
+                  echo '<i class="' . (($isLiked == 1) ? 'fas' : 'far') . ' fa-heart"></i>';
+                    echo '<span class="likeNumber" id="likeNumber-' .$track['id'] . '">' .$likes . '</span>';
+                  echo '</span>';
                   echo '</center>';
                   echo "<!-- Add to playlist button Modal -->";
                   echo "<div class='modal fade' id='addToPlaylistModal-{$track['id']}' tabindex='-1' role='dialog' aria-labelledby='exampleModalCenterTitle' aria-hidden='true'>";
