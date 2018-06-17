@@ -52,6 +52,23 @@
         <?php
           if (count($tracks) !== 0) {
             foreach ($tracks as $track) {
+              $likesQuery = $connection->prepare(
+                "SELECT COUNT(*) as likes FROM likes WHERE track=" . $track['id']
+              );
+
+              $isLikedQuery = $connection->prepare(
+                "SELECT COUNT(*) as liked FROM likes WHERE track='" . $track['id'] . "' AND member='" . $_SESSION['id'] ."'"
+              );
+
+              $likesQuery->execute();
+              $isLikedQuery->execute();
+
+              $likesResult = $likesQuery->fetch(PDO::FETCH_ASSOC);
+              $isLikedResult = $isLikedQuery->fetch(PDO::FETCH_ASSOC);
+
+              $likes = $likesResult['likes'];
+              $isLiked = $isLikedResult['liked'];
+
               echo "<center>";
               echo "<a href='track.php?id=" . $track['id'] . "'>";
                 echo "<h2>" . $track['title'] . "</h2>";
@@ -61,6 +78,10 @@
               echo '<source src="uploads/tracks/files/' . $track['track_filename'] . '" type="audio/flac">';
               echo '</audio><br> Artist: ' . $track['member'] . '<br> Genre: ' . $listOfGenres[$track['genre']] . '<br> Publication: ' . $track['publication_date'] . '<br>';
               echo '<hr>';
+              echo '<span class="likes" onclick="likeTrack('. $track['id'] . ')">';
+              echo '<i class="' . (($isLiked == 1) ? 'fas' : 'far') . ' fa-heart"></i>';
+                echo '<span class="likeNumber" id="likeNumber-' .$track['id'] . '">' .$likes . '</span>';
+              echo '</span>';
               echo '</center>';
               echo "<br>";
             }
