@@ -205,6 +205,7 @@
                   $likes = $likesResult['likes'];
                   $isLiked = $isLikedResult['liked'];
 
+                  echo '<div id="track-container-' . $track['id'] . '">';
                   echo "<center>";
                   echo "<h3><a href='track.php?id=" . $track['id'] . "'>" . $track['title'] . "</a>";
                   if (isConnected()) {
@@ -229,6 +230,7 @@
                     echo '</a>';
                   }
                   echo '</center>';
+                  echo '</div>';
 
                   if (isConnected()) {
                     echo "<!-- Add to playlist button Modal -->";

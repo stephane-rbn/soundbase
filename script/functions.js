@@ -47,7 +47,8 @@ function deleteTrack(trackId) {
 
   request.onreadystatechange = function() {
     if(request.readyState === 4 && request.status === 200) {
-      //Delete song from DOM
+      //Delete track from DOM
+      document.getElementById('track-container-' + trackId).innerHTML = ''
     }
   };
   request.open('POST', 'script/deleteTrack.php');
