@@ -40,3 +40,17 @@ function likeTrack(trackId) {
   request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
   request.send('track=' + trackId);
 }
+
+function deleteTrack(trackId) {
+
+  const request = new XMLHttpRequest();
+
+  request.onreadystatechange = function() {
+    if(request.readyState === 4 && request.status === 200) {
+      //Delete song from DOM
+    }
+  };
+  request.open('POST', 'script/deleteTrack.php');
+  request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+  request.send('track=' + trackId);
+}
