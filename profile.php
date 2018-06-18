@@ -205,6 +205,7 @@
                   $likes = $likesResult['likes'];
                   $isLiked = $isLikedResult['liked'];
 
+                  echo '<div id="track-container-' . $track['id'] . '">';
                   echo "<center>";
                   echo "<h3><a href='track.php?id=" . $track['id'] . "'>" . $track['title'] . "</a>";
                   if (isConnected()) {
@@ -223,7 +224,13 @@
                   echo '<i class="' . (($isLiked == 1) ? 'fas' : 'far') . ' fa-heart"></i>';
                     echo '<span class="likeNumber" id="likeNumber-' .$track['id'] . '">' .$likes . '</span>';
                   echo '</span>';
+                  if (isConnected()) {
+                    echo '<a href="" style="color: #c8c8c8;" title="Delete track" data-toggle="modal" data-target="#deleteTrackModal-' . $track["id"] . '">';
+                    echo '<button type="button" class="btn btn-danger delete-button">Delete</button>';
+                    echo '</a>';
+                  }
                   echo '</center>';
+                  echo '</div>';
 
                   if (isConnected()) {
                     echo "<!-- Add to playlist button Modal -->";
@@ -257,6 +264,24 @@
                           echo "</div>";
                           echo "<div class='modal-footer'>";
                             echo "<button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>";
+                          echo "</div>";
+                        echo "</div>";
+                      echo "</div>";
+                    echo "</div>";
+
+                    echo "<!-- Delete track button modal -->";
+                    echo "<div class='modal fade' id='deleteTrackModal-{$track['id']}' tabindex='-1' role='dialog' aria-labelledby='exampleModalCenterTitle' aria-hidden='true'>";
+                      echo "<div class='modal-dialog modal-dialog-centered' role='document'>";
+                        echo "<div class='modal-content'>";
+                          echo "<div class='modal-header'>";
+                            echo "<h5 class='modal-title' id='exampleModalLongTitle'>Are you sure you want to delete the track?</h5>";
+                            echo "<button type='button' class='close' data-dismiss='modal' aria-label='Close'>";
+                              echo "<span aria-hidden='true'>&times;</span>";
+                            echo "</button>";
+                          echo "</div>";
+                          echo "<div class='modal-body'>";
+                          echo '<button type="button" class="btn btn-danger delete-button" data-dismiss="modal" onClick="deleteTrack(' . $track["id"] .')">Delete</button>';
+                          echo "<button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>";
                           echo "</div>";
                         echo "</div>";
                       echo "</div>";
