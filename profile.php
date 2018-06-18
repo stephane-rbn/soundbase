@@ -280,7 +280,7 @@
                             echo "</button>";
                           echo "</div>";
                           echo "<div class='modal-body'>";
-                          echo '<button type="button" class="btn btn-danger delete-button" onClick="deleteTrack(' . $track["id"] .')">Delete</button>';
+                          echo '<button type="button" class="btn btn-danger delete-button" data-dismiss="modal" onClick="deleteTrack(' . $track["id"] .')">Delete</button>';
                           echo "<button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>";
                           echo "</div>";
                         echo "</div>";
