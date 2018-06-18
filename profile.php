@@ -223,6 +223,7 @@
                   echo '<i class="' . (($isLiked == 1) ? 'fas' : 'far') . ' fa-heart"></i>';
                     echo '<span class="likeNumber" id="likeNumber-' .$track['id'] . '">' .$likes . '</span>';
                   echo '</span>';
+                  echo '<button type="button" class="btn btn-danger delete-button" onClick="deleteTrack(' . $track["id"] .')">Delete</button>';
                   echo '</center>';
 
                   if (isConnected()) {
