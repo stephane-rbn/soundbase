@@ -318,7 +318,7 @@
                     if (!isConnected()) {
                       echo "<p>No event created.";
                     } else if ($result["id"] === $_SESSION["id"]) {
-                      echo "<p>No event created. <a href='newtrackForm.php'>Upload now!</a></p>";
+                      echo "<p>No event created. <a href='newEvent.php'> Create now !</a></p>";
                     } else {
                       echo "<p>No event created.";
                     }
