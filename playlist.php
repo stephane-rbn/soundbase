@@ -78,16 +78,16 @@
 
               echo "<center>";
               echo "<a href='track.php?id=" . $track['id'] . "'>";
-                echo "<h2>" . $track['title'] . "</h2>";
+              echo "<h2>" . $track['title'] . "</h2>";
               echo "</a>";
               echo '<img src="uploads/tracks/album_cover/'. $track['photo_filename'] . '" height="100px">';
-              echo '<audio controls>';
+              echo '<audio controls onClick="playlistPlay(' .$trackNumber . ')">';
               echo '<source src="uploads/tracks/files/' . $track['track_filename'] . '" type="audio/flac">';
               echo '</audio><br> Artist: ' . $track['member'] . '<br> Genre: ' . $listOfGenres[$track['genre']] . '<br> Publication: ' . $track['publication_date'] . '<br>';
               echo '<hr>';
               echo '<span class="likes" id="likes-' .$track['id'] . '" onclick="likeTrack('. $track['id'] . ')">';
               echo '<i class="' . (($isLiked == 1) ? 'fas' : 'far') . ' fa-heart"></i>';
-                echo '<span class="likeNumber" id="likeNumber-' .$track['id'] . '">' .$likes . '</span>';
+              echo '<span class="likeNumber" id="likeNumber-' .$track['id'] . '">' .$likes . '</span>';
               echo '</span>';
               echo '</center>';
               echo "<br>";
