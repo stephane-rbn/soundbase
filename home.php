@@ -19,8 +19,9 @@
     <div>
       <div class="home-feed">
         <?php
-          $newsData = sqlSelectFetchAll('(SELECT id, title, photo_filename as cover, publication_date, genre as info, track_filename as content, member FROM track WHERE member IN (SELECT member_followed FROM subscription WHERE member_following=3)) UNION (SELECT id, name as title, background_filename as cover, publication_date, address as info, event_date as content, member FROM events WHERE member IN (SELECT member_followed FROM subscription WHERE member_following=3)) ORDER BY `publication_date` DESC');
+          $newsData = sqlSelectFetchAll('(SELECT id, title, photo_filename as cover, publication_date, genre as info, track_filename as content, member FROM track WHERE member IN (SELECT member_followed FROM subscription WHERE member_following=' . $_SESSION['id'] . ')) UNION (SELECT id, name as title, background_filename as cover, publication_date, address as info, event_date as content, member FROM events WHERE member IN (SELECT member_followed FROM subscription WHERE member_following=' . $_SESSION['id'] . ')) ORDER BY `publication_date` DESC');
 
+          //Display tracks, posts and events when you follow members
           if (!empty($newsData)) {
 
             foreach ($newsData as $news) {
@@ -31,17 +32,19 @@
               $artist = $artistQuery['name'];
 
               $likesQuery = sqlSelect(
-                "SELECT COUNT(*) as likes FROM likes WHERE track=" . $track['id']
+                "SELECT COUNT(*) as likes FROM likes WHERE track=" . $news['id']
               );
               $likes = $likesQuery['likes'];
 
               $isLikedQuery = sqlSelect(
-                "SELECT COUNT(*) as liked FROM likes WHERE track='" . $track['id'] . "' AND member='" . $_SESSION['id'] ."'"
+                "SELECT COUNT(*) as liked FROM likes WHERE track='" . $news['id'] . "' AND member='" . $_SESSION['id'] ."'"
               );
               $isLiked = $isLikedQuery['liked'];
 
+              //recover the extension
               $extension = substr( strrchr($news['content'], '.')  ,1);
 
+              //if extension is "mp3" display track else display a event
               if($extension === "mp3" ){
 
               echo '<div class="track-wrapper">';
@@ -56,6 +59,10 @@
                     echo '</audio>';
                     echo '<h3 class="track-info"> '. $news['info'] . ' - ' . $news['publication_date'] . '</span>';
                   echo '</div>';
+                  echo '<span class="likes" id="likes-' .$news['id'] . '" onclick="likeTrack('. $news['id'] . ')">';
+                  echo '<i class="' . (($isLiked == 1) ? 'fas' : 'far') . ' fa-heart"></i>';
+                    echo '<span class="likeNumber" id="likeNumber-' .$news['id'] . '">' .$likes . '</span>';
+                  echo '</span>';
               echo '</div>';
               }else{
               echo '<div class="track-wrapper">';
@@ -73,14 +80,15 @@
                       echo '<h3> '. $news['publication_date'].'</h3>';
                     echo '</div>';
                   echo '</div>';
-                  echo '<span class="likes" id="likes-' .$track['id'] . '" onclick="likeTrack('. $track['id'] . ')">';
+                  echo '<span class="likes" id="likes-' .$news['id'] . '" onclick="likeTrack('. $news['id'] . ')">';
                   echo '<i class="' . (($isLiked == 1) ? 'fas' : 'far') . ' fa-heart"></i>';
-                    echo '<span class="likeNumber" id="likeNumber-' .$track['id'] . '">' .$likes . '</span>';
+                    echo '<span class="likeNumber" id="likeNumber-' .$news['id'] . '">' .$likes . '</span>';
                   echo '</span>';
               echo '</div>';
               }
 
             }
+            //if you follow nobody
           } else {
             echo "<p class='empty-home'>You can search for a member to follow his news</p>";
           }
