@@ -79,7 +79,7 @@ CREATE TABLE events (
     event_date          DATE,
     background_filename VARCHAR(100) DEFAULT 'background.png',
     address             VARCHAR(100) DEFAULT 'Not defined',
-    publication_date DATE,
+    publication_date    DATE,
     member              INTEGER NOT NULL REFERENCES member (id)
 );
 
