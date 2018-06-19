@@ -50,8 +50,15 @@
       <br>
 
         <?php
+          // The track number will start at 0 since we'll use it in an array
+          $trackNumber = -1;
+
           if (count($tracks) !== 0) {
             foreach ($tracks as $track) {
+
+              // Increment track id for DOM
+              $trackNumber++;
+
               $likesQuery = $connection->prepare(
                 "SELECT COUNT(*) as likes FROM likes WHERE track=" . $track['id']
               );
