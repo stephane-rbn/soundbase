@@ -56,22 +56,22 @@ function deleteTrack(trackId) {
   request.send('track=' + trackId);
 }
 
-function playlistPlay(trackId) {
+function playlistPlay(trackNumber) {
   // Get all <audio> tags on the page
   const tracks = document.getElementsByTagName('audio');
   // Get the current track
-  const track = tracks[trackId];
+  const track = tracks[trackNumber];
 
   // If the track is not the latest...
-  if (trackId < tracks.length - 1) {
-    const nextTrack = tracks[trackId + 1];
+  if (trackNumber < tracks.length - 1) {
+    const nextTrack = tracks[trackNumber + 1];
 
     track.onended = function() {
       // ...play the next track...
       nextTrack.play();
       // ...and call the function again for the next track!
       // (since it's triggrered the first time with onClick)
-      playlistPlay(trackId + 1);
+      playlistPlay(trackNumber + 1);
     };
   }
 }
