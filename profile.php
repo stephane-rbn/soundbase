@@ -216,7 +216,7 @@
                   echo "</a>";
                   echo "</h3>";
                   echo '<img src="uploads/tracks/album_cover/'. $track['photo_filename'] . '" height="100px">';
-                  echo '<audio controls>';
+                  echo '<audio controls onClick="addListeningToTrack(' .$track['id'] . ')">';
                   echo '<source src="uploads/tracks/files/' . $track['track_filename'] . '" type="audio/flac">';
                   echo '</audio><br> Artist: ' . $track['member'] . '<br> Genre: ' . $listOfGenres[$track['genre']] . '<br> Publication: ' . $track['publication_date'] . '<br>';
                   echo '<hr>';
