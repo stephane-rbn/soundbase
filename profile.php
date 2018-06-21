@@ -325,8 +325,32 @@
                   }
                 ?>
               </div>
-              <div class="col-sm-12">
-                <h2><?php echo "{$result["username"]}'s posts"; ?></h2>
+                  <div class="col-sm-12">
+                    <h2><?php echo "{$result["username"]}'s posts"; ?></h2>
+                      <br>
+                      <?php
+                        $posts = sqlSelectFetchAll("SELECT * FROM post WHERE member=" . $result["id"] . " ORDER BY publication_date DESC");
+                        if (count($posts) !== 0) {
+                          foreach ($posts as $post) {
+                            echo "<center>";
+                              echo "<div>";
+                                echo "<h4>" . $post["content"] . "</h4>";
+                                echo "<p>" . $post["publication_date"] . "</p>";
+                              echo "</div>";
+                            echo "</center>";
+                          }
+                        } else {
+                          if (!isConnected()) {
+                            echo "<p>No post.";
+                          } else if ($result["id"] === $_SESSION["id"]) {
+                            echo "<p>No post. <a href='newPost.php'> Post your annouce !</a></p>";
+                          } else {
+                            echo "<p>No post.";
+                          }
+                        }
+                      ?>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -349,7 +373,10 @@
       </div>
     </section>
 
-    <?php unset($_SESSION["newTrackAdded"]); ?>
+    <?php
+      unset($_SESSION["newTrackAdded"]);
+      unset($_SESSION["post"]);
+    ?>
 
 <?php
   include "footer.php"
