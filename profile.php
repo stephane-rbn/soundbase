@@ -205,7 +205,6 @@
                   $likes = $likesResult['likes'];
                   $isLiked = $isLikedResult['liked'];
 
-                  echo '<div id="track-container-' . $track['id'] . '">';
                   echo "<center>";
                   echo "<h3><a href='track.php?id=" . $track['id'] . "'>" . $track['title'] . "</a>";
                   if (isConnected()) {
@@ -216,7 +215,7 @@
                   echo "</a>";
                   echo "</h3>";
                   echo '<img src="uploads/tracks/album_cover/'. $track['photo_filename'] . '" height="100px">';
-                  echo '<audio controls onClick="addListeningToTrack(' .$track['id'] . ')">';
+                  echo '<audio controls id="audio-track-' .$track['id'] . '" onClick="addListeningToTrack(' .$track['id'] . ')">';
                   echo '<source src="uploads/tracks/files/' . $track['track_filename'] . '" type="audio/flac">';
                   echo '</audio><br> Artist: ' . $track['member'] . '<br> Genre: ' . $listOfGenres[$track['genre']] . '<br> Publication: ' . $track['publication_date'] . '<br>';
                   echo '<hr>';
@@ -230,7 +229,6 @@
                     echo '</a>';
                   }
                   echo '</center>';
-                  echo '</div>';
 
                   if (isConnected()) {
                     echo "<!-- Add to playlist button Modal -->";
