@@ -73,6 +73,7 @@
                   <a class="dropdown-item" href="newTrackForm.php">New track</a>
                   <a class="dropdown-item" href="newPlaylist.php">New playlist</a>
                   <a class="dropdown-item" href="newEvent.php">New event</a>
+                  <a class="dropdown-item" href="newPost.php">New post</a>
                 </div>
               </li>
             <?php } ?>
