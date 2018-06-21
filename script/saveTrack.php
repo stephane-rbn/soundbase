@@ -147,7 +147,7 @@
         "genre"            => $_POST["genre"],
         "photo_filename"   => $coverFileNewName,
         "track_filename"   => $trackFileNewName,
-        "publication_date" => date("Y-m-d"),
+        "publication_date" => date("Y-m-d H:i:s"),
         "member"           => $_SESSION["id"]
       ]);
 

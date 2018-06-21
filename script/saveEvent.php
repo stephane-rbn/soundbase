@@ -155,7 +155,7 @@
       if (isset($_POST["address"])) {
 
         // Query that inserts the new event
-        $query = $connection->prepare("INSERT INTO events (name,description,capacity,event_date,member,background_filename,address) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $query = $connection->prepare("INSERT INTO events (name,description,capacity,event_date,member,background_filename,address,publication_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 
         // Execute the query
         $query->execute([
@@ -165,12 +165,13 @@
           $year . "-" . $month . "-" . $day,
           $_SESSION["id"],
           $fileNewName,
-          $_POST["address"]
+          $_POST["address"],
+          date("Y-m-d H:i:s")
         ]);
       } else {
 
         // Query that inserts the new event without address
-        $query = $connection->prepare("INSERT INTO events (name,description,capacity,event_date,member,background_filename) VALUES (?, ?, ?, ?, ?, ?)");
+        $query = $connection->prepare("INSERT INTO events (name,description,capacity,event_date,member,background_filename,publication_date) VALUES (?, ?, ?, ?, ?, ?, ?)");
 
         // Execute the query
         $query->execute([
@@ -179,7 +180,8 @@
           $_POST["capacity"],
           $year . "-" . $month . "-" . $day,
           $_SESSION["id"],
-          $fileNewName
+          $fileNewName,
+          date("Y-m-d H:i:s")
         ]);
       }
 
