@@ -78,7 +78,7 @@ function playlistPlay(trackId) {
 
 function addListeningToTrack(trackId) {
 
-  const trackContainer = document.getElementById('track-container' + trackId)
+  const trackContainer = document.getElementById('track-container-' + trackId)
   // <div>.<center>.<audio>
   const track = trackContainer.children[0].children[2]
 
