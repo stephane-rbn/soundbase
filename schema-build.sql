@@ -59,7 +59,7 @@ CREATE TABLE inclusion (
 CREATE TABLE post (
     id               INTEGER PRIMARY KEY AUTO_INCREMENT,
     content          TEXT,
-    publication_date DATE,
+    publication_date DATETIME,
     member           INTEGER NOT NULL REFERENCES member (id)
 );
 
