@@ -32,10 +32,8 @@ CREATE TABLE track (
 );
 
 CREATE TABLE listening (
-    member  INTEGER NOT NULL REFERENCES member (id),
-    track   INTEGER NOT NULL REFERENCES track (id),
-    counter INTEGER default 0,
-    PRIMARY KEY (member, track)
+    member  INTEGER NOT NULL DEFAULT 0 REFERENCES member (id),
+    track   INTEGER NOT NULL DEFAULT 0 REFERENCES track (id)
 );
 
 CREATE TABLE likes (
