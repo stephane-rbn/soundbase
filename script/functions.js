@@ -86,7 +86,8 @@ function addListeningToTrack(trackId) {
     request.onreadystatechange = function() {
       if(request.readyState === 4 && request.status === 200) {
         // Update listening count
-
+        const listeningsNumber = document.getElementById('listenings-number-' + trackId);
+        listeningsNumber.innerHTML = request.responseText;
       }
     };
     request.open('POST', 'script/addListeningToTrack.php');
