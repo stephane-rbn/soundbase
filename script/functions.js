@@ -22,7 +22,7 @@ function likeTrack(trackId) {
 
       // If everything went fine in PHP, update the like number and heart with JS
 
-      // like.php returns the actual like number
+      // likeTrack.php returns the actual like number
       likeNumber.innerHTML = request.responseText;
 
       // Switch to full or empty heart
@@ -36,7 +36,7 @@ function likeTrack(trackId) {
       }
     }
   };
-  request.open('POST', 'script/like.php');
+  request.open('POST', 'script/likeTrack.php');
   request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
   request.send('track=' + trackId);
 }
