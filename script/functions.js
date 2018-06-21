@@ -91,7 +91,7 @@ function addListeningToTrack(trackId) {
 
       }
     };
-    request.open('POST', 'script/addListentingToTrack.php');
+    request.open('POST', 'script/addListeningToTrack.php');
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     request.send('track=' + trackId);
   };
