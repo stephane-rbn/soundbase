@@ -27,7 +27,7 @@ CREATE TABLE track (
     genre            VARCHAR(30),
     track_filename   VARCHAR(100),
     photo_filename   VARCHAR(100),
-    publication_date DATE,
+    publication_date DATETIME,
     member           INTEGER NOT NULL REFERENCES member (id)
 );
 
@@ -79,7 +79,7 @@ CREATE TABLE events (
     event_date          DATE,
     background_filename VARCHAR(100) DEFAULT 'background.png',
     address             VARCHAR(100) DEFAULT 'Not defined',
-    publication_date    DATE,
+    publication_date    DATETIME,
     member              INTEGER NOT NULL REFERENCES member (id)
 );
 

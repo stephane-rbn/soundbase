@@ -184,7 +184,7 @@
 
             <br>
             <?php
-              $trackData = sqlSelectFetchAll("SELECT * FROM track WHERE member=" . $result["id"]);
+              $trackData = sqlSelectFetchAll("SELECT * FROM track WHERE member=" . $result["id"] . " ORDER BY publication_date DESC");
               if (count($trackData) !== 0) {
 
                 foreach ($trackData as $track) {
@@ -306,7 +306,7 @@
                 <h2><?php echo "{$result["username"]}'s events"; ?></h2>
                 <br>
                 <?php
-                  $events = sqlSelectFetchAll("SELECT * FROM events WHERE member=" . $result["id"]);
+                  $events = sqlSelectFetchAll("SELECT * FROM events WHERE member=" . $result["id"] . " ORDER BY publication_date DESC");
                   if (count($events) !== 0) {
                     foreach ($events as $event) {
                       echo "<center>";
