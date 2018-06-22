@@ -184,10 +184,16 @@
 
             <br>
             <?php
+              // The track number will start at 0 since we'll use it in an array
+              $trackNumber = -1;
+
               $trackData = sqlSelectFetchAll("SELECT * FROM track WHERE member=" . $result["id"]);
               if (count($trackData) !== 0) {
 
                 foreach ($trackData as $track) {
+
+                  // Increment track id for DOM
+                  $trackNumber++;
 
                   // Get the number of listenings
                   $listeningsQuery = $connection->prepare(
@@ -226,7 +232,7 @@
                   echo "</a>";
                   echo "</h3>";
                   echo '<img src="uploads/tracks/album_cover/'. $track['photo_filename'] . '" height="100px">';
-                  echo '<audio controls id="audio-track-' .$track['id'] . '" onClick="addListeningToTrack(' .$track['id'] . ')">';
+                  echo '<audio controls data-track-id="' .$track['id'] . '" id="audio-track-' . $trackNumber . '">';
                   echo '<source src="uploads/tracks/files/' . $track['track_filename'] . '" type="audio/flac">';
                   echo '</audio><br> Artist: ' . $track['member'] . '<br> Genre: ' . $listOfGenres[$track['genre']] . '<br> Publication: ' . $track['publication_date'] . '<br>';
                   echo '<hr>';
