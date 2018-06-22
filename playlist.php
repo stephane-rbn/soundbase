@@ -91,7 +91,7 @@
               echo "<h2>" . $track['title'] . "</h2>";
               echo "</a>";
               echo '<img src="uploads/tracks/album_cover/'. $track['photo_filename'] . '" height="100px">';
-              echo '<audio controls onClick="playlistPlay(' .$trackNumber . ')">';
+              echo '<audio controls data-track-id="' .$track['id'] . '" id="audio-track-' . $trackNumber . '" >';
               echo '<source src="uploads/tracks/files/' . $track['track_filename'] . '" type="audio/flac">';
               echo '</audio><br> Artist: ' . $track['member'] . '<br> Genre: ' . $listOfGenres[$track['genre']] . '<br> Publication: ' . $track['publication_date'] . '<br>';
               echo '<hr>';
