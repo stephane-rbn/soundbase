@@ -58,21 +58,18 @@ function deleteTrack(trackId) {
 
 function addListeningToTrack(trackId) {
 
-  const track = document.getElementById('audio-track-' + trackId)
-
-  track.onended = function() {
-    const request = new XMLHttpRequest();
+  const request = new XMLHttpRequest();
 
     request.onreadystatechange = function() {
       if(request.readyState === 4 && request.status === 200) {
-        // Update listening count
+        // Update listening count on page
         const listeningsNumber = document.getElementById('listenings-number-' + trackId);
         listeningsNumber.innerHTML = request.responseText;
       }
     };
+    // Add a listening to database
     request.open('POST', 'script/addListeningToTrack.php');
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     request.send('track=' + trackId);
-  };
-
 }
+
