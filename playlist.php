@@ -59,32 +59,44 @@
               // Increment track id for DOM
               $trackNumber++;
 
+              // Get the number of listenings
+              $listeningsQuery = $connection->prepare(
+                "SELECT COUNT(*) as listenings FROM listening WHERE track=" . $track['id']
+              );
+
+              // Get the number of likes
               $likesQuery = $connection->prepare(
                 "SELECT COUNT(*) as likes FROM likes WHERE track=" . $track['id']
               );
 
+              // Check if the track is liked by the user
               $isLikedQuery = $connection->prepare(
                 "SELECT COUNT(*) as liked FROM likes WHERE track='" . $track['id'] . "' AND member='" . $_SESSION['id'] ."'"
               );
 
               $likesQuery->execute();
               $isLikedQuery->execute();
+              $listeningsQuery->execute();
 
               $likesResult = $likesQuery->fetch(PDO::FETCH_ASSOC);
               $isLikedResult = $isLikedQuery->fetch(PDO::FETCH_ASSOC);
+              $listenings = $listeningsQuery->fetch(PDO::FETCH_ASSOC);
 
               $likes = $likesResult['likes'];
               $isLiked = $isLikedResult['liked'];
+              $listeningsNumber = $listenings['listenings'];
 
               echo "<center>";
               echo "<a href='track.php?id=" . $track['id'] . "'>";
               echo "<h2>" . $track['title'] . "</h2>";
               echo "</a>";
               echo '<img src="uploads/tracks/album_cover/'. $track['photo_filename'] . '" height="100px">';
-              echo '<audio controls onClick="playlistPlay(' .$trackNumber . ')">';
+              echo '<audio controls data-track-id="' .$track['id'] . '" id="audio-track-' . $trackNumber . '" >';
               echo '<source src="uploads/tracks/files/' . $track['track_filename'] . '" type="audio/flac">';
               echo '</audio><br> Artist: ' . $track['member'] . '<br> Genre: ' . $listOfGenres[$track['genre']] . '<br> Publication: ' . $track['publication_date'] . '<br>';
               echo '<hr>';
+              echo '<i class="fas fa-play"></i>';
+              echo '<span class="listeningsNumber" id="listenings-number-' .$track['id'] . '">' .$listeningsNumber . '</span>';
               echo '<span class="likes" id="likes-' .$track['id'] . '" onclick="likeTrack('. $track['id'] . ')">';
               echo '<i class="' . (($isLiked == 1) ? 'fas' : 'far') . ' fa-heart"></i>';
               echo '<span class="likeNumber" id="likeNumber-' .$track['id'] . '">' .$likes . '</span>';

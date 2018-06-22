@@ -56,22 +56,20 @@ function deleteTrack(trackId) {
   request.send('track=' + trackId);
 }
 
-function playlistPlay(trackNumber) {
-  // Get all <audio> tags on the page
-  const tracks = document.getElementsByTagName('audio');
-  // Get the current track
-  const track = tracks[trackNumber];
+function addListeningToTrack(trackId) {
 
-  // If the track is not the latest...
-  if (trackNumber < tracks.length - 1) {
-    const nextTrack = tracks[trackNumber + 1];
+  const request = new XMLHttpRequest();
 
-    track.onended = function() {
-      // ...play the next track...
-      nextTrack.play();
-      // ...and call the function again for the next track!
-      // (since it's triggrered the first time with onClick)
-      playlistPlay(trackNumber + 1);
+    request.onreadystatechange = function() {
+      if(request.readyState === 4 && request.status === 200) {
+        // Update listening count on page
+        const listeningsNumber = document.getElementById('listenings-number-' + trackId);
+        listeningsNumber.innerHTML = request.responseText;
+      }
     };
-  }
+    // Add a listening to database
+    request.open('POST', 'script/addListeningToTrack.php');
+    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    request.send('track=' + trackId);
 }
+
