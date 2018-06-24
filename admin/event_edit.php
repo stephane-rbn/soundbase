@@ -44,7 +44,7 @@
             <div class="panel-body">
               <div class="row">
                 <div class="col-lg-6">
-                  <form role="form " method="POST" action="script/updateEvent.php">
+                  <form role="form" enctype="multipart/form-data" method="POST" action="script/updateEvent.php">
                     <div class="form-group">
                       <label for="image">Main image</label>
                       <input type="file" name="background_image"><?php
