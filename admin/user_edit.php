@@ -13,9 +13,6 @@
 
   include "includes/head.php";
 
-
-  include "includes/head.php";
-
 ?>
 
 <body>
@@ -34,11 +31,10 @@
         <div class="col-lg-12">
           <h1 class="page-header">Edit
             <?php
-              $result = sqlSelect("SELECT username FROM member WHERE id='".$_GET['id']."'");
+              $result = sqlSelect("SELECT * FROM member WHERE id='" . $_GET['id'] . "'");
               echo $result['username'];
             ?>
           </h1>
-          <?php if (isset($_SESSION["errorForm"])) { var_dump($_SESSION["errorForm"]); } ?>
         </div>
       </div>
       <div class="row">
@@ -55,7 +51,6 @@
                       <label>Username</label>
                       <input class="form-control" name="username" value="<?php
                         if (!isset($_SESSION["postForm"]["username"])) {
-                          $result = sqlSelect("SELECT username FROM member WHERE id='".$_GET['id']."' ");
                           echo $result['username'];
                         } else {
                           echo $_SESSION["postForm"]["username"];
@@ -75,7 +70,6 @@
                       <label>Name</label>
                       <input class="form-control" name="name" value="<?php
                         if (!isset($_SESSION["postForm"]["name"])) {
-                          $result = sqlSelect("SELECT name FROM member WHERE id='".$_GET['id']."' ");
                           echo $result['name'];
                         } else {
                           echo $_SESSION["postForm"]["name"];
@@ -91,7 +85,6 @@
                       <label>Email</label>
                       <input type="email" class="form-control" name="email" value="<?php
                         if (!isset($_SESSION["postForm"]["email"])) {
-                          $result = sqlSelect("SELECT email FROM member WHERE id='".$_GET['id']."' ");
                           echo $result['email'];
                         } else {
                           echo $_SESSION["postForm"]["email"];
@@ -111,7 +104,6 @@
                       <label>Birthday</label>
                       <input type="date" class="form-control" name="birthday" value="<?php
                         if (!isset($_SESSION["postForm"]["birthday"])) {
-                          $result = sqlSelect("SELECT birthday FROM member WHERE id='".$_GET['id']."' ");
                           echo $result['birthday'];
                         } else {
                           echo $_SESSION["postForm"]["birthday"];
@@ -134,7 +126,6 @@
                       <select class="form-control form-control-sm" name="position" required="required">
                       <?php
                         if (!isset($_SESSION["postForm"]["position"])) {
-                          $result = sqlSelect("SELECT position FROM member WHERE id='".$_GET['id']."' ");
                           $status = $result['position'];
 
                           echo '<option value="0"' . (($status == 0) ? 'selected="selected"' : '') . '>User</option>';
@@ -160,6 +151,7 @@
                     unset($_SESSION["postForm"]);
                     unset($_SESSION["errorForm"]);
                     unset($_SESSION["message"]);
+                    unset($_SESSION["successUpdate"]["userInfo"]);
                   ?>
                 </div>
               </div>

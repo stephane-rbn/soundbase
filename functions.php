@@ -101,13 +101,18 @@ function successfulUpdateMessage() {
     $message = 'You have successfully been removed from the event attendees list';
     alertSuccessMessage($message);
   } else if (isset($_SESSION["sucessDeletion"])) {
-    $message = 'User has been sucessfully deleted';
+    $message = 'The item has been sucessfully deleted';
     alertSuccessMessage($message);
-  }else if (isset($_SESSION["post"])) {
+  } else if (isset($_SESSION["post"])) {
     $message = 'The new post has been successfully created';
     alertSuccessMessage($message);
+  } else if (isset($_SESSION["successUpdate"]["userInfo"])) {
+    $message = 'This user info has been sucessfully udpated';
+    alertSuccessMessage($message);
+  } else if (isset($_SESSION["successUpdate"]["eventInfo"])) {
+    $message = 'This event has been sucessfully udpated';
+    alertSuccessMessage($message);
   }
-
 }
 
 // Display a success message specified in successfulUpdateMessage() function
