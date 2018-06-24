@@ -19,6 +19,13 @@
     <div>
       <div class="home-feed">
         <?php
+
+          // Connection to database
+          $connection = connectDB();
+
+          // The track number will start at 0 since we'll use it in an array
+          $trackNumber = -1;
+
           $feedData = sqlSelectFetchAll('(SELECT id, title, photo_filename as cover, publication_date, genre as info, track_filename as content, member FROM track WHERE member IN (SELECT member_followed FROM subscription WHERE member_following=' . $_SESSION['id'] . ')) UNION (SELECT id, name as title, background_filename as cover, publication_date, address as info, event_date as content, member FROM events WHERE member IN (SELECT member_followed FROM subscription WHERE member_following=' . $_SESSION['id'] . ')) ORDER BY `publication_date` DESC');
 
           //Display tracks, posts and events when you follow members
@@ -26,20 +33,40 @@
 
             foreach ($feedData as $feedEntry) {
 
-              $artistQuery = sqlSelect(
-                "SELECT name FROM member WHERE id = ".$feedEntry['member']
+              // Get the number of listenings
+              $listeningsQuery = $connection->prepare(
+                "SELECT COUNT(*) as listenings FROM listening WHERE track=" . $feedEntry['id']
               );
-              $artist = $artistQuery['name'];
 
-              $likesQuery = sqlSelect(
+              // Get the number of likes
+              $likesQuery = $connection->prepare(
                 "SELECT COUNT(*) as likes FROM likes WHERE track=" . $feedEntry['id']
               );
-              $likes = $likesQuery['likes'];
 
-              $isLikedQuery = sqlSelect(
+              // Check if the track is liked by the user
+              $isLikedQuery = $connection->prepare(
                 "SELECT COUNT(*) as liked FROM likes WHERE track='" . $feedEntry['id'] . "' AND member='" . $_SESSION['id'] ."'"
               );
-              $isLiked = $isLikedQuery['liked'];
+
+              // Get the artist name
+              $trackArtistQuery = $connection->prepare(
+                "SELECT name FROM member WHERE id = " . $feedEntry['member'] . ""
+              );
+
+              $likesQuery->execute();
+              $isLikedQuery->execute();
+              $listeningsQuery->execute();
+              $trackArtistQuery->execute();
+
+              $likesResult = $likesQuery->fetch(PDO::FETCH_ASSOC);
+              $isLikedResult = $isLikedQuery->fetch(PDO::FETCH_ASSOC);
+              $listenings = $listeningsQuery->fetch(PDO::FETCH_ASSOC);
+              $trackArtistResult = $trackArtistQuery->fetch(PDO::FETCH_ASSOC);
+
+              $likes = $likesResult['likes'];
+              $isLiked = $isLikedResult['liked'];
+              $listeningsNumber = $listenings['listenings'];
+              $trackArtist = $trackArtistResult['name'];
 
               //recover the extension
               $extension = substr( strrchr($feedEntry['content'], '.')  ,1);
@@ -47,18 +74,23 @@
               //if extension is "mp3" display track else display a event
               if($extension === "mp3" ){
 
+              // Increment track id for DOM
+              $trackNumber++;
+
               echo '<div class="track-wrapper">';
                 echo "<h2>Track :</h2>";
                 echo "<a href='track.php?id=" . $feedEntry['id'] . "'>";
-                  echo "<h2>" . $artist . " - " .$feedEntry['title'] . "</h2>";
+                  echo "<h2>" . $trackArtist . " - " .$feedEntry['title'] . "</h2>";
                 echo "</a>";
                   echo '<img class="track-cover" src="uploads/tracks/album_cover/'. $feedEntry['cover'] . '">';
                   echo '<div class="track-content">';
-                    echo '<audio controls>';
+              echo '<audio controls data-track-id="' .$feedEntry['id'] . '" id="audio-track-' . $trackNumber . '" >';
                     echo '<source src="uploads/tracks/files/' . $feedEntry['content'] . '" type="audio/flac">';
                     echo '</audio>';
                     echo '<h3 class="track-info"> '. $feedEntry['info'] . ' - ' . $feedEntry['publication_date'] . '</span>';
                   echo '</div>';
+                  echo '<i class="fas fa-play"></i>';
+                  echo '<span class="listeningsNumber" id="listenings-number-' .$feedEntry['id'] . '">' .$listeningsNumber . '</span>';
                   echo '<span class="likes" id="likes-' .$feedEntry['id'] . '" onclick="likeTrack('. $feedEntry['id'] . ')">';
                   echo '<i class="' . (($isLiked == 1) ? 'fas' : 'far') . ' fa-heart"></i>';
                     echo '<span class="likeNumber" id="likeNumber-' .$feedEntry['id'] . '">' .$likes . '</span>';
@@ -68,7 +100,7 @@
               echo '<div class="track-wrapper">';
                 echo "<h2>Event :</h2>";
                 echo "<a href='event.php?id=" . $feedEntry['id'] . "'>";
-                  echo "<h2>" . $artist . " - " .$feedEntry['title'] . "</h2>";
+                  echo "<h2>" . $trackArtist . " - " .$feedEntry['title'] . "</h2>";
                 echo "</a>";
                   echo '<img class="track-cover" src="uploads/events/backgrounds/'. $feedEntry['cover'] . '">';
                   echo '<div class="track-content">';
