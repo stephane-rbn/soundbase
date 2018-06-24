@@ -74,17 +74,25 @@
                 "SELECT COUNT(*) as liked FROM likes WHERE track='" . $track['id'] . "' AND member='" . $_SESSION['id'] ."'"
               );
 
+              // Get the artist name
+              $trackArtistQuery = $connection->prepare(
+                "SELECT name FROM member WHERE id = " . $track['member'] . ""
+              );
+
               $likesQuery->execute();
               $isLikedQuery->execute();
               $listeningsQuery->execute();
+              $trackArtistQuery->execute();
 
               $likesResult = $likesQuery->fetch(PDO::FETCH_ASSOC);
               $isLikedResult = $isLikedQuery->fetch(PDO::FETCH_ASSOC);
               $listenings = $listeningsQuery->fetch(PDO::FETCH_ASSOC);
+              $trackArtistResult = $trackArtistQuery->fetch(PDO::FETCH_ASSOC);
 
               $likes = $likesResult['likes'];
               $isLiked = $isLikedResult['liked'];
               $listeningsNumber = $listenings['listenings'];
+              $trackArtist = $trackArtistResult['name'];
 
               echo "<center>";
               echo "<a href='track.php?id=" . $track['id'] . "'>";
@@ -93,7 +101,7 @@
               echo '<img src="uploads/tracks/album_cover/'. $track['photo_filename'] . '" height="100px">';
               echo '<audio controls data-track-id="' .$track['id'] . '" id="audio-track-' . $trackNumber . '" >';
               echo '<source src="uploads/tracks/files/' . $track['track_filename'] . '" type="audio/flac">';
-              echo '</audio><br> Artist: ' . $track['member'] . '<br> Genre: ' . $listOfGenres[$track['genre']] . '<br> Publication: ' . $track['publication_date'] . '<br>';
+              echo '</audio><br> Artist: ' . $trackArtist . '<br> Genre: ' . $listOfGenres[$track['genre']] . '<br> Publication: ' . $track['publication_date'] . '<br>';
               echo '<hr>';
               echo '<i class="fas fa-play"></i>';
               echo '<span class="listeningsNumber" id="listenings-number-' .$track['id'] . '">' .$listeningsNumber . '</span>';
