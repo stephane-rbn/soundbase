@@ -193,7 +193,7 @@
           "event_date"          => $year . "-" . $month . "-" . $day,
           "background_filename" => $fileNewName,
           "address"             => $_POST["address"],
-          "id"                  => $_GET["id"]
+          "id"                  => $_POST["event_id"]
         ]);
 
         $_SESSION["successUpdate"]["eventInfo"] = true;
