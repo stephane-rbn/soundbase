@@ -32,7 +32,6 @@
               echo $result['name'] .  " event";
             ?>
           </h1>
-          <?php if (isset($_SESSION["errorForm"])) { var_dump($_SESSION["errorForm"]); } ?>
         </div>
       </div>
       <div class="row">
