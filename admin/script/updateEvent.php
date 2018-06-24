@@ -182,7 +182,7 @@
 
         // Query that updates the new event with a new background_image
         $query = $connection->prepare(
-          "UPDATE events SET name=:name,description=:description,capacity=:capacity,event_date=:event_date,background_filename=:backgound_filename,address=:address WHERE id=:id"
+          "UPDATE events SET name=:name,description=:description,capacity=:capacity,event_date=:event_date,background_filename=:background_filename,address=:address WHERE id=:id"
         );
 
         // Execute the query
@@ -193,7 +193,7 @@
           "event_date"          => $year . "-" . $month . "-" . $day,
           "background_filename" => $fileNewName,
           "address"             => $_POST["address"],
-          "id"                  => $_GET["id"]
+          "id"                  => $_POST["event_id"]
         ]);
 
         $_SESSION["successUpdate"]["eventInfo"] = true;
