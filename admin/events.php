@@ -48,13 +48,13 @@
                 <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                   <thead>
                     <tr>
-                      <th>ID</th>
                       <th>Name</th>
                       <th>Description</th>
                       <th>Capacity</th>
                       <th>Event date</th>
                       <th>Member</th>
                       <th>Edit</th>
+                      <th>Delete</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -83,14 +83,36 @@
 
                       foreach ($eventData as $event) {
                         echo '<tr class="odd gradeX">';
-                        echo '<td>' . $event['id'];
                         echo '<td>' . $event['name'];
                         echo '<td>' . $event['description'];
                         echo '<td>' . $event['capacity'];
                         echo '<td>' . $event['event_date'];
-                        echo '<td>' . $event['member'];
+                        $eventCreator = sqlSelect("SELECT name FROM member WHERE id={$event['member']}");
+                        echo '<td>' . $eventCreator['name'];
                         echo '<td><a href="event_edit.php?id=' . $event['id'] . '">Edit</a>';
+                        echo "<td><button type='button' class='btn btn-danger' data-toggle='modal' data-target='#exampleModalCenter-{$event['id']}' style='color: #fff'>Delete</button>";
                         echo "</tr>";
+
+                        echo "<!-- Modal {$event['id']}: confirmation of deletion -->";
+                        echo "<div class='modal fade' id='exampleModalCenter-{$event['id']}' tabindex='-1' role='dialog' aria-labelledby='exampleModalCenterTitle' aria-hidden='true'>";
+                          echo '<div class="modal-dialog modal-dialog-centered" role="document">';
+                            echo '<div class="modal-content">';
+                              echo '<div class="modal-header">';
+                                echo '<h5 class="modal-title" id="exampleModalLongTitle">Are you sure?</h5>';
+                                echo '<button type="button" class="close" data-dismiss="modal" aria-label="Close">';
+                                  echo '<span aria-hidden="true">&times;</span>';
+                                echo '</button>';
+                              echo '</div>';
+                              echo '<div class="modal-body">The deletion of an event is irreversible.</div>';
+                              echo '<div class="modal-footer">';
+                                echo '<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>';
+                                echo '<button type="button" class="btn btn-danger delete-button">';
+                                  echo '<a href="script/deleteEvent.php?id=' . $event['id'] .'" style="color: #fff">Confirm</a>';
+                                echo '</button>';
+                              echo '</div>';
+                            echo '</div>';
+                          echo '</div>';
+                        echo '</div>';
                       }
                     ?>
                   </tbody>
@@ -176,6 +198,7 @@
 <?php
 
   unset($_SESSION["eventCount"]);
+  unset($_SESSION["sucessDeletion"]);
 
   include "includes/footer.php";
 ?>
