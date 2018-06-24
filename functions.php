@@ -103,11 +103,13 @@ function successfulUpdateMessage() {
   } else if (isset($_SESSION["sucessDeletion"])) {
     $message = 'User has been sucessfully deleted';
     alertSuccessMessage($message);
-  }else if (isset($_SESSION["post"])) {
+  } else if (isset($_SESSION["post"])) {
     $message = 'The new post has been successfully created';
     alertSuccessMessage($message);
+  } else if (isset($_SESSION["successUpdate"]["userInfo"])) {
+    $message = 'This user info has been sucessfully udpated';
+    alertSuccessMessage($message);
   }
-
 }
 
 // Display a success message specified in successfulUpdateMessage() function

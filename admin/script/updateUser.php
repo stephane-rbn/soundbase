@@ -13,7 +13,7 @@
     && !empty($_POST["name"])
     && !empty($_POST["email"])
     && !empty($_POST["birthday"])
-    && !empty($_POST["position"])
+    && isset($_POST["position"])
     && !empty($_POST["user_id"])
   ) {
     $error = false;
@@ -38,12 +38,11 @@
     }
 
     // SQL query to get the current username
-    $currentUsernameQuery = $connection->prepare("SELECT username FROM member WHERE id=:id AND token=:token");
+    $currentUsernameQuery = $connection->prepare("SELECT username FROM member WHERE id=:id");
 
     // Execute
     $currentUsernameQuery->execute([
-      "id"    => $_SESSION["id"],
-      "token" => $_SESSION["token"]
+      "id" => $_POST["user_id"]
     ]);
 
     // Fetch data with the query and returns an associative array
@@ -76,12 +75,11 @@
     }
 
     // SQL query to get the current email
-    $currentEmailQuery = $connection->prepare("SELECT email FROM member WHERE id=:id AND token=:token");
+    $currentEmailQuery = $connection->prepare("SELECT email FROM member WHERE id=:id");
 
     // Execute
     $currentEmailQuery->execute([
-      "id"    => $_SESSION["id"],
-      "token" => $_SESSION["token"]
+      "id" => $_POST["user_id"]
     ]);
 
     // Fetch data with the query and returns an associative array
