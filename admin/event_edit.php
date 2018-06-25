@@ -100,7 +100,7 @@
                     </div>
                     <div class="form-group">
                       <label for="description">Description (2500 characters)</label>
-                      <textarea name="description" onkeyup="displayStrLength(2500);" id="textarea" class="form-control" rows="10" placeholder ="Your description .."><?php echo fillSessionFieldSettings("description"); ?></textarea>
+                      <textarea name="description" onkeyup="displayStrLength(2500);" id="textarea" class="form-control" placeholder ="Your description .."><?php echo fillSessionFieldSettings("description"); ?></textarea>
                       <p id="count"></p>
                       <?php
                         if (isErrorPresent(12)) {
