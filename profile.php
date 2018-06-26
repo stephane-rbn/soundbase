@@ -76,17 +76,14 @@
 
       <?php
         if (isConnected()) {
+          // No query string: on my profile
           if (!isset($_GET["username"])) {
             echo '<a href="edit-profile.php" class="edit-button cover-buttons" style="color: #d6d6d6" title="Edit cover picture"><i class="fas fa-edit"></i></a>';
-            if ($result["cover_photo_filename"] !== 'cover.png') {
-              echo '<a href="#" class="delete-button cover-buttons" style="color: #d6d6d6" title="Delete cover picture"><i class="fas fa-trash-alt"></i></a>';
-            }
           } else {
+            // With query string
             if ($result["id"] === $_SESSION["id"]) {
+              // On my profile
               echo '<a href="edit-profile.php" class="edit-button cover-buttons" style="color: #d6d6d6" title="Edit cover picture"><i class="fas fa-edit"></i></a>';
-              if ($result["cover_photo_filename"] !== 'cover.png') {
-                echo '<a href="#" class="delete-button cover-buttons" style="color: #d6d6d6" title="Delete cover picture"><i class="fas fa-trash-alt"></i></a>';
-              }
             } else if (empty($resultFollow)) {
               echo "<a href='script/followUser.php?id=" . $result["id"] . "&username=" . $result["username"] . "'><center><button type='button' class='btn btn-info'>Follow</button><center></a>";
             } else {
