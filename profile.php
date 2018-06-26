@@ -223,23 +223,24 @@
                     "SELECT COUNT(*) as likes FROM likes WHERE track=" . $track['id']
                   );
 
-                  // Check if the track is liked by the user
-                  $isLikedQuery = $connection->prepare(
-                    "SELECT COUNT(*) as liked FROM likes WHERE track='" . $track['id'] . "' AND member='" . $_SESSION['id'] ."'"
-                  );
-
                   $likesQuery->execute();
-                  $isLikedQuery->execute();
                   $listeningsQuery->execute();
 
                   $likesResult = $likesQuery->fetch(PDO::FETCH_ASSOC);
-                  $isLikedResult = $isLikedQuery->fetch(PDO::FETCH_ASSOC);
                   $listenings = $listeningsQuery->fetch(PDO::FETCH_ASSOC);
 
                   $likes = $likesResult['likes'];
-                  $isLiked = $isLikedResult['liked'];
                   $listeningsNumber = $listenings['listenings'];
 
+                  if (isConnected()) {
+                    // Check if the track is liked by the user
+                    $isLikedQuery = $connection->prepare(
+                      "SELECT COUNT(*) as liked FROM likes WHERE track='" . $track['id'] . "' AND member='" . $_SESSION['id'] ."'"
+                    );
+                    $isLikedQuery->execute();
+                    $isLikedResult = $isLikedQuery->fetch(PDO::FETCH_ASSOC);
+                    $isLiked = $isLikedResult['liked'];
+                  }
                   echo "<center>";
                   echo "<h3><a href='track.php?id=" . $track['id'] . "'>" . $track['title'] . "</a>";
                   if (isConnected()) {
