@@ -167,6 +167,10 @@ header {
   right: 30px;
 }
 
+.delete-button {
+  margin-left: 10px;
+}
+
 /* ACCOUNT SETTINGS */
 
 #wrapper-settings {
