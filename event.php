@@ -71,9 +71,9 @@
       echo "<center>";
         echo "<div>";
           echo "<h1>" . $event["name"] . "</h1>";
-          if($places<=0){
+          if ($places <= 0) {
             echo "<span class='badge badge-warning'>Full</span>";
-          }else{
+          } else {
             echo "<span class='badge badge-success'>Not full</span>";
           }
         echo "</div>";
@@ -81,9 +81,9 @@
         echo "<p class='lead'>Created by ";
           echo "<a href='profile.php?username=" . $creator["username"] . "'>" . $creator["name"] . "</a>";
         echo "</p>";
-        if($places>0){
+        if ($places > 0) {
           echo '<a href="#" style="color: inherit" data-toggle="modal" data-target="#exampleModalCenter">' . $places . ' places left out of ' . $event["capacity"] . '</a>';
-        }else{
+        } else {
           echo '<a href="#" style="color: inherit" data-toggle="modal" data-target="#exampleModalCenter">No more available places</a>';
         }
         ?>
@@ -130,30 +130,30 @@
 
         $isAttendee = false;
 
-        foreach($attendees as $attendee) {
-          if($attendee["member"] === $_SESSION["id"] && $attendee["events"] === $_GET["id"]) {
+        foreach ($attendees as $attendee) {
+          if ($attendee["member"] === $_SESSION["id"] && $attendee["events"] === $_GET["id"]) {
             $isAttendee = true;
           }
         }
-        if($creator["id"] == $_SESSION["id"]) {
+        if ($creator["id"] == $_SESSION["id"]) {
           echo "<center>";
             echo "<form method='POST' action='#'>";
               echo "<input name='event_id' value='" . $_GET["id"] . "' hidden>";
               echo "<button type='button' class='btn btn-danger delete-button' data-toggle='modal' data-target='#deleteModal'>Delete</button>";
             echo "</form>";
           echo "</center>";
-        }else if ($isAttendee) {
+        } else if ($isAttendee) {
           echo "<center>";
             echo "<form method='POST' action='script/cancelEventAttendance.php'>";
               echo "<input name='event_id' value='" . $_GET["id"] . "' hidden>";
               echo "<button type='submit' class='btn btn-warning'>Cancel</button>";
             echo "</form>";
           echo "</center>";
-        } else if($places<=0){
+        } else if ($places <= 0) {
           echo "<center>";
             echo "<div class='form_message_error'>Sorry this event is full</div>";
           echo "</center>";
-        }else{
+        } else {
           echo "<center>";
             echo "<form method='POST' action='script/registerInEvent.php'>";
               echo "<input name='event_id' value='" . $_GET["id"] . "' hidden>";
