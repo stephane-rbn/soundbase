@@ -117,10 +117,18 @@
             </div>
             <div class="modal-body">
               <?php
-                $usernamefollowers = sqlSelectFetchAll('SELECT username FROM member WHERE id IN(SELECT member_following FROM subscription WHERE member_followed=' . $result['id'] . ")");
+                $usernamefollowers = sqlSelectFetchAll('SELECT name,profile_photo_filename,username FROM member WHERE id IN(SELECT member_following FROM subscription WHERE member_followed=' . $result['id'] . ")");
 
                 foreach ($usernamefollowers as $follower) {
-                  echo "<a href='profile.php?username=" . $follower['username'] . "'>" . $follower['username'] . "<br></a>";
+                  echo "<div class='row'>";
+                    echo "<div class='col-md-2'>";
+                      echo "<img src='uploads/member/avatar/" . $follower["profile_photo_filename"] . "' alt='profile picture' height=50 width=50>";
+                    echo "</div>";
+                    echo "<div class='col-md-10'>";
+                      echo "<a href='profile.php?username=" . $follower['username'] . "'>" . $follower['name'] . "<br></a>";
+                    echo "</div>";
+                  echo "</div>";
+                  echo "<hr>";
                 }
               ?>
             </div>
@@ -143,10 +151,18 @@
             </div>
             <div class="modal-body">
               <?php
-                $usernamefollowing = sqlSelectFetchAll('SELECT username FROM member WHERE id IN(SELECT member_followed FROM subscription WHERE member_following=' . $result['id'] . ")");
+                $usernamefollowing = sqlSelectFetchAll('SELECT name,profile_photo_filename,username FROM member WHERE id IN(SELECT member_followed FROM subscription WHERE member_following=' . $result['id'] . ")");
 
                 foreach ($usernamefollowing as $following) {
-                  echo "<a href='profile.php?username=" . $following['username'] . "'>" . $following['username'] . "<br></a>";
+                  echo "<div class='row'>";
+                    echo "<div class='col-md-2'>";
+                      echo "<img src='uploads/member/avatar/" . $following["profile_photo_filename"] . "' alt='profile picture' height=50 width=50>";
+                    echo "</div>";
+                    echo "<div class='col-md-10'>";
+                      echo "<a href='profile.php?username=" . $following['username'] . "'>" . $following['name'] . "<br></a>";
+                    echo "</div>";
+                  echo "</div>";
+                  echo "<hr>";
                 }
               ?>
             </div>

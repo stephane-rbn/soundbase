@@ -8,7 +8,7 @@
     header("Location: login.php");
   } else {
     if (!isset($_GET["id"])) {
-      header("Location: myPlaylists.php");
+      header("Location: events.php");
     } else {
 
       // Connection to database
@@ -40,6 +40,9 @@
       $getRegisteredPeopleQuery->execute();
 
       $attendees = $getRegisteredPeopleQuery->fetchAll(PDO::FETCH_ASSOC);
+
+      $following = sqlSelect("SELECT COUNT(*) as count FROM registration WHERE events=" . $_GET["id"]);
+      $places = $event["capacity"] - $following["count"];
     }
 
   }
@@ -68,15 +71,22 @@
       echo "<center>";
         echo "<div>";
           echo "<h1>" . $event["name"] . "</h1>";
-          echo "<span class='badge badge-success'>Not full</span>";
-          // echo "<span class='badge badge-warning'>Full</span>";
+          if ($places <= 0) {
+            echo "<span class='badge badge-warning'>Full</span>";
+          } else {
+            echo "<span class='badge badge-success'>Not full</span>";
+          }
         echo "</div>";
         echo "<br>";
         echo "<p class='lead'>Created by ";
           echo "<a href='profile.php?username=" . $creator["username"] . "'>" . $creator["name"] . "</a>";
         echo "</p>";
-        echo '<a href="#" style="color: inherit" data-toggle="modal" data-target="#exampleModalCenter">5 places left out of ' . $event["capacity"] . '</a>';
-      ?>
+        if ($places > 0) {
+          echo '<a href="#" style="color: inherit" data-toggle="modal" data-target="#exampleModalCenter">' . $places . ' places left out of ' . $event["capacity"] . '</a>';
+        } else {
+          echo '<a href="#" style="color: inherit" data-toggle="modal" data-target="#exampleModalCenter">No more available places</a>';
+        }
+        ?>
 
         <!-- Modal -->
         <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -120,24 +130,28 @@
 
         $isAttendee = false;
 
-        foreach($attendees as $attendee) {
-          if($attendee["member"] === $_SESSION["id"] && $attendee["events"] === $_GET["id"]) {
+        foreach ($attendees as $attendee) {
+          if ($attendee["member"] === $_SESSION["id"] && $attendee["events"] === $_GET["id"]) {
             $isAttendee = true;
           }
         }
-        if($creator["id"] == $_SESSION["id"]) {
+        if ($creator["id"] == $_SESSION["id"]) {
           echo "<center>";
             echo "<form method='POST' action='#'>";
               echo "<input name='event_id' value='" . $_GET["id"] . "' hidden>";
               echo "<button type='button' class='btn btn-danger delete-button' data-toggle='modal' data-target='#deleteModal'>Delete</button>";
             echo "</form>";
           echo "</center>";
-        }else if ($isAttendee) {
+        } else if ($isAttendee) {
           echo "<center>";
             echo "<form method='POST' action='script/cancelEventAttendance.php'>";
               echo "<input name='event_id' value='" . $_GET["id"] . "' hidden>";
               echo "<button type='submit' class='btn btn-warning'>Cancel</button>";
             echo "</form>";
+          echo "</center>";
+        } else if ($places <= 0) {
+          echo "<center>";
+            echo "<div class='form_message_error'>Sorry this event is full</div>";
           echo "</center>";
         } else {
           echo "<center>";
