@@ -25,6 +25,8 @@
           FROM member
           WHERE id=" . $_SESSION['id'] . " AND token='" . $_SESSION['token'] . "'"
         );
+
+        $isProfileOfConnectedUser = true;
       }
   }
 
@@ -221,23 +223,24 @@
                     "SELECT COUNT(*) as likes FROM likes WHERE track=" . $track['id']
                   );
 
-                  // Check if the track is liked by the user
-                  $isLikedQuery = $connection->prepare(
-                    "SELECT COUNT(*) as liked FROM likes WHERE track='" . $track['id'] . "' AND member='" . $_SESSION['id'] ."'"
-                  );
-
                   $likesQuery->execute();
-                  $isLikedQuery->execute();
                   $listeningsQuery->execute();
 
                   $likesResult = $likesQuery->fetch(PDO::FETCH_ASSOC);
-                  $isLikedResult = $isLikedQuery->fetch(PDO::FETCH_ASSOC);
                   $listenings = $listeningsQuery->fetch(PDO::FETCH_ASSOC);
 
                   $likes = $likesResult['likes'];
-                  $isLiked = $isLikedResult['liked'];
                   $listeningsNumber = $listenings['listenings'];
 
+                  if (isConnected()) {
+                    // Check if the track is liked by the user
+                    $isLikedQuery = $connection->prepare(
+                      "SELECT COUNT(*) as liked FROM likes WHERE track='" . $track['id'] . "' AND member='" . $_SESSION['id'] ."'"
+                    );
+                    $isLikedQuery->execute();
+                    $isLikedResult = $isLikedQuery->fetch(PDO::FETCH_ASSOC);
+                    $isLiked = $isLikedResult['liked'];
+                  }
                   echo "<center>";
                   echo "<h3><a href='track.php?id=" . $track['id'] . "'>" . $track['title'] . "</a>";
                   if (isConnected()) {
@@ -258,10 +261,12 @@
                   echo '<i class="' . (($isLiked == 1) ? 'fas' : 'far') . ' fa-heart"></i>';
                   echo '<span class="likeNumber" id="likeNumber-' .$track['id'] . '">' .$likes . '</span>';
                   echo '</span>';
-                  if (isConnected()) {
-                    echo '<a href="" style="color: #c8c8c8;" title="Delete track" data-toggle="modal" data-target="#deleteTrackModal-' . $track["id"] . '">';
-                    echo '<button type="button" class="btn btn-danger delete-button"><i class="fas fa-trash-alt"></i></button>';
-                    echo '</a>';
+                  if (isConnected() && isset($isProfileOfConnectedUser)) {
+                    if ($isProfileOfConnectedUser) {
+                      echo '<a href="" style="color: #c8c8c8;" title="Delete track" data-toggle="modal" data-target="#deleteTrackModal-' . $track["id"] . '">';
+                      echo '<button type="button" class="btn btn-danger delete-button"><i class="fas fa-trash-alt"></i></button>';
+                      echo '</a>';
+                    }
                   }
                   echo '</center>';
 
