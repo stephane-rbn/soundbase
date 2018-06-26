@@ -25,8 +25,6 @@
           FROM member
           WHERE id=" . $_SESSION['id'] . " AND token='" . $_SESSION['token'] . "'"
         );
-
-        $isProfileOfConnectedUser = true;
       }
   }
 
@@ -258,8 +256,8 @@
                   echo '<i class="' . (($isLiked == 1) ? 'fas' : 'far') . ' fa-heart"></i>';
                   echo '<span class="likeNumber" id="likeNumber-' .$track['id'] . '">' .$likes . '</span>';
                   echo '</span>';
-                  if (isConnected() && isset($isProfileOfConnectedUser)) {
-                    if ($isProfileOfConnectedUser) {
+                  if (isConnected()) {
+                    if (!isset($_GET["username"]) || (isset($_GET["username"]) && $result["id"] === $_SESSION["id"])) {
                       echo '<a href="" style="color: #c8c8c8;" title="Delete track" data-toggle="modal" data-target="#deleteTrackModal-' . $track["id"] . '">';
                       echo '<button type="button" class="btn btn-danger delete-button"><i class="fas fa-trash-alt"></i></button>';
                       echo '</a>';
