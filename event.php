@@ -71,8 +71,11 @@
       echo "<center>";
         echo "<div>";
           echo "<h1>" . $event["name"] . "</h1>";
-          echo "<span class='badge badge-success'>Not full</span>";
-          // echo "<span class='badge badge-warning'>Full</span>";
+          if($places<=0){
+            echo "<span class='badge badge-warning'>Full</span>";
+          }else{
+            echo "<span class='badge badge-success'>Not full</span>";
+          }
         echo "</div>";
         echo "<br>";
         echo "<p class='lead'>Created by ";
