@@ -244,7 +244,7 @@
                   echo '</span>';
                   if (isConnected()) {
                     echo '<a href="" style="color: #c8c8c8;" title="Delete track" data-toggle="modal" data-target="#deleteTrackModal-' . $track["id"] . '">';
-                    echo '<button type="button" class="btn btn-danger delete-button">Delete</button>';
+                    echo '<button type="button" class="btn btn-danger delete-button"><i class="fas fa-trash-alt"></i></button>';
                     echo '</a>';
                   }
                   echo '</center>';
