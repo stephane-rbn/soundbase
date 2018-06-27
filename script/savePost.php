@@ -37,5 +37,6 @@
     }
 
   } else {
-    die("Error: invalid form submission.");
+    $_SESSION["message"] = true;
+    header("Location: ../newPost.php");
   }

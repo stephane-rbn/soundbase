@@ -28,13 +28,21 @@
     <h2>ANNOUNCEMENT</h2>
   </div>
 
+  <div class="container-fluid">
+  <?php
+    if (isset($_SESSION["message"])) {
+      fillAllFieldsErrorMessage();
+    }
+  ?>
+  </div>
+
   <div class="container center_div register-form">
     <form method="POST" action="script/savePost.php">
       <div class="col-sm-12">
         <div class="form-group">
             <label for="content">POST (280 characters max):</label>
             <br>
-            <textarea name="post" cols="70" rows="10" onkeyup="displayStrLength(280);" id="textarea" class="form-control" placeholder ="Your publication ..."><?php
+            <textarea name="post" cols="70" rows="10" onkeyup="displayStrLength(280);" id="textarea" class="form-control" placeholder ="Your publication ..." required><?php
             if (!empty($result["post"]) && $result["post"] !== NULL && !isErrorPresent(12)) {
               echo $result["post"];
             }
