@@ -115,35 +115,39 @@
 
       $allowedExtensions = ['jpg', 'jpeg', 'gif', 'png'];
 
-      // Check if the given file owns an allowed extension
-      if (in_array($fileExtension, $allowedExtensions)) {
 
-        // Check error at upload
-        if ($fileError === 0) {
+      if ($fileError !== 4) {
 
-          // Check if the file size doesn't exceed 2MB
-          if ($fileSize < 2097152) {
+        // Check if the given file owns an allowed extension
+        if (in_array($fileExtension, $allowedExtensions)) {
 
-            $fileNewName     = $eventInfo["member"] . "-" . uniqid() . "." . $fileExtension;
-            $fileDestination = "../../uploads/events/backgrounds/" . $fileNewName;
+          // Check error at upload
+          if ($fileError === 0) {
 
-            // Move the upload file from its tmp directory to its final destination
-            // $result's value is true when the move succeeds
-            $result = move_uploaded_file($fileTmpName, $fileDestination);
+            // Check if the file size doesn't exceed 2MB
+            if ($fileSize < 2097152) {
+
+              $fileNewName     = $eventInfo["member"] . "-" . uniqid() . "." . $fileExtension;
+              $fileDestination = "../../uploads/events/backgrounds/" . $fileNewName;
+
+              // Move the upload file from its tmp directory to its final destination
+              // $result's value is true when the move succeeds
+              $result = move_uploaded_file($fileTmpName, $fileDestination);
+
+            } else {
+              $error = true;
+              $listOfErrors[] = 13;
+            }
 
           } else {
             $error = true;
-            $listOfErrors[] = 13;
+            $listOfErrors[] = 14;
           }
 
         } else {
           $error = true;
-          $listOfErrors[] = 14;
+          $listOfErrors[] = 15;
         }
-
-      } else {
-        $error = true;
-        $listOfErrors[] = 15;
       }
     }
 
@@ -157,7 +161,7 @@
 
     else {
 
-      if (!empty($_POST["address"]) && empty($_FILES["background_image"])) {
+      if (!empty($_POST["address"]) && ($fileError === 4 || empty($_FILES["background_image"]))) {
 
         // Query that updates the new event with a new address and no new background_image
         $query = $connection->prepare(
