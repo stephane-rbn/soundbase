@@ -82,7 +82,8 @@ CREATE TABLE events (
 );
 
 CREATE TABLE registration (
-    member INTEGER REFERENCES MEMBRE (id),
-    events INTEGER REFERENCES events (id),
+    member             INTEGER REFERENCES MEMBRE (id),
+    events             INTEGER REFERENCES events (id),
+    registration_token VARCHAR(64),
     PRIMARY KEY (member, events)
 );
