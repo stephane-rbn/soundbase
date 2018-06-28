@@ -73,3 +73,24 @@ function addListeningToTrack(trackId) {
     request.send('track=' + trackId);
 }
 
+function removeTrackFromPlaylist(trackId, playlistId) {
+  const request = new XMLHttpRequest();
+
+  const removedTrack = document.getElementById(`playlist-${playlistId}-track-${trackId}`);
+
+  request.onreadystatechange = function () {
+    if (request.readyState === 4 && request.status === 200) {
+      removedTrack.remove();
+    }
+  };
+
+  request.open('POST', 'script/removeTrackFromPlaylist.php');
+  request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+  let body = [
+    'playlist_id=' + playlistId,
+    'track_id=' + trackId,
+  ];
+
+  request.send(body.join('&'));
+}

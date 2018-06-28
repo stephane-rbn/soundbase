@@ -19,7 +19,7 @@
       );
 
       $getPlaylistNameQuery = $connection->prepare(
-        "SELECT name FROM playlist WHERE id='" . $_GET['id']. "'"
+        "SELECT * FROM playlist WHERE id='" . $_GET['id']. "'"
       );
 
       $getAllTracksQuery->execute();
@@ -95,22 +95,47 @@
               $trackArtist = $trackArtistResult['name'];
 
               echo "<center>";
-              echo "<a href='track.php?id=" . $track['id'] . "'>";
-              echo "<h2>" . $track['title'] . "</h2>";
-              echo "</a>";
-              echo '<img src="uploads/tracks/album_cover/'. $track['photo_filename'] . '" height="100px">';
-              echo '<audio controls data-track-id="' .$track['id'] . '" id="audio-track-' . $trackNumber . '" >';
-              echo '<source src="uploads/tracks/files/' . $track['track_filename'] . '" type="audio/flac">';
-              echo '</audio><br> Artist: ' . $trackArtist . '<br> Genre: ' . $listOfGenres[$track['genre']] . '<br> Publication: ' . $track['publication_date'] . '<br>';
-              echo '<hr>';
-              echo '<i class="fas fa-play"></i>';
-              echo '<span class="listeningsNumber" id="listenings-number-' .$track['id'] . '">' .$listeningsNumber . '</span>';
-              echo '<span class="likes" id="likes-' .$track['id'] . '" onclick="likeTrack('. $track['id'] . ')">';
-              echo '<i class="' . (($isLiked == 1) ? 'fas' : 'far') . ' fa-heart"></i>';
-              echo '<span class="likeNumber" id="likeNumber-' .$track['id'] . '">' .$likes . '</span>';
-              echo '</span>';
+              echo "<div id='playlist-{$_GET["id"]}-track-{$track["id"]}'>";
+                echo "<a href='track.php?id=" . $track['id'] . "'>";
+                echo "<h2>" . $track['title'] . "</h2>";
+                echo "</a>";
+                echo '<img src="uploads/tracks/album_cover/'. $track['photo_filename'] . '" height="100px">';
+                echo '<audio controls data-track-id="' .$track['id'] . '" id="audio-track-' . $trackNumber . '" >';
+                echo '<source src="uploads/tracks/files/' . $track['track_filename'] . '" type="audio/flac">';
+                echo '</audio><br> Artist: ' . $trackArtist . '<br> Genre: ' . $listOfGenres[$track['genre']] . '<br> Publication: ' . $track['publication_date'] . '<br>';
+                echo '<hr>';
+                echo '<i class="fas fa-play"></i>';
+                echo '<span class="listeningsNumber" id="listenings-number-' .$track['id'] . '">' .$listeningsNumber . '</span>';
+                echo '<span class="likes" id="likes-' .$track['id'] . '" onclick="likeTrack('. $track['id'] . ')">';
+                echo '<i class="' . (($isLiked == 1) ? 'fas' : 'far') . ' fa-heart"></i>';
+                echo '<span class="likeNumber" id="likeNumber-' .$track['id'] . '">' .$likes . '</span>';
+                echo '</span>';
+                if ($playlistName["member"] === $_SESSION["id"]) {
+                  echo '<a href="" style="color: #c8c8c8;" title="Delete track" data-toggle="modal" data-target="#deleteTrackModal-' . $track["id"] . '">';
+                  echo '<button type="button" class="btn btn-danger delete-button"><i class="fas fa-trash-alt"></i></button>';
+                  echo '</a>';
+                }
+              echo "</div>";
               echo '</center>';
               echo "<br>";
+
+              echo "<!-- Delete track button modal -->";
+              echo "<div class='modal fade' id='deleteTrackModal-{$track['id']}' tabindex='-1' role='dialog' aria-labelledby='exampleModalCenterTitle' aria-hidden='true'>";
+                echo "<div class='modal-dialog modal-dialog-centered' role='document'>";
+                  echo "<div class='modal-content'>";
+                    echo "<div class='modal-header'>";
+                      echo "<h5 class='modal-title' id='exampleModalLongTitle'>Are you sure you want to remove the track from this playlist?</h5>";
+                      echo "<button type='button' class='close' data-dismiss='modal' aria-label='Close'>";
+                        echo "<span aria-hidden='true'>&times;</span>";
+                      echo "</button>";
+                    echo "</div>";
+                    echo "<div class='modal-body'>";
+                    echo "<button type='button' class='btn btn-danger delete-button' data-dismiss='modal' onclick='removeTrackFromPlaylist({$track['id']}, {$_GET['id']});'>Delete</button>";
+                    echo "<button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>";
+                    echo "</div>";
+                  echo "</div>";
+                echo "</div>";
+              echo "</div>";
             }
           } else {
             echo "<center>";
