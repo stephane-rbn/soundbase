@@ -39,7 +39,7 @@
     $isLiked = $isLiked['liked'];
 
     if ($isLiked == 0) {
-      // If the track is liked, increment the like number and add a line in the table
+      // If the track is not liked, increment the like number and add a line in the table
       $likesNumber++;
       $query = $connection->prepare(
         "INSERT INTO likes (member,track) VALUES (" . $_SESSION['id'] ."," . $_POST["track"] . ")"
@@ -47,7 +47,7 @@
       $query->execute();
     }
     else if ($isLiked == 1){
-      // If the track is not liked, decrement the like number and delete the line in the table
+      // If the track is liked, decrement the like number and delete the line in the table
       $likesNumber--;
       $query = $connection->prepare(
         "DELETE FROM likes where member='" . $_SESSION['id'] ."' AND track='" . $_POST["track"] . "'"
