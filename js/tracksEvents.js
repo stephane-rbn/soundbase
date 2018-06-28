@@ -12,7 +12,7 @@ if (tracks.length > 0) {
     const trackId = document.getElementById('audio-track-' + trackNumber).getAttribute('data-track-id')
 
     // Add a listening
-    track.addEventListener('ended', function(){addListeningToTrack(trackId)},)
+    track.addEventListener('ended', function(){addListeningToTrack(trackId)})
 
     // If the track is not the latest...
     if (trackNumber < tracks.length - 1) {
