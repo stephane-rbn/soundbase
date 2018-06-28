@@ -3,11 +3,9 @@
 
   require "../functions.php";
 
-  if (isConnected()) {
+  if (!isConnected()) {
     http_response_code(400);
   }
-
-  include "../functions.php";
 
   // Includes autoloader
   require_once "../vendor/dompdf/autoload.inc.php";
@@ -18,7 +16,7 @@
 
   $eventData = sqlSelect('SELECT name, description, event_date, address FROM events WHERE id=' . $_GET['id']);
 
-  $url = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data={"username":"' . $memberData["username"] . '","registration_token":"' . $registrationData["registration_token"] . '"}';
+  $url = "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=%7B%22username%22%3A%22%27{$memberData['username']}%27%22%2C%22registration_token%22%3A%22%27{$registrationData['registration_token']}%27%22%7D";
 
   // References the Dompdf namespace
   use Dompdf\Dompdf;
