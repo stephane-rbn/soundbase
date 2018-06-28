@@ -28,11 +28,10 @@ function isConnected() {
 
 // Generate a token
 function createToken($length) {
-  // random_bytes() returns a cryptographic secure pseudo-random bytes (string)
-  // bin2hex() returns a converted binary data in hexadecimal representation
-  // bin2hex(random_bytes($int)) returns a string of length $int * 2 + 1
-  $token = bin2hex(random_bytes($length / 2));
-  return substr_replace($token, "", -1);
+  // random_bytes() returns pseudo-random bytes (string)
+  // bin2hex() returns converted binary data in hexadecimal representation
+  // bin2hex(random_bytes($int)) returns a string of length $int * 2
+  return bin2hex(random_bytes($length / 2));
 }
 
 // Fill account's form fields when submission failed
