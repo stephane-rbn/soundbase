@@ -64,27 +64,3 @@
 
   // Streams the PDF to the client. The file will open a download dialog by default
   $dompdf->stream($memberData["name"] . "-ticket-" . $eventData["name"]);
-
-?>
-
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Your ticket</title>
-  </head>
-  <body>
-    <h1><?php echo $memberData["name"]; ?></h1>
-    <h2><?php echo $memberData["username"]; ?></h2>
-    <img src=<?php echo $url; ?>/>
-    <?php
-      foreach ($eventData as $key => $value) {
-        echo "<h3>{$key}</h3>";
-        echo "<p>" . $value . "</p>";
-      }
-    ?>
-
-  </body>
-</html>
