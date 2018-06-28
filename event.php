@@ -148,6 +148,10 @@
               echo "<input name='event_id' value='" . $_GET["id"] . "' hidden>";
               echo "<button type='submit' class='btn btn-warning'>Cancel</button>";
             echo "</form>";
+            echo "<br>";
+            echo '<a href="script/createTicket.php?id=' . $_GET['id'] . '" style="color: inherit;">';
+              echo '<i class="far fa-file-pdf fa-lg" title="Download your entry ticket!"></i>';
+            echo '</a>';
           echo "</center>";
         } else if ($places <= 0) {
           echo "<center>";
