@@ -1,6 +1,12 @@
 <?php
   session_start();
 
+  require "../functions.php";
+
+  if (isConnected()) {
+    http_response_code(400);
+  }
+
   include "../functions.php";
 
   // Includes autoloader
