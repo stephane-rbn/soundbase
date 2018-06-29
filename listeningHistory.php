@@ -28,7 +28,10 @@
 
       // Get all tracks ordered by listening count
       $getTracksQuery = $connection->prepare(
-        "SELECT * from track inner join listening on track.id = listening.track WHERE listening.member = 1
+        "SELECT * FROM track
+        INNER JOIN listening
+        on track.id = listening.track
+        WHERE listening.member = ". $_SESSION['id'] . "
         ORDER BY listening_date DESC");
 
       $getTracksQuery->execute();
