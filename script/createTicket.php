@@ -25,6 +25,9 @@
   // By setting 'enable_remote' in true it allows us to use non-local images
   $dompdf = new Dompdf(['enable_remote' => true]);
 
+  // Sets the font family of the page
+  $dompdf->set_option('defaultFont', 'Courier');
+
   // Loads an HTML file
   $dompdf->loadHtml(
     '<!DOCTYPE html>
