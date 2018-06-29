@@ -19,5 +19,10 @@ if (tracks.length > 0) {
       // Play next track
       track.addEventListener('ended', function(){nextTrack.play()})
     }
+
+    // Pause all other tracks
+    const currentTrackNumber = trackNumber;
+    // This^ is needed otherwise trackNumber below is always = to tracks.length...
+    track.addEventListener('play', function(){pauseOtherTracks(tracks,currentTrackNumber)})
   }
 }
