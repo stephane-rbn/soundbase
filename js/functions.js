@@ -94,3 +94,18 @@ function removeTrackFromPlaylist(trackId, playlistId) {
 
   request.send(body.join('&'));
 }
+
+function pauseOtherTracks(tracks,playedTrack) {
+
+  // Run through the array of audio tags on the page
+  for (trackNumber = 0; trackNumber < tracks.length; trackNumber++) {
+
+    const track = tracks[trackNumber];
+
+    // If this track in the array is not the currently playing track...
+    if (trackNumber != playedTrack) {
+      // ...Pause it.
+      track.pause();
+    }
+  }
+}
