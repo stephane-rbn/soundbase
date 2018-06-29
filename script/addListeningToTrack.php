@@ -21,9 +21,13 @@
       $member = 0;
     }
     $query = $connection->prepare(
-      "INSERT INTO listening (member, track) VALUES ('" . $member . "', '". $_POST["track"] ."')"
+      "INSERT INTO listening (member, track, listening_date) VALUES (?,?,?)"
     );
-    $query->execute();
+    $query->execute([
+      $member,
+      $_POST["track"],
+      date("Y-m-d H:i:s")
+    ]);
 
     // Get the number of listenings
     $listeningsQuery = $connection->prepare(
