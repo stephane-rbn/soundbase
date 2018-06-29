@@ -37,23 +37,12 @@
 
         foreach ($tracks as $track) {
 
-          // Get the number of listenings
-          $listeningsQuery = $connection->prepare(
-            "SELECT COUNT(*) as listenings FROM listening WHERE track=" . $track['id']
-          );
-
           // Get the artist name
           $trackArtistQuery = $connection->prepare(
             "SELECT name FROM member WHERE id = " . $track['member'] . ""
           );
-
-          $listeningsQuery->execute();
           $trackArtistQuery->execute();
-
-          $listenings = $listeningsQuery->fetch(PDO::FETCH_ASSOC);
           $trackArtistResult = $trackArtistQuery->fetch(PDO::FETCH_ASSOC);
-
-          $listeningsNumber = $listenings['listenings'];
           $trackArtist = $trackArtistResult['name'];
 
 
