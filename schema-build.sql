@@ -33,7 +33,8 @@ CREATE TABLE track (
 
 CREATE TABLE listening (
     member  INTEGER NOT NULL DEFAULT 0 REFERENCES member (id),
-    track   INTEGER NOT NULL DEFAULT 0 REFERENCES track (id)
+    track   INTEGER NOT NULL DEFAULT 0 REFERENCES track (id),
+    listening_date DATETIME
 );
 
 CREATE TABLE likes (
