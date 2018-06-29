@@ -87,7 +87,7 @@ function removeTrackFromPlaylist(trackId, playlistId) {
   request.open('POST', 'script/removeTrackFromPlaylist.php');
   request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-  let body = [
+  const body = [
     'playlist_id=' + playlistId,
     'track_id=' + trackId,
   ];
