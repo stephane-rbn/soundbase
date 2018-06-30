@@ -48,11 +48,9 @@
                 <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                   <thead>
                     <tr>
-                      <th>ID</th>
                       <th>Title</th>
                       <th>Description</th>
                       <th>Genre</th>
-                      <th>Track Cover</th>
                       <th>Publication Date</th>
                       <th>Member</th>
                       <th>Edit</th>
@@ -83,14 +81,13 @@
                       }
 
                       foreach ($trackData as $track) {
+                        $trackMember = sqlSelect("SELECT name FROM member WHERE id = {$track['member']}");
                         echo '<tr class="odd gradeX">';
-                        echo '<td>' . $track['id'];
                         echo '<td>' . $track['title'];
                         echo '<td>' . $track['description'];
-                        echo '<td>' . $track['genre'];
-                        echo '<td>' . $track['photo_filename'];
+                        echo '<td>' . $listOfGenres[$track['genre']];
                         echo '<td>' . $track['publication_date'];
-                        echo '<td>' . $track['member'];
+                        echo '<td>' . $trackMember['name'];
                         echo '<td><a href="track_edit.php?id=' . $track['id'] . '">Edit</a>';
                         echo "</tr>";
                       }
