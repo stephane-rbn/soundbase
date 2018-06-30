@@ -1,28 +1,43 @@
 <?php
 
-  session_start();
-  require "../functions.php";
-  require "../conf.inc.php";
-  // Connection to database
-  $connection = connectDB();
-
+  // The file returns JSON
   header('Content-Type: application/json');
 
-  // Connection to database
+  session_start();
+  require "../functions.php";
+
+  // Clean $_GET
+  xssProtection();
+
   $connection = connectDB();
 
+  // Get the comments associated to the content
 
-    if(isset($_GET['track'])){
-      $stmt = $connection->query('SELECT * FROM comment WHERE track='. $_GET['track'] . ' ORDER BY publication_date DESC');
+  if(count($_GET) === 2 &&
+    !empty($_GET['contentType']) &&
+    !empty($_GET['contentId'])) {
+
+      $query = $connection->prepare(
+        "SELECT * FROM comment
+        WHERE " . $_GET['contentType'] . "=". $_GET['contentId'] . "
+        ORDER BY publication_date DESC"
+      );
+
+    $succes = $query->execute();
+    $comments = $query->fetchAll(PDO::FETCH_ASSOC);
+
+    if($succes) {
+      // SELECT success
+      // Output the comments to JSON
+      echo json_encode($comments);
+      http_response_code(200);
+    } else {
+      // SELECT fail
+      http_response_code(500);
     }
-    else if(isset($_GET['event'])){
-      $stmt = $connection->query('SELECT * FROM comment WHERE event='. $_GET['event'] . ' ORDER BY publication_date DESC');
-    }
-    else if(isset($_GET['post'])){
-      $stmt = $connection->query('SELECT * FROM comment WHERE post='. $_GET['post'] . ' ORDER BY publication_date DESC');
-    }
-    $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  } else {
+    // Invalid query strings
+    http_response_code(400);
+  }
 
-
-
-  echo json_encode($res);
+?>

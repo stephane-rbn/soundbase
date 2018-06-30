@@ -1,21 +1,36 @@
 <?php
 
-  session_start();
-  require "../functions.php";
-  require "../conf.inc.php";
-  // Connection to database
-  $connection = connectDB();
-
+  // The file returns JSON
   header('Content-Type: application/json');
 
-  // Connection to database
+  session_start();
+  require "../functions.php";
+
+  // Clean $_GET
+  xssProtection();
+
   $connection = connectDB();
 
-  $query = $connection->prepare ('SELECT * FROM member WHERE id='. $_GET['id']);
-    // Execute the query
-  $query->execute();
+  if (count($_GET) === 1 && isset($_GET['id'])){
 
-  // Fetch data with the query and get it as an associative array
-  $result = $query->fetch(PDO::FETCH_ASSOC);
+    $query = $connection->prepare (
+      "SELECT * FROM member WHERE id=". $_GET['id']
+    );
+    $success = $query->execute();
 
-  echo json_encode($result);
+    $result = $query->fetch(PDO::FETCH_ASSOC);
+
+    if($success) {
+      // SELECT success
+      echo json_encode($result);
+      http_response_code(200);
+    } else {
+      // SELECT fail
+      http_response_code(500);
+    }
+  } else {
+    // Invalid query strings
+    http_response_code(400);
+  }
+
+?>

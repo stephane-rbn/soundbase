@@ -28,10 +28,9 @@
   include "head.php";
   include "navbar.php";
 
-  $postID = $_GET['id'];
 ?>
 
-  <body onload="getComments( null, null, <?php echo $postID ?>)">
+  <body onload="getComments('post',<?php echo $_GET['id'] ?>)">
     <div class="container">
 
       <div class="vertical-spacer"></div>
@@ -51,11 +50,11 @@
       <div class="container center_div register-form">
 
         <div class="col-sm-12">
-          <div class="form-group">
-              <label for="content">POST (280 characters max):</label>
-              <textarea name="comment" rows="5" onkeyup="displayStrLength(280);" id="textarea" class="form-control" placeholder ="Your publication ..."></textarea>
+        <div class="form-group">
+              <label for="content">Comment (280 characters max):</label>
+              <textarea name="comment" rows="5" onkeyup="displayStrLength(280);" id="comment-content" class="form-control" placeholder ="Your comment..."></textarea>
               <p id="count"></p>
-              <button class="btn btn-secondary" onclick="addComment( null, document.getElementById('textarea').value, null, '<?php echo $_GET["id"]; ?>')" >Submit</button>
+              <button class="btn btn-secondary" onclick="addComment('post',<?php echo $_GET['id'] ?>)" >Submit</button>
           </div>
         </div>
 

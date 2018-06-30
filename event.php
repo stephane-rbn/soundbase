@@ -49,7 +49,6 @@
 
   include "head.php";
   include "navbar.php";
-  $eventID = $_GET['id'];
 ?>
 
     <!-- Header - set the background image for the header in the line below -->
@@ -62,7 +61,7 @@
       ?>');" alt="event-background">
     </header>
 
-  <body onload="getComments( null, <?php echo $eventID ?>, null)">
+  <body onload="getComments('event', <?php echo $_GET['id'] ?>)">
     <div style="height: 2em;"></div>
 
     <div class="container-fluid"><?php successfulUpdateMessage(); ?></div>
@@ -202,12 +201,12 @@
 
     <div class="container center_div register-form">
       <div class="col-sm-12">
-        <div class="form-group">
-          <label for="content">POST (280 characters max):</label>
-            <textarea name="comment" rows="5" onkeyup="displayStrLength(280);" id="textarea" class="form-control" placeholder ="Your publication ..."></textarea>
-            <p id="count"></p>
-            <button class="btn btn-secondary" onclick="addComment( null, document.getElementById('textarea').value, '<?php echo $_GET["id"]; ?>', null)" >Submit</button>
-        </div>
+      <div class="form-group">
+              <label for="content">Comment (280 characters max):</label>
+              <textarea name="comment" rows="5" onkeyup="displayStrLength(280);" id="comment-content" class="form-control" placeholder ="Your comment..."></textarea>
+              <p id="count"></p>
+              <button class="btn btn-secondary" onclick="addComment('event',<?php echo $_GET['id'] ?>)" >Submit</button>
+          </div>
       </div>
 
 
