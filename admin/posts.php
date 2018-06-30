@@ -51,7 +51,7 @@
                       <th>Content</th>
                       <th>Publication date</th>
                       <th>Member</th>
-                      <th>Edit</th>
+                      <!-- <th>Edit</th> -->
                     </tr>
                   </thead>
                   <tbody>
@@ -84,7 +84,7 @@
                         echo '<td>' . $post['content'];
                         echo '<td>' . $post['publication_date'];
                         echo '<td>' . $post['member'];
-                        echo '<td><a href="post_edit.php?id=' . $post['id'] . '">Edit</a>';
+                        // echo '<td><a href="post_edit.php?id=' . $post['id'] . '">Edit</a>';
                         echo "</tr>";
                       }
                     ?>
