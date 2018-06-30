@@ -35,7 +35,7 @@
               <div class="row">
                 <div class="col-sm-6">
                   <form method="GET">
-                    <select name="position">
+                    <select name="position" required>
                       <option value="all">All</option>
                       <option value="0">Member</option>
                       <option value="1">Admin</option>
