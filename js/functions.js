@@ -153,7 +153,7 @@ function getComments(contentType, contentId) {
     'contentId=' + contentId,
   ];
 
-  request.open('GET', 'script/listOfComment.php?' + queryStrings.join('&'));
+  request.open('GET', 'script/commentsList.php?' + queryStrings.join('&'));
   request.send();
 }
 
