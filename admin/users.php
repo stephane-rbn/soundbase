@@ -55,10 +55,6 @@
                 </div>
               </div>
               <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
-                <div class="row">
-                  <div class="col-sm-12">
-                  </div>
-                </div>
                 <br>
                 <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                   <thead>
@@ -116,7 +112,7 @@
                         echo '<td>' . $user['email'];
                         echo '<td>' . $user['birthday'];
                         if ($user['position'] == 0) {
-                          echo "<td> User";
+                          echo "<td> Member";
                         } elseif ($user['position'] == 1) {
                           echo "<td> Admin";
                         } elseif ($user['position'] == 2) {
