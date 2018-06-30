@@ -46,6 +46,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="listeningHistory.php">History</a>
+                <a class="dropdown-item" href="recommendations.php">Recommendations</a>
                   <?php
                     if (isAdmin()) {
                       echo '<a class="dropdown-item" href="admin/">Admin</a>';
