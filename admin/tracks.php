@@ -32,68 +32,99 @@
               Track list
             </div>
             <div class="panel-body">
-              <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
                 <div class="row">
-                  <div class="col-sm-12">
+                  <div class="col-sm-6">
+                    <form method="GET">
+                      <select name="genre" required>
+                        <option value="all">All</option>
+                        <option value="rb">R&B</option>
+                        <option value="rk">Rock</option>
+                        <option value="pp">Pop</option>
+                        <option value="hh">Hip Hop</option>
+                        <option value="rg">Reggae</option>
+                        <option value="jz">Jazz</option>
+                        <option value="cm">Classical music</option>
+                      </select>
+                      <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-search fa-fw"></i></button>
+                  </form>
+                  </div>
+                  <div class="col-sm-6">
                     <div id="dataTables-example_filter" class="dataTables_filter">
                       <!-- Search form, processed by the same page -->
                       <form method="GET" action="">
-                        <input type="search" name="search" class="form-control input-sm" placeholder="Search...">
+                        <input type="search" name="search" class="form-control input-sm" placeholder="Search..." style="max-width: 80%" required>
                         <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-search fa-fw"></i></button>
                       </form>
                     </div>
                   </div>
                 </div>
                 <br>
-                <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
-                  <thead>
-                    <tr>
-                      <th>Title</th>
-                      <th>Description</th>
-                      <th>Genre</th>
-                      <th>Publication Date</th>
-                      <th>Member</th>
-                      <th>Edit</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php
-                      $trackCount = $_SESSION['trackCount']; // Number of entries
-                      $perPage = 10; // Number of entries per page
-                      $nbPages = ceil($trackCount/$perPage); // Number of pages
+                <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                  <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                    <thead>
+                      <tr>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Genre</th>
+                        <th>Publication Date</th>
+                        <th>Member</th>
+                        <th>Edit</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <?php
+                        $trackCount = $_SESSION['trackCount']; // Number of entries
+                        $perPage = 10; // Number of entries per page
+                        $nbPages = ceil($trackCount/$perPage); // Number of pages
 
-                      // Page shown defaults to 1, otherwise based on "?page="
-                      // Checking $_GET['page'] is a possible page number to provent SQL injections
-                      if (isset($_GET['page']) && $_GET['page'] > 0 && $_GET['page'] <= $nbPages) {
-                        $cPage = $_GET['page'];
-                      } else {
-                        $cPage = 1;
-                      }
+                        // Page shown defaults to 1, otherwise based on "?page="
+                        // Checking $_GET['page'] is a possible page number to provent SQL injections
+                        if (isset($_GET['page']) && $_GET['page'] > 0 && $_GET['page'] <= $nbPages) {
+                          $cPage = $_GET['page'];
+                        } else {
+                          $cPage = 1;
+                        }
 
-                      if (isset($_GET['search'])) {
-                        $searchQuery = $_GET['search'];
-                        $searchQuery = htmlspecialchars($searchQuery);
+                        if (isset($_GET['search'])) {
+                          $_GET['search'] = htmlspecialchars($_GET['search']);
 
-                        $trackData = sqlSelectFetchAll("SELECT * FROM track WHERE (`name` LIKE '%".$searchQuery."%') OR (`description` LIKE '%".$searchQuery."%') LIMIT ". (($cPage - 1) * $perPage) .", $perPage");
+                          $trackData = sqlSelectFetchAll("SELECT * FROM track WHERE `title` LIKE '%" . $_GET['search'] . "%' LIMIT ". (($cPage - 1) * $perPage) .", $perPage");
 
-                      } else {
-                        $trackData = sqlSelectFetchAll("SELECT * FROM track LIMIT ". (($cPage - 1) * $perPage) .", $perPage");
-                      }
+                        } else if (isset($_GET['genre'])) {
+                          $_GET['genre'] = htmlspecialchars($_GET['genre']);
 
-                      foreach ($trackData as $track) {
-                        $trackMember = sqlSelect("SELECT name FROM member WHERE id = {$track['member']}");
-                        echo '<tr class="odd gradeX">';
-                        echo '<td>' . $track['title'];
-                        echo '<td>' . $track['description'];
-                        echo '<td>' . $listOfGenres[$track['genre']];
-                        echo '<td>' . $track['publication_date'];
-                        echo '<td>' . $trackMember['name'];
-                        echo '<td><a href="track_edit.php?id=' . $track['id'] . '">Edit</a>';
-                        echo "</tr>";
-                      }
-                    ?>
-                  </tbody>
-                </table>
+                          $exist = false;
+                          foreach ($listOfGenres as $key => $value) {
+                            if ($_GET['genre'] == $key) {
+                              $exist = true;
+                            }
+                          }
+
+                          // SQL queries searching by genre
+                          if ($exist) {
+                            $trackData = sqlSelectFetchAll("SELECT * FROM track WHERE genre = '{$_GET['genre']}' LIMIT " . (($cPage - 1) * $perPage) . ", $perPage");
+                          } else {
+                            $trackData = sqlSelectFetchAll("SELECT * FROM track LIMIT " . (($cPage - 1) * $perPage) . ", $perPage");
+                          }
+
+                        } else {
+                          $trackData = sqlSelectFetchAll("SELECT * FROM track LIMIT " . (($cPage - 1) * $perPage) . ", $perPage");
+                        }
+
+                        foreach ($trackData as $track) {
+                          $trackMember = sqlSelect("SELECT name FROM member WHERE id = {$track['member']}");
+                          echo '<tr class="odd gradeX">';
+                          echo '<td>' . $track['title'];
+                          echo '<td>' . $track['description'];
+                          echo '<td>' . $listOfGenres[$track['genre']];
+                          echo '<td>' . $track['publication_date'];
+                          echo '<td>' . $trackMember['name'];
+                          echo '<td><a href="track_edit.php?id=' . $track['id'] . '">Edit</a>';
+                          echo "</tr>";
+                        }
+                      ?>
+                    </tbody>
+                  </table>
                 <div class="row">
                   <div class="col-sm-6">
                     <div class="dataTables_info" id="dataTables-example_info" role="status" aria-live="polite">
