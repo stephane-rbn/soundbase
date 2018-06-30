@@ -30,7 +30,7 @@
 
   $trackID = $_GET['id'];
 ?>
-  <body onload="getComments(<?php echo $trackID ?>)">
+  <body onload="getComments(<?php echo $trackID ?>,null,null)">
     <div class="container">
 
       <div class="vertical-spacer"></div>
@@ -102,13 +102,6 @@
   </div>
   </div>
 </body>
-
-<!--<script>
-$(window).bind("load", function() {
-   getComments()
-});
-</script>-->
-
 
 <?php
   include "footer.php";
