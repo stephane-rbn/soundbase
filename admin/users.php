@@ -32,16 +32,31 @@
               Users list
             </div>
             <div class="panel-body">
+              <div class="row">
+                <div class="col-sm-6">
+                  <form method="GET">
+                    <select name="position">
+                      <option value="all">All</option>
+                      <option value="0">Member</option>
+                      <option value="1">Admin</option>
+                      <option value="2">Banned</option>
+                    </select>
+                    <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-search fa-fw"></i></button>
+                  </form>
+                </div>
+                <div class="col-sm-6">
+                  <div id="dataTables-example_filter" class="dataTables_filter">
+                    <!-- Search form, processed by the same page -->
+                    <form method="GET" action="">
+                      <input type="search" name="search" class="form-control input-sm" placeholder="Search for a specific user..." style="max-width: 80%" required>
+                      <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-search fa-fw"></i></button>
+                    </form>
+                  </div>
+                </div>
+              </div>
               <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
                 <div class="row">
                   <div class="col-sm-12">
-                    <div id="dataTables-example_filter" class="dataTables_filter">
-                      <!-- Search form, processed by the same page -->
-                      <form method="GET" action="">
-                        <input type="search" name="search" class="form-control input-sm" placeholder="Search...">
-                        <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-search fa-fw"></i></button>
-                      </form>
-                    </div>
                   </div>
                 </div>
                 <br>
@@ -52,7 +67,7 @@
                       <th>Name</th>
                       <th>Email</th>
                       <th>Birthday</th>
-                      <th>Status</th>
+                      <th>Position</th>
                       <th>Registration Date</th>
                       <th>Edit</th>
                       <th>Delete</th>
@@ -76,7 +91,19 @@
                         $searchQuery = $_GET['search'];
                         $searchQuery = htmlspecialchars($searchQuery);
 
+                        // SQL query executed when someone is searched
                         $userData = sqlSelectFetchAll("SELECT * FROM member WHERE (`username` LIKE '%".$searchQuery."%') OR (`name` LIKE '%".$searchQuery."%') OR (`email` LIKE '%".$searchQuery."%') LIMIT ". (($cPage - 1) * $perPage) .", $perPage");
+
+                      } else if (isset($_GET['position'])) {
+                        $searchQuery = $_GET['position'];
+                        $searchQuery = htmlspecialchars($searchQuery);
+
+                        // SQL queries searching by position
+                        if (is_numeric($_GET['position'])) {
+                          $userData = sqlSelectFetchAll("SELECT * FROM member WHERE position = {$_GET['position']} LIMIT " . (($cPage - 1) * $perPage) . ", $perPage");
+                        } else {
+                          $userData = sqlSelectFetchAll("SELECT * FROM member LIMIT ". (($cPage - 1) * $perPage) .", $perPage");
+                        }
 
                       } else {
                         $userData = sqlSelectFetchAll("SELECT * FROM member LIMIT ". (($cPage - 1) * $perPage) .", $perPage");
