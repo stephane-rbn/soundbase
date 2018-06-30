@@ -109,3 +109,72 @@ function pauseOtherTracks(tracks,playedTrack) {
     }
   }
 }
+
+function addComment(track, comment, event, post) {
+  var xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4) {
+      if (xhr.status === 201) {
+        getComments(track, event, post);
+      }
+    }
+  };
+  var url = track ? 'track=' + track : event ? 'event=' + event : post ? 'post='+post : '';
+  xhr.open('POST', 'script/addComment.php?'+url);
+  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+  var body = [
+    'comment=' + comment,
+  ];
+  xhr.send(body.join('&'));
+}
+
+function getComments(track, event, post) {
+  var url = track ? 'track=' + track : event ? 'event=' + event : post ? 'post=' + post : '';
+  var request = new XMLHttpRequest();
+  request.onreadystatechange = function () {
+    if (request.readyState === 4 && request.status === 200) {
+      var comments = JSON.parse(request.responseText);
+      displayComments(comments);
+    }
+  };
+  request.open('GET', 'script/listOfComment.php?' + url);
+  request.send();
+}
+
+function getAuthorOfComment(comment, parent) {
+  var request = new XMLHttpRequest();
+  request.onreadystatechange = function () {
+    if (request.readyState === 4 && request.status === 200) {
+      var author = JSON.parse(request.responseText);
+      displayComment(comment, author, parent);
+    }
+  };
+  request.open('GET', 'script/auhtorOfComment.php?id='+comment.member);
+  request.send();
+}
+
+function displayComments(comments) {
+  var parent = document.getElementById('comments');
+  parent.innerHTML = '';
+  for (var i = 0; i < comments.length; i++) {
+    getAuthorOfComment(comments[i], parent)
+  }
+}
+
+function displayComment(comment, author, parent) {
+  var html = commentToHTML(comment, author);
+  parent.appendChild(html);
+}
+
+function commentToHTML(comment, author) {
+  var div = document.createElement('div');
+  div.style.border = '2px solid';
+  div.style.marginTop = '5px';
+
+  var content = document.createElement('p');
+  content.innerHTML = " <img src='uploads/member/avatar/" + author.profile_photo_filename + "' height=50 width=50/>" +author.name +  " - " + comment.content;
+  div.appendChild(content);
+
+  return div;
+}
+
