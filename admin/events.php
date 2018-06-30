@@ -32,18 +32,30 @@
               Event list
             </div>
             <div class="panel-body">
-              <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
-                <div class="row">
-                  <div class="col-sm-12">
-                    <div id="dataTables-example_filter" class="dataTables_filter">
-                      <!-- Search form, processed by the same page -->
-                      <form method="GET" action="">
-                        <input type="search" name="search" class="form-control input-sm" placeholder="Search...">
-                        <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-search fa-fw"></i></button>
-                      </form>
-                    </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <form method="GET">
+                    <select name="capacity" required>
+                      <option value="all">All</option>
+                      <option value="10"><= 10 people</option>
+                      <option value="1000"><= 1000 people</option>
+                      <option value="10000"><= 10,000 people</option>
+                      <option value="100000"><= 100,000 people</option>
+                    </select>
+                    <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-search fa-fw"></i></button>
+                  </form>
+                </div>
+                <div class="col-sm-6">
+                  <div id="dataTables-example_filter" class="dataTables_filter">
+                    <!-- Search form, processed by the same page -->
+                    <form method="GET" action="">
+                      <input type="search" name="search" class="form-control input-sm" placeholder="Search..." style="max-width: 80%" required>
+                      <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-search fa-fw"></i></button>
+                    </form>
                   </div>
                 </div>
+              </div>
+              <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
                 <br>
                 <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                   <thead>
@@ -75,7 +87,17 @@
                         $searchQuery = $_GET['search'];
                         $searchQuery = htmlspecialchars($searchQuery);
 
-                        $eventData = sqlSelectFetchAll("SELECT * FROM events WHERE (`name` LIKE '%".$searchQuery."%') OR (`description` LIKE '%".$searchQuery."%') LIMIT ". (($cPage - 1) * $perPage) .", $perPage");
+                        $eventData = sqlSelectFetchAll("SELECT * FROM events WHERE (`name` LIKE '%" . $searchQuery . "%') OR (`description` LIKE '%" . $searchQuery . "%') LIMIT ". (($cPage - 1) * $perPage) .", $perPage");
+
+                      } else if (isset($_GET['capacity'])) {
+                        $_GET['capacity'] = htmlspecialchars($_GET['capacity']);
+
+                        // SQL queries searching by capacity
+                        if (is_numeric($_GET['capacity'])) {
+                          $eventData = sqlSelectFetchAll("SELECT * FROM events WHERE capacity <= {$_GET['capacity']} LIMIT " . (($cPage - 1) * $perPage) . ", $perPage");
+                        } else {
+                          $eventData = sqlSelectFetchAll("SELECT * FROM events LIMIT ". (($cPage - 1) * $perPage) .", $perPage");
+                        }
 
                       } else {
                         $eventData = sqlSelectFetchAll("SELECT * FROM events LIMIT ". (($cPage - 1) * $perPage) .", $perPage");
