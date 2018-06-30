@@ -165,15 +165,15 @@ function displayComments(comments) {
 
   for (let i = 0; i < comments.length; i++) {
     const comment = comments[i];
-    // Using callback: when getAuthorOfComment() returns author,
+    // Using callback: when getCommentAuthor() returns author,
     // displayComment() is called
-    getAuthorOfComment(comment,function(author) {
+    getCommentAuthor(comment,function(author) {
       displayComment(comment, author, container);
     });
   }
 }
 
-function getAuthorOfComment(comment, callback) {
+function getCommentAuthor(comment, callback) {
 
   const request = new XMLHttpRequest();
 
@@ -187,7 +187,7 @@ function getAuthorOfComment(comment, callback) {
   };
 
   // Get info on the author of the comment from database
-  request.open('GET', 'script/auhtorOfComment.php?id='+comment.member);
+  request.open('GET', 'script/getCommentAuthor.php?id='+comment.member);
   request.send();
 }
 
