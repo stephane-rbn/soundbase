@@ -27,8 +27,10 @@
 
   include "head.php";
   include "navbar.php";
-?>
 
+  $trackID = $_GET['id'];
+?>
+  <body onload="getComments(<?php echo $trackID ?>)">
     <div class="container">
 
       <div class="vertical-spacer"></div>
@@ -83,7 +85,29 @@
 
       <div class="vertical-spacer"></div>
 
+      <div class="container center_div register-form">
+
+        <div class="col-sm-12">
+          <div class="form-group">
+              <label for="content">POST (280 characters max):</label>
+              <textarea name="comment" rows="5" onkeyup="displayStrLength(280);" id="textarea" class="form-control" placeholder ="Your publication ..."></textarea>
+              <p id="count"></p>
+              <button class="btn btn-secondary" onclick="addComment('<?php echo $_GET["id"]; ?>', document.getElementById('textarea').value, null, null)" >Submit</button>
+          </div>
+        </div>
+
+      <div id="comments">
+      </div>
     </div>
+  </div>
+  </div>
+</body>
+
+<!--<script>
+$(window).bind("load", function() {
+   getComments()
+});
+</script>-->
 
 
 <?php
