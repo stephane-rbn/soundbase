@@ -21,7 +21,7 @@
     <div id="page-wrapper">
       <div class="row">
         <div class="col-lg-12">
-          <h1 class="page-header">Posts</h1>
+          <h1 class="page-header">Posts (under construction)</h1>
         </div>
       </div>
       <div class="row">
@@ -51,7 +51,7 @@
                       <th>Content</th>
                       <th>Publication date</th>
                       <th>Member</th>
-                      <th>Edit</th>
+                      <!-- <th>Edit</th> -->
                     </tr>
                   </thead>
                   <tbody>
@@ -84,7 +84,7 @@
                         echo '<td>' . $post['content'];
                         echo '<td>' . $post['publication_date'];
                         echo '<td>' . $post['member'];
-                        echo '<td><a href="post_edit.php?id=' . $post['id'] . '">Edit</a>';
+                        // echo '<td><a href="post_edit.php?id=' . $post['id'] . '">Edit</a>';
                         echo "</tr>";
                       }
                     ?>

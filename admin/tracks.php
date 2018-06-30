@@ -22,7 +22,7 @@
     <div id="page-wrapper">
       <div class="row">
         <div class="col-lg-12">
-          <h1 class="page-header">Tracks</h1>
+          <h1 class="page-header">Tracks (under construction)</h1>
         </div>
       </div>
       <div class="row">
@@ -68,7 +68,7 @@
                         <th>Genre</th>
                         <th>Publication Date</th>
                         <th>Member</th>
-                        <th>Edit</th>
+                        <!-- <th>Edit</th> -->
                       </tr>
                     </thead>
                     <tbody>
@@ -119,7 +119,7 @@
                           echo '<td>' . $listOfGenres[$track['genre']];
                           echo '<td>' . $track['publication_date'];
                           echo '<td>' . $trackMember['name'];
-                          echo '<td><a href="track_edit.php?id=' . $track['id'] . '">Edit</a>';
+                          // echo '<td><a href="track_edit.php?id=' . $track['id'] . '">Edit</a>';
                           echo "</tr>";
                         }
                       ?>
