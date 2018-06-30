@@ -47,7 +47,6 @@
                 <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                   <thead>
                     <tr>
-                      <th>ID</th>
                       <th>Content</th>
                       <th>Publication date</th>
                       <th>Member</th>
@@ -79,11 +78,11 @@
                       }
 
                       foreach ($postData as $post) {
+                        $postMember = sqlSelect("SELECT name FROM member WHERE id = {$post['member']}");
                         echo '<tr class="odd gradeX">';
-                        echo '<td>' . $post['id'];
                         echo '<td>' . $post['content'];
                         echo '<td>' . $post['publication_date'];
-                        echo '<td>' . $post['member'];
+                        echo '<td>' . $postMember['name'];
                         // echo '<td><a href="post_edit.php?id=' . $post['id'] . '">Edit</a>';
                         echo "</tr>";
                       }
