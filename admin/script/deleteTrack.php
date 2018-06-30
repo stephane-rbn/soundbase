@@ -21,4 +21,4 @@
 
   $_SESSION["sucessDeletion"] = true;
 
-  header("Location: ../posts.php");
+  header("Location: ../tracks.php");

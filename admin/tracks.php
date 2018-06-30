@@ -69,6 +69,7 @@
                         <th>Publication Date</th>
                         <th>Member</th>
                         <!-- <th>Edit</th> -->
+                        <th>Delete</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -120,7 +121,28 @@
                           echo '<td>' . $track['publication_date'];
                           echo '<td>' . $trackMember['name'];
                           // echo '<td><a href="track_edit.php?id=' . $track['id'] . '">Edit</a>';
+                          echo "<td><button type='button' class='btn btn-danger' data-toggle='modal' data-target='#exampleModalCenter-{$track['id']}' style='color: #fff'>Delete</button>";
                           echo "</tr>";
+                          echo "<!-- Modal {$track['id']}: confirmation of deletion -->";
+                          echo "<div class='modal fade' id='exampleModalCenter-{$track['id']}' tabindex='-1' role='dialog' aria-labelledby='exampleModalCenterTitle' aria-hidden='true'>";
+                            echo '<div class="modal-dialog modal-dialog-centered" role="document">';
+                              echo '<div class="modal-content">';
+                                echo '<div class="modal-header">';
+                                  echo '<h5 class="modal-title" id="exampleModalLongTitle">Are you sure?</h5>';
+                                  echo '<button type="button" class="close" data-dismiss="modal" aria-label="Close">';
+                                    echo '<span aria-hidden="true">&times;</span>';
+                                  echo '</button>';
+                                echo '</div>';
+                                echo '<div class="modal-body">The deletion of an track is irreversible.</div>';
+                                echo '<div class="modal-footer">';
+                                  echo '<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>';
+                                  echo '<button type="button" class="btn btn-danger delete-button">';
+                                    echo '<a href="script/deleteTrack.php?id=' . $track['id'] .'" style="color: #fff">Confirm</a>';
+                                  echo '</button>';
+                                echo '</div>';
+                              echo '</div>';
+                            echo '</div>';
+                          echo '</div>';
                         }
                       ?>
                     </tbody>
@@ -206,6 +228,7 @@
 <?php
 
   unset($_SESSION["trackCount"]);
+  unset($_SESSION["sucessDeletion"]);
 
   include "includes/footer.php";
 ?>

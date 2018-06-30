@@ -51,6 +51,7 @@
                       <th>Publication date</th>
                       <th>Member</th>
                       <!-- <th>Edit</th> -->
+                      <th>Delete</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -84,6 +85,27 @@
                         echo '<td>' . $post['publication_date'];
                         echo '<td>' . $postMember['name'];
                         // echo '<td><a href="post_edit.php?id=' . $post['id'] . '">Edit</a>';
+                        echo "<td><button type='button' class='btn btn-danger' data-toggle='modal' data-target='#exampleModalCenter-{$post['id']}' style='color: #fff'>Delete</button>";
+                        echo "</tr>";
+                        echo "<!-- Modal {$post['id']}: confirmation of deletion -->";
+                        echo "<div class='modal fade' id='exampleModalCenter-{$post['id']}' tabindex='-1' role='dialog' aria-labelledby='exampleModalCenterTitle' aria-hidden='true'>";
+                          echo '<div class="modal-dialog modal-dialog-centered" role="document">';
+                            echo '<div class="modal-content">';
+                              echo '<div class="modal-header">';
+                                echo '<h5 class="modal-title" id="exampleModalLongTitle">Are you sure?</h5>';
+                                echo '<button type="button" class="close" data-dismiss="modal" aria-label="Close">';
+                                  echo '<span aria-hidden="true">&times;</span>';
+                                echo '</button>';
+                              echo '</div>';
+                              echo '<div class="modal-body">The deletion of an post is irreversible.</div>';
+                              echo '<div class="modal-footer">';
+                                echo '<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>';
+                                echo '<button type="button" class="btn btn-danger delete-button">';
+                                  echo '<a href="script/deletePost.php?id=' . $post['id'] .'" style="color: #fff">Confirm</a>';
+                                echo '</button>';
+                              echo '</div>';
+                            echo '</div>';
+                          echo '</div>';
                         echo "</tr>";
                       }
                     ?>
@@ -170,6 +192,7 @@
 <?php
 
   unset($_SESSION["postCount"]);
+  unset($_SESSION["sucessDeletion"]);
 
   include "includes/footer.php";
 ?>
