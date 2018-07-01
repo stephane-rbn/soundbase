@@ -1,8 +1,8 @@
 <?php
 
   session_start();
-  require "../functions.php";
-  require "../conf.inc.php";
+  require_once "../functions.php";
+
 
   xssProtection();
 

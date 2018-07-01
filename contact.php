@@ -2,7 +2,6 @@
   session_start();
 
   require_once "functions.php";
-  require_once "conf.inc.php";
   require "head.php";
   include "navbar.php";
 ?>

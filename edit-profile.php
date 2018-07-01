@@ -1,7 +1,6 @@
 <?php
   session_start();
-  require "functions.php";
-  require_once "conf.inc.php";
+  require_once "functions.php";
 
   // redirect to home.php file if already connected
   if (!isConnected()) {
