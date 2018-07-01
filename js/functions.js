@@ -18,7 +18,7 @@ function likeTrack(trackId) {
 
   request.onreadystatechange = function() {
 
-    if(request.readyState === 4 && request.status === 200) {
+    if(request.readyState === 4 && request.status === 201) {
 
       // If everything went fine in PHP, update the like number and heart with JS
 
@@ -46,7 +46,7 @@ function deleteTrack(trackId) {
   const request = new XMLHttpRequest();
 
   request.onreadystatechange = function() {
-    if(request.readyState === 4 && request.status === 200) {
+    if(request.readyState === 4 && request.status === 201) {
       //Delete track from DOM
       document.getElementById('track-container-' + trackId).remove()
     }
@@ -61,7 +61,7 @@ function addListeningToTrack(trackId) {
   const request = new XMLHttpRequest();
 
     request.onreadystatechange = function() {
-      if(request.readyState === 4 && request.status === 200) {
+      if(request.readyState === 4 && request.status === 201) {
         // Update listening count on page
         const listeningsNumber = document.getElementById('listenings-number-' + trackId);
         listeningsNumber.innerHTML = request.responseText;
@@ -79,7 +79,7 @@ function removeTrackFromPlaylist(trackId, playlistId) {
   const removedTrack = document.getElementById(`playlist-${playlistId}-track-${trackId}`);
 
   request.onreadystatechange = function () {
-    if (request.readyState === 4 && request.status === 200) {
+    if (request.readyState === 4 && request.status === 201) {
       removedTrack.remove();
     }
   };

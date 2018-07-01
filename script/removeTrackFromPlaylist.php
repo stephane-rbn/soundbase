@@ -5,32 +5,37 @@
 
   xssProtection();
 
+  if (!isConnected()) {
+    // Abort AJAX
+    http_response_code(400);
+    die();
+  }
+
   // Connection to database
   $connection = connectDB();
 
-  $playlistQuery = $connection->query(
-    "SELECT id FROM playlist WHERE id={$_POST["playlist_id"]}"
+  var_dump($_POST);
+
+  if (count($_POST) != 2 || empty($_POST["playlist_id"]) || empty($_POST["track_id"])) {
+      // Invalid form data
+      http_response_code(400);
+      die();
+  } else if (!is_numeric($_POST["playlist_id"]) || !is_numeric($_POST["track_id"])) {
+    // Invalid form data
+    http_response_code(400);
+    die();
+  }
+
+  $removeInclusionQuery = $connection->query(
+    "DELETE FROM inclusion WHERE playlist={$_POST["playlist_id"]} AND track={$_POST["track_id"]}"
   );
 
-  $playlist = $playlistQuery->fetch(PDO::FETCH_ASSOC);
+  $success = $removeInclusionQuery->execute();
 
-  if (count($_POST) === 2
-    && $_POST["playlist_id"]
-    && $_POST["track_id"]
-  ) {
-
-    $removeInclusionQuery = $connection->query(
-      "DELETE FROM inclusion WHERE playlist={$_POST["playlist_id"]} AND track={$_POST["track_id"]}"
-    );
-
-    $res = $removeInclusionQuery->execute();
-
-    if ($res) {
-      http_response_code(200);
-    } else {
-      http_response_code(500);
-    }
-
+  if(!$success) {
+    // DELETE fail
+    http_response_code(500);
+    die();
   } else {
-  http_response_code(400);
-}
+    http_response_code(201);
+  }
