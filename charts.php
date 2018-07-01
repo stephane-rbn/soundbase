@@ -47,11 +47,11 @@
             }
           }
 
-          // if (isset($_GET['personal']) && $_GET['personal'] === 'on') {
-          //   $personal = true;
-          // } else {
-          //   $personal = false;
-          // }
+          if (isset($_GET['personal']) && $_GET['personal'] === 'on') {
+            $personal = true;
+          } else {
+            $personal = false;
+          }
 
         ?>
 
@@ -86,12 +86,12 @@
         </select>
 
         <?php
-            // if($personal) {
-            //   $checked = "checked";
-            // } else {
-            //   $checked = "";
-            // }
-            // echo "<input type='checkbox' name='personal' $checked>Personal charts</input>";
+            if($personal) {
+              $checked = "checked";
+            } else {
+              $checked = "";
+            }
+            echo "<input type='checkbox' name='personal' $checked>Personal charts</input>";
         ?>
 
         <input type="submit" value="Update charts">
@@ -137,14 +137,14 @@
           }
         }
 
-        // if (isset($_GET['personal'])) {
-        //   if($_GET['personal'] === "on") {
-        //     if(!empty($filter)) {
-        //       $filter = $filter . " AND ";
-        //     }
-        //     $filter = $filter . "listening.member = {$_SESSION['id']}";
-        //   }
-        // }
+        if (isset($_GET['personal'])) {
+          if($_GET['personal'] === "on") {
+            if(!empty($filter)) {
+              $filter = $filter . " AND ";
+            }
+            $filter = $filter . "listening.member = {$_SESSION['id']}";
+          }
+        }
 
         if(!empty($filter)) {
           $filter = 'WHERE ' . $filter;
