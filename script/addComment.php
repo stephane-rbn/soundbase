@@ -5,10 +5,14 @@
 
   xssProtection();
 
-  if(count($_POST) === 3 &&
-    !empty($_POST['comment']) &&
-    !empty($_POST['contentType']) &&
-    !empty($_POST['contentId'])) {
+  if(count($_POST) != 3 ||
+    empty($_POST['comment']) ||
+    empty($_POST['contentType']) ||
+    empty($_POST['contentId'])) {
+      // Invalid form data
+      http_response_code(400);
+      die();
+  }
 
     $connection = connectDB();
 
@@ -23,16 +27,13 @@
       $_POST['contentType'] => $_POST['contentId']
     ]);
 
-    if($success) {
-      // INSERT success
-      http_response_code(201);
-    } else {
+    if(!$success) {
       // INSERT fail
       http_response_code(500);
+      die();
+    } else {
+      // INSERT success
+      http_response_code(201);
     }
-  } else {
-    // Invalid form data
-    http_response_code(400);
-  }
 
 ?>
