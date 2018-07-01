@@ -2,6 +2,7 @@
 
 require_once "dbConst.php";
 
+date_default_timezone_set('Europe/Paris');
 $listOfErrors = [
   1  => "Name length must be between 2 and 60 characters",
   2  => "Username length must be between 2 and 20 characters",
