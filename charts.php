@@ -10,7 +10,7 @@
   include "navbar.php";
 ?>
 
-    <div class="wrapper" id="wrapper-login">
+    <div class="wrapper" id="wrapper-charts">
       <h1>CHARTS</h1>
       <h2>LISTEN TO THE BEST HITS</h2>
     </div>

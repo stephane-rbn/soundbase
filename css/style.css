@@ -323,3 +323,10 @@ footer a:hover {
 #comments img {
   height: 70px;
 }
+
+/* CHARTS */
+
+#wrapper-charts {
+  background-image: url("../vendor/images/charts.jpg");
+  height: 400px;
+}
