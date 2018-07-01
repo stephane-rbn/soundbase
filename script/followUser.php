@@ -2,6 +2,8 @@
   session_start();
   require_once "../functions.php";
 
+  xssProtection();
+
   $connection = connectDB();
 
   if (!isConnected()) {

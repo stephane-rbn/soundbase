@@ -3,6 +3,8 @@
 
   require_once "functions.php";
 
+  xssProtection();
+
   include "head.php";
   include "navbar.php";
 ?>

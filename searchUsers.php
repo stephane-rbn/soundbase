@@ -3,6 +3,8 @@
 
   require_once "functions.php";
 
+  xssProtection();
+
   $connection = connectDB();
 
   xssProtection();
