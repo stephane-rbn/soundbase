@@ -1,13 +1,12 @@
-function displayStrLength(maxLength) {
-  const str = document.getElementById('textarea').value;
-  const num = str.length;
-  const count = document.getElementById('count')
-  count.innerHTML = 'Number of characters entered :' + num;
+function displayTextareaLength(maxLength,textarea) {
+  const textareaLength = document.getElementById(textarea).value.length;
+  const counter = document.getElementById('textarea-counter')
+  counter.innerHTML = 'Number of characters entered: ' + textareaLength;
 
-  if (num > maxLength) {
-    document.getElementById('count').style.color = '#FF0000';
+  if (textareaLength > maxLength) {
+    counter.style.color = '#FF0000';
   } else {
-    document.getElementById('count').style.color = '#000000';
+    counter.style.color = '#000000';
   }
 }
 

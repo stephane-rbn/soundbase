@@ -94,14 +94,14 @@
 
         <div class="row">
           <h3>Description (2500 characters max):</h3>
-          <textarea name="description" onkeyup="displayStrLength(2500);" id="textarea" class="form-control" rows="10" placeholder ="Your description .."><?php
+          <textarea name="description" onkeyup="displayTextareaLength(2500);" id="textarea" class="form-control" rows="10" placeholder ="Your description .."><?php
             if(!empty($result["description"]) && $result["description"] !== NULL && !isErrorPresent(12)) {
               echo $result["description"];
             }
             if(isErrorPresent(12)) {
               echo fillSessionFieldSettings("description");
             } ?></textarea>
-          <p id="count"></p>
+          <p id="textarea-counter"></p>
           <?php
               if (isErrorPresent(12)) {
               echo '<p class="form_message_error">' . $listOfErrors[12] . ' (2500)</p>';
