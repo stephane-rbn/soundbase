@@ -3,13 +3,13 @@
 
   require_once "../functions.php";
 
+  xssProtection();
+
   // redirect to login page if not connected
   if (isConnected()) {
 
     // Connection to database
     $connection = connectDB();
-
-
 
     // Query that delete a member with specific id and token
     $query = $connection->prepare("

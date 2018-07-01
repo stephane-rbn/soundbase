@@ -3,6 +3,8 @@
 
   require_once "functions.php";
 
+  xssProtection();
+
   // redirect to login page if not connected
   if (!isConnected()) {
     header("Location: login.php");

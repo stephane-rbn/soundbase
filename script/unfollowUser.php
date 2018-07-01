@@ -2,6 +2,8 @@
   session_start();
   require_once "../functions.php";
 
+  xssProtection();
+
   if (!isConnected()) {
       http_response_code(404);
   } else {

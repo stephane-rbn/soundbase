@@ -5,6 +5,8 @@
   require "head.php";
   include "navbar.php";
 
+  xssProtection();
+
   // Connection to database
   $connection = connectDB();
 

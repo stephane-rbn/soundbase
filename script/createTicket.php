@@ -7,6 +7,8 @@
     http_response_code(400);
   }
 
+  xssProtection();
+
   // Includes autoloader
   require_once "../vendor/dompdf/autoload.inc.php";
 

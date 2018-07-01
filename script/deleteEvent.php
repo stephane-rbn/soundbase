@@ -3,6 +3,8 @@
 
   require_once "../functions.php";
 
+  xssProtection();
+
   if (!isConnected()) {
     header("Location: login.php");
   } else {
