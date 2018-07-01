@@ -33,6 +33,7 @@
 
   }
 
+  $navbarItem = 'playlists';
   include "head.php";
   include "navbar.php";
 ?>

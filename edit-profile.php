@@ -17,6 +17,7 @@
     $result = $query->fetch(PDO::FETCH_ASSOC);
   }
 
+  $navbarItem = 'account';
   include "head.php";
   include "navbar.php";
 ?>

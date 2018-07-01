@@ -3,6 +3,7 @@
 
   require_once "functions.php";
 
+  $navbarItem = 'account';
   include "head.php";
   include "navbar.php";
 ?>

@@ -18,6 +18,7 @@
     $result = $query->fetch(PDO::FETCH_ASSOC);
   }
 
+  $navbarItem = 'new';
   require "head.php";
   include "navbar.php";
 ?>

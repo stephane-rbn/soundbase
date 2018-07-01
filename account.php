@@ -8,6 +8,7 @@
     header("Location: login.php");
   }
 
+  $navbarItem = 'account';
   require "head.php";
   include "navbar.php";
 

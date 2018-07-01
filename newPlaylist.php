@@ -9,6 +9,7 @@
   }
 
   require_once "conf.inc.php";
+  $navbarItem = 'new';
   require "head.php";
   include "navbar.php";
 ?>
