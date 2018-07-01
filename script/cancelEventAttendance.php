@@ -3,7 +3,6 @@
   session_start();
   require_once "../functions.php";
 
-
   xssProtection();
 
   if (count($_POST) === 1
