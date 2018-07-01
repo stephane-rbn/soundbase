@@ -61,6 +61,12 @@
     $recommendedTracksQuery->execute();
     $recommendedTracks = $recommendedTracksQuery->fetchAll(PDO::FETCH_ASSOC);
 
+    echo '<div class="alert alert-primary" role="alert">';
+    echo "The genre you listened the most is {$listOfGenres[$mostListenedGenre]}.<br>";
+    echo "This page will show you {$listOfGenres[$mostListenedGenre]} tracks that your never listened to!";
+    echo '</div>';
+    echo '<div class="vertical-spacer"></div>';
+
     // The track number will start at 0 since we'll use it in an array
       $trackNumber = -1;
         foreach ($recommendedTracks as $track) {
