@@ -41,14 +41,14 @@
         <div class="form-group">
             <label for="content">POST (280 characters max):</label>
             <br>
-            <textarea name="post" cols="70" rows="10" onkeyup="displayStrLength(280);" id="textarea" class="form-control" placeholder ="Your publication ..." required><?php
+            <textarea name="post" cols="70" rows="10" onkeyup="displayTextareaLength(280);" id="textarea" class="form-control" placeholder ="Your publication ..." required><?php
             if (!empty($result["post"]) && $result["post"] !== NULL && !isErrorPresent(12)) {
               echo $result["post"];
             }
             if (isErrorPresent(12)) {
               echo fillSessionFieldSettings("post");
             } ?></textarea>
-            <p id="count"></p>
+            <p id="textarea-counter"></p>
             <?php
               if (isErrorPresent(12)) {
               echo '<p class="form_message_error">' . $listOfErrors[12] . ' (280)</p>';

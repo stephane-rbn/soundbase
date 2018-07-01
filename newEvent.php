@@ -98,8 +98,8 @@
 
       <div class="form-group">
         <label class="col-sm-12">DESCRIPTION (2500 characters)</label>
-        <textarea name="description" onkeyup="displayStrLength(2500);" id="textarea" class="form-control" rows="10" placeholder ="Your description .."><?php echo fillSessionField("description"); ?></textarea>
-        <p id="count"></p>
+        <textarea name="description" onkeyup="displayTextareaLength(2500);" id="textarea" class="form-control" rows="10" placeholder ="Your description .."><?php echo fillSessionField("description"); ?></textarea>
+        <p id="textarea-counter"></p>
         <?php
           if (isErrorPresent(12)) {
             echo '<p class="form_message_error">' . $listOfErrors[12] . ' (2500)</p>';
