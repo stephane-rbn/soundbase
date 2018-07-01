@@ -369,6 +369,7 @@
                           foreach ($posts as $post) {
                             echo "<center>";
                               echo "<div>";
+                                echo "<h4><a href='post.php?id=" . $post["id"] . "'>" . $result["username"] . "'" . "post" . "</a><h4>";
                                 echo "<h4>" . $post["content"] . "</h4>";
                                 echo "<p>" . $post["publication_date"] . "</p>";
                               echo "</div>";

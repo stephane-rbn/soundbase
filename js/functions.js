@@ -87,12 +87,12 @@ function removeTrackFromPlaylist(trackId, playlistId) {
   request.open('POST', 'script/removeTrackFromPlaylist.php');
   request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-  const body = [
+  const formData = [
     'playlist_id=' + playlistId,
     'track_id=' + trackId,
   ];
 
-  request.send(body.join('&'));
+  request.send(formData.join('&'));
 }
 
 function pauseOtherTracks(tracks,playedTrack) {
@@ -108,4 +108,92 @@ function pauseOtherTracks(tracks,playedTrack) {
       track.pause();
     }
   }
+}
+
+function addComment(contentType, contentId) {
+
+  // Get the comment content on the page
+  const comment = document.getElementById('comment-content').value
+  const request = new XMLHttpRequest();
+
+  request.onreadystatechange = function () {
+    if (request.readyState === 4 && request.status === 201) {
+        // When comment in inserted, refresh the list of comments
+        getComments(contentType, contentId);
+    }
+  };
+
+  // Insert comment
+  request.open('POST', 'script/addComment.php');
+  request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+  const formData = [
+    'contentType=' + contentType,
+    'contentId=' + contentId,
+    'comment=' + comment,
+  ];
+
+  request.send(formData.join('&'));
+}
+
+function getComments(contentType, contentId) {
+
+  const request = new XMLHttpRequest();
+
+  request.onreadystatechange = function () {
+    if (request.readyState === 4 && request.status === 200) {
+      // Get comments as JSON
+      const comments = JSON.parse(request.responseText);
+      displayComments(comments);
+    }
+  };
+
+  const queryStrings = [
+    'contentType=' + contentType,
+    'contentId=' + contentId,
+  ];
+
+  request.open('GET', 'script/commentsList.php?' + queryStrings.join('&'));
+  request.send();
+}
+
+function displayComments(comments) {
+
+  const container = document.getElementById('comments');
+  // Erase all comments on the page
+  container.innerHTML = '';
+
+  for (let i = 0; i < comments.length; i++) {
+    const comment = comments[i];
+    // Using callback: when getCommentAuthor() returns author,
+    // displayComment() is called
+    getCommentAuthor(comment,function(author) {
+      displayComment(comment, author, container);
+    });
+  }
+}
+
+function getCommentAuthor(comment, callback) {
+
+  const request = new XMLHttpRequest();
+
+  request.onreadystatechange = function () {
+    if (request.readyState === 4 && request.status === 200) {
+      // Get author info as JSON
+      const author = JSON.parse(request.responseText);
+      // When author var is available, a callback to displayComment() is made
+      callback(author);
+    }
+  };
+
+  // Get info on the author of the comment from database
+  request.open('GET', 'script/getCommentAuthor.php?id='+comment.member);
+  request.send();
+}
+
+function displayComment(comment, author, container) {
+
+  const content = document.createElement('p');
+  content.innerHTML = '<img src="uploads/member/avatar/' + author.profile_photo_filename + '">' +author.name +  ' - ' + comment.content;
+  container.appendChild(content);
 }

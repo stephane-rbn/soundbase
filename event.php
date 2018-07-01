@@ -61,6 +61,7 @@
       ?>');" alt="event-background">
     </header>
 
+  <body onload="getComments('event', <?php echo $_GET['id'] ?>)">
     <div style="height: 2em;"></div>
 
     <div class="container-fluid"><?php successfulUpdateMessage(); ?></div>
@@ -198,6 +199,22 @@
 
     <div class="vertical-spacer"></div>
 
+    <div class="container center_div register-form">
+      <div class="col-sm-12">
+      <div class="form-group">
+              <label for="content">Comment (280 characters max):</label>
+              <textarea name="comment" rows="5" onkeyup="displayStrLength(280);" id="comment-content" class="form-control" placeholder ="Your comment..."></textarea>
+              <p id="count"></p>
+              <button class="btn btn-secondary" onclick="addComment('event',<?php echo $_GET['id'] ?>)" >Submit</button>
+          </div>
+      </div>
+
+
+
+      <div id="comments">
+      </div>
+    </div>
+</body>
     <?php
       unset($_SESSION["registredInEvent"]);
       unset($_SESSION["cancelledAttendance"]);

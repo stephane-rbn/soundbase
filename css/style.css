@@ -317,3 +317,9 @@ footer a:hover {
     max-width: 100%;
     height: 200px;
 }
+
+/* EVERYWHERE */
+
+#comments img {
+  height: 70px;
+}

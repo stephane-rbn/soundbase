@@ -65,8 +65,10 @@ CREATE TABLE post (
 CREATE TABLE comment (
     id               INTEGER PRIMARY KEY AUTO_INCREMENT,
     content          TEXT,
-    publication_date DATE,
-    post             INTEGER NOT NULL UNIQUE REFERENCES post (id),
+    publication_date DATETIME,
+    post             INTEGER REFERENCES post (id),
+    track             INTEGER  REFERENCES track (id),
+    event             INTEGER REFERENCES event (id),
     member           INTEGER NOT NULL REFERENCES member (id)
 );
 
