@@ -12,7 +12,7 @@
       <h1>HISTORY</h1>
       <h2>EVERY TRACK YOU'VE LISTENED TO</h2>
     </div>
-    <div>
+  <div class="container">
     <table class="table">
     <thead>
       <tr>
