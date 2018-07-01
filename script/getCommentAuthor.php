@@ -4,7 +4,7 @@
   header('Content-Type: application/json');
 
   session_start();
-  require "../functions.php";
+  require_once "../functions.php";
 
   // Clean $_GET
   xssProtection();

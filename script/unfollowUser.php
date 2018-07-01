@@ -1,6 +1,6 @@
 <?php
   session_start();
-  require "../functions.php";
+  require_once "../functions.php";
 
   if (!isConnected()) {
       http_response_code(404);
