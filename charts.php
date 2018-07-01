@@ -133,7 +133,7 @@
             if(!empty($filter)) {
               $filter = $filter . " AND ";
             }
-            $filter = $filter . "publication_date BETWEEN DATE_SUB(NOW(), INTERVAL 1 {$_GET['period']})  AND NOW()";
+            $filter = $filter . "listening_date BETWEEN DATE_SUB(NOW(), INTERVAL 1 {$_GET['period']})  AND NOW()";
           }
         }
 
