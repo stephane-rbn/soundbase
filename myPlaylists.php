@@ -19,7 +19,7 @@
 
     $result = $query->fetchAll(PDO::FETCH_ASSOC);
   }
-
+  $navbarItem = 'playlists';
   include "head.php";
   include "navbar.php";
 ?>

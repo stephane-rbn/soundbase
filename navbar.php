@@ -1,5 +1,7 @@
 <?php
   require_once "functions.php";
+
+  if(!isset($navbarItem)) $navbarItem = 'home';
 ?>
 
     <!-- Navigation -->
@@ -17,30 +19,30 @@
             <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
           </form>
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
+            <li class="nav-item<?php if($navbarItem === 'home') echo ' active'?>">
               <a class="nav-link" href="index.php">Home
                 <span class="sr-only">(current)</span>
               </a>
             </li>
             <?php if (isConnected()) { ?>
-              <li class="nav-item">
+              <li class="nav-item<?php if($navbarItem ==='profile') echo ' active'?>">
                 <a class="nav-link" href="profile.php">Profile</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item<?php if($navbarItem ==='playlists') echo ' active'?>">
                 <a class="nav-link" href="myPlaylists.php">Playlists</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item<?php if($navbarItem ==='events') echo ' active'?>">
                 <a class="nav-link" href="events.php">Events</a>
               </li>
             <?php } ?>
-            <li class="nav-item">
+            <li class="nav-item<?php if($navbarItem === 'charts') echo ' active'?>">
               <a class="nav-link" href="charts.php">Charts</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item<?php if($navbarItem ==='contact') echo ' active'?>">
               <a class="nav-link" href="contact.php">Contact</a>
             </li>
             <?php if (isConnected()) { ?>
-              <li class="nav-item dropdown">
+              <li class="nav-item dropdown <?php if($navbarItem ==='account') echo ' active'?>">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Account
                 </a>
@@ -67,7 +69,7 @@
               </li>
             <?php } ?>
             <?php if (isConnected()) { ?>
-              <li class="nav-item dropdown">
+              <li class="nav-item dropdown <?php if($navbarItem ==='new') echo ' active'?>">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="fas fa-plus"></i>
                 </a>

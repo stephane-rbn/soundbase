@@ -20,6 +20,7 @@
     $result = $query->fetchAll(PDO::FETCH_ASSOC);
   }
 
+  $navbarItem = 'events';
   include "head.php";
   include "navbar.php";
 ?>

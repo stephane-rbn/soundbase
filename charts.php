@@ -5,6 +5,7 @@
 
   xssProtection();
 
+  $navbarItem = 'charts';
   include "head.php";
   include "navbar.php";
 ?>

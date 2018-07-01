@@ -8,6 +8,7 @@
     header("Location: login.php");
   }
 
+  $navbarItem = 'home';
   include "head.php";
   include "navbar.php";
 ?>

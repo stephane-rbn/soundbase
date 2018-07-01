@@ -2,6 +2,7 @@
   session_start();
 
   require_once "functions.php";
+  $navbarItem = 'profile';
   require "head.php";
   include "navbar.php";
 
