@@ -35,14 +35,14 @@
           $feedData = sqlSelectFetchAll(
             "SELECT track.id, track.title, track.description, track.genre, track.track_filename, track.photo_filename, track.publication_date, track.member, NULL AS capacity, NULL as event_date, NULL as address, NULL as content
             FROM track WHERE MEMBER IN
-            (SELECT member_followed FROM subscription WHERE member_following=" . $_SESSION['id'] . ") UNION ALL
+            (SELECT member_followed FROM subscription WHERE member_following={$_SESSION['id']}) UNION ALL
             SELECT events.id, events.name, events.description, NULL AS genre, NULL as track_filename, events.background_filename, events.publication_date, events.member, events.capacity, events.event_date, events.address, NULL as content
             FROM events WHERE MEMBER IN
-            (SELECT member_followed FROM subscription WHERE member_following=2)
+            (SELECT member_followed FROM subscription WHERE member_following={$_SESSION['id']})
             UNION ALL
             SELECT post.id, NULL as title, NULL as description, NULL as genre, NULL as track_filename, NULL as photo_filename, post.publication_date, post.member, NULL as capacity, NULL as event_date, NULL as address, post.content
             FROM post WHERE MEMBER IN
-            (SELECT member_followed FROM subscription WHERE member_following=" . $_SESSION['id'] . ")
+            (SELECT member_followed FROM subscription WHERE member_following={$_SESSION['id']})
             ORDER BY publication_date DESC;"
           );
 
