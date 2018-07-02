@@ -56,7 +56,7 @@
     $trackFileExtension = strtolower(end($trackFileNameArray));
 
     $coverAllowedExtensions = ['jpg', 'jpeg', 'gif', 'png'];
-    $trackAllowedExtensions = ['mp3', 'wav', 'ogg'];
+    $trackAllowedExtensions = ['mp3', 'wav', 'ogg', 'flac'];
 
     // Check if the given file owns an allowed extension
     if (in_array($coverFileExtension, $coverAllowedExtensions)) {
