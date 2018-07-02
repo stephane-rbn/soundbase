@@ -22,32 +22,49 @@
       <div class="row">
         <div class="col-lg-7 col-xs-12">
           <h2>Home feed</h2>
-          <div class="row justify-content-center">
+          <div class="row justify-content-center feed-container">
 
           <?php
 
           // Connection to database
           $connection = connectDB();
 
-          // The track number will start at 0 since we'll use it in an array
-          $trackNumber = -1;
+          $feedQuery = "SELECT track.id, track.title, track.description, track.genre, track.track_filename, track.photo_filename, track.publication_date, track.member, NULL AS capacity, NULL as event_date, NULL as address, NULL as content
+          FROM track WHERE MEMBER IN
+          (SELECT member_followed FROM subscription WHERE member_following={$_SESSION['id']})
+          UNION
+          SELECT events.id, events.name, events.description, NULL AS genre, NULL as track_filename, events.background_filename, events.publication_date, events.member, events.capacity, events.event_date, events.address, NULL as content
+          FROM events WHERE MEMBER IN
+          (SELECT member_followed FROM subscription WHERE member_following={$_SESSION['id']})
+          UNION
+          SELECT post.id, NULL as title, NULL as description, NULL as genre, NULL as track_filename, NULL as photo_filename, post.publication_date, post.member, NULL as capacity, NULL as event_date, NULL as address, post.content
+          FROM post WHERE MEMBER IN
+          (SELECT member_followed FROM subscription WHERE member_following={$_SESSION['id']})
+          ORDER BY publication_date DESC";
+
+          $feedData = sqlSelectFetchAll($feedQuery);
+
+          $entryCount = sizeof($feedData); // Total number of entries
+          $perPage = 5; // Number of entries per page
+          $nbPages = ceil($entryCount/$perPage); // Number of pages
+
+          // Page shown defaults to 1, otherwise based on "?page="
+          // Checking $_GET['page'] is a possible page number to provent SQL injections
+          if (isset($_GET['page']) && $_GET['page'] > 0 && $_GET['page'] <= $nbPages) {
+            $currentPage = $_GET['page'];
+          } else {
+            $currentPage = 1;
+          }
 
           $feedData = sqlSelectFetchAll(
-            "SELECT track.id, track.title, track.description, track.genre, track.track_filename, track.photo_filename, track.publication_date, track.member, NULL AS capacity, NULL as event_date, NULL as address, NULL as content
-            FROM track WHERE MEMBER IN
-            (SELECT member_followed FROM subscription WHERE member_following={$_SESSION['id']}) UNION ALL
-            SELECT events.id, events.name, events.description, NULL AS genre, NULL as track_filename, events.background_filename, events.publication_date, events.member, events.capacity, events.event_date, events.address, NULL as content
-            FROM events WHERE MEMBER IN
-            (SELECT member_followed FROM subscription WHERE member_following={$_SESSION['id']})
-            UNION ALL
-            SELECT post.id, NULL as title, NULL as description, NULL as genre, NULL as track_filename, NULL as photo_filename, post.publication_date, post.member, NULL as capacity, NULL as event_date, NULL as address, post.content
-            FROM post WHERE MEMBER IN
-            (SELECT member_followed FROM subscription WHERE member_following={$_SESSION['id']})
-            ORDER BY publication_date DESC;"
+            $feedQuery . " LIMIT " . (($currentPage - 1) * $perPage) . ", " . $perPage
           );
 
           //Display tracks, posts and events
           if (!empty($feedData)) {
+
+            // The track number will start at 0 since we'll use it in
+            $trackNumber = -1;
 
             foreach ($feedData as $feedEntry) {
 
@@ -148,6 +165,46 @@
             echo "<p class='empty-home'>You can search for a member to follow his feedEntry</p>";
           }
           ?>
+            <div class='col-lg-10 spacer'></div>
+            <div class="col-lg-6 col-xs-12">
+              <?php
+                if ($currentPage == $nbPages) {
+                  // On the last page, the last entry of the page will be the last entry
+                  echo "Showing ".(($currentPage - 1) * $perPage + 1)." to ".$entryCount." of ".$entryCount." entries";
+                } else {
+                  echo "Showing ".(($currentPage - 1) * $perPage + 1)." to ".(($currentPage) * $perPage)." of ".$entryCount." entries";
+                }
+              ?>
+            </div>
+            <div class="col-lg-6 col-xs-12">
+                <ul class="pagination">
+                  <?php
+
+                    if ($currentPage == 1) {
+                      // Disable previous button if first page
+                      echo '<li class="page-item disabled"><a class="page-link">Previous</a></li>';
+                    } else {
+                      echo '<li class="page-item"><a class="page-link" href="?page='.($currentPage - 1).'">Previous</a></li>';
+                    }
+
+                    for ($i = 1; $i <= $nbPages; $i++) {
+                      if ($i == $currentPage) {
+                        // Set the current page number as active
+                        echo '<li class="page-item active"><a class="page-link" href="?page='.$i.'">'.$i.'</a></li>';
+                      } else {
+                        echo '<li class="page-item"><a class="page-link" href="?page='.$i.'">'.$i.'</a></li>';
+                      }
+                    }
+
+                    if ($currentPage == $nbPages) {
+                      // Disable next button if last page
+                      echo '<li class="page-item disabled"><a class="page-link">Next</a></li>';
+                    } else {
+                      echo '<li class="page-item"><a class="page-link" href="?page='.($currentPage + 1).'">Next</a></li>';
+                    }
+                    ?>
+                </ul>
+            </div>
           </div>
         </div>
         <div class="col-lg-5 col-xs-12 home-sidebar">
@@ -272,7 +329,6 @@
         </div>
       </div>
     </div>
-
 <?php
   include "footer.php";
 ?>
