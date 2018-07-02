@@ -78,6 +78,9 @@
                   "SELECT COUNT(*) as liked FROM likes WHERE track='" . $feedEntry['id'] . "' AND member='" . $_SESSION['id'] ."'"
                 );
 
+                //Get the number of participant of event
+                $capacityQuery = sqlSelect("SELECT COUNT(*) as count FROM registration WHERE events=" . $feedEntry["id"]);
+
                 $likesQuery->execute();
                 $isLikedQuery->execute();
                 $listeningsQuery->execute();
@@ -115,7 +118,7 @@
                   echo "<div><img class='content-image' src='uploads/events/backgrounds/{$feedEntry['photo_filename']}'></div>";
                   echo "<p><i class='fas fa-calendar-alt'></i>{$feedEntry['publication_date']}</p>";
                   echo "<p>";
-                    echo "<span class='event-users'><i class='fas fa-user'></i> 12 / {$feedEntry['capacity']}</span>";
+                    echo "<span class='event-users'><i class='fas fa-user'></i> {$capacityQuery["count"]} / {$feedEntry['capacity']}</span>";
                     echo "<span class='event-date'><i class='fas fa-calendar-check'></i>{$feedEntry['event_date']}</span>";
                   echo "</p>";
                   echo "<span class='event-location'><i class='fas fa-map-marker-alt'></i>{$feedEntry['address']}</span>";
