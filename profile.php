@@ -178,14 +178,16 @@
     <!-- Content section -->
     <section class="py-5">
       <div class="container">
-        <h1><?php echo "Profil de {$result["name"]}"; ?></h1>
-        <p class="lead"><?php
-          if (!empty($result["description"]) && $result["description"] !== NULL) {
-            echo $result["description"];
-          } else {
-            echo "No description";
-          }
-        ?></p>
+        <center>
+          <h1><?php echo "{$result["name"]}"; ?></h1><br>
+          <p class="alert alert-secondary"><?php
+            if (!empty($result["description"]) && $result["description"] !== NULL) {
+              echo $result["description"];
+            } else {
+              echo "No description";
+            }
+          ?></p>
+        </center>
       </div>
     </section>
 
@@ -239,36 +241,32 @@
                     $isLikedResult = $isLikedQuery->fetch(PDO::FETCH_ASSOC);
                     $isLiked = $isLikedResult['liked'];
                   }
-                  echo '<div id="track-container-' . $track['id'] . '">';
-                  echo "<center>";
-                  echo "<h3><a href='track.php?id=" . $track['id'] . "'>" . $track['title'] . "</a>";
-                  if (isConnected()) {
-                    echo "<a href='' style='color: #c8c8c8;' title='Add to a playlist' data-toggle='modal' data-target='#addToPlaylistModal-{$track['id']}'>";
-                    echo "<i class='fas fa-plus fa-xs' style='margin-left: 10px;'></i>";
-                    echo "</a>";
-                  }
-                  echo "</a>";
-                  echo "</h3>";
-                  echo '<img src="uploads/tracks/album_cover/'. $track['photo_filename'] . '" height="100px">';
-                  echo '<audio controls data-track-id="' .$track['id'] . '" id="audio-track-' . $trackNumber . '">';
-                  echo '<source src="uploads/tracks/files/' . $track['track_filename'] . '" type="audio/flac">';
-                  echo '</audio><br> Artist: ' . $track['member'] . '<br> Genre: ' . $listOfGenres[$track['genre']] . '<br> Publication: ' . $track['publication_date'] . '<br>';
-                  echo '<hr>';
-                  echo '<i class="fas fa-play"></i>';
-                  echo '<span class="listeningsNumber" id="listening-number-' .$track['id'] . '">' .$listeningsNumber . '</span>';
-                  echo '<span class="likes" id="likes-' .$track['id'] . '" onclick="likeTrack('. $track['id'] . ')">';
-                  echo '<i class="' . (($isLiked == 1) ? 'fas' : 'far') . ' fa-heart"></i>';
-                  echo '<span class="likeNumber" id="likeNumber-' .$track['id'] . '">' .$likes . '</span>';
-                  echo '</span>';
+                  echo "<div class='col-lg-10 content-container'>";
                   if (isConnected()) {
                     if (!isset($_GET["username"]) || (isset($_GET["username"]) && $result["id"] === $_SESSION["id"])) {
+                      echo "<h3><a href='track.php?id={$track['id']}'> {$track['title']}</a><a href='' style='color: #c8c8c8;' title='Add to a playlist' data-toggle='modal' data-target='#addToPlaylistModal-{$track['id']}'><i class='fas fa-plus fa-xs' style='margin-left: 10px;'></i></a>";
                       echo '<a href="" style="color: #c8c8c8;" title="Delete track" data-toggle="modal" data-target="#deleteTrackModal-' . $track["id"] . '">';
                       echo '<button type="button" class="btn btn-danger delete-button"><i class="fas fa-trash-alt"></i></button>';
-                      echo '</a>';
+                      echo '</a></h3>';
                     }
+                  } else {
+                    echo "<h3><a href='track.php?id={$track['id']}'> {$track['title']}</a><a href='' style='color: #c8c8c8;' title='Add to a playlist' data-toggle='modal' data-target='#addToPlaylistModal-{$track['id']}'><i class='fas fa-plus fa-xs' style='margin-left: 10px;'></i></a></h3>";
                   }
-                  echo '</center>';
-                  echo '</div>';
+                  echo "<div><img class='content-image' src='uploads/tracks/album_cover/{$track['photo_filename']}'></div>";
+                  echo "<audio controls id='audio-track-$trackNumber' data-track-id='{$track['id']}'>";
+                    echo "<source src='uploads/tracks/files/{$track['track_filename']}' type='audio/mpeg'>";
+                  echo "</audio>";
+                  echo "<p><i class='fas fa-calendar-alt'></i> {$track['publication_date']}</p>";
+                  echo "<p>";
+                  echo "<span class='track-listenings'><i class='fas fa-play'></i>";
+                  echo "<span class='listening-number' id='listening-number-{$track['id']}'>$listeningsNumber</span>";
+                  echo "</span>";
+                  echo "<span class='track-likes' id='likes-{$track['id']}' onclick='likeTrack({$track['id']})'>";
+                  echo "<i class='" . (($isLiked == 1) ? 'fas' : 'far') . " fa-heart'></i>";
+                    echo "<span class='like-number' id='like-number-{$track['id']}'>$likes</span>";
+                  echo "</span>";
+                  echo "<p class='alert alert-secondary'>{$track['description']}</p>";
+                echo "</div>";
 
                   if (isConnected()) {
                     echo "<!-- Add to playlist button Modal -->";
@@ -373,8 +371,8 @@
                             echo "<center>";
                               echo "<div>";
                                 echo "<h4><a href='post.php?id=" . $post["id"] . "'>" . $result["username"] . "'" . "post" . "</a></h4>";
-                                echo "<p>" . $post["content"] . "</p>";
-                                echo "<p>" . $post["publication_date"] . "</p>";
+                                echo "<p class='alert alert-secondary'>" . $post["content"] . "</p>";
+                                echo "<p><i class='fas fa-calendar-alt'></i> {$post["publication_date"]}</p>";
                               echo "</div>";
                             echo "</center>";
                           }
