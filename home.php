@@ -99,7 +99,7 @@
                   echo "<audio controls id='audio-track-$trackNumber' data-track-id='{$feedEntry['id']}'>";
                     echo "<source src='uploads/tracks/files/{$feedEntry['track_filename']}' type='audio/mpeg'>";
                   echo "</audio>";
-                  echo "<p><i class='fas fa-calendar-alt'></i>{$feedEntry['publication_date']}</p>";
+                  echo "<p><i class='fas fa-calendar-alt'></i> {$feedEntry['publication_date']}</p>";
                   echo "<p>";
                   echo "<span class='track-listenings'><i class='fas fa-play'></i>";
                   echo "<span class='listenings-number' id='listenings-number-{$feedEntry['id']}'>$listeningsNumber</span>";
@@ -128,9 +128,9 @@
                   echo "<p><i class='fas fa-calendar-alt'></i>{$feedEntry['publication_date']}</p>";
                   echo "<p>";
                     echo "<span class='event-users'><i class='fas fa-user'></i> $participantsNumber / {$feedEntry['capacity']}</span>";
-                    echo "<span class='event-date'><i class='fas fa-calendar-check'></i>{$feedEntry['event_date']}</span>";
+                    echo "<span class='event-date'><i class='fas fa-calendar-check'></i> {$feedEntry['event_date']}</span>";
                   echo "</p>";
-                  echo "<span class='event-location'><i class='fas fa-map-marker-alt'></i>{$feedEntry['address']}</span>";
+                  echo "<span class='event-location'><i class='fas fa-map-marker-alt'></i> {$feedEntry['address']}</span>";
                   echo "<p>{$feedEntry['description']}</p>";
                 echo "</div>";
 
@@ -138,7 +138,7 @@
                 // If entry is post
                 echo "<div class='col-lg-10 content-container'>";
                   echo "<h3><a href='post.php?id={$feedEntry['id']}'> Post from $author</a></h3>";
-                  echo "<p><i class='fas fa-calendar-alt'></i>{$feedEntry['publication_date']}</p>";
+                  echo "<p><i class='fas fa-calendar-alt'></i> {$feedEntry['publication_date']}</p>";
                   echo "<p>{$feedEntry['content']}</p>";
                 echo "</div>";
               }
