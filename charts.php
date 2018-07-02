@@ -180,7 +180,6 @@
 
             echo '<tr>';
               echo '<th scope="row">' . $trackRank . '</th>';
-              echo "<a href='track.php?id=" . $track['id'] . "'>";
               echo '<td><a href="track.php?id=' . $track['id'] . '">' . $track['title'] . '</a></td>';
               echo '<td>' . $trackArtist . '</td>';
               echo '<td>' . $track["listenings"] . '</td>';

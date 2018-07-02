@@ -10,7 +10,7 @@ body {
   }
 }
 
-.likes {
+.track-likes {
   cursor: pointer;
 }
 
@@ -213,102 +213,56 @@ footer a:hover {
 
 /* HOME */
 
-.home-feed {
-  display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
-  grid-row-gap: 4em;
+#home-container {
+  margin-top: 2em;
+  margin-bottom: 2em;
+  text-align: center;
+}
+
+#home-container h2 {
+  margin: 1em 0em;
+}
+
+
+.content-image {
+  height: 200px;
+}
+
+.content-container {
+  text-align: center;
+  border-style: solid;
+}
+
+.content-container h3 {
   margin: 2em 0em;
 }
 
-.track-wrapper {
-  grid-column: 2;
-  display: grid;
-  grid-template-columns: 1fr 3fr;
-  grid-template-rows: 1fr 3fr 0.5fr;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-  border: solid;
-  border-radius: 10px;
-  border-color: grey;
-  padding: 1em;
+.content-container img {
+  margin: 1em 0em;
 }
 
-.track-wrapper a {
-  grid-column: 2;
-  margin-top: 0.5em;
+.content-container audio {
+  margin: 1em 0em;
 }
 
-.track-wrapper h3 {
-  font-size: 1.1em;
+.home-sidebar h3 {
+  margin: 1em 0em;
 }
 
-.track-cover {
-  grid-column: 1;
-  grid-row: 2;
-  margin-left: 2em;
+.track-listenings {
+  margin: 0em 1em;
 }
 
-.track-cover {
-  height: 220px;
+.track-likes {
+  margin: 0em 1em;
 }
 
-.track-content {
-  display: grid;
-  grid-template-rows: 2fr 1fr;
-  /* Different behavior on Chrome/Firefox
-  margin-left: auto;
-  margin-right: auto; */
+.event-users {
+  margin: 0em 0.5em;
 }
 
-.track-content audio {
-  margin: 3em 1em 2em 1em;
-}
-
-.track-info {
-  grid-row: 2;
-  margin-top: 1em;
-}
-
-@media only screen and (max-width: 768px) {
-  .home-feed {
-    grid-template-columns: 1fr 4fr 1fr;
-  }
-  .track-wrapper {
-    grid-template-rows: 0.5fr 2fr 1fr;
-  }
-  .track-wrapper a {
-    grid-column: 1;
-  }
-  .track-cover {
-    grid-column: 1;
-    grid-row: 2;
-    margin: auto;
-  }
-  .track-cover {
-    height: 300px;
-  }
-  .track-content {
-    grid-column: 1;
-  }
-  .track-info {
-    margin-top: 1em;
-  }
-}
-
-.track-wrapper .likes {
-  grid-column: 2;
-  grid-row: 3;
-  cursor: pointer;
-}
-
-.likes .likeNumber {
-  margin-left: 5px;
-}
-
-.empty-home {
-  grid-column: 2;
-  text-align: center;
+.event-date {
+  margin: 0em 0.5em;
 }
 
 /* ALL EVENTS PAGE */

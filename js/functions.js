@@ -12,7 +12,7 @@ function displayTextareaLength(maxLength,textarea) {
 
 function likeTrack(trackId) {
 
-  let likeNumber = document.getElementById('likeNumber-' + trackId)
+  let likeNumber = document.getElementById('like-number-' + trackId)
   const request = new XMLHttpRequest();
 
   request.onreadystatechange = function() {
