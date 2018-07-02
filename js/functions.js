@@ -112,7 +112,7 @@ function pauseOtherTracks(tracks,playedTrack) {
 function addComment(contentType, contentId) {
 
   // Get the comment content on the page
-  const comment = document.getElementById('comment-content').value
+  const comment = document.getElementById('comment-content')
   const request = new XMLHttpRequest();
 
   request.onreadystatechange = function () {
@@ -129,10 +129,12 @@ function addComment(contentType, contentId) {
   const formData = [
     'contentType=' + contentType,
     'contentId=' + contentId,
-    'comment=' + comment,
+    'comment=' + comment.value,
   ];
 
   request.send(formData.join('&'));
+  // Clean form
+  comment.value = '';
 }
 
 function getComments(contentType, contentId) {
