@@ -67,8 +67,8 @@ CREATE TABLE comment (
     content          TEXT,
     publication_date DATETIME,
     post             INTEGER REFERENCES post (id),
-    track             INTEGER  REFERENCES track (id),
-    event             INTEGER REFERENCES event (id),
+    track            INTEGER  REFERENCES track (id),
+    event            INTEGER REFERENCES event (id),
     member           INTEGER NOT NULL REFERENCES member (id)
 );
 
