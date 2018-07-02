@@ -173,8 +173,10 @@
 
         echo "<hr>";
         echo "<br>";
+        echo "<center>";
         echo "<h4>Description</h4>";
-        echo "<p>" . $event["description"] . "</p>";
+        echo "<p class='col-6 alert alert-secondary'>{$event['description']}</p>";
+        echo "</center>"
     ?>
         <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -199,9 +201,6 @@
       </div>
     </div>
 
-
-    <div class="vertical-spacer"></div>
-
     <div class="container center_div register-form">
       <div class="col-sm-12">
       <div class="form-group">
@@ -211,9 +210,6 @@
               <button class="btn btn-secondary" onclick="addComment('event',<?php echo $_GET['id'] ?>)" >Submit</button>
           </div>
       </div>
-
-
-
       <div id="comments">
       </div>
     </div>
