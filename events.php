@@ -11,9 +11,27 @@
     // Connection to database
     $connection = connectDB();
 
-    $query = $connection->prepare(
-      "SELECT * FROM events"
-    );
+    if (isset($_GET["list_events"])) {
+      if ($_GET["list_events"] === "all") {
+        $query = $connection->prepare(
+          "SELECT * FROM events"
+        );
+      } else {
+        if ($_GET["list_events"] === "mine") {
+          $query = $connection->prepare(
+            "SELECT * FROM events WHERE member = {$_SESSION["id"]}"
+          );
+        } else {
+          $query = $connection->prepare(
+            "SELECT * FROM registration INNER JOIN events ON registration.events = events.id WHERE registration.member = {$_SESSION["id"]}"
+          );
+        }
+      }
+    } else {
+      $query = $connection->prepare(
+        "SELECT * FROM events"
+      );
+    }
 
     $query->execute();
 
@@ -32,6 +50,15 @@
       <div class="container-fluid"><?php successfulUpdateMessage(); ?></div>
 
       <h1 class="text-center">All events</h1>
+
+      <form method="GET">
+        <select name="list_events" required>
+          <option value="all">All</option>
+          <option value="mine">Mine</option>
+          <option value="attending">Attending</option>
+        </select>
+        <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-search fa-fw"></i></button>
+      </form>
 
       <div style="height: 2em;"></div>
 
