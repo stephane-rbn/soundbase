@@ -63,6 +63,9 @@
               // If the entry is a track
               if(isset($feedEntry['track_filename'])){
 
+                // Increment track id for DOM
+                $trackNumber++;
+
                 // Get the number of listenings
                 $listeningsQuery = $connection->prepare(
                   "SELECT COUNT(*) as listenings FROM listening WHERE track=" . $feedEntry['id']
@@ -96,7 +99,7 @@
                 echo "<div class='col-lg-10 content-container'>";
                   echo "<h3><a href='track.php?id={$feedEntry['title']}'>$author - {$feedEntry['title']}</a></h3>";
                   echo "<div><img class='content-image' src='uploads/tracks/album_cover/{$feedEntry['photo_filename']}'></div>";
-                  echo "<audio controls >";
+                  echo "<audio controls id='audio-track-$trackNumber' data-track-id='{$feedEntry['id']}'>";
                     echo "<source src='uploads/tracks/files/{$feedEntry['track_filename']}' type='audio/mpeg'>";
                   echo "</audio>";
                   echo "<p><i class='fas fa-calendar-alt'></i>{$feedEntry['publication_date']}</p>";
