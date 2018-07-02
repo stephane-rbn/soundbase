@@ -43,10 +43,10 @@ $listOfGenres = [
   "cm" => "Classical music"
 ];
 
-$listOfPeriods = array(
+$listOfPeriods = [
   "year" => "Last year",
   "month" => "Last month",
   "week" => "Last week",
   "day" => "Last day",
   "hour" => "Last hour"
-);
+];
