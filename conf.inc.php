@@ -40,7 +40,8 @@ $listOfGenres = [
   "hh" => "Hip Hop",
   "rg" => "Reggae",
   "jz" => "Jazz",
-  "cm" => "Classical music"
+  "cm" => "Classical music",
+  "ec" => "Electronic"
 ];
 
 $listOfPeriods = [
