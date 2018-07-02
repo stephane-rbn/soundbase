@@ -125,12 +125,12 @@
                 echo "<div class='col-lg-10 content-container'>";
                   echo "<h3><a href='event.php?id={$feedEntry['id']}'> $author - {$feedEntry['title']}</a></h3>";
                   echo "<div><img class='content-image' src='uploads/events/backgrounds/{$feedEntry['photo_filename']}'></div>";
-                  echo "<p><i class='fas fa-calendar-alt'></i>{$feedEntry['publication_date']}</p>";
+                  echo "<p><i class='fas fa-calendar-alt'></i> {$feedEntry['publication_date']}</p>";
                   echo "<p>";
                     echo "<span class='event-users'><i class='fas fa-user'></i> $participantsNumber / {$feedEntry['capacity']}</span>";
                     echo "<span class='event-date'><i class='fas fa-calendar-check'></i> {$feedEntry['event_date']}</span>";
                   echo "</p>";
-                  echo "<span class='event-location'><i class='fas fa-map-marker-alt'></i> {$feedEntry['address']}</span>";
+                  echo "<p class='event-location'><i class='fas fa-map-marker-alt'></i> {$feedEntry['address']}</p>";
                   echo "<p>{$feedEntry['description']}</p>";
                 echo "</div>";
 
