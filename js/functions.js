@@ -62,7 +62,7 @@ function addListeningToTrack(trackId) {
     request.onreadystatechange = function() {
       if(request.readyState === 4 && request.status === 201) {
         // Update listening count on page
-        const listeningsNumber = document.getElementById('listenings-number-' + trackId);
+        const listeningsNumber = document.getElementById('listening-number-' + trackId);
         listeningsNumber.innerHTML = request.responseText;
       }
     };

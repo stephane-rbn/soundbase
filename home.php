@@ -102,7 +102,7 @@
                   echo "<p><i class='fas fa-calendar-alt'></i> {$feedEntry['publication_date']}</p>";
                   echo "<p>";
                   echo "<span class='track-listenings'><i class='fas fa-play'></i>";
-                  echo "<span class='listenings-number' id='listenings-number-{$feedEntry['id']}'>$listeningsNumber</span>";
+                  echo "<span class='listening-number' id='listening-number-{$feedEntry['id']}'>$listeningsNumber</span>";
                   echo "</span>";
                   echo "<span class='track-likes' id='likes-{$feedEntry['id']}' onclick='likeTrack({$feedEntry['id']})'>";
                   echo "<i class='" . (($isLiked == 1) ? 'fas' : 'far') . " fa-heart'></i>";

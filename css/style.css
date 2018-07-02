@@ -266,6 +266,14 @@ footer a:hover {
   margin: 0em 0.5em;
 }
 
+.listening-number {
+  margin: 0.5em;
+}
+
+.like-number {
+  margin: 0.5em;
+}
+
 /* ALL EVENTS PAGE */
 
 .card-events {
