@@ -91,7 +91,7 @@
         <div class="col-sm-12">
           <div class="form-group">
               <label for="content">Comment (280 characters max):</label>
-              <textarea name="comment" rows="5" onkeyup="displayTextareaLength(280);" id="textarea" class="form-control" placeholder ="Your comment..."></textarea>
+              <textarea name="comment" rows="5" onkeyup="displayTextareaLength(280);" id="comment-content" class="form-control" placeholder ="Your comment..."></textarea>
               <p id="textarea-counter"></p>
               <button class="btn btn-secondary" onclick="addComment('track',<?php echo $_GET['id'] ?>)" >Submit</button>
           </div>

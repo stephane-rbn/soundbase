@@ -1,5 +1,5 @@
 function displayTextareaLength(maxLength) {
-  const textareaLength = document.getElementById('textarea').value.length;
+  const textareaLength = document.getElementsByTagName('textarea')[0].value.length;
   const counter = document.getElementById('textarea-counter')
   counter.innerHTML = 'Number of characters entered: ' + textareaLength;
 
