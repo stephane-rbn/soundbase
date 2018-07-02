@@ -245,7 +245,6 @@
           </div>
         </div>
         <div class="col-lg-5 col-xs-12 home-sidebar">
-        <h2>Sidebar</h2>
         <div class="row justify-content-center">
             <div class="col-10">
               <h3>Charts</h3>
