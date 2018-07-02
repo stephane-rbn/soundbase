@@ -78,7 +78,7 @@
             $author = $authorResult['name'];
 
             echo "<div class='col-lg-6 content-container'>";
-              echo "<h3><a href='track.php?id={$track['id']}'>$author - {$track['title']}</a><a href='' style='color: #c8c8c8;' title='Add to a playlist' data-toggle='modal' data-target='#addToPlaylistModal-{$track['id']}'><i class='fas fa-plus fa-xs' style='margin-left: 10px;'></i></a></h3>";
+              echo "<h3>$author - {$track['title']}<a href='' style='color: #c8c8c8;' title='Add to a playlist' data-toggle='modal' data-target='#addToPlaylistModal'><i class='fas fa-plus fa-xs' style='margin-left: 10px;'></i></a></h3>";
               echo "<div><img class='content-image' src='uploads/tracks/album_cover/{$track['photo_filename']}'></div>";
               echo "<audio controls id='audio-track-$trackNumber' data-track-id='{$track['id']}'>";
                 echo "<source src='uploads/tracks/files/{$track['track_filename']}' type='audio/mpeg'>";
