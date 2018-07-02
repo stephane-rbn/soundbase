@@ -16,87 +16,89 @@
     </div>
     <br>
     <div class="container">
-      <form action="charts.php" method="GET">
+      <center><br>
+        <form action="charts.php" method="GET">
 
-        <?php
-          $allGenres = false;
-          if (!isset($_GET['genre'])) {
-            $allGenres = true;
-          } else if ($_GET['genre'] === 'all') {
-            $allGenres = true;
-          } else {
-            $allGenres = true;
-            // Check if genre exist
-            foreach ($listOfGenres as $key => $value) {
-              if ($_GET['genre'] == $key) {
-                $allGenres = false;
+          <?php
+            $allGenres = false;
+            if (!isset($_GET['genre'])) {
+              $allGenres = true;
+            } else if ($_GET['genre'] === 'all') {
+              $allGenres = true;
+            } else {
+              $allGenres = true;
+              // Check if genre exist
+              foreach ($listOfGenres as $key => $value) {
+                if ($_GET['genre'] == $key) {
+                  $allGenres = false;
+                }
               }
             }
-          }
 
-          $allTime = false;
-          if (!isset($_GET['period'])) {
-            $allTime = true;
-          } else if ($_GET['period'] === 'all') {
-            $allTime = true;
-          } else {
-            $allTime = true;
-            foreach ($listOfPeriods as $key => $value) {
-              if ($_GET['period'] == $key) {
-                $allTime = false;
+            $allTime = false;
+            if (!isset($_GET['period'])) {
+              $allTime = true;
+            } else if ($_GET['period'] === 'all') {
+              $allTime = true;
+            } else {
+              $allTime = true;
+              foreach ($listOfPeriods as $key => $value) {
+                if ($_GET['period'] == $key) {
+                  $allTime = false;
+                }
               }
             }
-          }
 
-          if (isset($_GET['personal']) && $_GET['personal'] === 'on') {
-            $personal = true;
-          } else {
-            $personal = false;
-          }
-
-        ?>
-
-        <label>Genre</label>
-        <select name="genre">
-          <option value="all" <?php if($allGenres) echo 'selected' ?>>All</option>
-          <?php
-            foreach($listOfGenres as $code => $name) {
-            if(!$allGenres && $_GET['genre'] === $code) {
-              $selected = "selected";
+            if (isset($_GET['personal']) && $_GET['personal'] === 'on') {
+              $personal = true;
             } else {
-              $selected = "";
+              $personal = false;
             }
-            echo "<option value='$code' $selected>$name</option>";
-            }
+
           ?>
-        </select>
 
-        <label>Period</label>
-        <select name="period">
-          <option value="all" <?php if($allTime) echo 'selected' ?>>All time</option>
+          <label>Genre</label>
+          <select name="genre">
+            <option value="all" <?php if($allGenres) echo 'selected' ?>>All</option>
+            <?php
+              foreach($listOfGenres as $code => $name) {
+              if(!$allGenres && $_GET['genre'] === $code) {
+                $selected = "selected";
+              } else {
+                $selected = "";
+              }
+              echo "<option value='$code' $selected>$name</option>";
+              }
+            ?>
+          </select>
+
+          <label>Period</label>
+          <select name="period">
+            <option value="all" <?php if($allTime) echo 'selected' ?>>All time</option>
+            <?php
+              foreach($listOfPeriods as $code => $name) {
+              if(!$allTime && $_GET['period'] === $code) {
+                $selected = "selected";
+              } else {
+                $selected = "";
+              }
+              echo "<option value='$code' $selected>$name</option>";
+              }
+            ?>
+          </select>
+
           <?php
-            foreach($listOfPeriods as $code => $name) {
-            if(!$allTime && $_GET['period'] === $code) {
-              $selected = "selected";
-            } else {
-              $selected = "";
-            }
-            echo "<option value='$code' $selected>$name</option>";
-            }
+              if($personal) {
+                $checked = "checked";
+              } else {
+                $checked = "";
+              }
+              echo "<input type='checkbox' name='personal' $checked> Personal charts</input>";
           ?>
-        </select>
 
-        <?php
-            if($personal) {
-              $checked = "checked";
-            } else {
-              $checked = "";
-            }
-            echo "<input type='checkbox' name='personal' $checked>Personal charts</input>";
-        ?>
-
-        <input type="submit" value="Update charts">
-      </form>
+          <input type="submit" value="Update charts">
+        </form>
+      </center><br>
       <table class="table">
       <thead>
         <tr>
