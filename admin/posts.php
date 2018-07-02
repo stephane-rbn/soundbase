@@ -10,7 +10,6 @@
 
   $sql = sqlSelectFetchAll("SELECT COUNT(*) as postCount FROM post");
   $postCount = $sql['0']['postCount'];
-  $_SESSION["postCount"] = $postCount;
 
   include "includes/head.php";
 ?>
@@ -56,7 +55,6 @@
                   </thead>
                   <tbody>
                     <?php
-                      $postCount = $_SESSION['postCount']; // Number of entries
                       $perPage = 10; // Number of entries per page
                       $nbPages = ceil($postCount/$perPage); // Number of pages
 
@@ -115,7 +113,6 @@
                   <div class="col-sm-6">
                     <div class="dataTables_info" id="dataTables-example_info" role="status" aria-live="polite">
                       <?php
-                        $postCount = $_SESSION['postCount']; // Number of entries
                         $perPage = 10; // Number of entries per page
                         $nbPages = ceil($postCount/$perPage); // Number of pages
 
@@ -140,7 +137,6 @@
                     <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
                       <ul class="pagination">
                         <?php
-                          $postCount = $_SESSION['postCount']; // Number of entries
                           $perPage = 10; // Number of entries per page
                           $nbPages = ceil($postCount/$perPage); // Number of pages
 

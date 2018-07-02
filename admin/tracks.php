@@ -10,7 +10,6 @@
 
   $sql = sqlSelectFetchAll("SELECT COUNT(*) as trackCount FROM track");
   $trackCount = $sql['0']['trackCount'];
-  $_SESSION["trackCount"] = $trackCount;
 
   include "includes/head.php";
 
@@ -74,7 +73,6 @@
                     </thead>
                     <tbody>
                       <?php
-                        $trackCount = $_SESSION['trackCount']; // Number of entries
                         $perPage = 10; // Number of entries per page
                         $nbPages = ceil($trackCount/$perPage); // Number of pages
 
@@ -151,7 +149,6 @@
                   <div class="col-sm-6">
                     <div class="dataTables_info" id="dataTables-example_info" role="status" aria-live="polite">
                       <?php
-                        $trackCount = $_SESSION['trackCount']; // Number of entries
                         $perPage = 10; // Number of entries per page
                         $nbPages = ceil($trackCount/$perPage); // Number of pages
 
@@ -176,7 +173,6 @@
                     <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
                       <ul class="pagination">
                         <?php
-                          $trackCount = $_SESSION['trackCount']; // Number of entries
                           $perPage = 10; // Number of entries per page
                           $nbPages = ceil($trackCount/$perPage); // Number of pages
 

@@ -10,7 +10,6 @@
 
   $sql = sqlSelectFetchAll("SELECT COUNT(*) as userCount FROM member");
   $userCount = $sql['0']['userCount'];
-  $_SESSION["userCount"] = $userCount;
 
   include "includes/head.php";
 
@@ -71,7 +70,6 @@
                   </thead>
                   <tbody>
                     <?php
-                      $userCount = $_SESSION['userCount']; // Number of entries
                       $perPage = 10; // Number of entries per page
                       $nbPages = ceil($userCount/$perPage); // Number of pages
 
@@ -152,7 +150,6 @@
                   <div class="col-sm-6">
                     <div class="dataTables_info" id="dataTables-example_info" role="status" aria-live="polite">
                       <?php
-                        $userCount = $_SESSION['userCount']; // Number of entries
                         $perPage = 10; // Number of entries per page
                         $nbPages = ceil($userCount/$perPage); // Number of pages
 
@@ -177,7 +174,6 @@
                     <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
                       <ul class="pagination">
                         <?php
-                          $userCount = $_SESSION['userCount']; // Number of entries
                           $perPage = 10; // Number of entries per page
                           $nbPages = ceil($userCount/$perPage); // Number of pages
 

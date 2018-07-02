@@ -10,7 +10,6 @@
 
   $sql = sqlSelectFetchAll("SELECT COUNT(*) as eventCount FROM events");
   $eventCount = $sql['0']['eventCount'];
-  $_SESSION["eventCount"] = $eventCount;
 
   include "includes/head.php";
 
@@ -71,7 +70,6 @@
                   </thead>
                   <tbody>
                     <?php
-                      $eventCount = $_SESSION['eventCount']; // Number of entries
                       $perPage = 10; // Number of entries per page
                       $nbPages = ceil($eventCount/$perPage); // Number of pages
 
@@ -143,7 +141,6 @@
                   <div class="col-sm-6">
                     <div class="dataTables_info" id="dataTables-example_info" role="status" aria-live="polite">
                       <?php
-                        $eventCount = $_SESSION['eventCount']; // Number of entries
                         $perPage = 10; // Number of entries per page
                         $nbPages = ceil($eventCount/$perPage); // Number of pages
 
@@ -168,7 +165,6 @@
                     <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
                       <ul class="pagination">
                         <?php
-                          $eventCount = $_SESSION['eventCount']; // Number of entries
                           $perPage = 10; // Number of entries per page
                           $nbPages = ceil($eventCount/$perPage); // Number of pages
 
