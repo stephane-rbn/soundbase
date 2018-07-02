@@ -39,7 +39,7 @@
       <?php
         echo "<center>";
         // echo "<h2>" . $track['title'] . "</h2>";
-        echo "<h2><a href='track.php?id=" . $track['id'] . "'>" . $track['title'] . "</a><a href='' style='color: #c8c8c8;' title='Add to a playlist' data-toggle='modal' data-target='#addToPlaylistModal'><i class='fas fa-plus fa-xs' style='margin-left: 10px;'></i></a></h2>";
+        echo "<h2>" . $track['title'] . "<a href='' style='color: #c8c8c8;' title='Add to a playlist' data-toggle='modal' data-target='#addToPlaylistModal'><i class='fas fa-plus fa-xs' style='margin-left: 10px;'></i></a></h2>";
         echo '<img src="uploads/tracks/album_cover/'. $track['photo_filename'] . '" height="100px">';
         echo '<audio controls>';
         echo '<source src="uploads/tracks/files/' . $track['track_filename'] . '" type="audio/flac">';
