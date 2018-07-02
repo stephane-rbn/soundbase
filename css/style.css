@@ -225,8 +225,8 @@ footer a:hover {
 
 
 .content-image {
-  height: 200px;
-  width: 450px;
+  max-height: 200px;
+  max-width: 450px;
 }
 
 .content-container {
