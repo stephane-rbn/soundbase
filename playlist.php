@@ -52,6 +52,9 @@
       <br>
       <br>
 
+          <div class="row justify-content-center">
+
+
         <?php
           // The track number will start at 0 since we'll use it in an array
           $trackNumber = -1;
@@ -97,30 +100,30 @@
               $listeningsNumber = $listenings['listenings'];
               $trackArtist = $trackArtistResult['name'];
 
-              echo "<center>";
-              echo "<div id='playlist-{$_GET["id"]}-track-{$track["id"]}'>";
-                echo "<a href='track.php?id=" . $track['id'] . "'>";
-                echo "<h2>" . $track['title'] . "</h2>";
-                echo "</a>";
-                echo '<img src="uploads/tracks/album_cover/'. $track['photo_filename'] . '" height="100px">';
-                echo '<audio controls data-track-id="' .$track['id'] . '" id="audio-track-' . $trackNumber . '" >';
-                echo '<source src="uploads/tracks/files/' . $track['track_filename'] . '" type="audio/flac">';
-                echo '</audio><br> Artist: ' . $trackArtist . '<br> Genre: ' . $listOfGenres[$track['genre']] . '<br> Publication: ' . $track['publication_date'] . '<br>';
-                echo '<hr>';
-                echo '<i class="fas fa-play"></i>';
-                echo '<span class="listeningsNumber" id="listening-number-' .$track['id'] . '">' .$listeningsNumber . '</span>';
-                echo '<span class="likes" id="likes-' .$track['id'] . '" onclick="likeTrack('. $track['id'] . ')">';
-                echo '<i class="' . (($isLiked == 1) ? 'fas' : 'far') . ' fa-heart"></i>';
-                echo '<span class="likeNumber" id="likeNumber-' .$track['id'] . '">' .$likes . '</span>';
-                echo '</span>';
-                if ($playlistName["member"] === $_SESSION["id"]) {
-                  echo '<a href="" style="color: #c8c8c8;" title="Delete track" data-toggle="modal" data-target="#deleteTrackModal-' . $track["id"] . '">';
-                  echo '<button type="button" class="btn btn-danger delete-button"><i class="fas fa-trash-alt"></i></button>';
-                  echo '</a>';
-                }
+              echo "<div class='col-lg-7 content-container'>";
+              if ($playlistName["member"] === $_SESSION["id"]) {
+                echo "<h3><a href='track.php?id={$track['id']}'>$trackArtist - {$track['title']}</a>";
+                echo '<a href="" style="color: #c8c8c8;" title="Delete track" data-toggle="modal" data-target="#deleteTrackModal-' . $track["id"] . '">';
+                echo '<button type="button" class="btn btn-danger delete-button"><i class="fas fa-trash-alt"></i></button>';
+                echo '</a></h3>';
+              } else {
+                echo "<h3><a href='track.php?id={$track['id']}'>$trackArtist - {$track['title']}</a></h3>";
+              }
+              echo "<div><img class='content-image' src='uploads/tracks/album_cover/{$track['photo_filename']}'></div>";
+              echo "<audio controls id='audio-track-$trackNumber' data-track-id='{$track['id']}'>";
+                echo "<source src='uploads/tracks/files/{$track['track_filename']}' type='audio/mpeg'>";
+              echo "</audio>";
+              echo "<p><i class='fas fa-calendar-alt'></i> {$track['publication_date']}</p>";
+              echo "<p>";
+              echo "<span class='track-listenings'><i class='fas fa-play'></i>";
+              echo "<span class='listening-number' id='listening-number-{$track['id']}'>$listeningsNumber</span>";
+              echo "</span>";
+              echo "<span class='track-likes' id='likes-{$track['id']}' onclick='likeTrack({$track['id']})'>";
+              echo "<i class='" . (($isLiked == 1) ? 'fas' : 'far') . " fa-heart'></i>";
+                echo "<span class='like-number' id='like-number-{$track['id']}'>$likes</span>";
+              echo "</span>";
+              echo "<p class='alert alert-secondary'>{$track['description']}</p>";
               echo "</div>";
-              echo '</center>';
-              echo "<br>";
 
               echo "<!-- Delete track button modal -->";
               echo "<div class='modal fade' id='deleteTrackModal-{$track['id']}' tabindex='-1' role='dialog' aria-labelledby='exampleModalCenterTitle' aria-hidden='true'>";
@@ -147,6 +150,7 @@
           }
         ?>
 
+      </div>
     </div>
 
     <div class="vertical-spacer"></div>
