@@ -162,12 +162,19 @@ function displayComments(comments) {
   // Erase all comments on the page
   container.innerHTML = '';
 
+  // Create a table inside the container
+  const table = document.createElement('table');
+  table.className = "table";
+  const tableBody = document.createElement('tbody');
+  table.appendChild(tableBody);
+  container.appendChild(table);
+
   for (let i = 0; i < comments.length; i++) {
     const comment = comments[i];
     // Using callback: when getCommentAuthor() returns author,
     // displayComment() is called
     getCommentAuthor(comment,function(author) {
-      displayComment(comment, author, container);
+      displayComment(comment, author, tableBody);
     });
   }
 }
@@ -190,9 +197,27 @@ function getCommentAuthor(comment, callback) {
   request.send();
 }
 
-function displayComment(comment, author, container) {
+function displayComment(comment, author, tableBody) {
 
-  const content = document.createElement('p');
-  content.innerHTML = '<img src="uploads/member/avatar/' + author.profile_photo_filename + '">' +author.name +  ' - ' + comment.content;
-  container.appendChild(content);
+  // Create a table row for the comment
+  const tr = document.createElement('tr');
+
+  // Create 2 cells
+  const tdAuthor = document.createElement('td');
+  const tdContent = document.createElement('td');
+
+  tdAuthor.innerHTML = '<img src="uploads/member/avatar/' + author.profile_photo_filename + '"><br>' + author.name;
+
+  // Put the content of the comment inside a paragraph
+  const pContent = document.createElement('p');
+  pContent.innerHTML = comment.content;
+  pContent.className = "alert alert-secondary";
+  tdContent.appendChild(pContent);
+
+  // Add cells to the row
+  tr.appendChild(tdAuthor);
+  tr.appendChild(tdContent);
+
+  // Add row to the table
+  tableBody.appendChild(tr);
 }

@@ -293,6 +293,10 @@ footer a:hover {
   margin-top: 30px;
 }
 
+#comments p {
+  margin-top: 13px;
+}
+
 /* CHARTS */
 
 #wrapper-charts {
