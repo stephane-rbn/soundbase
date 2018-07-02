@@ -111,7 +111,7 @@
               } else if(isset($feedEntry['capacity'])){
                 // If entry is event
                 echo "<div class='col-lg-10 content-container'>";
-                  echo "<h3><a href='track.php?id={$feedEntry['title']}'> $author - {$feedEntry['title']}</a></h3>";
+                  echo "<h3><a href='event.php?id={$feedEntry['title']}'> $author - {$feedEntry['title']}</a></h3>";
                   echo "<div><img class='content-image' src='uploads/events/backgrounds/{$feedEntry['photo_filename']}'></div>";
                   echo "<p><i class='fas fa-calendar-alt'></i>{$feedEntry['publication_date']}</p>";
                   echo "<p>";
@@ -125,7 +125,7 @@
               } else if(isset($feedEntry['content'])){
                 // If entry is post
                 echo "<div class='col-lg-10 content-container'>";
-                  echo "<h3><a href='track.php?id={$feedEntry['title']}'> Post from $author</a></h3>";
+                  echo "<h3><a href='post.php?id={$feedEntry['title']}'> Post from $author</a></h3>";
                   echo "<p><i class='fas fa-calendar-alt'></i>{$feedEntry['publication_date']}</p>";
                   echo "<p>{$feedEntry['content']}</p>";
                 echo "</div>";
