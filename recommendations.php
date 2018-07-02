@@ -16,8 +16,8 @@
       <h1>RECOMMENDATIONS</h1>
       <h2>DISCOVER NEW TRACKS MADE FOR YOU</h2>
     </div>
-    <div class="vertical-spacer"></div>
     <div class="container">
+    <div class="row justify-content-center">
     <?php
 
     // Connection to database
@@ -63,7 +63,7 @@
       $recommendedTracksQuery->execute();
       $recommendedTracks = $recommendedTracksQuery->fetchAll(PDO::FETCH_ASSOC);
 
-      echo '<div class="alert alert-primary" role="alert">';
+      echo '<div class="col-10 alert alert-primary" role="alert" style="margin: 2em 0em">';
       echo "The genre you listened the most is {$listOfGenres[$mostListenedGenre]}.<br>";
       echo "This page will show you {$listOfGenres[$mostListenedGenre]} tracks that your never listened to!";
       echo '</div>';
@@ -111,23 +111,61 @@
             $listeningsNumber = $listenings['listenings'];
             $trackArtist = $trackArtistResult['name'];
 
-            echo "<center>";
-              echo "<a href='track.php?id=" . $track['id'] . "'>";
-              echo "<h2>" . $track['title'] . "</h2>";
-              echo "</a>";
-              echo '<img src="uploads/tracks/album_cover/'. $track['photo_filename'] . '" height="100px">';
-              echo '<audio controls data-track-id="' .$track['id'] . '" id="audio-track-' . $trackNumber . '" >';
-              echo '<source src="uploads/tracks/files/' . $track['track_filename'] . '" type="audio/flac">';
-              echo '</audio><br> Artist: ' . $trackArtist . '<br> Genre: ' . $listOfGenres[$track['genre']] . '<br> Publication: ' . $track['publication_date'] . '<br>';
-              echo '<hr>';
-              echo '<i class="fas fa-play"></i>';
-              echo '<span class="listeningsNumber" id="listening-number-' .$track['id'] . '">' .$listeningsNumber . '</span>';
-              echo '<span class="likes" id="likes-' .$track['id'] . '" onclick="likeTrack('. $track['id'] . ')">';
-              echo '<i class="' . (($isLiked == 1) ? 'fas' : 'far') . ' fa-heart"></i>';
-              echo '<span class="likeNumber" id="likeNumber-' .$track['id'] . '">' .$likes . '</span>';
-              echo '</span>';
-            echo '</center>';
-            echo "<br>";
+            echo "<div class='col-lg-7 content-container'>";
+            echo "<h3><a href='track.php?id={$track['id']}'>$trackArtist - {$track['title']}</a><a href='' style='color: #c8c8c8;' title='Add to a playlist' data-toggle='modal' data-target='#addToPlaylistModal-{$track['id']}'><i class='fas fa-plus fa-xs' style='margin-left: 10px;'></i></a></h3>";
+            echo "<div><img class='content-image' src='uploads/tracks/album_cover/{$track['photo_filename']}'></div>";
+            echo "<audio controls id='audio-track-$trackNumber' data-track-id='{$track['id']}'>";
+              echo "<source src='uploads/tracks/files/{$track['track_filename']}' type='audio/mpeg'>";
+            echo "</audio>";
+            echo "<p><i class='fas fa-calendar-alt'></i> {$track['publication_date']}</p>";
+            echo "<p>";
+            echo "<span class='track-listenings'><i class='fas fa-play'></i>";
+            echo "<span class='listening-number' id='listening-number-{$track['id']}'>$listeningsNumber</span>";
+            echo "</span>";
+            echo "<span class='track-likes' id='likes-{$track['id']}' onclick='likeTrack({$track['id']})'>";
+            echo "<i class='" . (($isLiked == 1) ? 'fas' : 'far') . " fa-heart'></i>";
+              echo "<span class='like-number' id='like-number-{$track['id']}'>$likes</span>";
+            echo "</span>";
+            echo '<div class="row justify-content-center">';
+            echo "<p class='col-10 alert alert-secondary'>{$track['description']}</p>";
+            echo "</div>";
+          echo "</div>";
+
+          echo "<!-- Add to playlist button Modal -->";
+          echo "<div class='modal fade' id='addToPlaylistModal-{$track['id']}' tabindex='-1' role='dialog' aria-labelledby='exampleModalCenterTitle' aria-hidden='true'>";
+            echo "<div class='modal-dialog modal-dialog-centered' role='document'>";
+              echo "<div class='modal-content'>";
+                echo "<div class='modal-header'>";
+                  echo "<h5 class='modal-title' id='exampleModalLongTitle'>My playlists</h5>";
+                  echo "<button type='button' class='close' data-dismiss='modal' aria-label='Close'>";
+                    echo "<span aria-hidden='true'>&times;</span>";
+                  echo "</button>";
+                echo "</div>";
+                echo "<div class='modal-body'>";
+
+                  $getAllPlaylistsQuery = $connection->prepare(
+                    "SELECT * FROM playlist WHERE member='" . $_SESSION['id']. "'"
+                  );
+
+                  $getAllPlaylistsQuery->execute();
+
+                  $allPlaylists = $getAllPlaylistsQuery->fetchAll(PDO::FETCH_ASSOC);
+
+                  if (count($allPlaylists) === 0) {
+                    echo "<h3>No playlist created. <a href='newPlaylist.php'>Create one!</a></h3>";
+                  } else {
+                    foreach($allPlaylists as $playlist) {
+                      echo "<h3><a href='script/addToPlaylist.php?playlist_id=" . $playlist["id"] . "&track_id=" . $track['id'] . "'>" . $playlist["name"] . "</a></h3>";
+                      echo "<hr>";
+                    }
+                  }
+                echo "</div>";
+                echo "<div class='modal-footer'>";
+                  echo "<button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>";
+                echo "</div>";
+              echo "</div>";
+            echo "</div>";
+          echo "</div>";
           }
     } else {
       // The user did not listen to any track
@@ -138,7 +176,7 @@
       <?php
     }
     ?>
-
+    </div>
     </div>
 
     <div class="vertical-spacer"></div>
