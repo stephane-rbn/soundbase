@@ -22,10 +22,11 @@
           $allGenres = false;
           if (!isset($_GET['genre'])) {
             $allGenres = true;
-          } else if ($_GET['genre'] === 'allGenres') {
+          } else if ($_GET['genre'] === 'all') {
             $allGenres = true;
           } else {
             $allGenres = true;
+            // Check if genre exist
             foreach ($listOfGenres as $key => $value) {
               if ($_GET['genre'] == $key) {
                 $allGenres = false;
@@ -36,7 +37,7 @@
           $allTime = false;
           if (!isset($_GET['period'])) {
             $allTime = true;
-          } else if ($_GET['period'] === 'allTime') {
+          } else if ($_GET['period'] === 'all') {
             $allTime = true;
           } else {
             $allTime = true;
@@ -59,7 +60,7 @@
         <select name="genre">
           <option value="all" <?php if($allGenres) echo 'selected' ?>>All</option>
           <?php
-            foreach($listOfGenres as $code=>$name) {
+            foreach($listOfGenres as $code => $name) {
             if(!$allGenres && $_GET['genre'] === $code) {
               $selected = "selected";
             } else {
@@ -74,7 +75,7 @@
         <select name="period">
           <option value="all" <?php if($allTime) echo 'selected' ?>>All time</option>
           <?php
-            foreach($listOfPeriods as $code=>$name) {
+            foreach($listOfPeriods as $code => $name) {
             if(!$allTime && $_GET['period'] === $code) {
               $selected = "selected";
             } else {
