@@ -53,9 +53,6 @@
   $listenings = $listeningsQuery->fetch(PDO::FETCH_ASSOC);
   $listeningsNumber = $listenings['listenings'];
 
-  // From string to int
-  $listeningsNumber = (int)$listeningsNumber;
-
   // Returns the listenings number so that we can update it with AJAX
   echo $listeningsNumber;
   http_response_code(201);
