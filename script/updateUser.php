@@ -159,18 +159,18 @@
       // Query that inserts the new member
       $updateQuery = $connection->prepare(
         "UPDATE member
-        SET email=:titi,name=:tata,username=:tutu,birthday=:tete
-        WHERE id=:toto AND token=:tyty"
+        SET email=:email,name=:name,username=:username,birthday=:birthday
+        WHERE id=:id AND token=:token"
       );
 
       // Execute the query
       $updateQuery->execute([
-        "titi" => $_POST["email"],
-        "tata" => $_POST["name"],
-        "tutu" => $_POST["username"],
-        "tete" => $year . "-" . $month . "-" . $day,
-        "toto" => $_SESSION["id"],
-        "tyty" => $_SESSION["token"]
+        "email" => $_POST["email"],
+        "name" => $_POST["name"],
+        "username" => $_POST["username"],
+        "birthday" => $year . "-" . $month . "-" . $day,
+        "id" => $_SESSION["id"],
+        "token" => $_SESSION["token"]
       ]);
 
       $_SESSION["successUpdate"]["userInfo"] = true;

@@ -19,13 +19,13 @@
   $query = $connection->prepare(
     "SELECT email,name,username,birthday,profile_photo_filename,cover_photo_filename
     FROM member
-    WHERE id=:toto AND token=:titi"
+    WHERE id=:id AND token=:token"
   );
 
   // Execute the query
   $query->execute([
-    "toto" => $_SESSION["id"],
-    "titi" => $_SESSION["token"],
+    "id" => $_SESSION["id"],
+    "token" => $_SESSION["token"],
   ]);
 
   // Fetch data with the query and get it as an associative array

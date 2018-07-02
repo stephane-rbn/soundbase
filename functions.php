@@ -129,11 +129,11 @@ function isAdmin() {
   $connection = connectDB();
 
   $query = $connection->prepare(
-    "SELECT position FROM member WHERE id=:toto"
+    "SELECT position FROM member WHERE id=:id"
   );
 
   $query->execute([
-    "toto" => $_SESSION["id"],
+    "id" => $_SESSION["id"],
   ]);
 
   $result = $query->fetch(PDO::FETCH_ASSOC);
