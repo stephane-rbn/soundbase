@@ -231,6 +231,9 @@ footer a:hover {
 .content-container {
   text-align: center;
   border-style: solid;
+  border-color: darkgray;
+  border-radius: 10px;
+  margin-bottom: 10px;
 }
 
 .content-container h3 {
@@ -287,7 +290,7 @@ footer a:hover {
 }
 
 .spacer {
-  margin-top: 40px;
+  margin-top: 30px;
 }
 
 /* CHARTS */

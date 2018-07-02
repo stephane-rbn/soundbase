@@ -125,7 +125,7 @@
                   echo "<i class='" . (($isLiked == 1) ? 'fas' : 'far') . " fa-heart'></i>";
                     echo "<span class='like-number' id='like-number-{$feedEntry['id']}'>$likes</span>";
                   echo "</span>";
-                  echo "<p>{$feedEntry['description']}</p>";
+                  echo "<p class='alert alert-secondary'>{$feedEntry['description']}</p>";
                 echo "</div>";
 
                 echo "<!-- Add to playlist button Modal -->";
@@ -185,7 +185,7 @@
                     echo "<span class='event-date'><i class='fas fa-calendar-check'></i> {$feedEntry['event_date']}</span>";
                   echo "</p>";
                   echo "<p class='event-location'><i class='fas fa-map-marker-alt'></i> {$feedEntry['address']}</p>";
-                  echo "<p>{$feedEntry['description']}</p>";
+                  echo "<p class='alert alert-secondary'>{$feedEntry['description']}</p>";
                 echo "</div>";
 
               } else if(isset($feedEntry['content'])){
@@ -193,7 +193,7 @@
                 echo "<div class='col-lg-10 content-container'>";
                   echo "<h3><a href='post.php?id={$feedEntry['id']}'> Post from $author</a></h3>";
                   echo "<p><i class='fas fa-calendar-alt'></i> {$feedEntry['publication_date']}</p>";
-                  echo "<p>{$feedEntry['content']}</p>";
+                  echo "<p class='alert alert-secondary'>{$feedEntry['content']}</p>";
                 echo "</div>";
               }
             }
