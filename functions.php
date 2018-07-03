@@ -160,14 +160,16 @@ function sqlSelectFetchAll($query) {
 // Check if a user is connected
 function isConnected() {
 
-  $token = sqlSelect("SELECT token FROM MEMBER WHERE id={$_SESSION['id']}");
-  $position = sqlSelect("SELECT position FROM MEMBER WHERE id={$_SESSION['id']}");
+  if(isset($_SESSION['id'])) {
+    $token = sqlSelect("SELECT token FROM MEMBER WHERE id={$_SESSION['id']}");
+    $position = sqlSelect("SELECT position FROM MEMBER WHERE id={$_SESSION['id']}");
 
-  // Check if the user is conncted, if their token is correct and they're not banned
-  if (isset($_SESSION["auth"]) &&
-      $token['token'] == $_SESSION['token'] &&
-      $position['position'] != 2) {
-    return true;
+    // Check if the user is conncted, if their token is correct and they're not banned
+    if (isset($_SESSION["auth"]) &&
+        $token['token'] == $_SESSION['token'] &&
+        $position['position'] != 2) {
+      return true;
+    }
   }
 
   return false;
