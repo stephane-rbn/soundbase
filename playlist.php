@@ -100,7 +100,7 @@
               $listeningsNumber = $listenings['listenings'];
               $trackArtist = $trackArtistResult['name'];
 
-              echo "<div class='col-lg-7 content-container'>";
+              echo "<div class='col-lg-7 content-container' id='playlist-{$_GET["id"]}-track-{$track["id"]}'>";
               if ($playlistName["member"] === $_SESSION["id"]) {
                 echo "<h3><a href='track.php?id={$track['id']}'>$trackArtist - {$track['title']}</a>";
                 echo '<a href="" style="color: #c8c8c8;" title="Delete track" data-toggle="modal" data-target="#deleteTrackModal-' . $track["id"] . '">';

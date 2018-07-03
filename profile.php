@@ -241,7 +241,7 @@
                     $isLikedResult = $isLikedQuery->fetch(PDO::FETCH_ASSOC);
                     $isLiked = $isLikedResult['liked'];
                   }
-                  echo "<div class='col-lg-10 content-container'>";
+                  echo "<div class='col-lg-10 content-container' id='track-container-{$track['id']}'>";
                   if (isConnected()) {
                     if (!isset($_GET["username"]) || (isset($_GET["username"]) && $result["id"] === $_SESSION["id"])) {
                       echo "<h3><a href='track.php?id={$track['id']}'> {$track['title']}</a><a href='' style='color: #c8c8c8;' title='Add to a playlist' data-toggle='modal' data-target='#addToPlaylistModal-{$track['id']}'><i class='fas fa-plus fa-xs' style='margin-left: 10px;'></i></a>";
