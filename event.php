@@ -7,46 +7,45 @@
 
   // redirect to login page if not connected
   if (!isConnected()) {
-    header("Location: login.php");
+      header("Location: login.php");
   } else {
-    if (!isset($_GET["id"])) {
-      header("Location: events.php");
-    } else {
+      if (!isset($_GET["id"])) {
+          header("Location: events.php");
+      } else {
 
       // Connection to database
-      $connection = connectDB();
+          $connection = connectDB();
 
-      // Query that gets this event's info
-      $query = $connection->prepare(
+          // Query that gets this event's info
+          $query = $connection->prepare(
         "SELECT * FROM events WHERE id='" . $_GET['id']. "'"
       );
 
-      $query->execute();
+          $query->execute();
 
-      $event = $query->fetch(PDO::FETCH_ASSOC);
+          $event = $query->fetch(PDO::FETCH_ASSOC);
 
-      // Query that gets the creator's info
-      $getCreatorQuery = $connection->prepare(
+          // Query that gets the creator's info
+          $getCreatorQuery = $connection->prepare(
         "SELECT * FROM member WHERE id=" . $event["member"]
       );
 
-      $getCreatorQuery->execute();
+          $getCreatorQuery->execute();
 
-      $creator = $getCreatorQuery->fetch(PDO::FETCH_ASSOC);
+          $creator = $getCreatorQuery->fetch(PDO::FETCH_ASSOC);
 
-      // Query that gets all registration
-      $getRegisteredPeopleQuery = $connection->prepare(
+          // Query that gets all registration
+          $getRegisteredPeopleQuery = $connection->prepare(
         "SELECT * FROM registration WHERE registration.events=" . $_GET["id"]
       );
 
-      $getRegisteredPeopleQuery->execute();
+          $getRegisteredPeopleQuery->execute();
 
-      $attendees = $getRegisteredPeopleQuery->fetchAll(PDO::FETCH_ASSOC);
+          $attendees = $getRegisteredPeopleQuery->fetchAll(PDO::FETCH_ASSOC);
 
-      $following = sqlSelect("SELECT COUNT(*) as count FROM registration WHERE events=" . $_GET["id"]);
-      $places = $event["capacity"] - $following["count"];
-    }
-
+          $following = sqlSelect("SELECT COUNT(*) as count FROM registration WHERE events=" . $_GET["id"]);
+          $places = $event["capacity"] - $following["count"];
+      }
   }
 
   $navbarItem = 'events';
@@ -57,9 +56,9 @@
     <!-- Header - set the background image for the header in the line below -->
     <header class="py-5 bg-image-full" style="height: 400px; background-image: url('<?php
         if ($event["background_filename"] !== "background.png") {
-          echo "uploads/events/backgrounds/" . $event["background_filename"];
+            echo "uploads/events/backgrounds/" . $event["background_filename"];
         } else {
-          echo "http://via.placeholder.com/1000x500";
+            echo "http://via.placeholder.com/1000x500";
         }
       ?>');" alt="event-background">
     </header>
@@ -76,9 +75,9 @@
         echo "<div>";
           echo "<h1>" . $event["name"] . "</h1>";
           if ($places <= 0) {
-            echo "<span class='badge badge-warning'>Full</span>";
+              echo "<span class='badge badge-warning'>Full</span>";
           } else {
-            echo "<span class='badge badge-success'>Not full</span>";
+              echo "<span class='badge badge-success'>Not full</span>";
           }
         echo "</div>";
         echo "<br>";
@@ -86,9 +85,9 @@
           echo "<a href='profile.php?username=" . $creator["username"] . "'>" . $creator["name"] . "</a>";
         echo "</p>";
         if ($places > 0) {
-          echo '<a href="#" style="color: inherit" data-toggle="modal" data-target="#exampleModalCenter">' . $places . ' places left out of ' . $event["capacity"] . '</a>';
+            echo '<a href="#" style="color: inherit" data-toggle="modal" data-target="#exampleModalCenter">' . $places . ' places left out of ' . $event["capacity"] . '</a>';
         } else {
-          echo '<a href="#" style="color: inherit" data-toggle="modal" data-target="#exampleModalCenter">No more available places</a>';
+            echo '<a href="#" style="color: inherit" data-toggle="modal" data-target="#exampleModalCenter">No more available places</a>';
         }
         ?>
 
@@ -107,17 +106,17 @@
                   $listQuery = $connection->prepare("SELECT * FROM member WHERE id=?");
 
                   foreach ($attendees as $attendee) {
-                    $listQuery->execute([$attendee["member"]]);
-                    $result = $listQuery->fetch(PDO::FETCH_ASSOC);
-                    echo "<div class='row'>";
+                      $listQuery->execute([$attendee["member"]]);
+                      $result = $listQuery->fetch(PDO::FETCH_ASSOC);
+                      echo "<div class='row'>";
                       echo "<div class='col-md-2'>";
-                        echo "<img src='uploads/member/avatar/" . $result["profile_photo_filename"] . "' alt='profile picture' height=50 width=50>";
+                      echo "<img src='uploads/member/avatar/" . $result["profile_photo_filename"] . "' alt='profile picture' height=50 width=50>";
                       echo "</div>";
                       echo "<div class='col-md-10'>";
-                        echo "<h5><a href='profile.php?username=" . $result["username"] . "'>" . $result["name"] . "</a></h5>";
+                      echo "<h5><a href='profile.php?username=" . $result["username"] . "'>" . $result["name"] . "</a></h5>";
                       echo "</div>";
-                    echo "</div>";
-                    echo "<hr>";
+                      echo "</div>";
+                      echo "<hr>";
                   }
                 ?>
               </div>
@@ -135,39 +134,39 @@
         $isAttendee = false;
 
         foreach ($attendees as $attendee) {
-          if ($attendee["member"] === $_SESSION["id"] && $attendee["events"] === $_GET["id"]) {
-            $isAttendee = true;
-          }
+            if ($attendee["member"] === $_SESSION["id"] && $attendee["events"] === $_GET["id"]) {
+                $isAttendee = true;
+            }
         }
         if ($creator["id"] == $_SESSION["id"]) {
-          echo "<center>";
+            echo "<center>";
             echo "<form method='POST' action='#'>";
-              echo "<input name='event_id' value='" . $_GET["id"] . "' hidden>";
-              echo "<button type='button' class='btn btn-danger delete-button' data-toggle='modal' data-target='#deleteModal'>Delete</button>";
+            echo "<input name='event_id' value='" . $_GET["id"] . "' hidden>";
+            echo "<button type='button' class='btn btn-danger delete-button' data-toggle='modal' data-target='#deleteModal'>Delete</button>";
             echo "</form>";
-          echo "</center>";
-        } else if ($isAttendee) {
-          echo "<center>";
+            echo "</center>";
+        } elseif ($isAttendee) {
+            echo "<center>";
             echo "<form method='POST' action='script/cancelEventAttendance.php'>";
-              echo "<input name='event_id' value='" . $_GET["id"] . "' hidden>";
-              echo "<button type='submit' class='btn btn-warning'>Cancel</button>";
+            echo "<input name='event_id' value='" . $_GET["id"] . "' hidden>";
+            echo "<button type='submit' class='btn btn-warning'>Cancel</button>";
             echo "</form>";
             echo "<br>";
             echo '<a href="script/createTicket.php?id=' . $_GET['id'] . '" style="color: inherit;">';
-              echo '<i class="far fa-file-pdf fa-lg" title="Download your entry ticket!"></i>';
+            echo '<i class="far fa-file-pdf fa-lg" title="Download your entry ticket!"></i>';
             echo '</a>';
-          echo "</center>";
-        } else if ($places <= 0) {
-          echo "<center>";
+            echo "</center>";
+        } elseif ($places <= 0) {
+            echo "<center>";
             echo "<div class='form_message_error'>Sorry this event is full</div>";
-          echo "</center>";
+            echo "</center>";
         } else {
-          echo "<center>";
+            echo "<center>";
             echo "<form method='POST' action='script/registerInEvent.php'>";
-              echo "<input name='event_id' value='" . $_GET["id"] . "' hidden>";
-              echo "<button type='submit' class='btn btn-primary'>Attend</button>";
+            echo "<input name='event_id' value='" . $_GET["id"] . "' hidden>";
+            echo "<button type='submit' class='btn btn-primary'>Attend</button>";
             echo "</form>";
-          echo "</center>";
+            echo "</center>";
         }
         echo "</center>";
 

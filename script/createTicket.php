@@ -4,8 +4,8 @@
   require_once "../functions.php";
 
   if (!isConnected()) {
-    http_response_code(400);
-    die();
+      http_response_code(400);
+      die();
   }
 
   xssProtection();

@@ -6,17 +6,17 @@
   xssProtection();
 
   if (!isConnected()) {
-    // Abort AJAX
-    http_response_code(400);
-    die();
-  } else if (count($_POST) != 1 || empty($_POST["track"])) {
-    // Invalid form data
-    http_response_code(400);
-    die();
-  } else if (!is_numeric($_POST["track"])) {
-    // Invalid form data
-    http_response_code(400);
-    die();
+      // Abort AJAX
+      http_response_code(400);
+      die();
+  } elseif (count($_POST) != 1 || empty($_POST["track"])) {
+      // Invalid form data
+      http_response_code(400);
+      die();
+  } elseif (!is_numeric($_POST["track"])) {
+      // Invalid form data
+      http_response_code(400);
+      die();
   }
 
   $connection = connectDB();
@@ -27,10 +27,10 @@
   );
   $success = $likesQuery->execute();
 
-  if(!$success) {
-    // SELECT fail
-    http_response_code(500);
-    die();
+  if (!$success) {
+      // SELECT fail
+      http_response_code(500);
+      die();
   }
 
   $likes = $likesQuery->fetch(PDO::FETCH_ASSOC);
@@ -45,41 +45,41 @@
   );
   $succes  = $isLikedQuery->execute();
 
-  if(!$success) {
-    // SELECT fail
-    http_response_code(500);
-    die();
+  if (!$success) {
+      // SELECT fail
+      http_response_code(500);
+      die();
   }
 
   $isLiked = $isLikedQuery->fetch(PDO::FETCH_ASSOC);
   $isLiked = $isLiked['liked'];
 
   if ($isLiked == 0) {
-    // If the track is not liked, increment the like number and add a line in the table
-    $likesNumber++;
-    $query = $connection->prepare(
+      // If the track is not liked, increment the like number and add a line in the table
+      $likesNumber++;
+      $query = $connection->prepare(
       "INSERT INTO likes (member,track) VALUES (" . $_SESSION['id'] ."," . $_POST["track"] . ")"
     );
-    $success = $query->execute();
+      $success = $query->execute();
 
-    if(!$success) {
-      // SELECT fail
-      http_response_code(500);
-      die();
-    }
-  } else if ($isLiked == 1){
-    // If the track is liked, decrement the like number and delete the line in the table
-    $likesNumber--;
-    $query = $connection->prepare(
+      if (!$success) {
+          // SELECT fail
+          http_response_code(500);
+          die();
+      }
+  } elseif ($isLiked == 1) {
+      // If the track is liked, decrement the like number and delete the line in the table
+      $likesNumber--;
+      $query = $connection->prepare(
       "DELETE FROM likes where member='" . $_SESSION['id'] ."' AND track='" . $_POST["track"] . "'"
     );
-    $success = $query->execute();
+      $success = $query->execute();
 
-    if(!$success) {
-      // SELECT fail
-      http_response_code(500);
-      die();
-    }
+      if (!$success) {
+          // SELECT fail
+          http_response_code(500);
+          die();
+      }
   }
 
   // Returns the like number so that we can update it with AJAX

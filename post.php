@@ -7,32 +7,31 @@
 
   // redirect to login page if not connected
   if (!isConnected()) {
-    header("Location: login.php");
+      header("Location: login.php");
   } else {
-    if (!isset($_GET["id"])) {
-      die("Error: this track doesn't exist");
-    } else {
+      if (!isset($_GET["id"])) {
+          die("Error: this track doesn't exist");
+      } else {
 
       // Connection to database
-      $connection = connectDB();
+          $connection = connectDB();
 
-      $query = $connection->prepare(
+          $query = $connection->prepare(
         "SELECT * FROM post WHERE id='" . $_GET['id']. "'"
       );
 
-      $query->execute();
+          $query->execute();
 
-      $post = $query->fetch(PDO::FETCH_ASSOC);
+          $post = $query->fetch(PDO::FETCH_ASSOC);
 
-      // Get the artist name
-      $authorQuery = $connection->prepare(
+          // Get the artist name
+          $authorQuery = $connection->prepare(
         "SELECT name FROM member WHERE id = " . $post['member'] . ""
       );
-      $authorQuery->execute();
-      $authorResult = $authorQuery->fetch(PDO::FETCH_ASSOC);
-      $author = $authorResult['name'];
-    }
-
+          $authorQuery->execute();
+          $authorResult = $authorQuery->fetch(PDO::FETCH_ASSOC);
+          $author = $authorResult['name'];
+      }
   }
 
   include "head.php";

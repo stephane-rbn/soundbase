@@ -7,24 +7,23 @@
 
   // redirect to login page if not connected
   if (!isConnected()) {
-    header("Location: login.php");
+      header("Location: login.php");
   } else {
-    if (!isset($_GET["id"])) {
-      die("Error: this track doesn't exist");
-    } else {
+      if (!isset($_GET["id"])) {
+          die("Error: this track doesn't exist");
+      } else {
 
       // Connection to database
-      $connection = connectDB();
+          $connection = connectDB();
 
-      $query = $connection->prepare(
+          $query = $connection->prepare(
         "SELECT * FROM track WHERE id='" . $_GET['id']. "'"
       );
 
-      $query->execute();
+          $query->execute();
 
-      $track = $query->fetch(PDO::FETCH_ASSOC);
-    }
-
+          $track = $query->fetch(PDO::FETCH_ASSOC);
+      }
   }
 
   include "head.php";
@@ -116,9 +115,9 @@
 
                 $allPlaylists = $getAllPlaylistsQuery->fetchAll(PDO::FETCH_ASSOC);
 
-                foreach($allPlaylists as $playlist) {
-                  echo "<h3><a href='script/addToPlaylist.php?playlist_id=" . $playlist["id"] . "&track_id=" . $track['id'] . "'>" . $playlist["name"] . "</a></h3>";
-                  echo "<hr>";
+                foreach ($allPlaylists as $playlist) {
+                    echo "<h3><a href='script/addToPlaylist.php?playlist_id=" . $playlist["id"] . "&track_id=" . $track['id'] . "'>" . $playlist["name"] . "</a></h3>";
+                    echo "<hr>";
                 }
               ?>
             </div>

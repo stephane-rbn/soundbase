@@ -16,20 +16,20 @@
 
     <?php
       if (isset($_SESSION["sendMailSuccess"])) {
-        if ($_SESSION["sendMailSuccess"] === true) {
-          echo '<div class="alert alert-success">';
-            echo '<strong>Success!</strong> Your email has been sent.';
-        }
-        else if ($_SESSION["sendMailSuccess"] === false) {
-          echo '<div class="alert alert-danger">';
-            echo "<strong>Oops!</strong> Something went wrong and we couldn't send your email.";
-        }
+          if ($_SESSION["sendMailSuccess"] === true) {
+              echo '<div class="alert alert-success">';
+              echo '<strong>Success!</strong> Your email has been sent.';
+          } elseif ($_SESSION["sendMailSuccess"] === false) {
+              echo '<div class="alert alert-danger">';
+              echo "<strong>Oops!</strong> Something went wrong and we couldn't send your email.";
+          }
           echo '</div>';
       }
     ?>
       <form method="POST" action="script/sendMail.php">
 
-          <?php if (!isConnected()) {?>
+          <?php if (!isConnected()) {
+        ?>
           <div class="col-sm-12">
             <div class="form-group">
               <label for="name">NAME</label>
@@ -43,7 +43,8 @@
               <input type="email" class="form-control" placeholder="orel@san.fr" name="email" value="<?php echo fillSessionField("email"); ?>" required="required">
             </div>
           </div>
-          <?php } ?>
+          <?php
+    } ?>
 
           <div class="col-sm-12">
             <div class="form-group">

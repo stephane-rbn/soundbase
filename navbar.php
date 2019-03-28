@@ -1,7 +1,9 @@
 <?php
   require_once "functions.php";
 
-  if(!isset($navbarItem)) $navbarItem = 'home';
+  if (!isset($navbarItem)) {
+      $navbarItem = 'home';
+  }
 ?>
 
     <!-- Navigation -->
@@ -19,30 +21,47 @@
             <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
           </form>
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item<?php if($navbarItem === 'home') echo ' active'?>">
+            <li class="nav-item<?php if ($navbarItem === 'home') {
+    echo ' active';
+}?>">
               <a class="nav-link" href="index.php">Home
                 <span class="sr-only">(current)</span>
               </a>
             </li>
-            <?php if (isConnected()) { ?>
-              <li class="nav-item<?php if($navbarItem ==='profile') echo ' active'?>">
+            <?php if (isConnected()) {
+    ?>
+              <li class="nav-item<?php if ($navbarItem ==='profile') {
+        echo ' active';
+    } ?>">
                 <a class="nav-link" href="profile.php">Profile</a>
               </li>
-              <li class="nav-item<?php if($navbarItem ==='playlists') echo ' active'?>">
+              <li class="nav-item<?php if ($navbarItem ==='playlists') {
+        echo ' active';
+    } ?>">
                 <a class="nav-link" href="myPlaylists.php">Playlists</a>
               </li>
-              <li class="nav-item<?php if($navbarItem ==='events') echo ' active'?>">
+              <li class="nav-item<?php if ($navbarItem ==='events') {
+        echo ' active';
+    } ?>">
                 <a class="nav-link" href="events.php">Events</a>
               </li>
-            <?php } ?>
-            <li class="nav-item<?php if($navbarItem === 'charts') echo ' active'?>">
+            <?php
+} ?>
+            <li class="nav-item<?php if ($navbarItem === 'charts') {
+        echo ' active';
+    }?>">
               <a class="nav-link" href="charts.php">Charts</a>
             </li>
-            <li class="nav-item<?php if($navbarItem ==='contact') echo ' active'?>">
+            <li class="nav-item<?php if ($navbarItem ==='contact') {
+        echo ' active';
+    }?>">
               <a class="nav-link" href="contact.php">Contact</a>
             </li>
-            <?php if (isConnected()) { ?>
-              <li class="nav-item dropdown <?php if($navbarItem ==='account') echo ' active'?>">
+            <?php if (isConnected()) {
+        ?>
+              <li class="nav-item dropdown <?php if ($navbarItem ==='account') {
+            echo ' active';
+        } ?>">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Account
                 </a>
@@ -51,25 +70,30 @@
                 <a class="dropdown-item" href="recommendations.php">Recommendations</a>
                   <?php
                     if (isAdmin()) {
-                      echo '<a class="dropdown-item" href="admin/">Admin</a>';
-                    }
-                  ?>
+                        echo '<a class="dropdown-item" href="admin/">Admin</a>';
+                    } ?>
                   <a class="dropdown-item" href="edit-profile.php">Edit profile</a>
                   <a class="dropdown-item" href="account.php">Settings</a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="logout.php">Logout</a>
                 </div>
               </li>
-            <?php } else { ?>
+            <?php
+    } else {
+        ?>
               <li class="nav-item">
                 <a class="nav-link" href="register.php">Sign up</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="login.php">Sign in</a>
               </li>
-            <?php } ?>
-            <?php if (isConnected()) { ?>
-              <li class="nav-item dropdown <?php if($navbarItem ==='new') echo ' active'?>">
+            <?php
+    } ?>
+            <?php if (isConnected()) {
+        ?>
+              <li class="nav-item dropdown <?php if ($navbarItem ==='new') {
+            echo ' active';
+        } ?>">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="fas fa-plus"></i>
                 </a>
@@ -80,7 +104,8 @@
                   <a class="dropdown-item" href="newPost.php">New post</a>
                 </div>
               </li>
-            <?php } ?>
+            <?php
+    } ?>
             ?>
           </ul>
         </div>

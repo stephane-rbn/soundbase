@@ -5,17 +5,17 @@
 
   // redirect to home.php file if already connected
   if (!isConnected()) {
-    header("Location: login.php");
+      header("Location: login.php");
   } else {
-    $connection = connectDB();
+      $connection = connectDB();
 
-    $query = $connection->prepare(
+      $query = $connection->prepare(
       "SELECT id,post ,member FROM post WHERE member=" . $_SESSION['id']
     );
 
-    $query->execute();
+      $query->execute();
 
-    $result = $query->fetch(PDO::FETCH_ASSOC);
+      $result = $query->fetch(PDO::FETCH_ASSOC);
   }
 
   $navbarItem = 'new';
@@ -31,7 +31,7 @@
   <div class="container-fluid">
   <?php
     if (isset($_SESSION["message"])) {
-      fillAllFieldsErrorMessage();
+        fillAllFieldsErrorMessage();
     }
   ?>
   </div>
@@ -43,16 +43,16 @@
             <label for="content">POST (280 characters max):</label>
             <br>
             <textarea name="post" cols="70" rows="10" onkeyup="displayTextareaLength(280);" id="textarea" class="form-control" placeholder ="Your publication ..." required><?php
-            if (!empty($result["post"]) && $result["post"] !== NULL && !isErrorPresent(12)) {
-              echo $result["post"];
+            if (!empty($result["post"]) && $result["post"] !== null && !isErrorPresent(12)) {
+                echo $result["post"];
             }
             if (isErrorPresent(12)) {
-              echo fillSessionFieldSettings("post");
+                echo fillSessionFieldSettings("post");
             } ?></textarea>
             <p id="textarea-counter"></p>
             <?php
               if (isErrorPresent(12)) {
-              echo '<p class="form_message_error">' . $listOfErrors[12] . ' (280)</p>';
+                  echo '<p class="form_message_error">' . $listOfErrors[12] . ' (280)</p>';
               }
             ?>
         </div>

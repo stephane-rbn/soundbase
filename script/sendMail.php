@@ -15,4 +15,3 @@
   $_SESSION["sendMailSuccess"] = mail($to, $subject, $message, $headers);
 
   header("Location: ../contact.php");
-?>

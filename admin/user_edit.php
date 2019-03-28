@@ -4,7 +4,7 @@
   require "../functions.php";
 
   if (!(isConnected() && isAdmin())) {
-    header("Location: ../login.php");
+      header("Location: ../login.php");
   }
 
   $sql = sqlSelectFetchAll("SELECT COUNT(*) as userCount FROM member");
@@ -23,9 +23,9 @@
         <br>
         <?php
           if (isset($_SESSION["message"])) {
-            fillAllFieldsErrorMessage();
+              fillAllFieldsErrorMessage();
           } else {
-            successfulUpdateMessage();
+              successfulUpdateMessage();
           }
         ?>
         <div class="col-lg-12">
@@ -51,18 +51,18 @@
                       <label>Username</label>
                       <input class="form-control" name="username" value="<?php
                         if (!isset($_SESSION["postForm"]["username"])) {
-                          echo $result['username'];
+                            echo $result['username'];
                         } else {
-                          echo $_SESSION["postForm"]["username"];
+                            echo $_SESSION["postForm"]["username"];
                         }
                         ?>" required="required">
                         <?php
                           if (isErrorPresent(2)) {
-                            echo '<p class="form_message_error">' . $listOfErrors[2] . '</p>';
-                          } else if (isErrorPresent(10)) {
-                            echo '<p class="form_message_error">' . $listOfErrors[10] . '</p>';
+                              echo '<p class="form_message_error">' . $listOfErrors[2] . '</p>';
+                          } elseif (isErrorPresent(10)) {
+                              echo '<p class="form_message_error">' . $listOfErrors[10] . '</p>';
                           } else {
-                            echo "";
+                              echo "";
                           }
                         ?>
                     </div>
@@ -70,14 +70,14 @@
                       <label>Name</label>
                       <input class="form-control" name="name" value="<?php
                         if (!isset($_SESSION["postForm"]["name"])) {
-                          echo $result['name'];
+                            echo $result['name'];
                         } else {
-                          echo $_SESSION["postForm"]["name"];
+                            echo $_SESSION["postForm"]["name"];
                         }
                         ?>" required="required">
                         <?php
                           if (isErrorPresent(1)) {
-                            echo '<p class="form_message_error">' . $listOfErrors[1] . '</p>';
+                              echo '<p class="form_message_error">' . $listOfErrors[1] . '</p>';
                           }
                         ?>
                     </div>
@@ -85,18 +85,18 @@
                       <label>Email</label>
                       <input type="email" class="form-control" name="email" value="<?php
                         if (!isset($_SESSION["postForm"]["email"])) {
-                          echo $result['email'];
+                            echo $result['email'];
                         } else {
-                          echo $_SESSION["postForm"]["email"];
+                            echo $_SESSION["postForm"]["email"];
                         }
                         ?>" required="required">
                       <?php
                         if (isErrorPresent(6)) {
-                          echo '<p class="form_message_error">' . $listOfErrors[6] . '</p>';
-                        } else if (isErrorPresent(7)) {
-                          echo '<p class="form_message_error">' . $listOfErrors[7] . '</p>';
+                            echo '<p class="form_message_error">' . $listOfErrors[6] . '</p>';
+                        } elseif (isErrorPresent(7)) {
+                            echo '<p class="form_message_error">' . $listOfErrors[7] . '</p>';
                         } else {
-                          echo '';
+                            echo '';
                         }
                       ?>
                     </div>
@@ -104,20 +104,20 @@
                       <label>Birthday</label>
                       <input type="date" class="form-control" name="birthday" value="<?php
                         if (!isset($_SESSION["postForm"]["birthday"])) {
-                          echo $result['birthday'];
+                            echo $result['birthday'];
                         } else {
-                          echo $_SESSION["postForm"]["birthday"];
+                            echo $_SESSION["postForm"]["birthday"];
                         }
                         ?>" required="required">
                         <?php
                           if (isErrorPresent(3)) {
-                            echo '<p class="form_message_error">' . $listOfErrors[3] . '</p>';
-                          } else if (isErrorPresent(4)) {
-                            echo '<p class="form_message_error">' . $listOfErrors[4] . '</p>';
-                          } else if (isErrorPresent(5)) {
-                            echo '<p class="form_message_error">' . $listOfErrors[5] . '</p>';
+                              echo '<p class="form_message_error">' . $listOfErrors[3] . '</p>';
+                          } elseif (isErrorPresent(4)) {
+                              echo '<p class="form_message_error">' . $listOfErrors[4] . '</p>';
+                          } elseif (isErrorPresent(5)) {
+                              echo '<p class="form_message_error">' . $listOfErrors[5] . '</p>';
                           } else {
-                            echo '';
+                              echo '';
                           }
                         ?>
                     </div>
@@ -126,21 +126,21 @@
                       <select class="form-control form-control-sm" name="position" required="required">
                       <?php
                         if (!isset($_SESSION["postForm"]["position"])) {
-                          $status = $result['position'];
+                            $status = $result['position'];
 
-                          echo '<option value="0"' . (($status == 0) ? 'selected="selected"' : '') . '>User</option>';
-                          echo '<option value="1"' . (($status == 1) ? 'selected="selected"' : '') . '>Admin</option>';
-                          echo '<option value="2"' . (($status == 2) ? 'selected="selected"' : '') . '>Banned</option>';
+                            echo '<option value="0"' . (($status == 0) ? 'selected="selected"' : '') . '>User</option>';
+                            echo '<option value="1"' . (($status == 1) ? 'selected="selected"' : '') . '>Admin</option>';
+                            echo '<option value="2"' . (($status == 2) ? 'selected="selected"' : '') . '>Banned</option>';
                         } else {
-                          echo '<option value="0"' . (($_SESSION["postForm"]["position"] == 0) ? 'selected="selected"' : '') . '>User</option>';
-                          echo '<option value="0"' . (($_SESSION["postForm"]["position"] == 1) ? 'selected="selected"' : '') . '>Admin</option>';
-                          echo '<option value="0"' . (($_SESSION["postForm"]["position"] == 2) ? 'selected="selected"' : '') . '>Banned</option>';
+                            echo '<option value="0"' . (($_SESSION["postForm"]["position"] == 0) ? 'selected="selected"' : '') . '>User</option>';
+                            echo '<option value="0"' . (($_SESSION["postForm"]["position"] == 1) ? 'selected="selected"' : '') . '>Admin</option>';
+                            echo '<option value="0"' . (($_SESSION["postForm"]["position"] == 2) ? 'selected="selected"' : '') . '>Banned</option>';
                         }
                       ?>
                       </select>
                       <?php
                         if (isErrorPresent(24)) {
-                          echo '<p class="form_message_error">' . $listOfErrors[24] . '</p>';
+                            echo '<p class="form_message_error">' . $listOfErrors[24] . '</p>';
                         }
                       ?>
                     </div>

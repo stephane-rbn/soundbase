@@ -7,148 +7,139 @@
   $connection = connectDB();
 
   if (count($_POST) === 1) {
+      $error = false;
+      $listOfErrors = [];
 
-    $error = false;
-    $listOfErrors = [];
+      if (isset($_POST['submit-avatar']) && !empty($_FILES['avatar'])) {
+          $fileName    = $_FILES['avatar']['name'];
+          $fileTmpName = $_FILES['avatar']['tmp_name'];
+          $fileSize    = $_FILES['avatar']['size'];
+          $fileError   = $_FILES['avatar']['error'];
 
-    if (isset($_POST['submit-avatar']) && !empty($_FILES['avatar'])) {
+          // Split the file name into an array by the separating the string into substrings using the '.' character
+          $fileNameArray = explode('.', $fileName);
 
-      $fileName    = $_FILES['avatar']['name'];
-      $fileTmpName = $_FILES['avatar']['tmp_name'];
-      $fileSize    = $_FILES['avatar']['size'];
-      $fileError   = $_FILES['avatar']['error'];
+          // Get the last element of the array and make it in lower case
+          $fileExtension = strtolower(end($fileNameArray));
 
-      // Split the file name into an array by the separating the string into substrings using the '.' character
-      $fileNameArray = explode('.', $fileName);
+          $allowedExtensions = ['jpg', 'jpeg', 'gif', 'png'];
 
-      // Get the last element of the array and make it in lower case
-      $fileExtension = strtolower(end($fileNameArray));
-
-      $allowedExtensions = ['jpg', 'jpeg', 'gif', 'png'];
-
-      // Check if the given file owns an allowed extension
-      if (in_array($fileExtension, $allowedExtensions)) {
+          // Check if the given file owns an allowed extension
+          if (in_array($fileExtension, $allowedExtensions)) {
 
         // Check error at upload
-        if ($fileError === 0) {
+              if ($fileError === 0) {
 
           // Check if the file size doesn't exceed 2MB
-          if ($fileSize < 2097152) {
+                  if ($fileSize < 2097152) {
+                      $fileNewName = $_SESSION['id'] . "-" . uniqid() . "." . $fileExtension;
+                      $fileDestination = "../uploads/member/avatar/" . $fileNewName;
 
-            $fileNewName = $_SESSION['id'] . "-" . uniqid() . "." . $fileExtension;
-            $fileDestination = "../uploads/member/avatar/" . $fileNewName;
+                      // Move the upload file from its tmp directory to its final destination
+                      // $result's value is true when the move succeeds
+                      $result = move_uploaded_file($fileTmpName, $fileDestination);
 
-            // Move the upload file from its tmp directory to its final destination
-            // $result's value is true when the move succeeds
-            $result = move_uploaded_file($fileTmpName, $fileDestination);
+                      if ($result) {
+                          $query = $connection->prepare('UPDATE member SET profile_photo_filename=:profile_photo_filename WHERE id=:id');
 
-            if ($result) {
-              $query = $connection->prepare('UPDATE member SET profile_photo_filename=:profile_photo_filename WHERE id=:id');
-
-              $query->execute([
+                          $query->execute([
                 'profile_photo_filename' => $fileNewName,
                 'id'                     => $_SESSION['id']
               ]);
 
-              unset($_FILES);
-              unset($_POST['submit-avatar']);
+                          unset($_FILES);
+                          unset($_POST['submit-avatar']);
 
-              $_SESSION["successUpdate"]["avatar"] = true;
+                          $_SESSION["successUpdate"]["avatar"] = true;
 
-              header('Location: ../edit-profile.php');
-            }
-
+                          header('Location: ../edit-profile.php');
+                      }
+                  } else {
+                      $error = true;
+                      $listOfErrors[] = 13;
+                  }
+              } else {
+                  $error = true;
+                  $listOfErrors[] = 14;
+              }
           } else {
-            $error = true;
-            $listOfErrors[] = 13;
+              $error = true;
+              $listOfErrors[] = 15;
           }
-        } else {
-          $error = true;
-          $listOfErrors[] = 14;
-        }
-      } else {
-        $error = true;
-        $listOfErrors[] = 15;
-      }
 
-      if ($error) {
-        $_SESSION["errorForm"] = $listOfErrors;
-        $_SESSION["postForm"] = $_POST;
+          if ($error) {
+              $_SESSION["errorForm"] = $listOfErrors;
+              $_SESSION["postForm"] = $_POST;
 
-        header("Location: ../edit-profile.php");
-      }
+              header("Location: ../edit-profile.php");
+          }
+      } elseif (isset($_POST['submit-cover']) && !empty($_FILES['cover'])) {
+          $fileName    = $_FILES['cover']['name'];
+          $fileTmpName = $_FILES['cover']['tmp_name'];
+          $fileSize    = $_FILES['cover']['size'];
+          $fileError   = $_FILES['cover']['error'];
 
-    } else if (isset($_POST['submit-cover']) && !empty($_FILES['cover'])) {
+          // Split the file name into an array by the separating the string into substrings using the '.' character
+          $fileNameArray = explode('.', $fileName);
 
-      $fileName    = $_FILES['cover']['name'];
-      $fileTmpName = $_FILES['cover']['tmp_name'];
-      $fileSize    = $_FILES['cover']['size'];
-      $fileError   = $_FILES['cover']['error'];
+          // Get the last element of the array and make it in lower case
+          $fileExtension = strtolower(end($fileNameArray));
 
-      // Split the file name into an array by the separating the string into substrings using the '.' character
-      $fileNameArray = explode('.', $fileName);
+          $allowedExtensions = ['jpg', 'jpeg', 'gif', 'png'];
 
-      // Get the last element of the array and make it in lower case
-      $fileExtension = strtolower(end($fileNameArray));
-
-      $allowedExtensions = ['jpg', 'jpeg', 'gif', 'png'];
-
-      // Check if the given file owns an allowed extension
-      if (in_array($fileExtension, $allowedExtensions)) {
+          // Check if the given file owns an allowed extension
+          if (in_array($fileExtension, $allowedExtensions)) {
 
         // Check error at upload
-        if ($fileError === 0) {
+              if ($fileError === 0) {
 
           // Check if the file size doesn't exceed 2MB
-          if ($fileSize < 2097152) {
+                  if ($fileSize < 2097152) {
+                      $fileNewName = $_SESSION['id'] . "-" . uniqid() . "." . $fileExtension;
+                      $fileDestination = "../uploads/member/cover/" . $fileNewName;
 
-            $fileNewName = $_SESSION['id'] . "-" . uniqid() . "." . $fileExtension;
-            $fileDestination = "../uploads/member/cover/" . $fileNewName;
+                      // Move the upload file from its tmp directory to its final destination
+                      // $result's value is true when the move succeeds
+                      $result = move_uploaded_file($fileTmpName, $fileDestination);
 
-            // Move the upload file from its tmp directory to its final destination
-            // $result's value is true when the move succeeds
-            $result = move_uploaded_file($fileTmpName, $fileDestination);
+                      if ($result) {
+                          $query = $connection->prepare('UPDATE member SET cover_photo_filename=:cover_photo_filename WHERE id=:id');
 
-            if ($result) {
-              $query = $connection->prepare('UPDATE member SET cover_photo_filename=:cover_photo_filename WHERE id=:id');
-
-              $query->execute([
+                          $query->execute([
                 'cover_photo_filename'   => $fileNewName,
                 'id'                     => $_SESSION['id']
               ]);
 
-              unset($_FILES);
-              unset($_POST['submit-cover']);
+                          unset($_FILES);
+                          unset($_POST['submit-cover']);
 
-              $_SESSION["successUpdate"]["cover"] = true;
+                          $_SESSION["successUpdate"]["cover"] = true;
 
-              header('Location: ../edit-profile.php');
-            }
-
+                          header('Location: ../edit-profile.php');
+                      }
+                  } else {
+                      $error = true;
+                      $listOfErrors[] = 16;
+                  }
+              } else {
+                  $error = true;
+                  $listOfErrors[] = 17;
+              }
           } else {
-            $error = true;
-            $listOfErrors[] = 16;
+              $error = true;
+              $listOfErrors[] = 18;
           }
-        } else {
-          $error = true;
-          $listOfErrors[] = 17;
-        }
+
+          if ($error) {
+              $_SESSION["message"] = true;
+              $_SESSION["errorForm"] = $listOfErrors;
+              $_SESSION["postForm"] = $_POST;
+
+              header("Location: ../edit-profile.php");
+          }
       } else {
-        $error = true;
-        $listOfErrors[] = 18;
+          die("Error: invalid form submission.");
       }
-
-      if ($error) {
-        $_SESSION["message"] = true;
-        $_SESSION["errorForm"] = $listOfErrors;
-        $_SESSION["postForm"] = $_POST;
-
-        header("Location: ../edit-profile.php");
-      }
-
-    } else {
-      die("Error: invalid form submission.");
-    }
   } else {
-    die("Error: invalid form submission.");
+      die("Error: invalid form submission.");
   }

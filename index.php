@@ -7,7 +7,7 @@
 
   // redirect to home.php file if already connected
   if (isConnected()) {
-    header("Location: home.php");
+      header("Location: home.php");
   }
 
   include "head.php";

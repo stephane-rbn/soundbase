@@ -5,37 +5,37 @@
 
   // redirect to login page if not connected
   if (!isConnected()) {
-    header("Location: login.php");
+      header("Location: login.php");
   } else {
 
     // Connection to database
-    $connection = connectDB();
+      $connection = connectDB();
 
-    if (isset($_GET["list_events"])) {
-      if ($_GET["list_events"] === "all") {
-        $query = $connection->prepare(
+      if (isset($_GET["list_events"])) {
+          if ($_GET["list_events"] === "all") {
+              $query = $connection->prepare(
           "SELECT * FROM events"
         );
-      } else {
-        if ($_GET["list_events"] === "mine") {
-          $query = $connection->prepare(
+          } else {
+              if ($_GET["list_events"] === "mine") {
+                  $query = $connection->prepare(
             "SELECT * FROM events WHERE member = {$_SESSION["id"]}"
           );
-        } else {
-          $query = $connection->prepare(
+              } else {
+                  $query = $connection->prepare(
             "SELECT * FROM registration INNER JOIN events ON registration.events = events.id WHERE registration.member = {$_SESSION["id"]}"
           );
-        }
-      }
-    } else {
-      $query = $connection->prepare(
+              }
+          }
+      } else {
+          $query = $connection->prepare(
         "SELECT * FROM events"
       );
-    }
+      }
 
-    $query->execute();
+      $query->execute();
 
-    $result = $query->fetchAll(PDO::FETCH_ASSOC);
+      $result = $query->fetchAll(PDO::FETCH_ASSOC);
   }
 
   $navbarItem = 'events';
@@ -66,23 +66,23 @@
 
         <?php
           if (!$result) {
-            echo "<p>No event</p>";
+              echo "<p>No event</p>";
           } else {
-            foreach ($result as $event) {
-              echo '<div class="col-sm-12 col-md-4" style="margin-bottom: 2em;">';
-                echo '<div class="card" style="width: 100%;">';
+              foreach ($result as $event) {
+                  echo '<div class="col-sm-12 col-md-4" style="margin-bottom: 2em;">';
+                  echo '<div class="card" style="width: 100%;">';
                   if ($event["background_filename"] === 'background.png') {
-                    echo '<img class="card-img-top card-events" src="http://via.placeholder.com/400x250" alt="Card image cap">';
+                      echo '<img class="card-img-top card-events" src="http://via.placeholder.com/400x250" alt="Card image cap">';
                   } else {
-                    echo '<img class="card-img-top card-events" src="uploads/events/backgrounds/' . $event["background_filename"] . '" alt="Card image cap">';
+                      echo '<img class="card-img-top card-events" src="uploads/events/backgrounds/' . $event["background_filename"] . '" alt="Card image cap">';
                   }
                   echo '<div class="card-body">';
-                    echo '<h5 class="card-title">' . $event["name"] . '</h5>';
-                    echo '<a href="event.php?id=' . $event["id"] . '" class="btn btn-primary">View</a>';
+                  echo '<h5 class="card-title">' . $event["name"] . '</h5>';
+                  echo '<a href="event.php?id=' . $event["id"] . '" class="btn btn-primary">View</a>';
                   echo '</div>';
-                echo '</div>';
-              echo '</div>';
-            }
+                  echo '</div>';
+                  echo '</div>';
+              }
           }
         ?>
 

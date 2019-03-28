@@ -5,7 +5,7 @@
 
   // redirect to login.php file if not connected
   if (!isConnected()) {
-    header("Location: login.php");
+      header("Location: login.php");
   }
 
   require_once "conf.inc.php";
@@ -27,7 +27,7 @@
           <label for="title">TITLE</label>
           <input type="text" class="form-control" placeholder="La pluie (feat. Stromae)" name="title" value="<?php echo fillSessionField("title"); ?>" required="required"><?php
             if (isErrorPresent(19)) {
-              echo '<p class="form_message_error">' . $listOfErrors[19] . '</p>';
+                echo '<p class="form_message_error">' . $listOfErrors[19] . '</p>';
             }?>
         </div>
 
@@ -36,21 +36,21 @@
           <select class="form-control" name="genre" required="required">
             <?php
               foreach ($listOfGenres as $key => $value) {
-            ?>
+                  ?>
             <option value="<?php echo $key; ?>"
             <?php
               if (isset($_SESSION["postForm"]) && $_SESSION["postForm"]["genre"]) {
-                echo 'selected="selected"';
-              } else if (!isset($_SESSION["postForm"]) && $defaultGenre === $key) {
-                echo 'selected="selected"';
-              }
-            ?>
+                  echo 'selected="selected"';
+              } elseif (!isset($_SESSION["postForm"]) && $defaultGenre === $key) {
+                  echo 'selected="selected"';
+              } ?>
             ><?php echo $value; ?></option>
-            <?php } ?>
+            <?php
+              } ?>
           </select>
           <?php
             if (isErrorPresent(20)) {
-              echo '<p class="form_message_error">' . $listOfErrors[20] . '</p>';
+                echo '<p class="form_message_error">' . $listOfErrors[20] . '</p>';
             }?>
         </div>
 
@@ -61,13 +61,13 @@
           <div class="row">
             <input class="col-sm-12" type="file" name="track" required/><?php
               if (isErrorPresent(16)) {
-                echo '<p class="form_message_error">' . $listOfErrors[16] . '</p>';
-              } else if (isErrorPresent(17)) {
-                echo '<p class="form_message_error">' . $listOfErrors[17] . '</p>';
-              } else if (isErrorPresent(18)) {
-                echo '<p class="form_message_error">' . $listOfErrors[18] . '</p>';
+                  echo '<p class="form_message_error">' . $listOfErrors[16] . '</p>';
+              } elseif (isErrorPresent(17)) {
+                  echo '<p class="form_message_error">' . $listOfErrors[17] . '</p>';
+              } elseif (isErrorPresent(18)) {
+                  echo '<p class="form_message_error">' . $listOfErrors[18] . '</p>';
               } else {
-                echo "";
+                  echo "";
               }
             ?>
           </div>
@@ -80,13 +80,13 @@
           <div class="row">
             <input class="col-sm-12" type="file" name="cover" required/><?php
               if (isErrorPresent(13)) {
-                echo '<p class="form_message_error">' . $listOfErrors[13] . '</p>';
-              } else if (isErrorPresent(14)) {
-                echo '<p class="form_message_error">' . $listOfErrors[14] . '</p>';
-              } else if (isErrorPresent(15)) {
-                echo '<p class="form_message_error">' . $listOfErrors[15] . '</p>';
+                  echo '<p class="form_message_error">' . $listOfErrors[13] . '</p>';
+              } elseif (isErrorPresent(14)) {
+                  echo '<p class="form_message_error">' . $listOfErrors[14] . '</p>';
+              } elseif (isErrorPresent(15)) {
+                  echo '<p class="form_message_error">' . $listOfErrors[15] . '</p>';
               } else {
-                echo "";
+                  echo "";
               }
             ?>
           </div>
@@ -98,7 +98,7 @@
           <p id="textarea-counter"></p>
           <?php
             if (isErrorPresent(12)) {
-            echo '<p class="form_message_error">' . $listOfErrors[12] . ' (200)</p>';
+                echo '<p class="form_message_error">' . $listOfErrors[12] . ' (200)</p>';
             }
           ?>
         </div>

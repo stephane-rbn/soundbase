@@ -20,10 +20,10 @@
     "member_followed" => $_GET["id"]
   ]);
 
-  if(!$succes) {
-    // SELECT fail
-    http_response_code(500);
-    die();
+  if (!$succes) {
+      // SELECT fail
+      http_response_code(500);
+      die();
   }
 
   header("Location: ../profile.php?username=" . $_GET["username"]);

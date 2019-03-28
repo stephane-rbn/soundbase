@@ -8,7 +8,7 @@
 
   if (!isConnected()) {
       header("Location: login.php");
-    } else {
+  } else {
 
       // Query that insert the new subscription
       $query = $connection->prepare("INSERT INTO subscription (member_following,member_followed) VALUES (:member_following,:member_followed)");

@@ -4,7 +4,7 @@
   require "../../functions.php";
 
   if (!(isConnected() && isAdmin())) {
-    header("Location: ../../login.php");
+      header("Location: ../../login.php");
   }
 
   $connection = connectDB();

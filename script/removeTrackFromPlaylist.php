@@ -6,9 +6,9 @@
   xssProtection();
 
   if (!isConnected()) {
-    // Abort AJAX
-    http_response_code(400);
-    die();
+      // Abort AJAX
+      http_response_code(400);
+      die();
   }
 
   // Connection to database
@@ -20,10 +20,10 @@
       // Invalid form data
       http_response_code(400);
       die();
-  } else if (!is_numeric($_POST["playlist_id"]) || !is_numeric($_POST["track_id"])) {
-    // Invalid form data
-    http_response_code(400);
-    die();
+  } elseif (!is_numeric($_POST["playlist_id"]) || !is_numeric($_POST["track_id"])) {
+      // Invalid form data
+      http_response_code(400);
+      die();
   }
 
   $removeInclusionQuery = $connection->query(
@@ -32,10 +32,10 @@
 
   $success = $removeInclusionQuery->execute();
 
-  if(!$success) {
-    // DELETE fail
-    http_response_code(500);
-    die();
+  if (!$success) {
+      // DELETE fail
+      http_response_code(500);
+      die();
   } else {
-    http_response_code(201);
+      http_response_code(201);
   }

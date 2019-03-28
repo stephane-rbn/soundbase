@@ -10,10 +10,10 @@
   xssProtection();
 
 
-  if(count($_GET) != 2 || empty($_GET['contentType']) || empty($_GET['contentId'])) {
-    // Invalid query strings
-    http_response_code(400);
-    die();
+  if (count($_GET) != 2 || empty($_GET['contentType']) || empty($_GET['contentId'])) {
+      // Invalid query strings
+      http_response_code(400);
+      die();
   }
 
   $connection = connectDB();
@@ -27,10 +27,10 @@
   $succes = $query->execute();
   $comments = $query->fetchAll(PDO::FETCH_ASSOC);
 
-  if(!$succes) {
-    // SELECT fail
-    http_response_code(500);
-    die();
+  if (!$succes) {
+      // SELECT fail
+      http_response_code(500);
+      die();
   }
 
     // Output the comments to JSON

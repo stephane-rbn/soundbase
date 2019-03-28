@@ -5,7 +5,7 @@
 
   // redirect to login.php file if not connected
   if (!isConnected()) {
-    header("Location: login.php");
+      header("Location: login.php");
   }
 
   require_once "conf.inc.php";
@@ -27,7 +27,7 @@
           <label for="name">NAME</label>
           <input type="text" class="form-control" placeholder="ex: The Best Of 2017" name="name" value="<?php echo fillSessionField("name"); ?>" required="required"><?php
             if (isErrorPresent(19)) {
-              echo '<p class="form_message_error">' . $listOfErrors[19] . '</p>';
+                echo '<p class="form_message_error">' . $listOfErrors[19] . '</p>';
             }?>
         </div>
 

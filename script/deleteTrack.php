@@ -6,19 +6,19 @@
   xssProtection();
 
   if (!isConnected()) {
-    // Abort AJAX
-    http_response_code(400);
-    die();
+      // Abort AJAX
+      http_response_code(400);
+      die();
   }
 
   if (count($_POST) != 1 || empty($_POST["track"])) {
-    // Invalid form data
-    http_response_code(400);
-    die();
-  } else if (!is_numeric($_POST["track"])) {
-    // Invalid form data
-    http_response_code(400);
-    die();
+      // Invalid form data
+      http_response_code(400);
+      die();
+  } elseif (!is_numeric($_POST["track"])) {
+      // Invalid form data
+      http_response_code(400);
+      die();
   }
 
     $track = $_POST["track"];
@@ -31,10 +31,10 @@
     );
     $success = $trackOwnerQuery->execute();
 
-    if(!$success) {
-      // SELECT fail
-      http_response_code(500);
-      die();
+    if (!$success) {
+        // SELECT fail
+        http_response_code(500);
+        die();
     }
 
     $trackOwnerResult = $trackOwnerQuery->fetch(PDO::FETCH_ASSOC);
@@ -44,9 +44,9 @@
 
     // If the user is the owner of the track, we can proceed to deletion
     if ($trackOwner != $_SESSION['id']) {
-      // Abort AJAX
-      http_response_code(400);
-      die();
+        // Abort AJAX
+        http_response_code(400);
+        die();
     }
 
     // Delete the likes on this track
@@ -71,28 +71,28 @@
 
     // Execute the queries
     $success = $deleteLikes->execute();
-    if(!$success) {
-      // DELETE fail
-      http_response_code(500);
-      die();
+    if (!$success) {
+        // DELETE fail
+        http_response_code(500);
+        die();
     }
     $success = $deleteFromPlaylists->execute();
-    if(!$success) {
-      // DELETE fail
-      http_response_code(500);
-      die();
+    if (!$success) {
+        // DELETE fail
+        http_response_code(500);
+        die();
     }
     $success = $deleteListenings->execute();
-    if(!$success) {
-      // DELETE fail
-      http_response_code(500);
-      die();
+    if (!$success) {
+        // DELETE fail
+        http_response_code(500);
+        die();
     }
     $success = $deleteTrack->execute();
-    if(!$success) {
-      // DELETE fail
-      http_response_code(500);
-      die();
+    if (!$success) {
+        // DELETE fail
+        http_response_code(500);
+        die();
     }
 
     // Get cover and track file names
@@ -104,16 +104,16 @@
     );
 
     $success = $trackCoverQuery->execute();
-    if(!$success) {
-      // SELECT fail
-      http_response_code(500);
-      die();
+    if (!$success) {
+        // SELECT fail
+        http_response_code(500);
+        die();
     }
     $success = $trackFileQuery->execute();
-    if(!$success) {
-      // SELECT fail
-      http_response_code(500);
-      die();
+    if (!$success) {
+        // SELECT fail
+        http_response_code(500);
+        die();
     }
 
     $trackCoverResult = $trackCoverQuery->fetch(PDO::FETCH_ASSOC);
@@ -127,4 +127,3 @@
     unlink("../uploads/tracks/files/" . $trackFile);
 
     http_response_code(201);
-

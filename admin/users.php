@@ -5,7 +5,7 @@
   require "../functions.php";
 
   if (!(isConnected() && isAdmin())) {
-    header("Location: ../login.php");
+      header("Location: ../login.php");
   }
 
   $sql = sqlSelectFetchAll("SELECT COUNT(*) as userCount FROM member");
@@ -76,70 +76,68 @@
                       // Page shown defaults to 1, otherwise based on "?page="
                       // Checking $_GET['page'] is a possible page number to provent SQL injections
                       if (isset($_GET['page']) && $_GET['page'] > 0 && $_GET['page'] <= $nbPages) {
-                        $cPage = $_GET['page'];
+                          $cPage = $_GET['page'];
                       } else {
-                        $cPage = 1;
+                          $cPage = 1;
                       }
 
                       if (isset($_GET['search'])) {
-                        $searchQuery = $_GET['search'];
-                        $searchQuery = htmlspecialchars($searchQuery);
+                          $searchQuery = $_GET['search'];
+                          $searchQuery = htmlspecialchars($searchQuery);
 
-                        // SQL query executed when someone is searched
-                        $userData = sqlSelectFetchAll("SELECT * FROM member WHERE (`username` LIKE '%".$searchQuery."%') OR (`name` LIKE '%".$searchQuery."%') OR (`email` LIKE '%".$searchQuery."%') LIMIT ". (($cPage - 1) * $perPage) .", $perPage");
+                          // SQL query executed when someone is searched
+                          $userData = sqlSelectFetchAll("SELECT * FROM member WHERE (`username` LIKE '%".$searchQuery."%') OR (`name` LIKE '%".$searchQuery."%') OR (`email` LIKE '%".$searchQuery."%') LIMIT ". (($cPage - 1) * $perPage) .", $perPage");
+                      } elseif (isset($_GET['position'])) {
+                          $searchQuery = $_GET['position'];
+                          $searchQuery = htmlspecialchars($searchQuery);
 
-                      } else if (isset($_GET['position'])) {
-                        $searchQuery = $_GET['position'];
-                        $searchQuery = htmlspecialchars($searchQuery);
-
-                        // SQL queries searching by position
-                        if (is_numeric($_GET['position'])) {
-                          $userData = sqlSelectFetchAll("SELECT * FROM member WHERE position = {$_GET['position']} LIMIT " . (($cPage - 1) * $perPage) . ", $perPage");
-                        } else {
-                          $userData = sqlSelectFetchAll("SELECT * FROM member LIMIT ". (($cPage - 1) * $perPage) .", $perPage");
-                        }
-
+                          // SQL queries searching by position
+                          if (is_numeric($_GET['position'])) {
+                              $userData = sqlSelectFetchAll("SELECT * FROM member WHERE position = {$_GET['position']} LIMIT " . (($cPage - 1) * $perPage) . ", $perPage");
+                          } else {
+                              $userData = sqlSelectFetchAll("SELECT * FROM member LIMIT ". (($cPage - 1) * $perPage) .", $perPage");
+                          }
                       } else {
-                        $userData = sqlSelectFetchAll("SELECT * FROM member LIMIT ". (($cPage - 1) * $perPage) .", $perPage");
+                          $userData = sqlSelectFetchAll("SELECT * FROM member LIMIT ". (($cPage - 1) * $perPage) .", $perPage");
                       }
 
                       foreach ($userData as $user) {
-                        echo '<tr class="odd gradeX">';
-                        echo '<td>' . $user['username'];
-                        echo '<td>' . $user['name'];
-                        echo '<td>' . $user['email'];
-                        echo '<td>' . $user['birthday'];
-                        if ($user['position'] == 0) {
-                          echo "<td> Member";
-                        } elseif ($user['position'] == 1) {
-                          echo "<td> Admin";
-                        } elseif ($user['position'] == 2) {
-                          echo "<td> Banned";
-                        }
-                        echo '<td>' . $user['registration_date'];
-                        echo '<td><a href="user_edit.php?id=' . $user['id'] . '">Edit</a>';
-                        echo "<td><button type='button' class='btn btn-danger' data-toggle='modal' data-target='#exampleModalCenter-{$user['id']}' style='color: #fff'>Delete</button>";
-                        echo "</tr>";
-                        echo "<!-- Modal {$user['id']}: confirmation of deletion -->";
-                        echo "<div class='modal fade' id='exampleModalCenter-{$user['id']}' tabindex='-1' role='dialog' aria-labelledby='exampleModalCenterTitle' aria-hidden='true'>";
+                          echo '<tr class="odd gradeX">';
+                          echo '<td>' . $user['username'];
+                          echo '<td>' . $user['name'];
+                          echo '<td>' . $user['email'];
+                          echo '<td>' . $user['birthday'];
+                          if ($user['position'] == 0) {
+                              echo "<td> Member";
+                          } elseif ($user['position'] == 1) {
+                              echo "<td> Admin";
+                          } elseif ($user['position'] == 2) {
+                              echo "<td> Banned";
+                          }
+                          echo '<td>' . $user['registration_date'];
+                          echo '<td><a href="user_edit.php?id=' . $user['id'] . '">Edit</a>';
+                          echo "<td><button type='button' class='btn btn-danger' data-toggle='modal' data-target='#exampleModalCenter-{$user['id']}' style='color: #fff'>Delete</button>";
+                          echo "</tr>";
+                          echo "<!-- Modal {$user['id']}: confirmation of deletion -->";
+                          echo "<div class='modal fade' id='exampleModalCenter-{$user['id']}' tabindex='-1' role='dialog' aria-labelledby='exampleModalCenterTitle' aria-hidden='true'>";
                           echo '<div class="modal-dialog modal-dialog-centered" role="document">';
-                            echo '<div class="modal-content">';
-                              echo '<div class="modal-header">';
-                                echo '<h5 class="modal-title" id="exampleModalLongTitle">Are you sure?</h5>';
-                                echo '<button type="button" class="close" data-dismiss="modal" aria-label="Close">';
-                                  echo '<span aria-hidden="true">&times;</span>';
-                                echo '</button>';
-                              echo '</div>';
-                              echo '<div class="modal-body">The deletion of an account is irreversible.</div>';
-                              echo '<div class="modal-footer">';
-                                echo '<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>';
-                                echo '<button type="button" class="btn btn-danger delete-button">';
-                                  echo '<a href="script/deleteUser.php?id=' . $user['id'] .'" style="color: #fff">Confirm</a>';
-                                echo '</button>';
-                              echo '</div>';
-                            echo '</div>';
+                          echo '<div class="modal-content">';
+                          echo '<div class="modal-header">';
+                          echo '<h5 class="modal-title" id="exampleModalLongTitle">Are you sure?</h5>';
+                          echo '<button type="button" class="close" data-dismiss="modal" aria-label="Close">';
+                          echo '<span aria-hidden="true">&times;</span>';
+                          echo '</button>';
                           echo '</div>';
-                        echo '</div>';
+                          echo '<div class="modal-body">The deletion of an account is irreversible.</div>';
+                          echo '<div class="modal-footer">';
+                          echo '<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>';
+                          echo '<button type="button" class="btn btn-danger delete-button">';
+                          echo '<a href="script/deleteUser.php?id=' . $user['id'] .'" style="color: #fff">Confirm</a>';
+                          echo '</button>';
+                          echo '</div>';
+                          echo '</div>';
+                          echo '</div>';
+                          echo '</div>';
                       }
                     ?>
                   </tbody>
@@ -156,16 +154,16 @@
                         // Page shown defaults to 1, otherwise based on "?page="
                         // Checking $_GET['page'] is a possible page number to provent SQL injections
                         if (isset($_GET['page']) && $_GET['page'] > 0 && $_GET['page'] <= $nbPages) {
-                          $cPage = $_GET['page'];
+                            $cPage = $_GET['page'];
                         } else {
-                          $cPage = 1;
+                            $cPage = 1;
                         }
 
                         if ($cPage == $nbPages) {
-                          // On the last page, the last entry of the page will be the last entry
-                          echo "Showing ".(($cPage - 1) * $perPage + 1)." to ".$userCount." of ".$userCount." users";
+                            // On the last page, the last entry of the page will be the last entry
+                            echo "Showing ".(($cPage - 1) * $perPage + 1)." to ".$userCount." of ".$userCount." users";
                         } else {
-                          echo "Showing ".(($cPage - 1) * $perPage + 1)." to ".(($cPage) * $perPage)." of ".$userCount." users";
+                            echo "Showing ".(($cPage - 1) * $perPage + 1)." to ".(($cPage) * $perPage)." of ".$userCount." users";
                         }
                       ?>
                     </div>
@@ -180,32 +178,32 @@
                           // Page shown defaults to 1, otherwise based on "?page="
                           // Checking $_GET['page'] is a possible page number to provent SQL injections
                           if (isset($_GET['page']) && $_GET['page'] > 0 && $_GET['page'] <= $nbPages) {
-                            $cPage = $_GET['page'];
+                              $cPage = $_GET['page'];
                           } else {
-                            $cPage = 1;
+                              $cPage = 1;
                           }
 
                           if ($cPage == 1) {
-                            // Disable previous button if first page
-                            echo '<li class="paginate_button previous disabled" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous"><a>Previous</a></li>';
+                              // Disable previous button if first page
+                              echo '<li class="paginate_button previous disabled" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous"><a>Previous</a></li>';
                           } else {
-                            echo '<li class="paginate_button previous" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous"><a href="?page='.($cPage - 1).'">Previous</a></li>';
+                              echo '<li class="paginate_button previous" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous"><a href="?page='.($cPage - 1).'">Previous</a></li>';
                           }
 
                           for ($i = 1; $i <= $nbPages; $i++) {
-                            if ($i == $cPage) {
-                              // Set the current page number as active
-                              echo '<li class="paginate_button active" aria-controls="dataTables-example" tabindex="0"><a href="?page='.$i.'">'.$i.'</a></li>';
-                            } else {
-                              echo '<li class="paginate_button" aria-controls="dataTables-example" tabindex="0"><a href="?page='.$i.'">'.$i.'</a></li>';
-                            }
+                              if ($i == $cPage) {
+                                  // Set the current page number as active
+                                  echo '<li class="paginate_button active" aria-controls="dataTables-example" tabindex="0"><a href="?page='.$i.'">'.$i.'</a></li>';
+                              } else {
+                                  echo '<li class="paginate_button" aria-controls="dataTables-example" tabindex="0"><a href="?page='.$i.'">'.$i.'</a></li>';
+                              }
                           }
 
                           if ($cPage == $nbPages) {
-                            // Disable next button if last page
-                            echo '<li class="paginate_button next disabled" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next"><a>Next</a></li>';
+                              // Disable next button if last page
+                              echo '<li class="paginate_button next disabled" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next"><a>Next</a></li>';
                           } else {
-                            echo '<li class="paginate_button next" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next"><a href="?page='.($cPage + 1).'">Next</a></li>';
+                              echo '<li class="paginate_button next" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next"><a href="?page='.($cPage + 1).'">Next</a></li>';
                           }
 
                         ?>

@@ -5,7 +5,7 @@
 
   // redirect to login page if not connected
   if (!isConnected()) {
-    header("Location: login.php");
+      header("Location: login.php");
   }
 
   $navbarItem = 'home';
@@ -51,9 +51,9 @@
           // Page shown defaults to 1, otherwise based on "?page="
           // Checking $_GET['page'] is a possible page number to provent SQL injections
           if (isset($_GET['page']) && $_GET['page'] > 0 && $_GET['page'] <= $nbPages) {
-            $currentPage = $_GET['page'];
+              $currentPage = $_GET['page'];
           } else {
-            $currentPage = 1;
+              $currentPage = 1;
           }
 
           $feedData = sqlSelectFetchAll(
@@ -64,152 +64,148 @@
           if (!empty($feedData)) {
 
             // The track number will start at 0 since we'll use it in
-            $trackNumber = -1;
+              $trackNumber = -1;
 
-            foreach ($feedData as $feedEntry) {
+              foreach ($feedData as $feedEntry) {
 
               // Get the artist name
-              $authorQuery = $connection->prepare(
+                  $authorQuery = $connection->prepare(
                 "SELECT name FROM member WHERE id = " . $feedEntry['member'] . ""
               );
 
-              $authorQuery->execute();
-              $authorResult = $authorQuery->fetch(PDO::FETCH_ASSOC);
-              $author = $authorResult['name'];
+                  $authorQuery->execute();
+                  $authorResult = $authorQuery->fetch(PDO::FETCH_ASSOC);
+                  $author = $authorResult['name'];
 
-              // If the entry is a track
-              if(isset($feedEntry['track_filename'])){
+                  // If the entry is a track
+                  if (isset($feedEntry['track_filename'])) {
 
                 // Increment track id for DOM
-                $trackNumber++;
+                      $trackNumber++;
 
-                // Get the number of listenings
-                $listeningsQuery = $connection->prepare(
+                      // Get the number of listenings
+                      $listeningsQuery = $connection->prepare(
                   "SELECT COUNT(*) as listenings FROM listening WHERE track=" . $feedEntry['id']
                 );
 
-                // Get the number of likes
-                $likesQuery = $connection->prepare(
+                      // Get the number of likes
+                      $likesQuery = $connection->prepare(
                   "SELECT COUNT(*) as likes FROM likes WHERE track=" . $feedEntry['id']
                 );
 
-                // Check if the track is liked by the user
-                $isLikedQuery = $connection->prepare(
+                      // Check if the track is liked by the user
+                      $isLikedQuery = $connection->prepare(
                   "SELECT COUNT(*) as liked FROM likes WHERE track='" . $feedEntry['id'] . "' AND member='" . $_SESSION['id'] ."'"
                 );
 
-                $likesQuery->execute();
-                $isLikedQuery->execute();
-                $listeningsQuery->execute();
+                      $likesQuery->execute();
+                      $isLikedQuery->execute();
+                      $listeningsQuery->execute();
 
-                $likesResult = $likesQuery->fetch(PDO::FETCH_ASSOC);
-                $isLikedResult = $isLikedQuery->fetch(PDO::FETCH_ASSOC);
-                $listenings = $listeningsQuery->fetch(PDO::FETCH_ASSOC);
+                      $likesResult = $likesQuery->fetch(PDO::FETCH_ASSOC);
+                      $isLikedResult = $isLikedQuery->fetch(PDO::FETCH_ASSOC);
+                      $listenings = $listeningsQuery->fetch(PDO::FETCH_ASSOC);
 
-                $likes = $likesResult['likes'];
-                $isLiked = $isLikedResult['liked'];
-                $listeningsNumber = $listenings['listenings'];
+                      $likes = $likesResult['likes'];
+                      $isLiked = $isLikedResult['liked'];
+                      $listeningsNumber = $listenings['listenings'];
 
-                echo "<div class='col-lg-10 content-container'>";
-                  echo "<h3><a href='track.php?id={$feedEntry['id']}'>$author - {$feedEntry['title']}</a><a href='' style='color: #c8c8c8;' title='Add to a playlist' data-toggle='modal' data-target='#addToPlaylistModal-{$feedEntry['id']}'><i class='fas fa-plus fa-xs' style='margin-left: 10px;'></i></a></h3>";
-                  echo "<div><img class='content-image' src='uploads/tracks/album_cover/{$feedEntry['photo_filename']}'></div>";
-                  echo "<audio controls id='audio-track-$trackNumber' data-track-id='{$feedEntry['id']}'>";
-                    echo "<source src='uploads/tracks/files/{$feedEntry['track_filename']}' type='audio/mpeg'>";
-                  echo "</audio>";
-                  echo "<p><i class='fas fa-calendar-alt'></i> {$feedEntry['publication_date']}</p>";
-                  echo "<p>";
-                  echo "<span class='track-listenings'><i class='fas fa-play'></i>";
-                  echo "<span class='listening-number' id='listening-number-{$feedEntry['id']}'>$listeningsNumber</span>";
-                  echo "</span>";
-                  echo "<span class='track-likes' id='likes-{$feedEntry['id']}' onclick='likeTrack({$feedEntry['id']})'>";
-                  echo "<i class='" . (($isLiked == 1) ? 'fas' : 'far') . " fa-heart'></i>";
-                    echo "<span class='like-number' id='like-number-{$feedEntry['id']}'>$likes</span>";
-                  echo "</span>";
-                  echo "<p class='alert alert-secondary'>{$feedEntry['description']}</p>";
-                echo "</div>";
+                      echo "<div class='col-lg-10 content-container'>";
+                      echo "<h3><a href='track.php?id={$feedEntry['id']}'>$author - {$feedEntry['title']}</a><a href='' style='color: #c8c8c8;' title='Add to a playlist' data-toggle='modal' data-target='#addToPlaylistModal-{$feedEntry['id']}'><i class='fas fa-plus fa-xs' style='margin-left: 10px;'></i></a></h3>";
+                      echo "<div><img class='content-image' src='uploads/tracks/album_cover/{$feedEntry['photo_filename']}'></div>";
+                      echo "<audio controls id='audio-track-$trackNumber' data-track-id='{$feedEntry['id']}'>";
+                      echo "<source src='uploads/tracks/files/{$feedEntry['track_filename']}' type='audio/mpeg'>";
+                      echo "</audio>";
+                      echo "<p><i class='fas fa-calendar-alt'></i> {$feedEntry['publication_date']}</p>";
+                      echo "<p>";
+                      echo "<span class='track-listenings'><i class='fas fa-play'></i>";
+                      echo "<span class='listening-number' id='listening-number-{$feedEntry['id']}'>$listeningsNumber</span>";
+                      echo "</span>";
+                      echo "<span class='track-likes' id='likes-{$feedEntry['id']}' onclick='likeTrack({$feedEntry['id']})'>";
+                      echo "<i class='" . (($isLiked == 1) ? 'fas' : 'far') . " fa-heart'></i>";
+                      echo "<span class='like-number' id='like-number-{$feedEntry['id']}'>$likes</span>";
+                      echo "</span>";
+                      echo "<p class='alert alert-secondary'>{$feedEntry['description']}</p>";
+                      echo "</div>";
 
-                echo "<!-- Add to playlist button Modal -->";
-                echo "<div class='modal fade' id='addToPlaylistModal-{$feedEntry['id']}' tabindex='-1' role='dialog' aria-labelledby='exampleModalCenterTitle' aria-hidden='true'>";
-                  echo "<div class='modal-dialog modal-dialog-centered' role='document'>";
-                    echo "<div class='modal-content'>";
+                      echo "<!-- Add to playlist button Modal -->";
+                      echo "<div class='modal fade' id='addToPlaylistModal-{$feedEntry['id']}' tabindex='-1' role='dialog' aria-labelledby='exampleModalCenterTitle' aria-hidden='true'>";
+                      echo "<div class='modal-dialog modal-dialog-centered' role='document'>";
+                      echo "<div class='modal-content'>";
                       echo "<div class='modal-header'>";
-                        echo "<h5 class='modal-title' id='exampleModalLongTitle'>My playlists</h5>";
-                        echo "<button type='button' class='close' data-dismiss='modal' aria-label='Close'>";
-                          echo "<span aria-hidden='true'>&times;</span>";
-                        echo "</button>";
+                      echo "<h5 class='modal-title' id='exampleModalLongTitle'>My playlists</h5>";
+                      echo "<button type='button' class='close' data-dismiss='modal' aria-label='Close'>";
+                      echo "<span aria-hidden='true'>&times;</span>";
+                      echo "</button>";
                       echo "</div>";
                       echo "<div class='modal-body'>";
 
-                        $getAllPlaylistsQuery = $connection->prepare(
+                      $getAllPlaylistsQuery = $connection->prepare(
                           "SELECT * FROM playlist WHERE member='" . $_SESSION['id']. "'"
                         );
 
-                        $getAllPlaylistsQuery->execute();
+                      $getAllPlaylistsQuery->execute();
 
-                        $allPlaylists = $getAllPlaylistsQuery->fetchAll(PDO::FETCH_ASSOC);
+                      $allPlaylists = $getAllPlaylistsQuery->fetchAll(PDO::FETCH_ASSOC);
 
-                        if (count($allPlaylists) === 0) {
+                      if (count($allPlaylists) === 0) {
                           echo "<h3>No playlist created. <a href='newPlaylist.php'>Create one!</a></h3>";
-                        } else {
-                          foreach($allPlaylists as $playlist) {
-                            echo "<h3><a href='script/addToPlaylist.php?playlist_id=" . $playlist["id"] . "&track_id=" . $feedEntry['id'] . "'>" . $playlist["name"] . "</a></h3>";
-                            echo "<hr>";
+                      } else {
+                          foreach ($allPlaylists as $playlist) {
+                              echo "<h3><a href='script/addToPlaylist.php?playlist_id=" . $playlist["id"] . "&track_id=" . $feedEntry['id'] . "'>" . $playlist["name"] . "</a></h3>";
+                              echo "<hr>";
                           }
-                        }
+                      }
                       echo "</div>";
                       echo "<div class='modal-footer'>";
-                        echo "<button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>";
+                      echo "<button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>";
                       echo "</div>";
-                    echo "</div>";
-                  echo "</div>";
-                echo "</div>";
-
-
-              } else if(isset($feedEntry['capacity'])){
-
-                $participantsNumberQuery = $connection->prepare(
+                      echo "</div>";
+                      echo "</div>";
+                      echo "</div>";
+                  } elseif (isset($feedEntry['capacity'])) {
+                      $participantsNumberQuery = $connection->prepare(
                   "SELECT COUNT(*) as count FROM registration WHERE events=" . $feedEntry["id"]
                 );
 
-                $participantsNumberQuery->execute();
-                $participantsNumberResult = $participantsNumberQuery->fetch(PDO::FETCH_ASSOC);
-                $participantsNumber = $participantsNumberResult['count'];
+                      $participantsNumberQuery->execute();
+                      $participantsNumberResult = $participantsNumberQuery->fetch(PDO::FETCH_ASSOC);
+                      $participantsNumber = $participantsNumberResult['count'];
 
-                // If entry is event
-                echo "<div class='col-lg-10 content-container'>";
-                  echo "<h3><a href='event.php?id={$feedEntry['id']}'> $author - {$feedEntry['title']}</a></h3>";
-                  echo "<div><img class='content-image' src='uploads/events/backgrounds/{$feedEntry['photo_filename']}'></div>";
-                  echo "<p><i class='fas fa-calendar-alt'></i> {$feedEntry['publication_date']}</p>";
-                  echo "<p>";
-                    echo "<span class='event-users'><i class='fas fa-user'></i> $participantsNumber / {$feedEntry['capacity']}</span>";
-                    echo "<span class='event-date'><i class='fas fa-calendar-check'></i> {$feedEntry['event_date']}</span>";
-                  echo "</p>";
-                  echo "<p class='event-location'><i class='fas fa-map-marker-alt'></i> {$feedEntry['address']}</p>";
-                  echo "<p class='alert alert-secondary'>{$feedEntry['description']}</p>";
-                echo "</div>";
-
-              } else if(isset($feedEntry['content'])){
-                // If entry is post
-                echo "<div class='col-lg-10 content-container'>";
-                  echo "<h3><a href='post.php?id={$feedEntry['id']}'> Post from $author</a></h3>";
-                  echo "<p><i class='fas fa-calendar-alt'></i> {$feedEntry['publication_date']}</p>";
-                  echo "<p class='alert alert-secondary'>{$feedEntry['content']}</p>";
-                echo "</div>";
+                      // If entry is event
+                      echo "<div class='col-lg-10 content-container'>";
+                      echo "<h3><a href='event.php?id={$feedEntry['id']}'> $author - {$feedEntry['title']}</a></h3>";
+                      echo "<div><img class='content-image' src='uploads/events/backgrounds/{$feedEntry['photo_filename']}'></div>";
+                      echo "<p><i class='fas fa-calendar-alt'></i> {$feedEntry['publication_date']}</p>";
+                      echo "<p>";
+                      echo "<span class='event-users'><i class='fas fa-user'></i> $participantsNumber / {$feedEntry['capacity']}</span>";
+                      echo "<span class='event-date'><i class='fas fa-calendar-check'></i> {$feedEntry['event_date']}</span>";
+                      echo "</p>";
+                      echo "<p class='event-location'><i class='fas fa-map-marker-alt'></i> {$feedEntry['address']}</p>";
+                      echo "<p class='alert alert-secondary'>{$feedEntry['description']}</p>";
+                      echo "</div>";
+                  } elseif (isset($feedEntry['content'])) {
+                      // If entry is post
+                      echo "<div class='col-lg-10 content-container'>";
+                      echo "<h3><a href='post.php?id={$feedEntry['id']}'> Post from $author</a></h3>";
+                      echo "<p><i class='fas fa-calendar-alt'></i> {$feedEntry['publication_date']}</p>";
+                      echo "<p class='alert alert-secondary'>{$feedEntry['content']}</p>";
+                      echo "</div>";
+                  }
               }
-            }
           } else {
-            // If feed is empty
-            echo "<p class='empty-home'>You can search for a member to follow his feedEntry</p>";
+              // If feed is empty
+              echo "<p class='empty-home'>You can search for a member to follow his feedEntry</p>";
           }
           ?>
             <div class='col-lg-10 spacer'></div>
             <div class="col-lg-6 col-xs-12">
               <?php
                 if ($currentPage == $nbPages) {
-                  // On the last page, the last entry of the page will be the last entry
-                  echo "Showing ".(($currentPage - 1) * $perPage + 1)." to ".$entryCount." of ".$entryCount." entries";
+                    // On the last page, the last entry of the page will be the last entry
+                    echo "Showing ".(($currentPage - 1) * $perPage + 1)." to ".$entryCount." of ".$entryCount." entries";
                 } else {
-                  echo "Showing ".(($currentPage - 1) * $perPage + 1)." to ".(($currentPage) * $perPage)." of ".$entryCount." entries";
+                    echo "Showing ".(($currentPage - 1) * $perPage + 1)." to ".(($currentPage) * $perPage)." of ".$entryCount." entries";
                 }
               ?>
             </div>
@@ -218,26 +214,26 @@
                   <?php
 
                     if ($currentPage == 1) {
-                      // Disable previous button if first page
-                      echo '<li class="page-item disabled"><a class="page-link">Previous</a></li>';
+                        // Disable previous button if first page
+                        echo '<li class="page-item disabled"><a class="page-link">Previous</a></li>';
                     } else {
-                      echo '<li class="page-item"><a class="page-link" href="?page='.($currentPage - 1).'">Previous</a></li>';
+                        echo '<li class="page-item"><a class="page-link" href="?page='.($currentPage - 1).'">Previous</a></li>';
                     }
 
                     for ($i = 1; $i <= $nbPages; $i++) {
-                      if ($i == $currentPage) {
-                        // Set the current page number as active
-                        echo '<li class="page-item active"><a class="page-link" href="?page='.$i.'">'.$i.'</a></li>';
-                      } else {
-                        echo '<li class="page-item"><a class="page-link" href="?page='.$i.'">'.$i.'</a></li>';
-                      }
+                        if ($i == $currentPage) {
+                            // Set the current page number as active
+                            echo '<li class="page-item active"><a class="page-link" href="?page='.$i.'">'.$i.'</a></li>';
+                        } else {
+                            echo '<li class="page-item"><a class="page-link" href="?page='.$i.'">'.$i.'</a></li>';
+                        }
                     }
 
                     if ($currentPage == $nbPages) {
-                      // Disable next button if last page
-                      echo '<li class="page-item disabled"><a class="page-link">Next</a></li>';
+                        // Disable next button if last page
+                        echo '<li class="page-item disabled"><a class="page-link">Next</a></li>';
                     } else {
-                      echo '<li class="page-item"><a class="page-link" href="?page='.($currentPage + 1).'">Next</a></li>';
+                        echo '<li class="page-item"><a class="page-link" href="?page='.($currentPage + 1).'">Next</a></li>';
                     }
                     ?>
                 </ul>
@@ -263,7 +259,8 @@
               $getTracksQuery = $connection->prepare(
                 "SELECT track.*,COUNT(listening.track) as listenings FROM track
                 LEFT JOIN listening ON track.id = listening.track
-                GROUP BY track.id ORDER BY listenings DESC LIMIT 5");
+                GROUP BY track.id ORDER BY listenings DESC LIMIT 5"
+              );
 
               $getTracksQuery->execute();
               $tracks = $getTracksQuery->fetchAll(PDO::FETCH_ASSOC);
@@ -273,22 +270,22 @@
                 foreach ($tracks as $track) {
 
                   // Get the artist name
-                  $trackArtistQuery = $connection->prepare(
+                    $trackArtistQuery = $connection->prepare(
                     "SELECT name FROM member WHERE id = " . $track['member'] . ""
                   );
-                  $trackArtistQuery->execute();
-                  $trackArtistResult = $trackArtistQuery->fetch(PDO::FETCH_ASSOC);
-                  $trackArtist = $trackArtistResult['name'];
+                    $trackArtistQuery->execute();
+                    $trackArtistResult = $trackArtistQuery->fetch(PDO::FETCH_ASSOC);
+                    $trackArtist = $trackArtistResult['name'];
 
-                  // Increment track rank
-                  $trackRank++;
+                    // Increment track rank
+                    $trackRank++;
 
-                  echo '<tr>';
+                    echo '<tr>';
                     echo '<th scope="row">' . $trackRank . '</th>';
                     echo '<td><a href="track.php?id=' . $track['id'] . '">' . $track['title'] . '</a></td>';
                     echo '<td>' . $trackArtist . '</td>';
                     echo '<td>' . $track["listenings"] . '</td>';
-                  echo '</tr>';
+                    echo '</tr>';
                 }
               ?>
                 </tbody>
@@ -343,19 +340,19 @@
                   $recommendedTracks = $recommendedTracksQuery->fetchAll(PDO::FETCH_ASSOC);
 
                   foreach ($recommendedTracks as $track) {
-                    // Get the artist name
-                    $trackArtistQuery = $connection->prepare(
+                      // Get the artist name
+                      $trackArtistQuery = $connection->prepare(
                       "SELECT name FROM member WHERE id = " . $track['member'] . ""
                     );
-                    $trackArtistQuery->execute();
-                    $trackArtistResult = $trackArtistQuery->fetch(PDO::FETCH_ASSOC);
-                    $trackArtist = $trackArtistResult['name'];
+                      $trackArtistQuery->execute();
+                      $trackArtistResult = $trackArtistQuery->fetch(PDO::FETCH_ASSOC);
+                      $trackArtist = $trackArtistResult['name'];
 
-                    echo '<tr>';
+                      echo '<tr>';
                       echo '<td><a href="track.php?id=' . $track['id'] . '">' . $track['title'] . '</a></td>';
                       echo '<td>' . $trackArtist . '</td>';
                       echo "<td>{$listOfGenres[$mostListenedGenre]}</td>";
-                    echo '</tr>';
+                      echo '</tr>';
                   }
                 ?>
                 </tbody>

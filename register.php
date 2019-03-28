@@ -5,7 +5,7 @@
 
   // redirect to home.php file if already connected
   if (isConnected()) {
-    header("Location: home.php");
+      header("Location: home.php");
   }
 
   require_once "conf.inc.php";
@@ -21,7 +21,7 @@
     <div class="container">
     <?php
     if (isset($_SESSION["message"])) {
-          fillAllFieldsErrorMessage();
+        fillAllFieldsErrorMessage();
     }
     ?>
     </div>
@@ -38,7 +38,7 @@
               <input type="text" class="form-control" placeholder="Orelsan" name="name" value="<?php echo fillSessionField("name"); ?>" required="required">
               <?php
                 if (isErrorPresent(1)) {
-                  echo '<p class="form_message_error">' . $listOfErrors[1] . '</p>';
+                    echo '<p class="form_message_error">' . $listOfErrors[1] . '</p>';
                 }
               ?>
             </div>
@@ -50,11 +50,11 @@
               <input type="text" class="form-control" placeholder="orelsan20" name="username" value="<?php echo fillSessionField("username"); ?>" required="required">
               <?php
                 if (isErrorPresent(2)) {
-                  echo '<p class="form_message_error">' . $listOfErrors[2] . '</p>';
-                } else if (isErrorPresent(10)) {
-                  echo '<p class="form_message_error">' . $listOfErrors[10] . '</p>';
+                    echo '<p class="form_message_error">' . $listOfErrors[2] . '</p>';
+                } elseif (isErrorPresent(10)) {
+                    echo '<p class="form_message_error">' . $listOfErrors[10] . '</p>';
                 } else {
-                  echo "";
+                    echo "";
                 }
               ?>
             </div>
@@ -68,13 +68,13 @@
               <input type="date" class="form-control" placeholder="Date d'anniversaire" name="birthday" required="required" value="<?php echo fillSessionField("birthday"); ?>">
               <?php
                 if (isErrorPresent(3)) {
-                  echo '<p class="form_message_error">' . $listOfErrors[3] . '</p>';
-                } else if (isErrorPresent(4)) {
-                  echo '<p class="form_message_error">' . $listOfErrors[4] . '</p>';
-                } else if (isErrorPresent(5)) {
-                  echo '<p class="form_message_error">' . $listOfErrors[5] . '</p>';
+                    echo '<p class="form_message_error">' . $listOfErrors[3] . '</p>';
+                } elseif (isErrorPresent(4)) {
+                    echo '<p class="form_message_error">' . $listOfErrors[4] . '</p>';
+                } elseif (isErrorPresent(5)) {
+                    echo '<p class="form_message_error">' . $listOfErrors[5] . '</p>';
                 } else {
-                  echo '';
+                    echo '';
                 }
               ?>
              </div>
@@ -86,11 +86,11 @@
               <input type="email" class="form-control" placeholder="orel@san.fr" name="email" value="<?php echo fillSessionField("email"); ?>" required="required">
               <?php
                 if (isErrorPresent(6)) {
-                  echo '<p class="form_message_error">' . $listOfErrors[6] . '</p>';
-                } else if (isErrorPresent(7)) {
-                  echo '<p class="form_message_error">' . $listOfErrors[7] . '</p>';
+                    echo '<p class="form_message_error">' . $listOfErrors[6] . '</p>';
+                } elseif (isErrorPresent(7)) {
+                    echo '<p class="form_message_error">' . $listOfErrors[7] . '</p>';
                 } else {
-                  echo '';
+                    echo '';
                 }
               ?>
             </div>
@@ -104,7 +104,7 @@
               <input type="password" class="form-control" name="pwd" required="required">
               <?php
                 if (isErrorPresent(8)) {
-                  echo '<p class="form_message_error">' . $listOfErrors[8] . '</p>';
+                    echo '<p class="form_message_error">' . $listOfErrors[8] . '</p>';
                 }
               ?>
             </div>
@@ -116,7 +116,7 @@
               <input type="password" class="form-control" name="pwdConfirm" required="required">
               <?php
                 if (isErrorPresent(9)) {
-                  echo '<p class="form_message_error">' . $listOfErrors[9] . '</p>';
+                    echo '<p class="form_message_error">' . $listOfErrors[9] . '</p>';
                 }
               ?>
             </div>

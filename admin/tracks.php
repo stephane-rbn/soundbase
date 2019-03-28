@@ -5,7 +5,7 @@
   require "../functions.php";
 
   if (!(isConnected() && isAdmin())) {
-    header("Location: ../login.php");
+      header("Location: ../login.php");
   }
 
   $sql = sqlSelectFetchAll("SELECT COUNT(*) as trackCount FROM track");
@@ -79,68 +79,66 @@
                         // Page shown defaults to 1, otherwise based on "?page="
                         // Checking $_GET['page'] is a possible page number to provent SQL injections
                         if (isset($_GET['page']) && $_GET['page'] > 0 && $_GET['page'] <= $nbPages) {
-                          $cPage = $_GET['page'];
+                            $cPage = $_GET['page'];
                         } else {
-                          $cPage = 1;
+                            $cPage = 1;
                         }
 
                         if (isset($_GET['search'])) {
-                          $_GET['search'] = htmlspecialchars($_GET['search']);
+                            $_GET['search'] = htmlspecialchars($_GET['search']);
 
-                          $trackData = sqlSelectFetchAll("SELECT * FROM track WHERE `title` LIKE '%" . $_GET['search'] . "%' LIMIT ". (($cPage - 1) * $perPage) .", $perPage");
+                            $trackData = sqlSelectFetchAll("SELECT * FROM track WHERE `title` LIKE '%" . $_GET['search'] . "%' LIMIT ". (($cPage - 1) * $perPage) .", $perPage");
+                        } elseif (isset($_GET['genre'])) {
+                            $_GET['genre'] = htmlspecialchars($_GET['genre']);
 
-                        } else if (isset($_GET['genre'])) {
-                          $_GET['genre'] = htmlspecialchars($_GET['genre']);
-
-                          $exist = false;
-                          foreach ($listOfGenres as $key => $value) {
-                            if ($_GET['genre'] == $key) {
-                              $exist = true;
+                            $exist = false;
+                            foreach ($listOfGenres as $key => $value) {
+                                if ($_GET['genre'] == $key) {
+                                    $exist = true;
+                                }
                             }
-                          }
 
-                          // SQL queries searching by genre
-                          if ($exist) {
-                            $trackData = sqlSelectFetchAll("SELECT * FROM track WHERE genre = '{$_GET['genre']}' LIMIT " . (($cPage - 1) * $perPage) . ", $perPage");
-                          } else {
-                            $trackData = sqlSelectFetchAll("SELECT * FROM track LIMIT " . (($cPage - 1) * $perPage) . ", $perPage");
-                          }
-
+                            // SQL queries searching by genre
+                            if ($exist) {
+                                $trackData = sqlSelectFetchAll("SELECT * FROM track WHERE genre = '{$_GET['genre']}' LIMIT " . (($cPage - 1) * $perPage) . ", $perPage");
+                            } else {
+                                $trackData = sqlSelectFetchAll("SELECT * FROM track LIMIT " . (($cPage - 1) * $perPage) . ", $perPage");
+                            }
                         } else {
-                          $trackData = sqlSelectFetchAll("SELECT * FROM track LIMIT " . (($cPage - 1) * $perPage) . ", $perPage");
+                            $trackData = sqlSelectFetchAll("SELECT * FROM track LIMIT " . (($cPage - 1) * $perPage) . ", $perPage");
                         }
 
                         foreach ($trackData as $track) {
-                          $trackMember = sqlSelect("SELECT name FROM member WHERE id = {$track['member']}");
-                          echo '<tr class="odd gradeX">';
-                          echo '<td>' . $track['title'];
-                          echo '<td>' . $track['description'];
-                          echo '<td>' . $listOfGenres[$track['genre']];
-                          echo '<td>' . $track['publication_date'];
-                          echo '<td>' . $trackMember['name'];
-                          // echo '<td><a href="track_edit.php?id=' . $track['id'] . '">Edit</a>';
-                          echo "<td><button type='button' class='btn btn-danger' data-toggle='modal' data-target='#exampleModalCenter-{$track['id']}' style='color: #fff'>Delete</button>";
-                          echo "</tr>";
-                          echo "<!-- Modal {$track['id']}: confirmation of deletion -->";
-                          echo "<div class='modal fade' id='exampleModalCenter-{$track['id']}' tabindex='-1' role='dialog' aria-labelledby='exampleModalCenterTitle' aria-hidden='true'>";
+                            $trackMember = sqlSelect("SELECT name FROM member WHERE id = {$track['member']}");
+                            echo '<tr class="odd gradeX">';
+                            echo '<td>' . $track['title'];
+                            echo '<td>' . $track['description'];
+                            echo '<td>' . $listOfGenres[$track['genre']];
+                            echo '<td>' . $track['publication_date'];
+                            echo '<td>' . $trackMember['name'];
+                            // echo '<td><a href="track_edit.php?id=' . $track['id'] . '">Edit</a>';
+                            echo "<td><button type='button' class='btn btn-danger' data-toggle='modal' data-target='#exampleModalCenter-{$track['id']}' style='color: #fff'>Delete</button>";
+                            echo "</tr>";
+                            echo "<!-- Modal {$track['id']}: confirmation of deletion -->";
+                            echo "<div class='modal fade' id='exampleModalCenter-{$track['id']}' tabindex='-1' role='dialog' aria-labelledby='exampleModalCenterTitle' aria-hidden='true'>";
                             echo '<div class="modal-dialog modal-dialog-centered" role="document">';
-                              echo '<div class="modal-content">';
-                                echo '<div class="modal-header">';
-                                  echo '<h5 class="modal-title" id="exampleModalLongTitle">Are you sure?</h5>';
-                                  echo '<button type="button" class="close" data-dismiss="modal" aria-label="Close">';
-                                    echo '<span aria-hidden="true">&times;</span>';
-                                  echo '</button>';
-                                echo '</div>';
-                                echo '<div class="modal-body">The deletion of an track is irreversible.</div>';
-                                echo '<div class="modal-footer">';
-                                  echo '<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>';
-                                  echo '<button type="button" class="btn btn-danger delete-button">';
-                                    echo '<a href="script/deleteTrack.php?id=' . $track['id'] .'" style="color: #fff">Confirm</a>';
-                                  echo '</button>';
-                                echo '</div>';
-                              echo '</div>';
+                            echo '<div class="modal-content">';
+                            echo '<div class="modal-header">';
+                            echo '<h5 class="modal-title" id="exampleModalLongTitle">Are you sure?</h5>';
+                            echo '<button type="button" class="close" data-dismiss="modal" aria-label="Close">';
+                            echo '<span aria-hidden="true">&times;</span>';
+                            echo '</button>';
                             echo '</div>';
-                          echo '</div>';
+                            echo '<div class="modal-body">The deletion of an track is irreversible.</div>';
+                            echo '<div class="modal-footer">';
+                            echo '<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>';
+                            echo '<button type="button" class="btn btn-danger delete-button">';
+                            echo '<a href="script/deleteTrack.php?id=' . $track['id'] .'" style="color: #fff">Confirm</a>';
+                            echo '</button>';
+                            echo '</div>';
+                            echo '</div>';
+                            echo '</div>';
+                            echo '</div>';
                         }
                       ?>
                     </tbody>
@@ -155,16 +153,16 @@
                         // Page shown defaults to 1, otherwise based on "?page="
                         // Checking $_GET['page'] is a possible page number to provent SQL injections
                         if (isset($_GET['page']) && $_GET['page'] > 0 && $_GET['page'] <= $nbPages) {
-                          $cPage = $_GET['page'];
+                            $cPage = $_GET['page'];
                         } else {
-                          $cPage = 1;
+                            $cPage = 1;
                         }
 
                         if ($cPage == $nbPages) {
-                          // On the last page, the last entry of the page will be the last entry
-                          echo "Showing ".(($cPage - 1) * $perPage + 1)." to ".$trackCount." of ".$trackCount." tracks";
+                            // On the last page, the last entry of the page will be the last entry
+                            echo "Showing ".(($cPage - 1) * $perPage + 1)." to ".$trackCount." of ".$trackCount." tracks";
                         } else {
-                          echo "Showing ".(($cPage - 1) * $perPage + 1)." to ".(($cPage) * $perPage)." of ".$trackCount." tracks";
+                            echo "Showing ".(($cPage - 1) * $perPage + 1)." to ".(($cPage) * $perPage)." of ".$trackCount." tracks";
                         }
                       ?>
                     </div>
@@ -179,32 +177,32 @@
                           // Page shown defaults to 1, otherwise based on "?page="
                           // Checking $_GET['page'] is a possible page number to provent SQL injections
                           if (isset($_GET['page']) && $_GET['page'] > 0 && $_GET['page'] <= $nbPages) {
-                            $cPage = $_GET['page'];
+                              $cPage = $_GET['page'];
                           } else {
-                            $cPage = 1;
+                              $cPage = 1;
                           }
 
                           if ($cPage == 1) {
-                            // Disable previous button if first page
-                            echo '<li class="paginate_button previous disabled" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous"><a>Previous</a></li>';
+                              // Disable previous button if first page
+                              echo '<li class="paginate_button previous disabled" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous"><a>Previous</a></li>';
                           } else {
-                            echo '<li class="paginate_button previous" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous"><a href="?page='.($cPage - 1).'">Previous</a></li>';
+                              echo '<li class="paginate_button previous" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous"><a href="?page='.($cPage - 1).'">Previous</a></li>';
                           }
 
                           for ($i = 1; $i <= $nbPages; $i++) {
-                            if ($i == $cPage) {
-                              // Set the current page number as active
-                              echo '<li class="paginate_button active" aria-controls="dataTables-example" tabindex="0"><a href="?page='.$i.'">'.$i.'</a></li>';
-                            } else {
-                              echo '<li class="paginate_button" aria-controls="dataTables-example" tabindex="0"><a href="?page='.$i.'">'.$i.'</a></li>';
-                            }
+                              if ($i == $cPage) {
+                                  // Set the current page number as active
+                                  echo '<li class="paginate_button active" aria-controls="dataTables-example" tabindex="0"><a href="?page='.$i.'">'.$i.'</a></li>';
+                              } else {
+                                  echo '<li class="paginate_button" aria-controls="dataTables-example" tabindex="0"><a href="?page='.$i.'">'.$i.'</a></li>';
+                              }
                           }
 
                           if ($cPage == $nbPages) {
-                            // Disable next button if last page
-                            echo '<li class="paginate_button next disabled" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next"><a>Next</a></li>';
+                              // Disable next button if last page
+                              echo '<li class="paginate_button next disabled" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next"><a>Next</a></li>';
                           } else {
-                            echo '<li class="paginate_button next" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next"><a href="?page='.($cPage + 1).'">Next</a></li>';
+                              echo '<li class="paginate_button next" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next"><a href="?page='.($cPage + 1).'">Next</a></li>';
                           }
 
                         ?>

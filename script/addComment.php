@@ -5,7 +5,7 @@
 
   xssProtection();
 
-  if(count($_POST) != 3 ||
+  if (count($_POST) != 3 ||
     empty($_POST['comment']) ||
     empty($_POST['contentType']) ||
     empty($_POST['contentId'])) {
@@ -27,13 +27,11 @@
       $_POST['contentType'] => $_POST['contentId']
     ]);
 
-    if(!$success) {
-      // INSERT fail
-      http_response_code(500);
-      die();
+    if (!$success) {
+        // INSERT fail
+        http_response_code(500);
+        die();
     } else {
-      // INSERT success
-      http_response_code(201);
+        // INSERT success
+        http_response_code(201);
     }
-
-?>

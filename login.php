@@ -5,7 +5,7 @@
 
   // redirect to home.php file if already connected
   if (isConnected()) {
-    header("Location: home.php");
+      header("Location: home.php");
   }
 
   include "head.php";
@@ -20,33 +20,29 @@
 
     <?php
       if (isset($_SESSION["accountConfirmed"])) {
+          echo '<div class="push"></div>';
+          echo '<div class="container-fluid">';
 
-        echo '<div class="push"></div>';
-        echo '<div class="container-fluid">';
+          if ($_SESSION["accountConfirmed"] === true) {
+              echo '<div class="alert alert-success">';
+              echo '<strong>Success!</strong> Your account has been verified. You can now log in.';
+          } elseif ($_SESSION["accountConfirmed"] === false) {
+              echo '<div class="alert alert-danger">';
+              echo "<strong>Oops!</strong> Your account couldn't be verified...";
+          } elseif ($_SESSION["accountConfirmed"] === "alreadyConfirmed") {
+              echo '<div class="alert alert-info">';
+              echo "Your account has already been confirmed.";
+          }
 
-        if ($_SESSION["accountConfirmed"] === true) {
-          echo '<div class="alert alert-success">';
-            echo '<strong>Success!</strong> Your account has been verified. You can now log in.';
-        }
-        else if ($_SESSION["accountConfirmed"] === false) {
-          echo '<div class="alert alert-danger">';
-            echo "<strong>Oops!</strong> Your account couldn't be verified...";
-        }
-        else if ($_SESSION["accountConfirmed"] === "alreadyConfirmed") {
-          echo '<div class="alert alert-info">';
-            echo "Your account has already been confirmed.";
-        }
-
-        echo '</div>';
-        echo '</div>';
-
-      } else if (isset($_SESSION["failedLogin"])) {
-        echo '<div class="push"></div>';
-        echo '<div class="container-fluid">';
-          echo '<div class="alert alert-danger">';
-            echo $_SESSION["failedLogin"];
           echo '</div>';
-        echo '</div>';
+          echo '</div>';
+      } elseif (isset($_SESSION["failedLogin"])) {
+          echo '<div class="push"></div>';
+          echo '<div class="container-fluid">';
+          echo '<div class="alert alert-danger">';
+          echo $_SESSION["failedLogin"];
+          echo '</div>';
+          echo '</div>';
       }
 
       unset($_SESSION["accountConfirmed"]);

@@ -33,7 +33,8 @@
         INNER JOIN listening
         on track.id = listening.track
         WHERE listening.member = ". $_SESSION['id'] . "
-        ORDER BY listening_date DESC");
+        ORDER BY listening_date DESC"
+      );
 
       $getTracksQuery->execute();
 
@@ -42,20 +43,20 @@
         foreach ($tracks as $track) {
 
           // Get the artist name
-          $trackArtistQuery = $connection->prepare(
+            $trackArtistQuery = $connection->prepare(
             "SELECT name FROM member WHERE id = " . $track['member'] . ""
           );
-          $trackArtistQuery->execute();
-          $trackArtistResult = $trackArtistQuery->fetch(PDO::FETCH_ASSOC);
-          $trackArtist = $trackArtistResult['name'];
+            $trackArtistQuery->execute();
+            $trackArtistResult = $trackArtistQuery->fetch(PDO::FETCH_ASSOC);
+            $trackArtist = $trackArtistResult['name'];
 
 
-          echo '<tr>';
+            echo '<tr>';
             echo '<td>' . $track['listening_date'] . '</td>';
             echo "<a href='track.php?id=" . $track['id'] . "'>";
             echo '<td><a href="track.php?id=' . $track['id'] . '">' . $track['title'] . '</a></td>';
             echo '<td>' . $trackArtist . '</td>';
-          echo '</tr>';
+            echo '</tr>';
         }
     ?>
     </tbody>

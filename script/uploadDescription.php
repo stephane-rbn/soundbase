@@ -9,42 +9,39 @@
     && isset($_POST['maxLength'])
     && !empty($_POST['description'])
   ) {
-    $error = false;
-    $listOfErrors = [];
+      $error = false;
+      $listOfErrors = [];
 
-    $_POST['description'] = trim($_POST['description']);
+      $_POST['description'] = trim($_POST['description']);
 
-    if (strlen($_POST['description']) <= intval($_POST['maxLength'])) {
+      if (strlen($_POST['description']) <= intval($_POST['maxLength'])) {
+          $connection = connectDB();
 
-      $connection = connectDB();
+          $query = $connection->prepare('UPDATE member SET description=:description WHERE id=:id');
 
-      $query = $connection->prepare('UPDATE member SET description=:description WHERE id=:id');
-
-      $query->execute([
+          $query->execute([
         'description' => $_POST['description'],
         'id'          => $_SESSION['id']
       ]);
 
-      unset($_POST['maxLength']);
+          unset($_POST['maxLength']);
 
-      $_SESSION["successUpdate"]["description"] = true;
+          $_SESSION["successUpdate"]["description"] = true;
 
-      header('Location: ../edit-profile.php');
+          header('Location: ../edit-profile.php');
+      } else {
+          // die("Your description exceeds 2500 characters");
+          $error = true;
+          $listOfErrors[] = 12;
+      }
 
-    } else {
-      // die("Your description exceeds 2500 characters");
-      $error = true;
-      $listOfErrors[] = 12;
-    }
+      if ($error) {
+          $_SESSION["message"] = true;
+          $_SESSION["errorForm"] = $listOfErrors;
+          $_SESSION["postForm"] = $_POST;
 
-    if ($error) {
-      $_SESSION["message"] = true;
-      $_SESSION["errorForm"] = $listOfErrors;
-      $_SESSION["postForm"] = $_POST;
-
-      header("Location: ../edit-profile.php");
-    }
-
+          header("Location: ../edit-profile.php");
+      }
   } else {
-    die("Error: invalid form submission.");
+      die("Error: invalid form submission.");
   }

@@ -5,19 +5,19 @@
 
   // redirect to login page if not connected
   if (!isConnected()) {
-    header("Location: login.php");
+      header("Location: login.php");
   } else {
 
     // Connection to database
-    $connection = connectDB();
+      $connection = connectDB();
 
-    $query = $connection->prepare(
+      $query = $connection->prepare(
       "SELECT * FROM playlist WHERE member='" . $_SESSION['id']. "'"
     );
 
-    $query->execute();
+      $query->execute();
 
-    $result = $query->fetchAll(PDO::FETCH_ASSOC);
+      $result = $query->fetchAll(PDO::FETCH_ASSOC);
   }
   $navbarItem = 'playlists';
   include "head.php";
@@ -33,11 +33,11 @@
 
       <?php
         if (count($result) === 0) {
-          echo "<p>No playlist created. <a href='newPlaylist.php'>Create one!</a></p>";
+            echo "<p>No playlist created. <a href='newPlaylist.php'>Create one!</a></p>";
         }
-        foreach($result as $playlist) {
-          echo "<h3><a href='playlist.php?id=" . $playlist['id'] . "'>" . $playlist["name"] . "</a></h3><button type='button' class='btn btn-danger delete-button'><a href='script/deletePlaylist.php?id=" . $playlist['id'] ."'>Delete</a></button>";
-          echo "<br>";
+        foreach ($result as $playlist) {
+            echo "<h3><a href='playlist.php?id=" . $playlist['id'] . "'>" . $playlist["name"] . "</a></h3><button type='button' class='btn btn-danger delete-button'><a href='script/deletePlaylist.php?id=" . $playlist['id'] ."'>Delete</a></button>";
+            echo "<br>";
         }
       ?>
 

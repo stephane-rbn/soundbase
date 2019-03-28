@@ -4,17 +4,17 @@
 
   // redirect to home.php file if already connected
   if (!isConnected()) {
-    header("Location: login.php");
+      header("Location: login.php");
   } else {
-    $connection = connectDB();
+      $connection = connectDB();
 
-    $query = $connection->prepare(
+      $query = $connection->prepare(
       "SELECT id,email,name,username,birthday,profile_photo_filename,cover_photo_filename,description FROM member WHERE id=" . $_SESSION['id']
     );
 
-    $query->execute();
+      $query->execute();
 
-    $result = $query->fetch(PDO::FETCH_ASSOC);
+      $result = $query->fetch(PDO::FETCH_ASSOC);
   }
 
   $navbarItem = 'account';
@@ -40,13 +40,13 @@
             <label>File (JPG, JPEG, PNG or GIF) :</label>
             <input type="file" name="avatar" required/><?php
               if (isErrorPresent(13)) {
-                echo '<p class="form_message_error">' . $listOfErrors[13] . '</p>';
-              } else if (isErrorPresent(14)) {
-                echo '<p class="form_message_error">' . $listOfErrors[14] . '</p>';
-              } else if (isErrorPresent(15)) {
-                echo '<p class="form_message_error">' . $listOfErrors[15] . '</p>';
+                  echo '<p class="form_message_error">' . $listOfErrors[13] . '</p>';
+              } elseif (isErrorPresent(14)) {
+                  echo '<p class="form_message_error">' . $listOfErrors[14] . '</p>';
+              } elseif (isErrorPresent(15)) {
+                  echo '<p class="form_message_error">' . $listOfErrors[15] . '</p>';
               } else {
-                echo "";
+                  echo "";
               }
             ?>
           </div>
@@ -70,13 +70,13 @@
             <label>File (JPG, JPEG, PNG or GIF) :</label>
             <input type="file" name="cover" required/><?php
               if (isErrorPresent(16)) {
-                echo '<p class="form_message_error">' . $listOfErrors[16] . '</p>';
-              } else if (isErrorPresent(17)) {
-                echo '<p class="form_message_error">' . $listOfErrors[17] . '</p>';
-              } else if (isErrorPresent(18)) {
-                echo '<p class="form_message_error">' . $listOfErrors[18] . '</p>';
+                  echo '<p class="form_message_error">' . $listOfErrors[16] . '</p>';
+              } elseif (isErrorPresent(17)) {
+                  echo '<p class="form_message_error">' . $listOfErrors[17] . '</p>';
+              } elseif (isErrorPresent(18)) {
+                  echo '<p class="form_message_error">' . $listOfErrors[18] . '</p>';
               } else {
-                echo "";
+                  echo "";
               }
             ?>
           </div>
@@ -96,16 +96,16 @@
         <div class="row">
           <h3>Description (2500 characters max):</h3>
           <textarea name="description" onkeyup="displayTextareaLength(2500);" id="textarea" class="form-control" rows="10" placeholder ="Your description .."><?php
-            if(!empty($result["description"]) && $result["description"] !== NULL && !isErrorPresent(12)) {
-              echo $result["description"];
+            if (!empty($result["description"]) && $result["description"] !== null && !isErrorPresent(12)) {
+                echo $result["description"];
             }
-            if(isErrorPresent(12)) {
-              echo fillSessionFieldSettings("description");
+            if (isErrorPresent(12)) {
+                echo fillSessionFieldSettings("description");
             } ?></textarea>
           <p id="textarea-counter"></p>
           <?php
               if (isErrorPresent(12)) {
-              echo '<p class="form_message_error">' . $listOfErrors[12] . ' (2500)</p>';
+                  echo '<p class="form_message_error">' . $listOfErrors[12] . ' (2500)</p>';
               }
             ?>
         </div>
